@@ -1,0 +1,116 @@
+
+<HTML lang=en><HEAD>
+<TITLE>Project Status Report Management</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=utf-8">
+<LINK href="../common/style.css" 
+type=text/css rel=stylesheet>
+<META http-equiv=Pragma content=no-cache>
+<META http-equiv=Expires content=-1>
+<script language="javascript" type="text/javascript" src="../common/datetimepicker.js"></script>
+</HEAD>
+<BODY>
+
+<TABLE>
+       <TR>
+       <TH>
+	   Project Status Report
+       </TH>
+       </TR>
+       <TR>
+       <TD>
+    	Click Preview button to view the report.
+       </TD>
+       </TR>
+</TABLE>
+<BR>
+<TABLE>
+       <TR>
+       <TH>
+	   Search Project
+       </TH>
+  </TR>
+       <TR>
+       <TD>
+
+<form method="POST" action="Search.htm">
+
+<table>
+  <tr>
+
+    <td>Project Name</td>
+    <td>:</td>
+    <td><input type="text" name="T1" size="20"></td>
+    <td>Location</td>
+    <td>:</td>
+    <td><input type="text" name="T1" size="20"></td>
+    <td>Start Date</td>
+    <td>:</td>
+    <td>
+	  <input type="text" name="T1" size="20"></td>
+    <td>End Date</td>
+    <td>:</td>
+    <td>
+	  <input type="text" name="T1" size="20"></td>
+  </tr>
+  <tr>
+    <td>Status</td>
+    <td>:</td>
+    <td>
+	<select size="1" name="D1">
+          <option>Coming</option>
+          <option>On Going</option>
+          <option>Closed</option>
+        </select></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  
+  <tr>
+    <td colspan=6>
+    <input class=button type=submit value="Search">
+    &nbsp;
+    <input class=button type=Reset value="Reset">
+    </td>
+  </tr>
+</table>
+</form>
+
+       </TD>
+       </TR>
+</TABLE>
+
+<form method="POST" action="./ProjectStatusReport.htm">
+<table class="LISTING">
+  <tr>
+    <th>&nbsp;</th>
+    <th>Project Reference Code</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+  </th>
+  <tr>
+    <td><input type=Submit value=Preview class=button></td>
+    <td>10001</td>
+    <td>SE18Team8S\VMS</td>
+    <td>The project is ongoing .</td>
+    <td>01/01/2011</td>
+    <td>25/10/2011</td>
+  </tr>
+
+  <tr>
+    <td><input type=Submit value=Preview class=button></td>
+    <td>10002</td>
+    <td>VMS Manila project</td>
+    <td>The project is in the preparing phase.</td>
+    <td>01/01/2011</td>
+    <td>30/01/2012</td>
+  </tr>
+
+</table>
+</form>
+
+
+</BODY>
+</HTML>
