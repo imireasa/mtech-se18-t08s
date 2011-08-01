@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import sg.edu.nus.iss.vms.common.web.controller.BaseFormController;
-import sg.edu.nus.iss.vms.staffmgmt.dto.Users;
+import sg.edu.nus.iss.vms.staffmgmt.dto.Staff;
 import sg.edu.nus.iss.vms.staffmgmt.service.impl.StaffManagementServices;
 
 public class StaffManagementController extends BaseFormController {
@@ -21,15 +21,16 @@ public class StaffManagementController extends BaseFormController {
 		this.staffManagementServices = staffManagementServices;
 	}
 
+	@Override
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		this.modelAndView = new ModelAndView(getFormView());
 		this.logger.debug(getFormView());
-		List<Users> userList = this.staffManagementServices.getListOfUser();
+		List<Staff> staffList = this.staffManagementServices.getListOfUser();
 
-		for (Users user : userList) {
-			this.logger.debug("Message " + user.getUserName());
+		for (Staff staff : staffList) {
+			this.logger.debug("Message " + staff.getFirstName() + " - " + staff.getLastName());
 		}
-		this.modelAndView.addObject("listUser", userList);
+		this.modelAndView.addObject("listUser", staffList);
 		this.logger.debug("Completed the request");
 		return super.handleRequestInternal(request, response);
 	}
