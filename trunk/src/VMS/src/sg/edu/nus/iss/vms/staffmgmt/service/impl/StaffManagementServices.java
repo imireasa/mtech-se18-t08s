@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.staffmgmt.dto.Person;
 import sg.edu.nus.iss.vms.staffmgmt.dto.Staff;
 
 public class StaffManagementServices {
@@ -33,8 +34,6 @@ public class StaffManagementServices {
 		List<Staff> userList = new ArrayList<Staff>();
 		try {
 			userList = this.manager.list(Staff.class);
-			for (Staff user : userList)
-				this.logger.debug("@ User : " + user.getStaffId());
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
 		} finally {

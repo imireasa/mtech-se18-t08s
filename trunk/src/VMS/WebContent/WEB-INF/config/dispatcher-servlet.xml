@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
-http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd                        
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- BEAN : Spring JSP View Resolver -->
@@ -23,4 +29,28 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
 
+
+	<bean id="appCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>/WEB-INF/ehcache.xml</value>
+		</property>
+	</bean>
+
+	<bean id="methodTimingAdvice"
+		class="sg.edu.nus.iss.vms.web.interceptor.MethodTimingInterceptor" />
+
+	<bean id="methodCachingAdvice"
+		class="sg.edu.nus.iss.vms.web.interceptor.MethodCachingInterceptor">
+		<property name="cacheManager" ref="appCacheManager" />
+	</bean>
+
+	<aop:config>
+		<aop:pointcut id="getAllItemsPointcut"
+			expression="execution(* *..StaffManagementServices.getListOfUser())" />
+		<aop:advisor id="methodTimingAdvisor" advice-ref="methodTimingAdvice"
+			pointcut-ref="getAllItemsPointcut" />
+		<aop:advisor id="methodCachingAdvisor" advice-ref="methodCachingAdvice"
+			pointcut-ref="getAllItemsPointcut" />
+	</aop:config>
 </beans>
