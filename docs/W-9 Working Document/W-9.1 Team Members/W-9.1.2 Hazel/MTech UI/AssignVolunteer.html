@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type="text/javascript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body>
+<form action="" method="post">
+  <div>Membership Request
+  <table width="200" border="0">
+  <tr>
+    <td>Project Name</td>
+    <td>
+    <select name="cmbProject" id="cmbProject" >
+      <option>Select Project</option>
+      <option>iHOPE 2011</option>
+      <option>MTech 2011</option>
+    </select>
+    </td>
+  </tr>
+  <tr>
+    <td>Memembership Request</td>
+    <td>
+      <select name="cmbStatus" id="cmbStatus" >
+        <option>Select Membership Request Status</option>
+        <option>Pending</option>
+        <option>Approved</option>
+        <option>Rejected</option>
+      </select>    
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td><input name="btnSearch" type="button" value="Search" /></td>
+  </tr>
+</table>
+
+  </div>
+  
+  <div>Search Result
+      <table width="516" border="1">
+      <tr>
+        <td width="20"><input name="chkAll" type="checkbox" value="" /></td>
+        <td width="16">ID</td>
+        <td width="111">Volunteer Name</td>
+        <td width="132">Project</td>
+        <td width="215">Requested Date</td>
+      </tr>
+      <tr>
+        <td><input name="chkSelected" type="checkbox" value="" /></td>
+        <td>1</td>
+        <td>John Tan</td>
+        <td>iHOPE 2011</td>
+        <td>20-Jul-2011</td>
+      </tr>
+      <tr>
+        <td><input name="chkSelected" type="checkbox" value="" /></td>
+        <td>2</td>
+        <td>Michael Dinh</td>
+        <td>iHOPE 2011</td>
+        <td>21-Jun-2011</td>
+      </tr>
+      <tr>
+        <td><input name="chkSelected" type="checkbox" value="" /></td>
+        <td>3</td>
+        <td>Chris Goh</td>
+        <td>iHOPE 2011</td>
+        <td>19-May-2011</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div>
+  <input name="btnApprove" type="button" value="Approve" />    <input name="btnReject" type="button" value="Reject" />    <input name="btnReset" type="reset" value="Reset" />
+  </div>
+</form>
+</body>
+</html>
