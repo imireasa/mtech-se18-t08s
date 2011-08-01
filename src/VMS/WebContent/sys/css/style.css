@@ -1,0 +1,180 @@
+TABLE {
+	TEXT-ALIGN: left; empty-cells: show;
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+TD {
+	color:black;
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+	vertical-align: top
+}
+TH {
+	vertical-align: top;
+	TEXT-ALIGN: left;
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+	FONT-WEIGHT: bold; VERTICAL-ALIGN: top; COLOR: white; BACKGROUND-COLOR: #0036ae	
+}
+TR{
+	vertical-align: top;
+
+}
+
+TABLE.LISTING {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+	TEXT-ALIGN: left; empty-cells: show;width:100%
+}
+
+.LISTING TR {
+	vertical-align: top;
+
+}
+.LISTING TH {
+	vertical-align: top;
+	TEXT-ALIGN: left;
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+	FONT-WEIGHT: bold; VERTICAL-ALIGN: top; COLOR: white; BACKGROUND-COLOR: #0036ae
+}
+.LISTING TD {
+	color:black;
+	
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+	vertical-align: top
+}
+
+
+
+P {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+LI {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+normal {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+text {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+INPUT {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+SELECT {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+.link {
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+
+
+.required  {
+	BACKGROUND-COLOR: #F0F0F0;
+	FONT-SIZE: 9pt; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+
+.common-button {
+   color:#050;
+   font-family:Tahoma , Arial, Helvetica, sans-serif;
+   font-size:100%;
+   font-weight:normal;
+   background-color:#fed;
+   border:1px solid;
+   border-top-color:#696;
+   border-left-color:#696;
+   border-right-color:#363;
+   border-bottom-color:#363;
+}
+BODY {
+	MARGIN: 0px 0px 8px; WIDTH: 100%; COLOR: black; BACKGROUND-COLOR: white
+}
+A {
+	COLOR: #0036ae; TEXT-DECORATION: underline
+}
+A:link {
+	COLOR: #0036ae; TEXT-DECORATION: underline
+}
+A:visited {
+	COLOR: #0000cd; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #00008b; TEXT-DECORATION: underline
+}
+A:hover {
+	BACKGROUND: none transparent scroll repeat 0% 0%; COLOR: navy; TEXT-DECORATION: underline
+}
+
+.header {
+	BORDER-RIGHT: #00339a 1px solid; BORDER-TOP: #00339a 1px solid; PADDING-LEFT: 12px; BORDER-LEFT-COLOR: #00339a; BACKGROUND: #808080; BORDER-BOTTOM-COLOR: #00339a; VERTICAL-ALIGN: baseline; WIDTH: 100%; LINE-HEIGHT: 18px; TEXT-ALIGN: left
+}
+.label {
+	FONT-WEIGHT: bold
+}
+.prompt {
+	COLOR: #993333; FONT-STYLE: italic
+}
+.copyright {
+	FONT-SIZE: 9pt; COLOR: #3333ff; FONT-FAMILY: Tahoma , Arial, Helvetica, sans-serif
+}
+.error {
+	FONT-SIZE: 11px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: #ff3333; PADDING-TOP: 5px; TEXT-ALIGN: left
+}
+.info {
+	FONT-SIZE: 11px; VERTICAL-ALIGN: middle; WIDTH: 100%; COLOR: #7777aa; PADDING-TOP: 5px; TEXT-ALIGN: left
+}
+
+
+
+
+/*
+Button Style Class
+==========================================================================================
+*/
+.button {
+   color:blue;   
+   font-family:Tahoma , Arial, Helvetica, sans-serif;
+   font-size:100%;
+   font-weight:bold;
+   background-color:grey;
+   border:1px solid;
+   border-top-color:#0036ae;
+   border-left-color:#0036ae;
+   border-right-color:#0036ae;
+   border-bottom-color:#0036ae;
+}
+
+btnhov {
+   color:blue;
+   font-family:Tahoma , Arial, Helvetica, sans-serif;
+   font-size:100%;
+   font-weight:normal;
+   background-color:grey;
+   border:1px solid;
+   border-top-color:#696;
+   border-left-color:#696;
+   border-right-color:#363;
+   border-bottom-color:#363;
+}
+
+.title {
+	FONT-SIZE: 11px; FONT-WEIGHT: bold; VERTICAL-ALIGN: top; COLOR: white; BACKGROUND-COLOR: #0036ae
+}
+
+.maintitle {
+	font-family: Comic Sans MS;
+	FONT-SIZE: 16px;
+}
+
+.tableRowOdd {
+	background-color:lightblue;
+}
+
+.tableRowEven {
+	background-color:white;
+}
+
+.tr1 {
+	background-color:lightblue;
+}
+
+.tr0 {
+	background-color:white;
+}
+
