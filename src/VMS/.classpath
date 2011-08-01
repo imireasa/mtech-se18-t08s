@@ -45,6 +45,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/LPDLib.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.17-bin.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ostermillerutils_1_07_00.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/quartz-1.6.5.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ScrollMsgApplet.jar"/>
@@ -72,6 +73,5 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/tlbimp.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/VMCSDA.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/mysql-connector-java-5.1.17-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

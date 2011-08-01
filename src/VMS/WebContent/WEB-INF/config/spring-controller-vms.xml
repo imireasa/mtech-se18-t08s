@@ -33,7 +33,7 @@
 	<!-- BEAN : Page -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<bean name="/admin/staff/search.html" id="listViewstaffSearchController"
-		class="sg.edu.nus.iss.vms.staffmgmt.web.controller.StaffManagementController">
+		class="sg.edu.nus.iss.vms.staffmgmt.web.controller.searchStaffController">
 		<property name="sessionForm" value="true" />
 		<property name="formView" value="staff/searchStaff" />
 		<property name="manager" ref="baseManager" />

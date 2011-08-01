@@ -42,7 +42,7 @@ public class BaseFormController extends CancellableFormController implements Ini
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		if (sessionBean.getPerson() == null) {
-			modelAndView = new ModelAndView("noSession");
+//			modelAndView = new ModelAndView("noSession");
 		} else {
 			// UserRole userrole = (UserRole) manager.get(UserRole.class,
 			// sessionBean.getUserId());
@@ -53,7 +53,7 @@ public class BaseFormController extends CancellableFormController implements Ini
 
 			// modelAndView.addObject("username",
 			// sessionBean.getUserId().getUserName());
-			modelAndView.addObject("person", sessionBean.getPerson());
+//			modelAndView.addObject("person", sessionBean.getPerson());
 		}
 		return modelAndView;
 	}
