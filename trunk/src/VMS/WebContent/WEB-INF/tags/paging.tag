@@ -54,8 +54,7 @@
 	</c:if>
 	<c:if test="${pagedListHolder.firstLinkedPage > 0}">
 		<span class="pagingItem"><a
-			href="<%=StringUtils.replace(pagedLink, "~", "0")%>">1</a>
-		</span>
+			href="<%=StringUtils.replace(pagedLink, "~", "0")%>">1</a> </span>
 	</c:if>
 	<c:if test="${pagedListHolder.firstLinkedPage > 1}">
 		<span class="pagingDots">...</span>

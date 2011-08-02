@@ -4,7 +4,7 @@
 	<defaultCache maxElementsInMemory="100" eternal="false"
 		timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true" />
 
-	<cache name="getAllItems" maxElementsInMemory="100" eternal="false"
-		overflowToDisk="true" timeToIdleSeconds="0" timeToLiveSeconds="1200" />
+	<cache name="getListOfUser" maxElementsInMemory="100" eternal="false"
+		overflowToDisk="true" timeToIdleSeconds="0" timeToLiveSeconds="60" />
 
 </ehcache>

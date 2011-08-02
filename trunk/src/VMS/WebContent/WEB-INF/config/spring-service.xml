@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
-"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd                        
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-<beans>
 	<!-- Transaction template for Managers, from: http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
 
 	<bean id="txProxyTemplate" abstract="true"
@@ -67,7 +74,29 @@
 
 	<!-- ====================== USER AUTHENTICATION ====================== -->
 
-	<!-- ====================== MALICIOUS ====================== -->
-	
-	
+	<!-- ====================== MALICIOUS ====================== -->	
+
+	<bean id="appCacheManager"
+		class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation">
+			<value>/WEB-INF/ehcache.xml</value>
+		</property>
+	</bean>
+
+	<bean id="methodTimingAdvice"
+		class="sg.edu.nus.iss.vms.web.interceptor.MethodTimingInterceptor" />
+
+	<bean id="methodCachingAdvice"
+		class="sg.edu.nus.iss.vms.web.interceptor.MethodCachingInterceptor">
+		<property name="cacheManager" ref="appCacheManager" />
+	</bean>
+
+	<aop:config>
+		<aop:pointcut id="getAllItemsPointcut"
+			expression="execution(* *..StaffManagementServicesImpl.getListOfUser())" />
+		<aop:advisor id="methodTimingAdvisor" advice-ref="methodTimingAdvice"
+			pointcut-ref="getAllItemsPointcut" />
+		<aop:advisor id="methodCachingAdvisor" advice-ref="methodCachingAdvice"
+			pointcut-ref="getAllItemsPointcut" />
+	</aop:config>
 </beans>

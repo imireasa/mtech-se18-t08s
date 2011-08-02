@@ -18,7 +18,8 @@
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
-	
+
+	<!-- =================== HIBERNATE CONFIG FOR JSP =================== -->
 	<filter>
 		<filter-name>hibernateFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
@@ -39,18 +40,22 @@
 		<filter-name>hibernateFilter</filter-name>
 		<url-pattern>*.jsp</url-pattern>
 	</filter-mapping>
-	
+
+	<!-- =================== SPRING CONFIG =================== -->
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/config/spring-*.xml</param-value>
 	</context-param>
-	
+
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<listener>
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
+
+
 	<servlet>
 		<servlet-name>action</servlet-name>
 		<servlet-class>sg.edu.nus.iss.vms.common.DispatcherServlet</servlet-class>
@@ -125,6 +130,8 @@
 			<param-value>6000</param-value>
 		</init-param>
 	</servlet>
+
+
 	<servlet-mapping>
 		<servlet-name>dwr-invoker</servlet-name>
 		<url-pattern>/dwr/*</url-pattern>

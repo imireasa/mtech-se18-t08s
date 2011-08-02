@@ -8,8 +8,8 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.log4j.Logger;
 
-public class MethodTimingInterceptor {
-	private final Logger log = Logger.getLogger(MethodTimingInterceptor.class);
+public class MethodTimingInterceptor implements MethodInterceptor {
+	private Logger log = Logger.getLogger(MethodTimingInterceptor.class);
 
 	public Object invoke(final MethodInvocation methodInvocation) throws Throwable {
 		final StopWatch stopWatch = new StopWatch();
