@@ -14,6 +14,7 @@ import sg.edu.nus.iss.vms.common.orm.Manager;
  * 
  * @author zaw.htet
  */
+// CancellableFormController
 public class BaseFormController extends CancellableFormController implements InitializingBean {
 
 	protected Manager manager;
@@ -41,20 +42,20 @@ public class BaseFormController extends CancellableFormController implements Ini
 	@Override
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		if (sessionBean.getPerson() == null) {
-//			modelAndView = new ModelAndView("noSession");
-		} else {
-			// UserRole userrole = (UserRole) manager.get(UserRole.class,
-			// sessionBean.getUserId());
-			//
-			// if (modelAndView == null) {
-			// log.debug("model and view obj is null");
-			// }
+		// if (sessionBean.getPerson() == null) {
+		// modelAndView = new ModelAndView("noSession");
+		// } else {
+		// UserRole userrole = (UserRole) manager.get(UserRole.class,
+		// sessionBean.getUserId());
+		//
+		// if (modelAndView == null) {
+		// log.debug("model and view obj is null");
+		// }
 
-			// modelAndView.addObject("username",
-			// sessionBean.getUserId().getUserName());
-//			modelAndView.addObject("person", sessionBean.getPerson());
-		}
+		// modelAndView.addObject("username",
+		// sessionBean.getUserId().getUserName());
+		// modelAndView.addObject("person", sessionBean.getPerson());
+		// }
 		return modelAndView;
 	}
 

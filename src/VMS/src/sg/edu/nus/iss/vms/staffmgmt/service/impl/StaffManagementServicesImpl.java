@@ -7,9 +7,10 @@ import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.staffmgmt.dto.Person;
 import sg.edu.nus.iss.vms.staffmgmt.dto.Staff;
+import sg.edu.nus.iss.vms.staffmgmt.service.StaffManagementServices;
 
-public class StaffManagementServices {
-	private Logger logger = Logger.getLogger(StaffManagementServices.class);
+public class StaffManagementServicesImpl implements StaffManagementServices {
+	private Logger logger = Logger.getLogger(StaffManagementServicesImpl.class);
 	private Manager manager;
 	private SessionBean sessionBean;
 
@@ -29,6 +30,11 @@ public class StaffManagementServices {
 		this.sessionBean = sessionBean;
 	}
 
+	/* (non-Javadoc)
+	 * @see sg.edu.nus.iss.vms.staffmgmt.service.impl.StaffManagementServices#getListOfUser()
+	 */	
+	
+	
 	public List<Staff> getListOfUser() {
 		this.logger.debug("@ Service Layer getting user 1");
 		List<Staff> userList = new ArrayList<Staff>();

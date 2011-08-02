@@ -56,8 +56,7 @@
 	<jsp:useBean id="pagedListHolder" scope="request"
 		type="org.springframework.beans.support.PagedListHolder" />
 	<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-	<c:url value="/admin/staff/search.html" var="pagedLink">
-		<c:param name="action" value="list" />
+	<c:url value="/admin/staff/search.html" var="pagedLink">		
 		<c:param name="p" value="~" />
 	</c:url>
 

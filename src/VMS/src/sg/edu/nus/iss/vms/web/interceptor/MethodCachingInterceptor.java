@@ -10,11 +10,12 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class MethodCachingInterceptor implements MethodInterceptor {
 
 	private CacheManager cacheManager;
-	private final Log log = LogFactory.getLog(getClass());
+	private Logger log = Logger.getLogger(MethodCachingInterceptor.class);
 	private final String CACHE_DATA_KEY = "CACHE_DATA";
 
 	public Object invoke(final MethodInvocation methodInvocation) throws Throwable {

@@ -9,7 +9,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 
 
 	<bean id="staffManagementServices"
-		class="sg.edu.nus.iss.vms.staffmgmt.service.impl.StaffManagementServices">
+		class="sg.edu.nus.iss.vms.staffmgmt.service.impl.StaffManagementServicesImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>

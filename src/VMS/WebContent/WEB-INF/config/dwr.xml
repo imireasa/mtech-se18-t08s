@@ -2,7 +2,7 @@
 <dwr>
 	<allow>
 		<create creator="spring" javascript="VmsDwr">
-			<param name="beanName" value="vmsDwr" />			
+			<param name="beanName" value="vmsDwr" />
 		</create>
 
 		<!-- VO -->
