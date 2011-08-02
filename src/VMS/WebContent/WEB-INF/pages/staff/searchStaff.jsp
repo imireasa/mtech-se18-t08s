@@ -56,7 +56,7 @@
 	<jsp:useBean id="pagedListHolder" scope="request"
 		type="org.springframework.beans.support.PagedListHolder" />
 	<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-	<c:url value="/admin/staff/search.html" var="pagedLink">		
+	<c:url value="/admin/staff/search.html" var="pagedLink">
 		<c:param name="p" value="~" />
 	</c:url>
 
@@ -73,9 +73,9 @@
 		</tr>
 		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>
-				<td>${item.staffId}</td>
-				<td style="color: blue; font-weight: bold; text-align: right">${item.personId.firstName}</td>
-				<td style="color: blue; font-weight: bold; text-align: right">${item.personId.lastName}</td>
+				<td>${item.personId}</td>
+				<td style="color: blue; font-weight: bold; text-align: right">${item.firstName}</td>
+				<td style="color: blue; font-weight: bold; text-align: right">${item.lastName}</td>
 			</tr>
 		</c:forEach>
 	</table>

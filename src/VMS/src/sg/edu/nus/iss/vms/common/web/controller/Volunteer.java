@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sg.edu.nus.iss.vms.staffmgmt.dto;
+package sg.edu.nus.iss.vms.common.web.controller;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -16,15 +16,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
- * 
  * @author zaw
  */
 @Entity
 @Table(name = "volunteer")
-@NamedQueries({ @NamedQuery(name = "Volunteer.findAll", query = "SELECT v FROM Volunteer v") })
+@PrimaryKeyJoinColumn(name = "personId")
 public class Volunteer implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -32,9 +32,10 @@ public class Volunteer implements Serializable {
 	@Basic(optional = false)
 	@Column(name = "volunteerId")
 	private Long volunteerId;
-	@JoinColumn(name = "personId", referencedColumnName = "personId")
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Person personId;
+
+	// @JoinColumn(name = "personId", referencedColumnName = "personId")
+	// @ManyToOne(fetch = FetchType.EAGER)
+	// private Person personId;
 
 	public Volunteer() {
 	}
@@ -51,13 +52,13 @@ public class Volunteer implements Serializable {
 		this.volunteerId = volunteerId;
 	}
 
-	public Person getPersonId() {
-		return personId;
-	}
-
-	public void setPersonId(Person personId) {
-		this.personId = personId;
-	}
+	// public Person getPersonId() {
+	// return personId;
+	// }
+	//
+	// public void setPersonId(Person personId) {
+	// this.personId = personId;
+	// }
 
 	@Override
 	public int hashCode() {

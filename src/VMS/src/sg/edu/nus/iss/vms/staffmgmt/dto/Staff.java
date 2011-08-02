@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -24,46 +25,41 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "staff")
-@NamedQueries({
-    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")})
-public class Staff implements Serializable {
+@PrimaryKeyJoinColumn(name="personId")
+public class Staff  extends Person{ 
+	//implements Serializable
     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "staffId")
-    private Long staffId;
-    @JoinColumn(name = "personId", referencedColumnName = "personId")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Person personId;
+
+    @Column(name = "salary")
+    private Integer salary;
 
     public Staff() {
     }
 
     public Staff(Long staffId) {
-        this.staffId = staffId;
+        setPersonId(staffId);
     }
 
-    public Long getStaffId() {
-        return staffId;
+    public Integer getSalary() {
+        return salary;
     }
 
-    public void setStaffId(Long staffId) {
-        this.staffId = staffId;
+    public void setSalary(Integer salary) {
+        this.salary = salary;
     }
 
-    public Person getPersonId() {
-        return personId;
-    }
-
-    public void setPersonId(Person personId) {
-        this.personId = personId;
-    }
+//    public Person getPersonId() {
+//        return personId;
+//    }
+//
+//    public void setPersonId(Person personId) {
+//        this.personId = personId;
+//    }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (staffId != null ? staffId.hashCode() : 0);
+        hash += (getPersonId() != null ? getPersonId().hashCode() : 0);
         return hash;
     }
 
@@ -74,7 +70,7 @@ public class Staff implements Serializable {
             return false;
         }
         Staff other = (Staff) object;
-        if ((this.staffId == null && other.staffId != null) || (this.staffId != null && !this.staffId.equals(other.staffId))) {
+        if ((this.getPersonId() == null && other.getPersonId() != null) || (this.getPersonId() != null && !this.getPersonId().equals(other.getPersonId()))) {
             return false;
         }
         return true;
@@ -82,7 +78,7 @@ public class Staff implements Serializable {
 
     @Override
     public String toString() {
-        return "sg.edu.nus.iss.vms.staffmgmt.dto.Staff[ staffId=" + staffId + " ]";
+        return "sg.edu.nus.iss.vms.staffmgmt.dto.Staff[ staffId=" + getPersonId() + " ]";
     }
     
 }

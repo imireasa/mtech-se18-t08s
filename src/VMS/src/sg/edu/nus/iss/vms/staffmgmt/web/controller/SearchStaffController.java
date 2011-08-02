@@ -36,6 +36,7 @@ public class SearchStaffController extends BaseFormController {
 		List staffList = staffManagementServices.getListOfUser();
 		
 		PagedListHolder pagedListHolder = new PagedListHolder(staffList);
+		
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
 		int pageSize = 10;
