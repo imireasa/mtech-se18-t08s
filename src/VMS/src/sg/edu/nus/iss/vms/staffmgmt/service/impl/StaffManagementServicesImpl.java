@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import sg.edu.nus.iss.vms.common.SessionBean;
+import sg.edu.nus.iss.vms.common.dto.Person;
 import sg.edu.nus.iss.vms.common.orm.Manager;
-import sg.edu.nus.iss.vms.staffmgmt.dto.Person;
-import sg.edu.nus.iss.vms.staffmgmt.dto.Staff;
+import sg.edu.nus.iss.vms.member.dto.Staff;
 import sg.edu.nus.iss.vms.staffmgmt.service.StaffManagementServices;
 
 public class StaffManagementServicesImpl implements StaffManagementServices {

@@ -2,7 +2,8 @@ package sg.edu.nus.iss.vms.staffmgmt.service;
 
 import java.util.List;
 
-import sg.edu.nus.iss.vms.staffmgmt.dto.Staff;
+import sg.edu.nus.iss.vms.member.dto.Staff;
+
 
 public interface StaffManagementServices {
 
