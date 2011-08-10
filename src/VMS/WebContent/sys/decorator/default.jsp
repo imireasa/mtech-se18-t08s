@@ -7,12 +7,12 @@
 	prefix="decorator"%>
 <html>
 <head>
-<title><decorator:title default="VMCS Default" />
-</title>
+<title><decorator:title default="VMCS Default" /></title>
 <decorator:head />
 
 </head>
 <body>
+	<H1>Welcome To VMCS (DEAFAUT)</H1>
 	<decorator:body />
 </body>
 </html>

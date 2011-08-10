@@ -9,7 +9,8 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan">
 			<list>
-				<value>sg.edu.nus.iss.vms.staffmgmt.dto</value>
+				<value>sg.edu.nus.iss.vms.common.dto</value>
+				<value>sg.edu.nus.iss.vms.member.dto</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -30,7 +31,7 @@
 	</bean>
 
 	<bean id="dao"
-	class="sg.edu.nus.iss.vms.common.dao.hibernate.BaseDaoHibernate">
+		class="sg.edu.nus.iss.vms.common.dao.hibernate.BaseDaoHibernate">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

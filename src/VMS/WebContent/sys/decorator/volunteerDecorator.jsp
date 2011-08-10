@@ -7,12 +7,12 @@
 	prefix="decorator"%>
 <html>
 <head>
-<title><decorator:title default="VMCS Volunteer" />
-</title>
+<title><decorator:title default="VMCS Volunteer" /></title>
 <decorator:head />
 
 </head>
 <body>
+	<H1>Welcome To VMCS (VOLUNTEER)</H1>
 	<decorator:body />
 </body>
 </html>

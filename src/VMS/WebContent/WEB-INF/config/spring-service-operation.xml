@@ -8,8 +8,8 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
 
-	<bean id="staffManagementServices"
-		class="sg.edu.nus.iss.vms.staffmgmt.service.impl.StaffManagementServicesImpl">
+	<bean id="memberManagementService"
+		class="sg.edu.nus.iss.vms.member.service.impl.MemberManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>

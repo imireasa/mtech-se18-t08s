@@ -19,42 +19,14 @@
 		<dispatcher>REQUEST</dispatcher>
 	</filter-mapping>
 
-	<!-- =================== HIBERNATE CONFIG FOR JSP =================== -->
-	<filter>
-		<filter-name>hibernateFilter</filter-name>
-		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>hibernateFilter</filter-name>
-		<url-pattern>/dwr/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>hibernateFilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>hibernateFilter</filter-name>
-		<url-pattern>*.htm</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>hibernateFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-
 	<!-- =================== SPRING CONFIG =================== -->
-
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/config/spring-*.xml</param-value>
 	</context-param>
-
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
-
 
 	<servlet>
 		<servlet-name>action</servlet-name>
@@ -67,6 +39,8 @@
 			<param-name>targetInitClass</param-name>
 			<param-value>sg.edu.nus.iss.vms.common.ApplicationInitializer</param-value>
 		</init-param>
+		<!-- Custom: Method name responsible for init, method name must exist in 
+			class as defined in 'targetInitClass' -->
 		<init-param>
 			<param-name>targetInitMethod</param-name>
 			<param-value>init</param-value>
@@ -77,23 +51,9 @@
 		<servlet-name>action</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>service</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/config/dispatcher-service.xml</param-value>
-		</init-param>
-		<load-on-startup>3</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>service</servlet-name>
-		<url-pattern>*.service</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>service</servlet-name>
-		<url-pattern>*.svc</url-pattern>
-	</servlet-mapping>
+
+	<!-- =================== DWR =================== -->
+
 	<servlet>
 		<servlet-name>dwr-invoker</servlet-name>
 		<servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
@@ -131,11 +91,12 @@
 		</init-param>
 	</servlet>
 
-
 	<servlet-mapping>
 		<servlet-name>dwr-invoker</servlet-name>
 		<url-pattern>/dwr/*</url-pattern>
 	</servlet-mapping>
+
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
