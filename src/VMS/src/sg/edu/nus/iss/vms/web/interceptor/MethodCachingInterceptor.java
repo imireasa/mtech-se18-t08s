@@ -8,8 +8,6 @@ import net.sf.ehcache.Element;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 
 public class MethodCachingInterceptor implements MethodInterceptor {
@@ -18,7 +16,8 @@ public class MethodCachingInterceptor implements MethodInterceptor {
 	private Logger log = Logger.getLogger(MethodCachingInterceptor.class);
 	private final String CACHE_DATA_KEY = "CACHE_DATA";
 
-	public Object invoke(final MethodInvocation methodInvocation) throws Throwable {
+	public Object invoke(final MethodInvocation methodInvocation)
+			throws Throwable {
 		final String targetMethodName = methodInvocation.getMethod().getName();
 
 		log.info("Attempting cacheManager.getCache first run (no args lookup).");
@@ -32,7 +31,8 @@ public class MethodCachingInterceptor implements MethodInterceptor {
 			if (methodArgs != null) {
 				log.info("Args on method attempting args cache lookup config.");
 
-				final StringBuffer cacheName = new StringBuffer(targetMethodName);
+				final StringBuffer cacheName = new StringBuffer(
+						targetMethodName);
 				cacheName.append("(");
 				for (int i = 0; i < methodArgs.length; i++) {
 					cacheName.append(methodArgs[i].toString());
@@ -41,7 +41,8 @@ public class MethodCachingInterceptor implements MethodInterceptor {
 					}
 				}
 				cacheName.append(")");
-				log.info("Attempting cacheManager.getCache with args lookup:" + cacheName);
+				log.info("Attempting cacheManager.getCache with args lookup:"
+						+ cacheName);
 				cache = cacheManager.getCache(cacheName.toString());
 			}
 		}
@@ -72,7 +73,8 @@ public class MethodCachingInterceptor implements MethodInterceptor {
 		if (cache == null || methodInvocationProceed) {
 			methodReturn = methodInvocation.proceed();
 			if (methodInvocationCache) {
-				final Element newCacheElement = new Element(CACHE_DATA_KEY, (Serializable) methodReturn);
+				final Element newCacheElement = new Element(CACHE_DATA_KEY,
+						(Serializable) methodReturn);
 				cache.put(newCacheElement);
 
 				log.info("Created new CacheElement entry and stored in cache.");
