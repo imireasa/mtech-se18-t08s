@@ -2,7 +2,7 @@ package sg.edu.nus.iss.vms.common;
 
 import java.io.Serializable;
 
-import sg.edu.nus.iss.vms.staffmgmt.dto.Person;
+import sg.edu.nus.iss.vms.common.dto.Person;
 
 /**
  * 
