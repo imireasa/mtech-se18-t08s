@@ -11,9 +11,6 @@
 
 	<!-- <bean/> definitions here -->
 
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
-
 	<bean id="sessionBean" class="sg.edu.nus.iss.vms.common.SessionBean"
 		scope="session">
 		<aop:scoped-proxy />
@@ -32,14 +29,6 @@
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- BEAN : Page -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<bean name="/admin/staff/search.html" id="listViewstaffSearchController"
-		class="sg.edu.nus.iss.vms.staffmgmt.web.controller.SearchStaffController">
-		<property name="sessionForm" value="true" />
-		<property name="formView" value="staff/searchStaff" />
-		<property name="manager" ref="baseManager" />
-		<property name="sessionBean" ref="sessionBean" />
-		<property name="staffManagementServices" ref="staffManagementServices" />
-	</bean>
 
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">

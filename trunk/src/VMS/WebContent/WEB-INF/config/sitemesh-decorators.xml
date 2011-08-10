@@ -10,15 +10,11 @@
 
 	<!-- Default URL. Handled all unhandled previous URL pattern -->
 
-	<decorator name="defaultDecorator" page="default.jsp">
-		<pattern>/*</pattern>
-	</decorator>
-
 	<decorator name="volunteerDecorator" page="volunteerDecorator.jsp">
 		<pattern>/volunteer/*</pattern>
 	</decorator>
 
 	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
-		<pattern>/administrator/*</pattern>
+		<pattern>/admin/*</pattern>
 	</decorator>
 </decorators>

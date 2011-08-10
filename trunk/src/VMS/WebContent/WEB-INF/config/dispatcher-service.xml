@@ -16,20 +16,5 @@
 		destroy-method="destroy">
 
 	</bean>
-
-	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<!-- BEAN : Service URL MAPPING -->
-	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<bean id="urlMapping"
-		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-		<property name="mappings">
-			<props>
-				<!-- <prop key="/initModule.service">initModule</prop> -->
-			</props>
-		</property>
-	</bean>	
-	
-	
-	
 </beans>
 

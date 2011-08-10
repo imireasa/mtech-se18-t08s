@@ -24,6 +24,24 @@
 	</bean>
 
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />	
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<bean id="initModule" class="sg.edu.nus.iss.vms.common.InitModule"
+		scope="singleton" lazy-init="false" init-method="initModule"
+		destroy-method="destroy">
+
+	</bean>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- BEAN : Service URL MAPPING -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/admin/member/*.html">memberController</prop>
+			</props>
+		</property>
+	</bean>
 
 </beans>
