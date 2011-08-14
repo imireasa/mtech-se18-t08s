@@ -17,6 +17,7 @@ import sg.edu.nus.iss.vms.member.dto.Staff;
 import sg.edu.nus.iss.vms.member.dto.Volunteer;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.member.vo.MemberVo;
+import sg.edu.nus.iss.vms.project.dto.ProjectMember;
 
 public class MemberManagementServiceImpl implements MemberManagementService {
 	private Manager manager;
@@ -40,6 +41,33 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 	}
 
 	@Override
+	public List<MemberVo> getListOfMembers(long projectId) {
+//		try{debug();}catch(Exception ex){ex.printStackTrace();}
+		List<MemberVo> userList = new ArrayList<MemberVo>();
+		try {
+			this.logger.debug("@ Service Layer getting user 1");
+			String hQL = "from ProjectMember where projectId=" + projectId;
+			List<ProjectMember> projectMemberList = manager.find(hQL);
+			for (ProjectMember projectMember : projectMemberList) {
+				Volunteer volunteer = projectMember.getVolunteerId();
+				MemberVo newMember = new MemberVo();
+				newMember.setPersonId(volunteer.getPersonId());
+				newMember.setFirstName(volunteer.getFirstName());
+				newMember.setLastName(volunteer.getLastName());
+				newMember.setEmail(volunteer.getEmail());
+				newMember.setMobile(volunteer.getMobile());
+				newMember.setMemberType(volunteer.getTypeId().getCodeName());
+				userList.add(newMember);
+			}
+
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+		} finally {
+			this.logger.debug("@ Service Layer getting user 2");
+		}
+		return userList;
+	}
+	
 	public List<MemberVo> getListOfMembers() {
 //		try{debug();}catch(Exception ex){ex.printStackTrace();}
 		List<MemberVo> userList = new ArrayList<MemberVo>();
@@ -64,7 +92,7 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		}
 		return userList;
 	}
-
+	
 	public void debug() throws Exception{
 		logger.debug("Start Debug Data");
 		String name[] = { "Karina Gourdine", "Darren Babineau", "Darren Vaugh", "Fernando Montalbo", "Guy La", "Darcy Arocho", "Nelson Shires", "Sharron Frew", "Nelson Berkman",

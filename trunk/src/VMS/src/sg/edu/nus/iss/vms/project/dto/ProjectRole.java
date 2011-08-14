@@ -2,13 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sg.edu.nus.iss.vms.common.dto;
+package sg.edu.nus.iss.vms.project.dto;
 
 import java.io.Serializable;
 import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import sg.edu.nus.iss.vms.common.dto.BaseTable;
 
 /**
  *
@@ -40,10 +43,9 @@ public class ProjectRole implements Serializable {
     @Column(name = "IsDeleted")
     private Short isDeleted;
     @JoinColumn(name = "BaseId", referencedColumnName = "BaseId")
-    @ManyToOne
-    private BaseTable baseTable;
-    @OneToMany(mappedBy = "projectRole")
-    private List<ProjectMember> projectMemberList;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BaseTable baseId;
+
 
     public ProjectRole() {
     }
@@ -81,20 +83,12 @@ public class ProjectRole implements Serializable {
         this.isDeleted = isDeleted;
     }
 
-    public BaseTable getBaseTable() {
-        return baseTable;
+    public BaseTable getBaseId() {
+        return baseId;
     }
 
-    public void setBaseTable(BaseTable baseTable) {
-        this.baseTable = baseTable;
-    }
-
-    public List<ProjectMember> getProjectMemberList() {
-        return projectMemberList;
-    }
-
-    public void setProjectMemberList(List<ProjectMember> projectMemberList) {
-        this.projectMemberList = projectMemberList;
+    public void setBaseId(BaseTable baseId) {
+        this.baseId = baseId;
     }
 
     @Override

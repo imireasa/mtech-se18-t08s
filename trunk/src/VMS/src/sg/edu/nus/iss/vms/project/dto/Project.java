@@ -2,14 +2,17 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sg.edu.nus.iss.vms.common.dto;
+package sg.edu.nus.iss.vms.project.dto;
 
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,9 +20,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import sg.edu.nus.iss.vms.common.dto.Codes;
 
 /**
  *
@@ -52,8 +58,10 @@ public class Project implements Serializable {
     @Column(name = "IsDeleted")
     private Short isDeleted;
     @JoinColumn(name = "ProjectStatus", referencedColumnName = "CodeId")
-    @ManyToOne
-    private Codes codes;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Codes projectStatus;
+    @OneToMany(mappedBy = "projectId", fetch = FetchType.LAZY)
+    private List<ProjectMember> projectMemberList;
 
     public Project() {
     }
@@ -123,12 +131,20 @@ public class Project implements Serializable {
         this.isDeleted = isDeleted;
     }
 
-    public Codes getCodes() {
-        return codes;
+    public Codes getProjectStatus() {
+        return projectStatus;
     }
 
-    public void setCodes(Codes codes) {
-        this.codes = codes;
+    public void setProjectStatus(Codes projectStatus) {
+        this.projectStatus = projectStatus;
+    }
+
+    public List<ProjectMember> getProjectMemberList() {
+        return projectMemberList;
+    }
+
+    public void setProjectMemberList(List<ProjectMember> projectMemberList) {
+        this.projectMemberList = projectMemberList;
     }
 
     @Override

@@ -4,6 +4,6 @@ import java.util.List;
 import sg.edu.nus.iss.vms.member.vo.MemberVo;
 
 public interface MemberManagementService {
-	public List<MemberVo> getListOfMembers();
+	public List<MemberVo> getListOfMembers(long projectId);
 
 }

@@ -1,4 +1,4 @@
-package sg.edu.nus.iss.vms.member.web.controller;
+package sg.edu.nus.iss.vms.project.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 
-public class MemberController extends MultiActionController {
-	private Logger logger = Logger.getLogger(MemberController.class);
+public class ProjectController extends MultiActionController {
+	private Logger logger = Logger.getLogger(ProjectController.class);
 	private MemberManagementService memberManagementService;
 	private ProjectManagementService projectManagementService;
 	private String formView;
@@ -53,16 +53,16 @@ public class MemberController extends MultiActionController {
 		return super.getLastModified(arg0);
 	}
 
-	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView assignPrjMemberRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		ModelAndView modelAndView = new ModelAndView("member/searchMember");
-		logger.debug("member/searchMember");
+		ModelAndView modelAndView = new ModelAndView("project/assignMemberRole");
+		logger.debug("project/assignMemberRole");
 		List memberList = new ArrayList();
 
 		logger.debug("REQUEST Project Name " + request.getParameter("projectName"));
-		logger.debug("REQUEST Project Id   " + request.getParameter("projectId"));
+		logger.debug("REQUEST Project id   " + request.getParameter("project"));
 
-		if (request.getParameter("projectId") != null && !request.getParameter("projectId").isEmpty()) {
+		if (request.getParameter("project") != null && !request.getParameter("project").isEmpty()) {
 			long projectId = Long.parseLong(request.getParameter("projectId"));
 			List projectList = new ArrayList();
 			projectList.add(projectManagementService.getProject(projectId));
@@ -70,12 +70,9 @@ public class MemberController extends MultiActionController {
 			modelAndView.addObject("projectName", request.getParameter("projectName"));
 			memberList = memberManagementService.getListOfMembers(projectId);
 
-		} else if (request.getParameter("projectName") != null) {
-			String projectName = request.getParameter("projectName");
-			List projectList = projectManagementService.getListOfProject(projectName);
+		} else {
+			List projectList = projectManagementService.getListAllProject();
 			modelAndView.addObject("projectList", projectList);
-			modelAndView.addObject("projectName", request.getParameter("projectName"));
-			// return super.handleRequestInternal(request, response);
 		}
 
 		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
@@ -88,6 +85,7 @@ public class MemberController extends MultiActionController {
 		logger.debug("Completed the request");
 		modelAndView.addObject("pagedListHolder", memberPagedListHolder);
 		return modelAndView;
+
 	}
 
 }
