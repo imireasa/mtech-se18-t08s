@@ -154,7 +154,8 @@ h1 {
 													Member</a>
 											</li>
 											<li class="yuimenuitem"><a class="yuimenuitemlabel"
-												href="<%=request.getContextPath()%>/admin/project/assignPrjMemberRole.html">Assign Project Member</a>
+												href="<%=request.getContextPath()%>/admin/project/assignPrjMemberRole.html">Assign
+													Project Member</a>
 											</li>
 										</ul>
 									</div>
@@ -186,7 +187,8 @@ h1 {
 									<div class="bd">
 										<ul>
 											<li class="yuimenuitem"><a class="yuimenuitemlabel"
-												href="<%=request.getContextPath()%>/report/volunteer/generate.html">View Report</a>
+												href="<%=request.getContextPath()%>/report/volunteer/generate.html">View
+													Report</a>
 											</li>
 										</ul>
 									</div>
