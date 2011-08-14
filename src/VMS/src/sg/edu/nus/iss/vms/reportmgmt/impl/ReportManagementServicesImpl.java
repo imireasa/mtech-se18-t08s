@@ -61,8 +61,8 @@ public class ReportManagementServicesImpl implements ReportManagementServices {
 		*/
 		
 		//Need to do to get the application path.
-		JasperCompileManager.compileReportToFile("/pages/reports/volunteer_certificate.jrxml");			
-		File reportFile = new File("/pages/reports/volunteer_certificate.jasper");
+		JasperCompileManager.compileReportToFile("/reports/volunteer_certificate.jrxml");			
+		File reportFile = new File("/reports/volunteer_certificate.jasper");
 		if (!reportFile.exists())
 			throw new JRRuntimeException("File volunteer_certificate.jrxml not found. The report design must be compiled first.");
 		JasperReport jasperReport = (JasperReport)JRLoader.loadObject(reportFile.getPath());					

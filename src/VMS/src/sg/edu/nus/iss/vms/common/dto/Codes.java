@@ -21,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import sg.edu.nus.iss.vms.project.dto.ProjectMember;
+
 /**
  *
  * @author zaw
@@ -48,8 +50,7 @@ public class Codes implements Serializable {
     @JoinColumn(name = "CodeCategoryId", referencedColumnName = "CodeCategoryId")
     @ManyToOne
     private CodeCategory codeCategory;
-    @OneToMany(mappedBy = "codes")
-    private List<ProjectMember> projectMemberList;
+
 
     public Codes() {
     }
@@ -107,13 +108,6 @@ public class Codes implements Serializable {
         this.codeCategory = codeCategory;
     }
 
-    public List<ProjectMember> getProjectMemberList() {
-        return projectMemberList;
-    }
-
-    public void setProjectMemberList(List<ProjectMember> projectMemberList) {
-        this.projectMemberList = projectMemberList;
-    }
 
     @Override
     public int hashCode() {

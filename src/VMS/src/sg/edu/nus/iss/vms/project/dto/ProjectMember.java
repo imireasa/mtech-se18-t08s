@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package sg.edu.nus.iss.vms.common.dto;
+package sg.edu.nus.iss.vms.project.dto;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +21,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import sg.edu.nus.iss.vms.common.dto.BaseTable;
+import sg.edu.nus.iss.vms.common.dto.Codes;
+import sg.edu.nus.iss.vms.member.dto.Volunteer;
 
 /**
  *
@@ -36,36 +41,32 @@ public class ProjectMember implements Serializable {
     @Basic(optional = false)
     @Column(name = "ProjectMemberId")
     private Long projectMemberId;
-    @Basic(optional = false)
-    @Column(name = "VolunteerId")
-    private long volunteerId;
     @Column(name = "JoinDate")
     @Temporal(TemporalType.DATE)
     private Date joinDate;
-    @Column(name = "ProjectId")
-    private BigInteger projectId;
     @Column(name = "IsDeleted")
     private Short isDeleted;
+    @JoinColumn(name = "VolunteerId", referencedColumnName = "VolunteerId")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Volunteer volunteerId;
     @JoinColumn(name = "RoleId", referencedColumnName = "RoleId")
-    @ManyToOne
-    private ProjectRole projectRole;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private ProjectRole roleId;
     @JoinColumn(name = "BaseId", referencedColumnName = "BaseId")
-    @ManyToOne
-    private BaseTable baseTable;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BaseTable baseId;
     @JoinColumn(name = "MemberStatus", referencedColumnName = "CodeId")
-    @ManyToOne
-    private Codes codes;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Codes memberStatus;
+    @JoinColumn(name = "ProjectId", referencedColumnName = "ProjectId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Project projectId;
 
     public ProjectMember() {
     }
 
     public ProjectMember(Long projectMemberId) {
         this.projectMemberId = projectMemberId;
-    }
-
-    public ProjectMember(Long projectMemberId, long volunteerId) {
-        this.projectMemberId = projectMemberId;
-        this.volunteerId = volunteerId;
     }
 
     public Long getProjectMemberId() {
@@ -76,28 +77,12 @@ public class ProjectMember implements Serializable {
         this.projectMemberId = projectMemberId;
     }
 
-    public long getVolunteerId() {
-        return volunteerId;
-    }
-
-    public void setVolunteerId(long volunteerId) {
-        this.volunteerId = volunteerId;
-    }
-
     public Date getJoinDate() {
         return joinDate;
     }
 
     public void setJoinDate(Date joinDate) {
         this.joinDate = joinDate;
-    }
-
-    public BigInteger getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(BigInteger projectId) {
-        this.projectId = projectId;
     }
 
     public Short getIsDeleted() {
@@ -108,28 +93,44 @@ public class ProjectMember implements Serializable {
         this.isDeleted = isDeleted;
     }
 
-    public ProjectRole getProjectRole() {
-        return projectRole;
+    public Volunteer getVolunteerId() {
+        return volunteerId;
     }
 
-    public void setProjectRole(ProjectRole projectRole) {
-        this.projectRole = projectRole;
+    public void setVolunteerId(Volunteer volunteerId) {
+        this.volunteerId = volunteerId;
     }
 
-    public BaseTable getBaseTable() {
-        return baseTable;
+    public ProjectRole getRoleId() {
+        return roleId;
     }
 
-    public void setBaseTable(BaseTable baseTable) {
-        this.baseTable = baseTable;
+    public void setRoleId(ProjectRole roleId) {
+        this.roleId = roleId;
     }
 
-    public Codes getCodes() {
-        return codes;
+    public BaseTable getBaseId() {
+        return baseId;
     }
 
-    public void setCodes(Codes codes) {
-        this.codes = codes;
+    public void setBaseId(BaseTable baseId) {
+        this.baseId = baseId;
+    }
+
+    public Codes getMemberStatus() {
+        return memberStatus;
+    }
+
+    public void setMemberStatus(Codes memberStatus) {
+        this.memberStatus = memberStatus;
+    }
+
+    public Project getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Project projectId) {
+        this.projectId = projectId;
     }
 
     @Override
