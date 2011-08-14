@@ -1,10 +1,15 @@
+
+
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
-
+<%-- 
+    Document   : noSession
+    Created on : Jun 13, 2011, 10:54:53 AM
+    Author     : Zaw.Htet
+--%>
 <body>
 <head>
 <script type='text/javascript' src='/VMS/dwr/interface/VmsDwr.js'></script>
@@ -74,58 +79,56 @@
 }
 </style>
 <script type="text/javascript">
-	function getProjectMember(val, name) {
-		document.getElementById("projectId").value = val;
-		document.getElementById("projectName").value = name;
-		document.getElementById("searchMemberForm").submit();
-	}
+	
 </script>
 </head>
 <body class="yui-skin-sam">
-	<h2>Search Member</h2>
+	<h2>Assign Member Role</h2>
 	<a href="#">Home</a> >
-	<a href="#">Project</a> > Search Member
+	<a href="#">Project Mangement</a> > Assign Member Role
+
+	<br />
 
 	<br />
 
 	<form id="searchMemberForm" name="searchMemberForm" method="post"
 		action="<%=request.getContextPath()%>/admin/member/list.html">
+		<table width="326" border="0">
+			<tr>
+				<td width="157"><label>Project Name</label> <label></label></td>
+				<td width="159"><select name="project" id="project">
+						<c:forEach items="${projectList}" var="item" varStatus="status">
+							<option value="${item.projectId}">${item.projectName}</option>
+						</c:forEach>
+				</select></td>
+			</tr>
+			<tr>
+				<td>Member Name</td>
+				<td><input type="text" name="member" id="member"></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td><input type="submit" name="search" id="search"
+					value="Submit"></td>
+			</tr>
+		</table>
 		<input type="hidden" id="projectId" name="projectId">
 		<div id="myAutoComplete">
-			<label> Project Name</label> <input id="projectName"
-				name="projectName" type="text" value="${projectName}"> <input
-				type="submit" name="search" id="search" value="Submit">
+			<label><br> </label>
 			<div id="myContainer"></div>
 		</div>
 	</form>
 
-	<table width="400px" border="1">
-		<tr>
-			<th width="50px">No.</th>
-			<th width="350px">Project Name</th>
-		</tr>
-		<c:forEach items="${projectList}" var="item" varStatus="status">
-			<tr>
-				<td>${status.count}</td>
-				<td><a href="#"
-					onclick="getProjectMember('${item.projectId}', '${item.projectName}')">${item.projectName}</a>
-				</td>
-			</tr>
-		</c:forEach>
-	</table>
-
-
-	<br />
-
-
-
+	Search Result
 	<%-- // show only current page worth of data --%>
 	<table width="720px" border="1">
 		<tr>
 			<th width="20px">No.</th>
-			<th width="250px">First Name</th>
-			<th width="250px">Last Name</th>
-			<th width="200px">Member Type</th>
+			<th width="250px">Name</th>
+			<th width="250px">Team Leader</th>
+			<th width="200px">Member</th>
+			<th width="200px">Contact No.</th>
+			<th width="200px">Email</th>
 		</tr>
 		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>

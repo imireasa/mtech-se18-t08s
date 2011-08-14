@@ -11,7 +11,7 @@
 	<!-- Default URL. Handled all unhandled previous URL pattern -->
 
 	<decorator name="volunteerDecorator" page="volunteerDecorator.jsp">
-		<pattern>/volunteer/*</pattern>
+		<pattern>/*</pattern>
 	</decorator>
 
 	<decorator name="administratorDecorator" page="administratorDecorator.jsp">

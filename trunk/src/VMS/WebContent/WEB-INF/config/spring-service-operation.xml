@@ -13,5 +13,17 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>
+	
+	<bean id="projectManagementService"
+		class="sg.edu.nus.iss.vms.project.service.impl.ProjectManagementServiceImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+	
+	<bean id="reportManagementServices"
+		class="sg.edu.nus.iss.vms.reportmgmt.impl.ReportManagementServicesImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
 
 </beans>

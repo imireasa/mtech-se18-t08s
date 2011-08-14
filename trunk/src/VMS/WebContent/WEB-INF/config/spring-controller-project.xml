@@ -12,8 +12,12 @@
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- BEAN : Page -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<bean id="generateCertificateController"
-		class="sg.edu.nus.iss.vms.reportmgmt.web.controller.GenerateCertificateController">		
-		<property name="reportManagementServices" ref="reportManagementServices" />
+
+	<bean id="projectController"
+		class="sg.edu.nus.iss.vms.project.web.controller.ProjectController">
+		<property name="formView" value="member/searchMember" />
+		<property name="memberManagementService" ref="memberManagementService" />
+		<property name="projectManagementService" ref="projectManagementService" />
 	</bean>
+
 </beans>

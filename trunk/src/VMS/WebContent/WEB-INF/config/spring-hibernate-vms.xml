@@ -11,6 +11,7 @@
 			<list>
 				<value>sg.edu.nus.iss.vms.common.dto</value>
 				<value>sg.edu.nus.iss.vms.member.dto</value>
+				<value>sg.edu.nus.iss.vms.project.dto</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

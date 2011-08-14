@@ -17,6 +17,7 @@
 		class="sg.edu.nus.iss.vms.member.web.controller.MemberController">
 		<property name="formView" value="member/searchMember" />
 		<property name="memberManagementService" ref="memberManagementService" />
+		<property name="projectManagementService" ref="projectManagementService" />
 	</bean>
 
 	<aop:config>
