@@ -35,7 +35,8 @@ public class MemberController extends MultiActionController {
 		return memberManagementService;
 	}
 
-	public void setMemberManagementService(MemberManagementService memberManagementService) {
+	public void setMemberManagementService(
+			MemberManagementService memberManagementService) {
 		this.memberManagementService = memberManagementService;
 	}
 
@@ -43,7 +44,8 @@ public class MemberController extends MultiActionController {
 		return projectManagementService;
 	}
 
-	public void setProjectManagementService(ProjectManagementService projectManagementService) {
+	public void setProjectManagementService(
+			ProjectManagementService projectManagementService) {
 		this.projectManagementService = projectManagementService;
 	}
 
@@ -53,29 +55,35 @@ public class MemberController extends MultiActionController {
 		return super.getLastModified(arg0);
 	}
 
-	public ModelAndView list(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView searchProjectMember(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
 		ModelAndView modelAndView = new ModelAndView("member/searchMember");
 		logger.debug("member/searchMember");
 		List memberList = new ArrayList();
 
-		logger.debug("REQUEST Project Name " + request.getParameter("projectName"));
-		logger.debug("REQUEST Project Id   " + request.getParameter("projectId"));
+		logger.debug("REQUEST Project Name "
+				+ request.getParameter("projectName"));
+		logger.debug("REQUEST Project Id   "
+				+ request.getParameter("projectId"));
 
-		if (request.getParameter("projectId") != null && !request.getParameter("projectId").isEmpty()) {
+		if (request.getParameter("projectId") != null
+				&& !request.getParameter("projectId").isEmpty()) {
 			long projectId = Long.parseLong(request.getParameter("projectId"));
 			List projectList = new ArrayList();
 			projectList.add(projectManagementService.getProject(projectId));
 			modelAndView.addObject("projectList", projectList);
-			modelAndView.addObject("projectName", request.getParameter("projectName"));
+			modelAndView.addObject("projectName",
+					request.getParameter("projectName"));
 			memberList = memberManagementService.getListOfMembers(projectId);
 
 		} else if (request.getParameter("projectName") != null) {
 			String projectName = request.getParameter("projectName");
-			List projectList = projectManagementService.getListOfProject(projectName);
+			List projectList = projectManagementService
+					.getListOfProject(projectName);
 			modelAndView.addObject("projectList", projectList);
-			modelAndView.addObject("projectName", request.getParameter("projectName"));
-			// return super.handleRequestInternal(request, response);
+			modelAndView.addObject("projectName",
+					request.getParameter("projectName"));
 		}
 
 		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);

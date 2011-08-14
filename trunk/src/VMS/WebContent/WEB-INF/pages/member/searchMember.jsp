@@ -2,7 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
 <body>
@@ -13,10 +12,11 @@
 	src='<%=request.getContextPath()%>/dwr/engine.js'></script>
 
 <link type="text/css"
-	href="<%=request.getContextPath()%>/sys/css/style.css" rel="stylesheet" />
+	href="<%=request.getContextPath()%>/sys/css/paging.css" rel="stylesheet" />
 
 <script type="text/javascript">
 	function getProjectMember(val, name) {
+		alert(val + " # " + name);
 		document.getElementById("projectId").value = val;
 		document.getElementById("projectName").value = name;
 		document.getElementById("searchMemberForm").submit();
@@ -30,7 +30,7 @@
 	</div>
 	<div class="query">
 		<form id="searchMemberForm" name="searchMemberForm" method="post"
-			action="<%=request.getContextPath()%>/admin/member/list.html">
+			action="<%=request.getContextPath()%>/admin/member/searchProjectMember.html">
 			<input type="hidden" id="projectId" name="projectId">
 
 			<p>
@@ -68,7 +68,7 @@
 		</tr>
 		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>
-				<td>${item.personId}</td>
+				<td>${item.volunteerId.volunteerId}</td>
 				<td>${item.volunteerId.firstName}&nbsp;${item.volunteerId.lastName}</td>
 				<td>${item.roleId.roleName}</td>
 				<td>${item.volunteerId.mobile}</td>
@@ -81,7 +81,7 @@
 			type="org.springframework.beans.support.PagedListHolder" />
 
 		<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-		<c:url value="/admin/member/list.html" var="pagedLink">
+		<c:url value="/admin/member/searchProjectMember.html" var="pagedLink">
 			<c:param name="p" value="~" />
 		</c:url>
 
