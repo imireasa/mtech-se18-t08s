@@ -40,6 +40,8 @@
 		<property name="mappings">
 			<props>
 				<prop key="/admin/member/*.html">memberController</prop>
+				<prop key="/admin/project/*.html">projectController</prop>
+				<prop key="/report/volunteer/*.html">generateCertificateController</prop>
 			</props>
 		</property>
 	</bean>
