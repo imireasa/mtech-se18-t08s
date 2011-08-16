@@ -12,14 +12,24 @@
 	src='<%=request.getContextPath()%>/dwr/engine.js'></script>
 
 <link type="text/css"
-	href="<%=request.getContextPath()%>/sys/css/paging.css" rel="stylesheet" />
+	href="<%=request.getContextPath()%>/sys/css/paging.css"
+	rel="stylesheet" />
 
 <script type="text/javascript">
+	var projectId = document.getElementById("projectId");
+	var projectName = document.getElementById("projectName");
+	var searchMemberForm = document.getElementById("searchMemberForm");
+	var 
+	window.load = init;
+
+	function init() {
+		projectName.value
+	}
+
 	function getProjectMember(val, name) {
-		alert(val + " # " + name);
-		document.getElementById("projectId").value = val;
-		document.getElementById("projectName").value = name;
-		document.getElementById("searchMemberForm").submit();
+		projectId.value = val;
+		projectName.value = name;
+		searchMemberForm.submit();
 	}
 </script>
 </head>

@@ -35,4 +35,9 @@
 		<property name="basename" value="messages" />
 	</bean>
 
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- BEAN : Page Common -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<bean id="welcomeController"
+		class="sg.edu.nus.iss.vms.common.web.controller.WelcomeController" />
 </beans>

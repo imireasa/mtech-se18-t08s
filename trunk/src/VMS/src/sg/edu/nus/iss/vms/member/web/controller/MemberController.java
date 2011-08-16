@@ -17,19 +17,10 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 
-public class MemberController extends MultiActionController {
+public class MemberController extends BaseMultiActionFormController {
 	private Logger logger = Logger.getLogger(MemberController.class);
 	private MemberManagementService memberManagementService;
 	private ProjectManagementService projectManagementService;
-	private String formView;
-
-	public String getFormView() {
-		return formView;
-	}
-
-	public void setFormView(String formView) {
-		this.formView = formView;
-	}
 
 	public MemberManagementService getMemberManagementService() {
 		return memberManagementService;
@@ -58,7 +49,7 @@ public class MemberController extends MultiActionController {
 	public ModelAndView searchProjectMember(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		ModelAndView modelAndView = new ModelAndView("member/searchMember");
+		modelAndView = new ModelAndView("member/searchMember");
 		logger.debug("member/searchMember");
 		List memberList = new ArrayList();
 
