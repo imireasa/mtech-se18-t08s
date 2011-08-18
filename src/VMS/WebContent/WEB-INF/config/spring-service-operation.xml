@@ -8,20 +8,26 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
 
-	<bean id="memberManagementService"
+	<bean id="memberManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.member.service.impl.MemberManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>
-	
-	<bean id="projectManagementService"
+
+	<bean id="projectManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.project.service.impl.ProjectManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>
-	
-	<bean id="reportManagementServices"
+
+	<bean id="reportManagementServicesImpl"
 		class="sg.edu.nus.iss.vms.reportmgmt.impl.ReportManagementServicesImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+
+	<bean id="certificateManagementImpl"
+		class="sg.edu.nus.iss.vms.reportmgmt.impl.CertificateManagementImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>

@@ -15,9 +15,8 @@
 
 	<bean id="projectController"
 		class="sg.edu.nus.iss.vms.project.web.controller.ProjectController">
-		<property name="formView" value="member/searchMember" />
-		<property name="memberManagementService" ref="memberManagementService" />
-		<property name="projectManagementService" ref="projectManagementService" />
+		<property name="memberManagementService" ref="memberManagementServiceImpl" />
+		<property name="projectManagementService" ref="projectManagementServiceImpl" />
 	</bean>
 
 </beans>

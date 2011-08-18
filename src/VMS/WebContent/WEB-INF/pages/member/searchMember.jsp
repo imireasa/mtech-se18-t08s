@@ -16,17 +16,24 @@
 	rel="stylesheet" />
 
 <script type="text/javascript">
-	var projectId = document.getElementById("projectId");
-	var projectName = document.getElementById("projectName");
-	var searchMemberForm = document.getElementById("searchMemberForm");
-	var 
-	window.load = init;
+	var defProjName = 'Please select...';
+
+	window.onload = init;
 
 	function init() {
-		projectName.value
+		document.getElementById("projectName").value = defProjName;
 	}
 
-	function getProjectMember(val, name) {
+	function projectNameOnfocus() {
+		document.getElementById("projectName").select();
+
+	}
+
+	function submit(val, name) {
+		var projectId = document.getElementById("projectId");
+		var projectName = document.getElementById("projectName");
+		var searchMemberForm = document.getElementById("searchMemberForm");
+
 		projectId.value = val;
 		projectName.value = name;
 		searchMemberForm.submit();
@@ -45,7 +52,7 @@
 
 			<p>
 				<b>Project name</b> <input id="projectName" name="projectName"
-					type="text" value="Please select..." /> <input type="submit"
+					type="text" onfocus="projectNameOnfocus()" /> <input type="submit"
 					name="Search" id="Search" value="Search" class="button" />
 		</form>
 	</div>
@@ -59,15 +66,14 @@
 			<tr>
 				<td>${status.count}</td>
 				<td><a href="#"
-					onclick="getProjectMember('${item.projectId}', '${item.projectName}')">${item.projectName}</a>
+					onclick="submit('${item.projectId}', '${item.projectName}')">${item.projectName}</a>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<table width="700" class="proj-table">
 		<tr>
-			<td colspan="5"><b>iHOPE 2011 Project<br /> Member list</b>
-			</td>
+			<td colspan="5"><b>${projectName} Project<br /> Member list</b></td>
 		</tr>
 		<tr>
 			<th>ID</th>

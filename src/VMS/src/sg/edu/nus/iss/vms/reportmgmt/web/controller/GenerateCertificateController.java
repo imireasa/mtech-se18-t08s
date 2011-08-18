@@ -1,18 +1,34 @@
 package sg.edu.nus.iss.vms.reportmgmt.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import sg.edu.nus.iss.vms.common.web.controller.BaseFormController;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
+import sg.edu.nus.iss.vms.reportmgmt.service.CertificateManagement;
 import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementServices;
 
 public class GenerateCertificateController extends BaseMultiActionFormController {
 	private Logger logger = Logger.getLogger(GenerateCertificateController.class);
 
 	private ReportManagementServices reportManagementServicesImpl;
+	private CertificateManagement certificateManagement;
+
+	public CertificateManagement getCertificateManagement() {
+		return certificateManagement;
+	}
+
+	public void setCertificateManagement(CertificateManagement certificateManagement) {
+		this.certificateManagement = certificateManagement;
+	}
 
 	public ReportManagementServices getReportManagementServices() {
 		return this.reportManagementServicesImpl;
@@ -24,8 +40,12 @@ public class GenerateCertificateController extends BaseMultiActionFormController
 
 	public ModelAndView generatePdf(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Need to do (to accept the parameter form UI)....
-		int projectId = Integer.parseInt(request.getParameter("projectId"));
-		int volunteerId = Integer.parseInt(request.getParameter("volunteerId"));
+		// int projectId = Integer.parseInt(request.getParameter("projectId"));
+		// int volunteerId =
+		//Integer.parseInt(request.getParameter("volunteerId"));
+
+		int projectId = 1;
+		int volunteerId = 103;
 
 		byte[] bytes = this.reportManagementServicesImpl.generateVolunteerCertificate(projectId, volunteerId);
 
@@ -45,7 +65,7 @@ public class GenerateCertificateController extends BaseMultiActionFormController
 		return super.handleRequestInternal(request, response);
 	}
 
-	public ModelAndView generate(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView generateView(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// Need to do (to accept the parameter form UI)....
 		int projectId = Integer.parseInt(request.getParameter("projectId"));
 		int volunteerId = Integer.parseInt(request.getParameter("volunteerId"));

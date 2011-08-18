@@ -59,12 +59,16 @@
 				<ul id="project">
 					<li class="header">Project</li>
 					<li><a href="#">New</a></li>
-					<li><a href="#">Manage</a></li>
+					<li><a href="#">Manage</a>
+					<li><a
+						href="<%=request.getContextPath()%>/admin/project/assignPrjMemberRole.html">Assign
+							Member Role</a></li>
 				</ul>
 				<ul id="cert">
 					<li class="header">Certificate</li>
 					<li><a href="#">Request Cert</a></li>
-					<li><a href="#">Generate Cert</a></li>
+					<li><a href=""<%=request.getContextPath()%>/report/volunteer/generatePdf.html"">Generate Cert (PDF)</a></li>
+					<li><a href=""<%=request.getContextPath()%>/report/volunteer/generateView.html"">Generate Cert (View)</a></li>
 				</ul>
 				<ul id="itinerary">
 					<li class="header">Itinerary</</li>

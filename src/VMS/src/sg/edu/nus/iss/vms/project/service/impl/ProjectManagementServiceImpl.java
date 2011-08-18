@@ -11,6 +11,7 @@ import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.member.service.impl.MemberManagementServiceImpl;
 import sg.edu.nus.iss.vms.project.dto.Project;
 import sg.edu.nus.iss.vms.project.dto.ProjectMember;
+import sg.edu.nus.iss.vms.project.dto.ProjectRole;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 
 public class ProjectManagementServiceImpl implements ProjectManagementService {
@@ -42,17 +43,30 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public Project getProject(long projectId) {		
+	public Project getProject(long projectId) {
 		Project project = (Project) manager.get(Project.class, projectId);
 		return project;
 	}
-	
-	
+
+	@Override
+	public List<ProjectMember> getProjectMember(long projectId, String memberName) {
+		String hQL = "from ProjectMember where projectId.projectId=" + projectId;
+		if (memberName != null && !memberName.isEmpty())
+			hQL += " and (volunteerId.firstName LIKE '%" + memberName + "%' " + "OR volunteerId.lastName LIKE '%" + memberName + "%')";
+		List<ProjectMember> projectMemberList = manager.find(hQL);
+		return projectMemberList;
+	}
+
 	@Override
 	public List<Project> getListAllProject() {
 		List<Project> project = manager.list(Project.class);
 		return project;
 	}
 	
-	
+	@Override
+	public List<ProjectRole> getProjectRoleList() {
+		List<ProjectRole> projectRoleList = manager.list(ProjectRole.class);
+		return projectRoleList;
+	}
+
 }
