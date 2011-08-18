@@ -17,9 +17,10 @@ input {
 	border:1px solid #ccc;
 	font-size:11px;
 	color:#262626;
-	padding:6px;
+	padding:2px;
 }
 input:focus{ background:white; }
+
 input.button {
 	width:50px;
 	background:black;

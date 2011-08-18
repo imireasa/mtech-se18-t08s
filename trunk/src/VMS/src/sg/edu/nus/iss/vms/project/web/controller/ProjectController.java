@@ -17,19 +17,10 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 
-public class ProjectController extends MultiActionController {
+public class ProjectController extends BaseMultiActionFormController {
 	private Logger logger = Logger.getLogger(ProjectController.class);
 	private MemberManagementService memberManagementService;
 	private ProjectManagementService projectManagementService;
-	private String formView;
-
-	public String getFormView() {
-		return formView;
-	}
-
-	public void setFormView(String formView) {
-		this.formView = formView;
-	}
 
 	public MemberManagementService getMemberManagementService() {
 		return memberManagementService;
@@ -55,24 +46,21 @@ public class ProjectController extends MultiActionController {
 
 	public ModelAndView assignPrjMemberRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		ModelAndView modelAndView = new ModelAndView("project/assignMemberRole");
-		logger.debug("project/assignMemberRole");
+		modelAndView = new ModelAndView("project/assignMemberRole");
 		List memberList = new ArrayList();
 
-		logger.debug("REQUEST Project Name " + request.getParameter("projectName"));
-		logger.debug("REQUEST Project id   " + request.getParameter("project"));
+		logger.debug("REQUEST Project " + request.getParameter("project"));
+		logger.debug("REQUEST Member  " + request.getParameter("member"));
+
+		List projectList = projectManagementService.getListAllProject();
+		modelAndView.addObject("projectList", projectList);
+		
+		List projectRoleList = projectManagementService.getProjectRoleList();
+		modelAndView.addObject("projectRoleList", projectRoleList);
 
 		if (request.getParameter("project") != null && !request.getParameter("project").isEmpty()) {
-			long projectId = Long.parseLong(request.getParameter("projectId"));
-			List projectList = new ArrayList();
-			projectList.add(projectManagementService.getProject(projectId));
-			modelAndView.addObject("projectList", projectList);
-			modelAndView.addObject("projectName", request.getParameter("projectName"));
-			memberList = memberManagementService.getListOfMembers(projectId);
-
-		} else {
-			List projectList = projectManagementService.getListAllProject();
-			modelAndView.addObject("projectList", projectList);
+			long projectId = Long.parseLong(request.getParameter("project"));
+			memberList = projectManagementService.getProjectMember(projectId, request.getParameter("member"));
 		}
 
 		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);

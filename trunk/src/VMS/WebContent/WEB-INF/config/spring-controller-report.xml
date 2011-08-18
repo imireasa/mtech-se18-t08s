@@ -12,8 +12,9 @@
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- BEAN : Page -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-	<bean id="generateCertificateController"
-		class="sg.edu.nus.iss.vms.reportmgmt.web.controller.GenerateCertificateController">		
-		<property name="reportManagementServices" ref="reportManagementServices" />
+
+	<bean id="certificateController"
+		class="sg.edu.nus.iss.vms.reportmgmt.web.controller.GenerateCertificateController">
+		<property name="reportManagementServices" ref="reportManagementServicesImpl" />
 	</bean>
 </beans>

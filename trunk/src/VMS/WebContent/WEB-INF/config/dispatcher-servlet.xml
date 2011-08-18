@@ -42,7 +42,7 @@
 				<prop key="/common/*.html">welcomeController</prop>
 				<prop key="/admin/member/*.html">memberController</prop>
 				<prop key="/admin/project/*.html">projectController</prop>
-				<prop key="/report/volunteer/*.html">generateCertificateController</prop>
+				<prop key="/report/volunteer/*.html">certificateController</prop>
 			</props>
 		</property>
 	</bean>

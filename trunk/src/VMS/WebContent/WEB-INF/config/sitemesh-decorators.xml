@@ -17,4 +17,8 @@
 	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
 		<pattern>/admin/*</pattern>
 	</decorator>
+	
+	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/report/*</pattern>
+	</decorator>
 </decorators>

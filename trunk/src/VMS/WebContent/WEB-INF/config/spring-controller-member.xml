@@ -15,8 +15,8 @@
 
 	<bean id="memberController"
 		class="sg.edu.nus.iss.vms.member.web.controller.MemberController">		
-		<property name="memberManagementService" ref="memberManagementService" />
-		<property name="projectManagementService" ref="projectManagementService" />
+		<property name="memberManagementService" ref="memberManagementServiceImpl" />
+		<property name="projectManagementService" ref="projectManagementServiceImpl" />
 	</bean>
 
 	<aop:config>

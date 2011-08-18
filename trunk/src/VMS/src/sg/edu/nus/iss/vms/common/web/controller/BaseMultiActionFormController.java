@@ -1,5 +1,7 @@
 package sg.edu.nus.iss.vms.common.web.controller;
 
+import java.text.SimpleDateFormat;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -33,8 +35,7 @@ public class BaseMultiActionFormController extends MultiActionController impleme
 	public void setModelAndView(ModelAndView modelAndView) {
 		this.modelAndView = modelAndView;
 	}
-
-
+	
 	public void afterPropertiesSet() throws Exception {
 		if (this.manager == null) {
 			setManager((Manager) getApplicationContext().getBean("baseManager"));
