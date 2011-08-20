@@ -80,11 +80,11 @@
 				<c:forEach items="${projectRoleList}" var="roleItem"
 					varStatus="status">
 					<c:if test="${item.roleId.roleId==roleItem.roleId}">
-						<td><input type="radio" name="roleItem" id="roleItem"
+						<td><input type="radio" name="roleItem${item.volunteerId.personId}" id="roleItem${item.volunteerId.personId}"
 							value="item.roleId.roleId" checked="checked"></td>
 					</c:if>
 					<c:if test="${item.roleId.roleId!=roleItem.roleId}">
-						<td><input type="radio" name="roleItem" id="roleItem"
+						<td><input type="radio" name="roleItem${item.volunteerId.personId}" id="roleItem${item.volunteerId.personId}"
 							value="item.roleId.roleId"></td>
 					</c:if>
 				</c:forEach>
