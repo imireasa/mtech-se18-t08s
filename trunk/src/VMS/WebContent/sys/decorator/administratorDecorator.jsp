@@ -30,10 +30,8 @@
 		<div id="wrap-top">
 			<div id="loginInfo">
 				<ul>
-					<li><a href="#">My Account</a>
-					</li>
-					<li class="last"><a href="#">Logout</a>
-					</li>
+					<li><a href="#">My Account</a></li>
+					<li class="last"><a href="#">Logout</a></li>
 				</ul>
 			</div>
 		</div>
@@ -47,50 +45,39 @@
 				<ul id="info">
 					<li><h3>
 							Chris Goh<br />Project Manager
-						</h3>
-					</li>
+						</h3></li>
 					<li>Last login : 20/07/2011 15:40</li>
 				</ul>
 				<ul id="membership">
 					<li class="header">Membership</li>
 					<li><a
 						href="<%=request.getContextPath()%>/admin/member/searchProjectMember.html">Search
-							Member</a>
-					</li>
-					<li><a href="#">Manage Profile</a>
-					</li>
-					<li><a href="#">Review Request</a>
-					</li>
+							Member</a></li>
+					<li><a href="#">Manage Profile</a></li>
+					<li><a href="#">Review Request</a></li>
 				</ul>
 				<ul id="project">
 					<li class="header">Project</li>
-					<li><a href="#">New</a>
-					</li>
+					<li><a href="#">New</a></li>
 					<li><a href="#">Manage</a>
 					<li><a
 						href="<%=request.getContextPath()%>/admin/project/assignPrjMemberRole.html">Assign
-							Member Role</a>
-					</li>
+							Member Role</a></li>
 				</ul>
 				<ul id="cert">
 					<li class="header">Certificate</li>
-					<li><a href="#">Request Cert</a>
-					</li>
+					<li><a href="#">Request Cert</a></li>
 					<li><a
-						href="<%=request.getContextPath()%>/report/volunteer/generatePdf.html">Generate
-							Cert (PDF)</a>
-					</li>
+						href="<%=request.getContextPath()%>/report/volunteer/generateCertificate.html">Generate
+							Cert (PDF)</a></li>
 					<li><a
-						href="<%=request.getContextPath()%>/report/volunteer/generateView.html">Generate
-							Cert (View)</a>
-					</li>
+						href="<%=request.getContextPath()%>/report/volunteer/generateCertificate.html">Generate
+							Cert (View)</a></li>
 				</ul>
 				<ul id="itinerary">
 					<li class="header">Itinerary</</li>
-					<li><a href="#">Prepare Plan</a>
-					</li>
-					<li><a href="#">Review Plan</a>
-					</li>
+					<li><a href="#">Prepare Plan</a></li>
+					<li><a href="#">Review Plan</a></li>
 				</ul>
 			</div>
 			<!-- end of leftCol -->

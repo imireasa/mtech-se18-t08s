@@ -5,7 +5,7 @@
 		</create>
 
 		<!-- VO -->
-
+		
 
 		<!-- HIBERNATE -->
 		<convert converter="hibernate3" match="sg.edu.nus.iss.vms.staffmgmt.dto.Staff" />
