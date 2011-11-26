@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+
+	<bean id="memberManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.member.service.impl.MemberManagementServiceImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+
+	<bean id="projectManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.project.service.impl.ProjectManagementServiceImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+
+	<bean id="reportManagementServicesImpl"
+		class="sg.edu.nus.iss.vms.reportmgmt.impl.ReportManagementServicesImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+
+	<bean id="certificateManagementImpl"
+		class="sg.edu.nus.iss.vms.reportmgmt.impl.CertificateManagementImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+
+</beans>
