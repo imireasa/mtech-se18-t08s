@@ -190,7 +190,16 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 			}
 		});
 	}
-
+	public List getObjectsByNamedQuery(String namedQueryReference,  Object[] values,  QueryProperties properties) {
+		Query query = getSession().getNamedQuery(namedQueryReference);
+		if (values != null) {
+			for (int i = 0; i < values.length; i++) {
+				query.setParameter(i, values[i]); // assumes that HQL/SQL places in parameters using numbers.
+			}
+		}
+		return query.list();
+		
+	}
 	//
 	// Internal method
 	//
@@ -293,4 +302,5 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 	 * session =sessionFactory.openSession(); session.beginTransaction();
 	 * session.sa
 	 */
+	
 }

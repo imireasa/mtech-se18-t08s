@@ -71,4 +71,17 @@ public interface Dao
 	 * @return
 	 */
 	public List getObjects(String queryString, Object[] values, QueryProperties properties);
+	
+	/**
+	 * 
+	 * @param namedQueryReferece
+	 * @param values
+	 * @param properties
+	 * Returns a list of objects by executing the named query with the values. values are assumed to be parameters in the sql referenced by their numbered index. for example
+	 * HQL: from user u where u.userId = :1
+	 * 
+	 * Properties is currently not in use. Pending future expansion.
+	 * @return
+	 */
+	public List getObjectsByNamedQuery(String namedQueryReference,  Object[] values,  QueryProperties properties);
 }

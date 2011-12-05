@@ -1,16 +1,8 @@
 package sg.edu.nus.iss.vms.security.dao;
 
-import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.common.dao.hibernate.BaseDaoHibernate;
 
-public class SecurityManagementDao {
-	private Manager manager;
+public class SecurityManagementDao extends BaseDaoHibernate{
 
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
-
-	public Manager getManager() {
-		return manager;
-	}
 	
 }
