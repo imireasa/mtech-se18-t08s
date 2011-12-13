@@ -8,12 +8,6 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
 
-	<bean id="SecurityManagementServiceImpl"
-		class="sg.edu.nus.iss.vms.security.service.impl.SecurityManagementServiceImpl">
-		<property name="sessionBean" ref="sessionBean" />
-	</bean>
 
-	<bean id="SecurityManagementDao" class="sg.edu.nus.iss.vms.security.dao.SecurityManagementDao">
-		<property name="manager" ref="baseManager" />
-	</bean>
+
 </beans>

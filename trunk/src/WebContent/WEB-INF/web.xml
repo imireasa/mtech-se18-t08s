@@ -8,10 +8,36 @@
 		<param-name>sitemesh.configfile</param-name>
 		<param-value>/WEB-INF/config/sitemesh.xml</param-value>
 	</context-param>
+
+	<filter>
+		<filter-name>AuthorisationFilter</filter-name>
+		<filter-class>sg.edu.nus.iss.vms.web.security.AuthorisationFilter</filter-class>
+			<init-param>
+			<param-name>authorisation_enabled</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>error_page</param-name>
+			<param-value>/error.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>exclude_pages</param-name>
+			<param-value>/VMS/error.jsp</param-value>
+		</init-param>
+	</filter>
+
+
 	<filter>
 		<filter-name>sitemesh</filter-name>
 		<filter-class>com.opensymphony.module.sitemesh.filter.PageFilter</filter-class>
 	</filter>
+	<filter-mapping>
+		<filter-name>AuthorisationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</filter-mapping>
+
 	<filter-mapping>
 		<filter-name>sitemesh</filter-name>
 		<url-pattern>/*</url-pattern>
@@ -39,8 +65,10 @@
 			<param-name>targetInitClass</param-name>
 			<param-value>sg.edu.nus.iss.vms.common.ApplicationInitializer</param-value>
 		</init-param>
-		<!-- Custom: Method name responsible for init, method name must exist in 
-			class as defined in 'targetInitClass' -->
+		<!--
+			Custom: Method name responsible for init, method name must exist in
+			class as defined in 'targetInitClass'
+		-->
 		<init-param>
 			<param-name>targetInitMethod</param-name>
 			<param-value>init</param-value>

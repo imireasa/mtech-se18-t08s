@@ -5,7 +5,6 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity
 public class BaseVersionDto {
 	@Column(name = "version")
 	private Integer version;
