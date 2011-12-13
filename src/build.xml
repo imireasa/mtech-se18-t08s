@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
 <project basedir="." default="build" name="VMS">
-	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask"> 
-	  <classpath>
-	    <fileset dir="WebContent/WEB-INF/lib">
-	      <include name="**/*.jar"/>
-	    </fileset>
-	  </classpath>
+	<taskdef name="jrc" classname="net.sf.jasperreports.ant.JRAntCompileTask">
+		<classpath>
+			<fileset dir="WebContent/WEB-INF/lib">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
 	</taskdef>
-	
-	
+
+
 	<!-- project related properties -->
 	<property environment="env" />
 	<property name="debuglevel" value="source,lines,vars" />
@@ -17,20 +17,20 @@
 	<property name="source" value="1.6" />
 	<property name="application.name" value="VMS" />
 	<property name="exploded_name" value="${application.name}.war" />
-	
+
 	<property name="tomcat_home" value="/Users/angdao/PS/application/apache-tomcat-6.0.32" />
 
 	<!-- Tomcat related properties -->
 	<property name="path" value="${basedir}/build/dist" />
 	<property name="war_location" value="${path}/${application.name}.war" />
-	
+
 	<!-- Configure properties to access the Manager application -->
 	<property name="url" value="http://localhost:8080/manager" />
-	<property name="username" value="scriptadmin" />
-	<property name="password" value="admin" />
+	<property name="username" value="admin" />
+	<property name="password" value="password" />
 
 	<!-- Configure the custom Ant tasks for the Manager application -->
-	
+
 	<taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask" />
 	<taskdef name="list" classname="org.apache.catalina.ant.ListTask" />
 	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask" />
@@ -41,19 +41,19 @@
 	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" />
 
 	<path id="Web App Libraries.libraryclasspath">
-		<fileset dir="WebContent/WEB-INF/lib/" includes="*.jar"/>
+		<fileset dir="WebContent/WEB-INF/lib/" includes="*.jar" />
 	</path>
-	
+
 	<path id="Tomcat.classpath">
 		<pathelement location="${tomcat_home}/lib/servlet-api.jar" />
 	</path>
-	
+
 	<path id="VMS.classpath">
 		<pathelement location="${basedir}/build/${exploded_name}/WEB-INF/classes" />
 		<path refid="Web App Libraries.libraryclasspath" />
 		<path refid="Tomcat.classpath" />
 	</path>
-	
+
 	<target name="init">
 		<mkdir dir="${basedir}/build/${exploded_name}/WEB-INF/classes" />
 		<mkdir dir="${path}" />
@@ -91,34 +91,31 @@
 			<src path="src" />
 			<classpath refid="VMS.classpath" />
 		</javac>
-		
-		<mkdir dir="${basedir}/build/${exploded_name}/reports"/> 
-		  <jrc 
-		    srcdir="WebContent/reports"
-		    destdir="${basedir}/build/${exploded_name}/reports"
-		    tempdir="${basedir}/build/${exploded_name}/reports"
-		    keepjava="true"
-		    xmlvalidation="true">
-		   <classpath refid="VMS.classpath"/>
-		   <include name="**/*.jrxml"/>
-		  </jrc>
+
+		<mkdir dir="${basedir}/build/${exploded_name}/reports" />
+		<jrc srcdir="WebContent/reports" destdir="${basedir}/build/${exploded_name}/reports" tempdir="${basedir}/build/${exploded_name}/reports" keepjava="true" xmlvalidation="true">
+			<classpath refid="VMS.classpath" />
+			<include name="**/*.jrxml" />
+		</jrc>
 	</target>
 
 
 	<!-- deployment tasks -->
 	<target name="war_project">
-	<war destfile="${war_location}" webxml="${basedir}/build/${exploded_name}/WEB-INF/web.xml">
-	  <fileset dir="${basedir}/build/${exploded_name}"/>
-	</war>
+		<war destfile="${war_location}" webxml="${basedir}/build/${exploded_name}/WEB-INF/web.xml">
+			<fileset dir="${basedir}/build/${exploded_name}" />
+		</war>
 	</target>
-	
+
 	<target name="deploy" description="Initial Install web application" depends="build,war_project">
 		<deploy url="${url}" username="${username}" password="${password}" path="/${application.name}" war="${war_location}" />
 	</target>
-
-
 	<target name="reload" description="Reload web application" depends="build,war_project">
-		<reload url="${url}" username="${username}" password="${password}" path="/${application.name}"  />
+		<undeploy url="${url}" username="${username}" password="${password}" path="/${application.name}"  failonerror="false"/>
+		<deploy url="${url}" username="${username}" password="${password}" path="/${application.name}" war="${war_location}" />
+	</target>
+	<target name="undeploy" description="Undeploy web application" depends="">
+		<undeploy url="${url}" username="${username}" password="${password}" path="/${application.name}" />
 	</target>
 
 </project>
