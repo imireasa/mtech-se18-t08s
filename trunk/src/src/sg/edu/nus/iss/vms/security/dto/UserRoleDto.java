@@ -20,38 +20,38 @@ public class UserRoleDto extends BaseVersionDto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
+	private Long usrRoleId;
+	private long roleId;
+	private long usrId;
+
+
+
 	@Id
 	@GeneratedValue
-	@Column(name = "usr_role_id")
-	Integer userRoleId;
-	
-	@Column(name = "usr_seq_id")
-	Integer userSeqId;
-	
-	@Column(name = "role_id")
-	Integer roleID;
-
-	public Integer getUserRoleID() {
-		return userRoleId;
+	@Column(name = "USR_ROLE_ID", unique = true, nullable = false)
+	public Long getUsrRoleId() {
+		return this.usrRoleId;
 	}
 
-	public void setUserRoleID(Integer userRoleID) {
-		this.userRoleId = userRoleID;
+	public void setUsrRoleId(Long usrRoleId) {
+		this.usrRoleId = usrRoleId;
 	}
 
-	public Integer getRoleID() {
-		return roleID;
+	@Column(name = "ROLE_ID", nullable = false)
+	public long getRoleId() {
+		return this.roleId;
 	}
 
-	public void setRoleID(Integer roleID) {
-		this.roleID = roleID;
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
 	}
 
-	public Integer getUserSeqId() {
-		return userSeqId;
+	@Column(name = "USR_ID", nullable = false)
+	public long getUsrId() {
+		return this.usrId;
 	}
 
-	public void setUserSeqId(Integer userSeqId) {
-		this.userSeqId = userSeqId;
+	public void setUsrId(long usrId) {
+		this.usrId = usrId;
 	}
 }
