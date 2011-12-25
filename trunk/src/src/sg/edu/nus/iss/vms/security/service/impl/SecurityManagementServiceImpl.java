@@ -2,6 +2,7 @@ package sg.edu.nus.iss.vms.security.service.impl;
 
 import org.apache.log4j.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 
 import sg.edu.nus.iss.vms.common.SessionBean;
@@ -91,12 +92,24 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 			logger.debug("isUserAuthorised(UserDto, String) - start"); //$NON-NLS-1$
 		}
 
-		boolean matchFound = false;
 		boolean authorised = true;
 
-		// TODO
+		String userLoginID = user.getUsrLoginId();
+		
+		HashMap<String, String> parameterMap = new HashMap<String, String>();
+		parameterMap.put("userLoginID", userLoginID);
+		parameterMap.put("uri", uri);
+		
+		List<Long> accessRightsCountList = manager.findByNamedQuery("PermissionDto.findCountOfAccessRightsByUserLoginIDAndURI", parameterMap, null);
+		if (accessRightsCountList == null || accessRightsCountList.size() == 0)
+			authorised = false;
+		else {
+			if (accessRightsCountList.get(0).longValue() == 0)
+				authorised = false;
+		}
 
 		if (logger.isDebugEnabled()) {
+			logger.debug("isUserAuthorised(UserDto, String) - List data: " + accessRightsCountList.toString());
 			logger.debug("isUserAuthorised(UserDto, String) - end"); //$NON-NLS-1$
 		}
 		return authorised;
