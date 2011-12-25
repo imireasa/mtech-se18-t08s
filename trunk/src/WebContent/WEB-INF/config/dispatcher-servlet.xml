@@ -50,11 +50,12 @@
 	</bean>
 	<bean id="loginValidator" class="sg.edu.nus.iss.vms.web.security.LoginValidator"/>
 	<bean id="loginController" class="sg.edu.nus.iss.vms.web.security.LoginFormController">
+		<property name="securityManager" ref="SecurityManagementServiceImpl" />
 		<property name="sessionForm">
-			<value>false</value>
+			<value>true</value>
 		</property>
 		<property name="commandName">
-			<value>login</value>
+			<value>loginCommand</value>
 		</property>
 		<property name="commandClass">
 			<value>sg.edu.nus.iss.vms.web.security.LoginCommand</value>
@@ -68,5 +69,6 @@
 		<property name="successView">
 			<value>welcome</value>
 		</property>
+			
 	</bean>
 </beans>

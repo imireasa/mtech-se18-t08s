@@ -62,6 +62,12 @@ public class AuthorisationFilter implements Filter {
 			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
 		}
 		String URI = ((HttpServletRequest) request).getRequestURI();
+
+		if (logger.isDebugEnabled()) {
+			logger
+					.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - Requesting for Access to URI - excludePages=" + excludePages + ", isAuthorisationFilterEnabled=" + isAuthorisationFilterEnabled + ", URI=" + URI); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
+
 		// check if authorisation is enabled
 		if (!isAuthorisationFilterEnabled) {
 			chain.doFilter(request, response);
@@ -89,6 +95,7 @@ public class AuthorisationFilter implements Filter {
 		}
 		if (currentUser == null) {
 			returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), loginPage); //$NON-NLS-1$
+			return;
 		}
 		else {
 			// Get relevant URI.
@@ -96,31 +103,34 @@ public class AuthorisationFilter implements Filter {
 			// Obtain AuthorizationManager singleton from Spring
 			// ApplicationContext.
 			ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
-			SecurityManagementService authMgr = (SecurityManagementService) ctx.getBean("SecurityManagementService"); //$NON-NLS-1$
+			SecurityManagementService authMgr = (SecurityManagementService) ctx.getBean("SecurityManagementServiceImpl"); //$NON-NLS-1$
 
 			// Invoke AuthorizationManager method to see if user can
 			// access resource.
-			boolean authorized = authMgr.isUserAuthorized(currentUser, URI);
-			if (authorized) {
+			boolean authorised = authMgr.isUserAuthorised(currentUser, URI);
+			if (authorised) {
 				chain.doFilter(request, response);
+				return;
 			}
 			else {
 				returnError(request, response, Messages.getString("AuthorisationFilter.USER_UNAUTHORISED"), null); //$NON-NLS-1$
+				if (logger.isDebugEnabled()) {
+					logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$
+				}
+				return;
 			}
 		}
 
-		if (logger.isDebugEnabled()) {
-			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$
-		}
+		
 	}
 
-	private void returnError(ServletRequest request, ServletResponse response, String errorString, String redirectPage) throws ServletException, IOException {
+	private void returnError(ServletRequest request, ServletResponse response, String errorString, String redirectPage) throws ServletException,
+			IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("returnError(ServletRequest, ServletResponse, String) - start"); //$NON-NLS-1$
 		}
 
 		request.setAttribute(Messages.getString("AuthorisationFilter.RESPONSE_ERROR_ATTR_NME"), errorString); //$NON-NLS-1$
-
 		request.getRequestDispatcher(redirectPage).forward(request, response);
 
 		if (logger.isDebugEnabled()) {

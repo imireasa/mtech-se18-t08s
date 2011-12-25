@@ -9,5 +9,5 @@ public interface SecurityManagementService {
 	 *Returns boolean indicating whether user has the appropriate role
 	 *for the specified URI.
 	 */
-	public boolean isUserAuthorized(UserDto user, String uri) ;
+	public boolean isUserAuthorised(UserDto user, String uri) ;
 }

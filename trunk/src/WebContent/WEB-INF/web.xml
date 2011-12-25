@@ -22,11 +22,11 @@
 		</init-param>
 				<init-param>
 			<param-name>login_page</param-name>
-			<param-value>/login.jsp</param-value>
+			<param-value>/login.html</param-value>
 		</init-param>
 		<init-param>
 			<param-name>exclude_pages</param-name>
-			<param-value>/VMS/error.jsp,/VMS/login.jsp</param-value>
+			<param-value>/VMS/error.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
 		</init-param>
 	</filter>
 

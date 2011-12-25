@@ -12,12 +12,15 @@
 				<value>sg.edu.nus.iss.vms.common.dto</value>
 				<value>sg.edu.nus.iss.vms.member.dto</value>
 				<value>sg.edu.nus.iss.vms.project.dto</value>
+				<value>sg.edu.nus.iss.vms.security.dto</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="show_sql">true</prop>
+				<prop key="format_sql">true</prop>
+				<prop key="use_sql_comments">true</prop>
 			</props>
 		</property>
 	</bean>
