@@ -92,14 +92,14 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		}
 
 		boolean matchFound = false;
-		boolean authorized = true;
+		boolean authorised = true;
 
 		// TODO
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("isUserAuthorised(UserDto, String) - end"); //$NON-NLS-1$
 		}
-		return authorized;
+		return authorised;
 	}
 
 }
