@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.vms.common.orm;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import sg.edu.nus.iss.vms.common.dao.Dao;
@@ -133,7 +134,7 @@ public interface Manager {
 	 *            query properties
 	 * @return
 	 */
-	public List findByNamedQuery(String namedQuery, Object[] values, QueryProperties properties);
+	public List findByNamedQuery(String namedQuery, HashMap values, QueryProperties properties);
 
 	/**
 	 * Generic method to get an object based on class and identifier.
