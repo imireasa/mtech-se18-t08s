@@ -17,7 +17,15 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 @Table(name = "tb_permission")
 @PrimaryKeyJoinColumn(name = "permi_id")
 @NamedQueries( { 
-	@NamedQuery(name = "PermissionDto.findAll", query = "SELECT permissionDto FROM PermissionDto permissionDto")
+	@NamedQuery(name = "PermissionDto.findAll", query = "SELECT permissionDto FROM PermissionDto permissionDto"),
+	@NamedQuery(name = "PermissionDto.findCountOfAccessRightsByUserLoginIDAndURI",
+				query = "SELECT count(permission) " +
+						"FROM PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole " +
+						"WHERE permission.permiId = permissionRole.permiId " +
+						"AND userRole.roleId = permissionRole.roleId " +
+						"AND user.usrId = userRole.usrId " +
+						"AND user.usrLoginId = :userLoginID " +
+						"AND permission.uri = :uri")
 	
 })
 
@@ -26,9 +34,9 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
-	private Long permissionID;
+	private Long permiId;
 	private String uri;
-	private String description;
+	private String desc;
 
 	public PermissionDto() {
 	}
@@ -36,12 +44,12 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "PERMI_ID", unique = true, nullable = false)
-	public Long getPermissionID() {
-		return this.permissionID;
+	public Long getPermiId() {
+		return this.permiId;
 	}
 
-	public void setPermissionID(Long permissionID) {
-		this.permissionID = permissionID;
+	public void setPermiId(Long permiId) {
+		this.permiId = permiId;
 	}
 
 	@Column(name = "URI", nullable = false, length = 1000)
@@ -54,11 +62,11 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
 	}
 
 	@Column(name = "DESC", length = 200)
-	public String getDescription() {
-		return this.description;
+	public String getDesc() {
+		return this.desc;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 }
