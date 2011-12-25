@@ -26,9 +26,9 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
-	private Long permiId;
+	private Long permissionID;
 	private String uri;
-	private String desc;
+	private String description;
 
 	public PermissionDto() {
 	}
@@ -36,12 +36,12 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
 	@Id
 	@GeneratedValue
 	@Column(name = "PERMI_ID", unique = true, nullable = false)
-	public Long getPermiId() {
-		return this.permiId;
+	public Long getPermissionID() {
+		return this.permissionID;
 	}
 
-	public void setPermiId(Long permiId) {
-		this.permiId = permiId;
+	public void setPermissionID(Long permissionID) {
+		this.permissionID = permissionID;
 	}
 
 	@Column(name = "URI", nullable = false, length = 1000)
@@ -54,11 +54,11 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
 	}
 
 	@Column(name = "DESC", length = 200)
-	public String getDesc() {
-		return this.desc;
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
