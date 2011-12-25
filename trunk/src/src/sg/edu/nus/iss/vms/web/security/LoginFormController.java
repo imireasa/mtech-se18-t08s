@@ -51,8 +51,7 @@ public class LoginFormController extends SimpleFormController {
 			RequestContextHolder.currentRequestAttributes().setAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_ATTR_NME"), user, RequestAttributes.SCOPE_SESSION);
 		}
 		
-		ModelAndView modelAndView = new ModelAndView(getSuccessView());
-		modelAndView.addObject("username", username);
+		ModelAndView modelAndView= new ModelAndView(new RedirectView("/VMS/common/welcome.html"));
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("onSubmit(Object) - end , user found and placed in session"); //$NON-NLS-1$
