@@ -17,7 +17,7 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 @Table(name = "tb_permission")
 @PrimaryKeyJoinColumn(name = "permi_id")
 @NamedQueries( { 
-	@NamedQuery(name = "PermissionDto.findAll", query = "SELECT u FROM PermissionDto u")
+	@NamedQuery(name = "PermissionDto.findAll", query = "SELECT permissionDto FROM PermissionDto permissionDto")
 	
 })
 
@@ -25,36 +25,40 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+
+	private Long permiId;
+	private String uri;
+	private String desc;
+
+	public PermissionDto() {
+	}
+
 	@Id
 	@GeneratedValue
-	@Column(name = "permi_id")
-	private Integer permissionID;
-	@Column(name = "permi_desc")
-	private String permissionDescription;
-	@Column(name = "uri")
-	private String uri;
-
-	public Integer getPermissionID() {
-		return permissionID;
+	@Column(name = "PERMI_ID", unique = true, nullable = false)
+	public Long getPermiId() {
+		return this.permiId;
 	}
 
-	public void setPermissionID(Integer permissionID) {
-		this.permissionID = permissionID;
+	public void setPermiId(Long permiId) {
+		this.permiId = permiId;
 	}
 
-	public String getPermissionDescription() {
-		return permissionDescription;
-	}
-
-	public void setPermissionDescription(String permissionDescription) {
-		this.permissionDescription = permissionDescription;
-	}
-
+	@Column(name = "URI", nullable = false, length = 1000)
 	public String getUri() {
-		return uri;
+		return this.uri;
 	}
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Column(name = "DESC", length = 200)
+	public String getDesc() {
+		return this.desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 }
