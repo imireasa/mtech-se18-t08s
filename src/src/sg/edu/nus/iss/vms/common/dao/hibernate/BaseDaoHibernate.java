@@ -194,7 +194,7 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 		Query query = getSession().getNamedQuery(namedQueryReference);
 		if (values != null) {
 			for (int i = 1; i <= values.length; i++) { // starts from 1, because hibernate parameters are 1-based (start from 1)
-				query.setParameter(i, values[i]); // assumes that HQL/SQL places in parameters using numbers.
+				query.setParameter(i, values[i-1]); // assumes that HQL/SQL places in parameters using numbers.
 			}
 		}
 		return query.list();
