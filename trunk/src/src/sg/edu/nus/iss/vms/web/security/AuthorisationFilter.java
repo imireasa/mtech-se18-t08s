@@ -29,6 +29,7 @@ public class AuthorisationFilter implements Filter {
 	private static final Logger logger = Logger.getLogger(AuthorisationFilter.class);
 
 	private String errorPage;
+	private String loginPage;
 	private List excludePages;
 	private Boolean isAuthorisationFilterEnabled;
 
@@ -40,6 +41,7 @@ public class AuthorisationFilter implements Filter {
 
 		if (FilterConfig != null) {
 			errorPage = FilterConfig.getInitParameter(Messages.getString("AuthorisationFilter.FILTER_ERROR_PAGE_LOCATION")); //$NON-NLS-1$
+			loginPage = FilterConfig.getInitParameter(Messages.getString("AuthorisationFilter.FILTER_LOGIN_PAGE_LOCATION")); //$NON-NLS-1$
 			String excludePageString = FilterConfig.getInitParameter(Messages.getString("AuthorisationFilter.AUTHORISATION_EXCLUDED_PAGES_ATTR_NME"));//$NON-NLS-1$
 			StringTokenizer st = new StringTokenizer(excludePageString, ",");
 			excludePages = new ArrayList();
@@ -76,9 +78,9 @@ public class AuthorisationFilter implements Filter {
 				return;
 			}
 		}
-		// else check for authorisation
+		// else check for user rights to the page
 		if (errorPage == null) {
-			returnError(request, response, Messages.getString("AuthorisationFilter.AUTH_FILTER_LOAD_ERROR")); //$NON-NLS-1$
+			returnError(request, response, Messages.getString("AuthorisationFilter.AUTH_FILTER_LOAD_ERROR"), errorPage); //$NON-NLS-1$
 		}
 		UserDto currentUser = null;
 		HttpSession session = ((HttpServletRequest) request).getSession(false);
@@ -86,7 +88,7 @@ public class AuthorisationFilter implements Filter {
 			currentUser = (UserDto) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_ATTR_NME")); //$NON-NLS-1$
 		}
 		if (currentUser == null) {
-			returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR")); //$NON-NLS-1$
+			returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), loginPage); //$NON-NLS-1$
 		}
 		else {
 			// Get relevant URI.
@@ -103,7 +105,7 @@ public class AuthorisationFilter implements Filter {
 				chain.doFilter(request, response);
 			}
 			else {
-				returnError(request, response, Messages.getString("AuthorisationFilter.USER_UNAUTHORISED")); //$NON-NLS-1$
+				returnError(request, response, Messages.getString("AuthorisationFilter.USER_UNAUTHORISED"), null); //$NON-NLS-1$
 			}
 		}
 
@@ -112,14 +114,14 @@ public class AuthorisationFilter implements Filter {
 		}
 	}
 
-	private void returnError(ServletRequest request, ServletResponse response, String errorString) throws ServletException, IOException {
+	private void returnError(ServletRequest request, ServletResponse response, String errorString, String redirectPage) throws ServletException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("returnError(ServletRequest, ServletResponse, String) - start"); //$NON-NLS-1$
 		}
 
 		request.setAttribute(Messages.getString("AuthorisationFilter.RESPONSE_ERROR_ATTR_NME"), errorString); //$NON-NLS-1$
 
-		request.getRequestDispatcher(errorPage).forward(request, response);
+		request.getRequestDispatcher(redirectPage).forward(request, response);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("returnError(ServletRequest, ServletResponse, String) - end"); //$NON-NLS-1$

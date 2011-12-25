@@ -43,8 +43,30 @@
 				<prop key="/admin/member/*.html">memberController</prop>
 				<prop key="/admin/project/*.html">projectController</prop>
 				<prop key="/report/volunteer/*.html">certificateController</prop>
+				<prop key="/login.html">loginController</prop>
 			</props>
 		</property>
-	</bean>
 
+	</bean>
+	<bean id="loginValidator" class="sg.edu.nus.iss.vms.web.security.LoginValidator"/>
+	<bean id="loginController" class="sg.edu.nus.iss.vms.web.security.LoginFormController">
+		<property name="sessionForm">
+			<value>false</value>
+		</property>
+		<property name="commandName">
+			<value>login</value>
+		</property>
+		<property name="commandClass">
+			<value>sg.edu.nus.iss.vms.web.security.LoginCommand</value>
+		</property>
+		<property name="validator">
+			<ref bean="loginValidator" />
+		</property>
+		<property name="formView">
+			<value>login</value>
+		</property>
+		<property name="successView">
+			<value>welcome</value>
+		</property>
+	</bean>
 </beans>

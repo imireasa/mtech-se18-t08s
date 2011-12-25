@@ -20,9 +20,13 @@
 			<param-name>error_page</param-name>
 			<param-value>/error.jsp</param-value>
 		</init-param>
+				<init-param>
+			<param-name>login_page</param-name>
+			<param-value>/login.jsp</param-value>
+		</init-param>
 		<init-param>
 			<param-name>exclude_pages</param-name>
-			<param-value>/VMS/error.jsp</param-value>
+			<param-value>/VMS/error.jsp,/VMS/login.jsp</param-value>
 		</init-param>
 	</filter>
 
