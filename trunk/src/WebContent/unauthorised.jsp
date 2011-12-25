@@ -10,20 +10,17 @@
 </head>
 <body>
 	<h2>Access Denied</h2>
-<p>
-Kindly contact the administrator for this error.
-</p>
+	<p>Kindly contact the administrator for this error.</p>
 
-	<c:forEach var="attr" items="${pageContext.request.attributeNames}">                         
-<table bgcolor="lightgreen">
-    <tbody>
-        <tr>
-            <td>
-                <c:out value="${attr}"> </c:out>
-            </td>
-        </tr>
-    </tbody>
-</table>
-</c:forEach>
+	<c:forEach var="attr" items="${pageContext.request.attributeNames}">
+		<table bgcolor="lightgreen">
+			<tbody>
+				<tr>
+					<td><c:out value="${attr}">
+						</c:out></td>
+				</tr>
+			</tbody>
+		</table>
+	</c:forEach>
 </body>
 </html>
