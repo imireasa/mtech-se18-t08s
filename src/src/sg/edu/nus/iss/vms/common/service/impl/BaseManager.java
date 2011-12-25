@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.vms.common.service.impl;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -148,7 +149,7 @@ public class BaseManager implements Manager {
 	}
 
 	@Override
-	public List findByNamedQuery(String namedQuery, Object[] values, QueryProperties properties) {
+	public List findByNamedQuery(String namedQuery, HashMap values, QueryProperties properties) {
 
 		return dao.getObjectsByNamedQuery(namedQuery, values, properties);
 	}
