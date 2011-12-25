@@ -19,27 +19,27 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 @NamedQueries( { @NamedQuery(name = "RoleDto.findAll", query = "SELECT u FROM RoleDto u") })
 public class RoleDto extends BaseVersionDto implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private Long roleId;
+	private long roleCd;
+
 	@Id
 	@GeneratedValue
-	@Column(name = "role_id")
-	Integer roleID;
-	@Column(name = "role_cd")
-	String roleCD;
-
-	public Integer getRoleID() {
-		return roleID;
+	@Column(name = "ROLE_ID", unique = true, nullable = false)
+	public Long getRoleId() {
+		return this.roleId;
 	}
 
-	public void setRoleID(Integer roleID) {
-		this.roleID = roleID;
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 
-	public String getRoleCD() {
-		return roleCD;
+	@Column(name = "ROLE_CD", nullable = false)
+	public long getRoleCd() {
+		return this.roleCd;
 	}
 
-	public void setRoleCD(String roleCD) {
-		this.roleCD = roleCD;
+	public void setRoleCd(long roleCd) {
+		this.roleCd = roleCd;
 	}
 
 }
