@@ -7,7 +7,11 @@
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
 
-
+<bean id="SecurityManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.security.service.impl.SecurityManagementServiceImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
 
 
 </beans>

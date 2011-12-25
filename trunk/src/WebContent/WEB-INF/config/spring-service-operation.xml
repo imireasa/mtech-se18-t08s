@@ -33,9 +33,5 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	</bean>
 
 
-	<bean id="SecurityManagementServiceImpl"
-		class="sg.edu.nus.iss.vms.security.service.impl.SecurityManagementServiceImpl">
-		<property name="manager" ref="baseManager" />
-		<property name="sessionBean" ref="sessionBean" />
-	</bean>
+	
 </beans>
