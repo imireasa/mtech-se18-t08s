@@ -3,47 +3,66 @@ package sg.edu.nus.iss.vms.security.dto;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 
+
+@Entity
+@Table(name = "tb_menu_function")
 public class MenuFunctionDto extends BaseVersionDto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private Long menuFuncId;
+	private long permiId;
+	private long prntMenuFuncId;
+	private String menuFuncNme;
+
+	
+
 	@Id
 	@GeneratedValue
-	@Column(name = "menu_func_id")
-	Integer menuFunctionId;
-	@Column(name = "prnt_menu_func_id")
-	Integer ParentMenuFunctionId;
-	@Column(name = "menu_func_nme")
-	String menuFunctionName;
-	@Column(name = "permi_id")
-	String permissionId;
-	public Integer getMenuFunctionId() {
-		return menuFunctionId;
+	@Column(name = "MENU_FUNC_ID", unique = true, nullable = false)
+	public Long getMenuFuncId() {
+		return this.menuFuncId;
 	}
-	public void setMenuFunctionId(Integer menuFunctionId) {
-		this.menuFunctionId = menuFunctionId;
+
+	public void setMenuFuncId(Long menuFuncId) {
+		this.menuFuncId = menuFuncId;
 	}
-	public Integer getParentMenuFunctionId() {
-		return ParentMenuFunctionId;
+
+	@Column(name = "PERMI_ID", nullable = false)
+	public long getPermiId() {
+		return this.permiId;
 	}
-	public void setParentMenuFunctionId(Integer parentMenuFunctionId) {
-		ParentMenuFunctionId = parentMenuFunctionId;
+
+	public void setPermiId(long permiId) {
+		this.permiId = permiId;
 	}
-	public String getMenuFunctionName() {
-		return menuFunctionName;
+
+	@Column(name = "PRNT_MENU_FUNC_ID", nullable = false)
+	public long getPrntMenuFuncId() {
+		return this.prntMenuFuncId;
 	}
-	public void setMenuFunctionName(String menuFunctionName) {
-		this.menuFunctionName = menuFunctionName;
+
+	public void setPrntMenuFuncId(long prntMenuFuncId) {
+		this.prntMenuFuncId = prntMenuFuncId;
 	}
-	public String getPermissionId() {
-		return permissionId;
+
+	@Column(name = "MENU_FUNC_NME", nullable = false, length = 100)
+	public String getMenuFuncNme() {
+		return this.menuFuncNme;
 	}
-	public void setPermissionId(String permissionId) {
-		this.permissionId = permissionId;
+
+	public void setMenuFuncNme(String menuFuncNme) {
+		this.menuFuncNme = menuFuncNme;
 	}
+
 
 }

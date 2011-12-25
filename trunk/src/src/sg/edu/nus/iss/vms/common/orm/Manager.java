@@ -124,6 +124,17 @@ public interface Manager {
 	 */
 	public List find(String queryString, Object[] values, QueryProperties properties);
 
+	
+	/**
+	 * 
+	 * @param namedQuery - the key to the named query
+	 * @param values
+	 * @param properties
+	 *            query properties
+	 * @return
+	 */
+	public List findByNamedQuery(String namedQuery, Object[] values, QueryProperties properties);
+
 	/**
 	 * Generic method to get an object based on class and identifier.
 	 * 
