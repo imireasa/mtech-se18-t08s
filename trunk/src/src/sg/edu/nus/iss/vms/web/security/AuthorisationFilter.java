@@ -30,6 +30,7 @@ public class AuthorisationFilter implements Filter {
 
 	private String errorPage;
 	private String loginPage;
+	private String unauthorisedPage;
 	private List excludePages;
 	private Boolean isAuthorisationFilterEnabled;
 
@@ -42,6 +43,7 @@ public class AuthorisationFilter implements Filter {
 		if (FilterConfig != null) {
 			errorPage = FilterConfig.getInitParameter(Messages.getString("AuthorisationFilter.FILTER_ERROR_PAGE_LOCATION")); //$NON-NLS-1$
 			loginPage = FilterConfig.getInitParameter(Messages.getString("AuthorisationFilter.FILTER_LOGIN_PAGE_LOCATION")); //$NON-NLS-1$
+			unauthorisedPage = FilterConfig.getInitParameter(Messages.getString("AuthorisationFilter.FILTER_UNAUTHORISED_PAGE_LOCATION")); //$NON-NLS-1$
 			String excludePageString = FilterConfig.getInitParameter(Messages.getString("AuthorisationFilter.AUTHORISATION_EXCLUDED_PAGES_ATTR_NME"));//$NON-NLS-1$
 			StringTokenizer st = new StringTokenizer(excludePageString, ",");
 			excludePages = new ArrayList();
@@ -100,12 +102,12 @@ public class AuthorisationFilter implements Filter {
 		else {
 			// Get relevant URI.
 
-			// Obtain AuthorizationManager singleton from Spring
+			// Obtain AuthorisationManager singleton from Spring
 			// ApplicationContext.
 			ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
 			SecurityManagementService authMgr = (SecurityManagementService) ctx.getBean("SecurityManagementServiceImpl"); //$NON-NLS-1$
 
-			// Invoke AuthorizationManager method to see if user can
+			// Invoke AuthorisationManager method to see if user can
 			// access resource.
 			boolean authorised = authMgr.isUserAuthorised(currentUser, URI);
 			if (authorised) {
@@ -113,7 +115,7 @@ public class AuthorisationFilter implements Filter {
 				return;
 			}
 			else {
-				returnError(request, response, Messages.getString("AuthorisationFilter.USER_UNAUTHORISED"), null); //$NON-NLS-1$
+				returnError(request, response, Messages.getString("AuthorisationFilter.USER_UNAUTHORISED"), unauthorisedPage); //$NON-NLS-1$
 				if (logger.isDebugEnabled()) {
 					logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - end"); //$NON-NLS-1$
 				}
