@@ -67,7 +67,7 @@
 			<value>login</value>
 		</property>
 		<property name="successView">
-			<value>welcome</value>
+			<value>/common/welcome.html</value>
 		</property>
 			
 	</bean>
