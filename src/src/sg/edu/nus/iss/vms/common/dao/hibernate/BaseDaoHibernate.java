@@ -192,8 +192,10 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 	}
 	public List getObjectsByNamedQuery(String namedQueryReference,  Object[] values,  QueryProperties properties) {
 		Query query = getSession().getNamedQuery(namedQueryReference);
+		log.debug("getObjectsByNamedQuery - values passed in "+values);
 		if (values != null) {
 			for (int i = 1; i <= values.length; i++) { // starts from 1, because hibernate parameters are 1-based (start from 1)
+				log.debug("getObjectsByNamedQuery - putting "+i+" into "+values[i-1]);
 				query.setParameter(i, values[i-1]); // assumes that HQL/SQL places in parameters using numbers.
 			}
 		}
