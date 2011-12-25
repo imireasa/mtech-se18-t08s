@@ -76,11 +76,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/tlbimp.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/velocity-1.6.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/VMCSDA.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-acl-2.0.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-cas-client-2.0.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-core-2.0.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-core-tiger-2.0.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-security-taglibs-2.0.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/Users/stupified/Work/apache-tomcat-6.0.33/lib/annotations-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

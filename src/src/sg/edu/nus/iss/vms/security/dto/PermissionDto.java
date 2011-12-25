@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -18,6 +20,9 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 public class PermissionDto extends BaseVersionDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue
 	@Column(name = "permi_id")
 	private Integer permissionID;
 	@Column(name = "permi_desc")

@@ -6,55 +6,55 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 
 public class BaseVersionDto {
-	@Column(name = "version")
-	private Integer version;
-	@Column(name = "created_by")
 	private String createdBy;
-	@Column(name = "created_ts")
-	private Date createdTimeStamp;
-	@Column(name = "ls_upd_by")
-	private String lastUpdatedBy;
-	@Column(name = "ls_upd_ts")
-	private Date lastUpdatedTimeStamp;
+	private Date createdDte;
+	private String updBy;
+	private Date updDte;
+	private Integer version;
 
-	public Integer getVersion() {
-		return version;
-	}
 
-	public void setVersion(Integer version) {
-		this.version = version;
-	}
-
+	@Column(name = "CREATED_BY", nullable = false, length = 20)
 	public String getCreatedBy() {
-		return createdBy;
+		return this.createdBy;
 	}
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
-	public Date getCreatedTimeStamp() {
-		return createdTimeStamp;
+	@Column(name = "CREATED_DTE", length = 10)
+	public Date getCreatedDte() {
+		return this.createdDte;
 	}
 
-	public void setCreatedTimeStamp(Date createdTimeStamp) {
-		this.createdTimeStamp = createdTimeStamp;
+	public void setCreatedDte(Date createdDte) {
+		this.createdDte = createdDte;
 	}
 
-	public String getLastUpdatedBy() {
-		return lastUpdatedBy;
+	@Column(name = "UPD_BY", nullable = false, length = 66)
+	public String getUpdBy() {
+		return this.updBy;
 	}
 
-	public void setLastUpdatedBy(String lastUpdatedBy) {
-		this.lastUpdatedBy = lastUpdatedBy;
+	public void setUpdBy(String updBy) {
+		this.updBy = updBy;
 	}
 
-	public Date getLastUpdatedTimeStamp() {
-		return lastUpdatedTimeStamp;
+	@Column(name = "UPD_DTE", nullable = false, length = 10)
+	public Date getUpdDte() {
+		return this.updDte;
 	}
 
-	public void setLastUpdatedTimeStamp(Date lastUpdatedTimeStamp) {
-		this.lastUpdatedTimeStamp = lastUpdatedTimeStamp;
+	public void setUpdDte(Date updDte) {
+		this.updDte = updDte;
 	}
 
+	@Column(name = "VERSION", nullable = false)
+	public Integer getVersion() {
+		return this.version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 }

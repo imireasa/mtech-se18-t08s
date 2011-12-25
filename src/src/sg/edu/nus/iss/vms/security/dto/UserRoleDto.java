@@ -15,7 +15,7 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 @Entity
 @Table(name = "tb_user_role")
 @PrimaryKeyJoinColumn(name = "usr_role_id")
-@NamedQueries( { @NamedQuery(name = "RoleDto.findAll", query = "SELECT u FROM UserRoleDto u") })
+@NamedQueries( { @NamedQuery(name = "UserRoleDto.findAll", query = "SELECT u FROM UserRoleDto u") })
 public class UserRoleDto extends BaseVersionDto implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

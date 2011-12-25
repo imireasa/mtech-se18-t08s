@@ -21,7 +21,7 @@
 
 <br />
 
-<form:form commandName="login" method="POST" name="login">
+<form:form commandName="loginCommand" method="POST" name="login">
 
 Username:<form:input path="username" />
 	<font color="red"><form:errors path="username" /></font>
