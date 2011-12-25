@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.vms.common.dao;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 
 import sg.edu.nus.iss.vms.common.orm.QueryProperties;
@@ -83,5 +84,5 @@ public interface Dao
 	 * Properties is currently not in use. Pending future expansion.
 	 * @return
 	 */
-	public List getObjectsByNamedQuery(String namedQueryReference,  Object[] values,  QueryProperties properties);
+	public List getObjectsByNamedQuery(String namedQueryReference,  HashMap values,  QueryProperties properties);
 }
