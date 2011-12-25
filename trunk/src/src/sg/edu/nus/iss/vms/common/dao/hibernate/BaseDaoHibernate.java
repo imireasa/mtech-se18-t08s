@@ -2,6 +2,7 @@ package sg.edu.nus.iss.vms.common.dao.hibernate;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -190,15 +191,16 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 			}
 		});
 	}
-	public List getObjectsByNamedQuery(String namedQueryReference,  Object[] values,  QueryProperties properties) {
+	public List getObjectsByNamedQuery(String namedQueryReference,  HashMap values,  QueryProperties properties) {
 		Query query = getSession().getNamedQuery(namedQueryReference);
 		log.debug("getObjectsByNamedQuery - values passed in "+values);
-		if (values != null) {
-			for (int i = 1; i <= values.length; i++) { // starts from 1, because hibernate parameters are 1-based (start from 1)
-				log.debug("getObjectsByNamedQuery - putting "+i+" into "+values[i-1]);
-				query.setParameter(i, values[i-1]); // assumes that HQL/SQL places in parameters using numbers.
-			}
-		}
+		 Iterator it = values.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry pairs = (Map.Entry)it.next();
+		        log.debug("getObjectsByNamedQuery - putting key "+(String)pairs.getKey()+" into value " +pairs.getValue());
+		        query.setParameter((String)pairs.getKey(), pairs.getValue());
+		    }
+		
 		return query.list();
 		
 	}
