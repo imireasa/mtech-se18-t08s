@@ -19,29 +19,37 @@ import javax.persistence.Table;
 public class PermissionRoleDto extends BaseVersionDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private Long permiRoleId;
+	private long permiId;
+	private long roleId;
+
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "permi_role_id")
-	private Integer permissionRoleId;
-
-
-	@Column(name = "role_id")
-	private Integer roleId;
-
-	public Integer getPermissionRoleID() {
-		return permissionRoleId;
+	@Column(name = "PERMI_ROLE_ID", unique = true, nullable = false)
+	public Long getPermiRoleId() {
+		return this.permiRoleId;
 	}
 
-	public void setPermissionRoleID(Integer permissionRoleID) {
-		this.permissionRoleId = permissionRoleID;
+	public void setPermiRoleId(Long permiRoleId) {
+		this.permiRoleId = permiRoleId;
 	}
 
-	public Integer getRoleID() {
-		return roleId;
+	@Column(name = "PERMI_ID", nullable = false)
+	public long getPermiId() {
+		return this.permiId;
 	}
 
-	public void setRoleID(Integer roleID) {
-		this.roleId = roleID;
+	public void setPermiId(long permiId) {
+		this.permiId = permiId;
+	}
+
+	@Column(name = "ROLE_ID", nullable = false)
+	public long getRoleId() {
+		return this.roleId;
+	}
+
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
 	}
 }
