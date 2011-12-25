@@ -16,7 +16,11 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 @Entity
 @Table(name = "tb_permission")
 @PrimaryKeyJoinColumn(name = "permi_id")
-@NamedQueries( { @NamedQuery(name = "PermissionDto.findAll", query = "SELECT u FROM PermissionDto u") })
+@NamedQueries( { 
+	@NamedQuery(name = "PermissionDto.findAll", query = "SELECT u FROM PermissionDto u")
+	
+})
+
 public class PermissionDto extends BaseVersionDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -17,7 +17,6 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 	 */
 	private static final Logger logger = Logger.getLogger(SecurityManagementServiceImpl.class);
 
-	private static final String NAMED_QUERY_LOGIN = "login";
 	private Manager manager;
 	private SessionBean sessionBean;
 
@@ -74,7 +73,7 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 			throw new ApplicationException("Corrupted data for this user. User ID is " + username);
 		}
 		else {
-			// TODO: Login Audits will come here. if necessary
+			// XXX: Login Audits will come here. if necessary
 			UserDto returnUserDto = result.get(0);
 			if (logger.isDebugEnabled()) {
 				logger.debug("login(String, String) - end"); //$NON-NLS-1$
