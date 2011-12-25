@@ -526,20 +526,6 @@ public class DateUtil {
         }
     }
 
-    /**
-     * Check if the current time is later than the input time in the same day.
-     * 
-     * @param hour
-     * @param minute
-     * @return 1-current time is later -1-current time is earlier 0-current time
-     *         is equal with the input time
-     */
-    public static int compareTime (int hour, int minute) {
-        Calendar cal = Calendar.getInstance();
-        cal.set(DateUtil.getCurrentYear(), DateUtil.getCurrentMonth(), DateUtil
-                .getCurrentDay(), hour, minute);
-        return Calendar.getInstance().compareTo(cal);
-    }
 
     /**
      * Get current time, format HH:MM.
