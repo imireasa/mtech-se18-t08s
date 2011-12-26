@@ -6,7 +6,8 @@ INSERT INTO `TB_CODE_CATEGORY` VALUES
 (1,'COUNTRY','Country Code'),
 (2,'PROPOSAL_STATUS','Proposal Status'),
 (3,'PROJECT_STATUS','Project Status'),
-(4,'TITLE','Title'),(5,'USER_TYPE','User Type'),
+(4,'TITLE','Title'),
+(5,'USER_TYPE','User Type'),
 (6,'PROJECT_INTREST_STATUS','Project Itrest Status'),
 (7,'MEMBER_ROLE','Member Role'),
 (8,'FEEDBACK_STATUS','Feedback Status'),
@@ -56,6 +57,6 @@ INSERT INTO `TB_CODE` VALUES
 (34,10,'Requested',''),
 (35,10,'Processed',''),
 (36,11,'Project',''),
-(36,11,'Individual','');
+(36,12,'Individual','');
 /*!40000 ALTER TABLE `TB_CODE` ENABLE KEYS */;
 UNLOCK TABLES;
