@@ -18,63 +18,52 @@
 <body>
 	
 	<div id="breadcrumb">
-		<a href="#">Home</a> / <a href="#">Manage Project</a> /  <a href="#">Project
-	List</a> / <a href="#">Update Project</a> 
+		<a href="#">Home</a> /  <a href="#">Project
+	List</a> / <a href="#">Propose New  Project</a> 
 	  
 	</div>
-    <h2> Update Project</h2>
+    <h2> Propose NewProject</h2>
 	<div class="query">
    	 <form name="form1" method="post" action="">
 	  <table width="548" height="105" border="1">
-	    <tr>
-	      <td width="103"><label>Project Code:</label></td>
-	      <td width="167"></td>
-        </tr>
+	    
 	    <tr>
 	      <td><label>Project Name:</label></td>
-	      <td>
+	      <td><label for="txtField_ProjectName"></label>
           <input type="text" name="txtField_ProjectName" id="txtField_ProjectName"></td>
         </tr>
         <tr>
 	      <td><label>Description:</label></td>
 	      <td>
-	      
+	        <label for="txtArea_projectDesc"></label>
 	        <textarea name="txtArea_projectDesc" id="txtArea_projectDesc" cols="45" rows="5"></textarea>
           </td>
         </tr>
-        <tr>
-	      <td><label>Start Date:</label></td>
-	      <td> 12/26/2011</td>
-        </tr>
-         <tr>
-	      <td><label>End Date:</label></td>
-	      <td>12/26/2011</td>
-        </tr>
+        
          <tr>
 	      <td><label>Country:</label></td>
-	      
+	      <td><label for="txtField_country"></label>
            <input type="text" name="txtField_country" id="txtField_country"></td>
         </tr>
         <tr>
 	      <td><label>Location:</label></td>
-	     
+	      <td><label for="txtArea_location"></label>
           <textarea name="txtArea_location" id="txtArea_location" cols="45" rows="5"></textarea></td>
         </tr>
      
 	    <tr>
-	      <td><label>Proposal Code:</label></td>
-	      <td><label for="select_ProposalCode"></label>
-	        <select name="select_ProposalCode" id="select_ProposalCode">
-          </select></td>
+	      <td><label>Estimated Duration:</label></td>
+	      <td><label for="select_ProposalCode">
+	        <input type="text" name="txtLabel_estimatedDuration" id="txtLabel_estimatedDuration">
+	      </label></td>
         </tr>
         <tr>
-	      <td><label>Remark:</label></td>
-	      <td><label for="txtArea_remark"></label>
-          <textarea name="txtArea_remark" id="txtArea_remark" cols="45" rows="5"></textarea></td>
+	      <td><label>Supporting Documents:</label></td>
+	      <td><label for="txtArea_remark"></label></td>
         </tr>
         <tr>
-	      <td><input name="btn_Update" type="submit" value="Update"></td>
-	      <td><input name="btn_back" type="submit" value="Back to Project List"></td>
+	      <td><input name="btn_submit" type="submit" value="Submit"></td>
+	      <td><input name="btn_back" type="submit" value="Cancel"></td>
         </tr>
       </table>
    	 </form>
