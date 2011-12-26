@@ -24,7 +24,7 @@
     <h2> My Profile</h2>
 	<div class="query">
    	 <form action="" method="post" enctype="multipart/form-data" name="form1">
-	  	  <table width="548" height="105" border="1">
+	  	  <table width="548" height="105" >
           
            <tr>
 	      <td><label>userID:</label></td>

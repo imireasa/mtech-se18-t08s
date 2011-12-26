@@ -21,7 +21,7 @@
 		<a href="#">Home</a> / <a href="#">Manage Project</a> /   <a href="#">List
 	Project</a>/ <a href="#">Manage Member</a>
     <h2> Manage Member</h2>
-      <table width="302" border="1">
+      <table width="302" >
 	  <tr>
 	    <td width="100"><label>Project Code:</label></td>
 	    <td width="186"><label></label></td>
@@ -40,7 +40,7 @@
   <tr>
     <td>
     <div class = "projectMembers">
-    <table width="200" border="1">
+    <table width="200" >
   <tr>
     <td><label>Project Members</label></td>
   </tr>
@@ -72,7 +72,7 @@
   <tr>
     <td width="227">
        <div class = "projectMembers">
-    <table width="200" border="1">
+    <table width="200" >
   <tr>
     <td><label>Review Project Interest</label></td>
   </tr>
@@ -98,7 +98,7 @@
   <tr>
     <td>
        <div class = "InviteMember">
-    <table width="200" border="1">
+    <table width="200" >
   <tr>
     <td><label>Invite Members</label></td>
   </tr>

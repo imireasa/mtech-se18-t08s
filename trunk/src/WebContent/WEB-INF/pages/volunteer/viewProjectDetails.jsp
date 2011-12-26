@@ -47,7 +47,7 @@
 	<div id="breadcrumb">
 		<a href="#">Home</a> / <a href="#">Volunteer</a> /  <a href="#">Project
 	Details</a> 
-	    <table width="302" border="1">
+	    <table width="302">
 	  <tr>
 	    <td width="100"><label>Project Name:</label></td>
 	    <td width="186"><label></label></td>
@@ -62,10 +62,10 @@
 </div>
 	<div class="query">
    	 
-	  <table width="286" height="105" border="1">
+	  <table width="286" height="105" >
 	    <tr>
-	      <td width="103"><label>Image</label></td>
-	      <td width="167"><label>Desc</label></td>
+	      <td width="103"><label>Description:</label></td>
+	      <td width="167">&nbsp;</td>
         </tr>
 	    <tr>
 	      <td><label>Start Date:</label></td>
@@ -85,8 +85,7 @@
         </tr>
 	   
       </table>
-   	 
-    </div>
+	</div>
     
 <div class= "members">
   <div id="TabbedPanels1" class="TabbedPanels">
