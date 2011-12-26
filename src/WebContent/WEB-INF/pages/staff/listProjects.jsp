@@ -23,12 +23,12 @@
         <h2>List Project</h2>
 	<div class="query">
    	  <form name="form1" method="post" action="">
-	  <table width="1013" height="105" border="1">
+	  <table width="820" height="105">
 	    <tr>
-	      <td width="103"><label>Project Code:</label></td>
-	      <td width="167"><input type="text" name="textfield3" id="textfield3"></td>
-	      <td width="133"><label>Start Month:</label></td>
-	      <td width="429">          12/26/2011</td>
+	      <td width="123"><label>Project Code:</label></td>
+	      <td width="199"><input type="text" name="textfield3" id="textfield3"></td>
+	      <td width="159"><label>Start Month:</label></td>
+	      <td width="319">          12/26/2011</td>
         </tr>
 	    <tr>
 	      <td><label>Project Name:</label></td>
@@ -36,10 +36,11 @@
 	      <td><label>Status:</label></td>
 	      <td><label for="select_Status"></label>
 	        <select name="select_Status" id="select_Status">
+	          <option>All</option>
           </select></td>
         </tr>
             <tr>
-					<td colspan="2" align="right">    
+					<td colspan="4" align="center">    
         	<input type="submit" name="btn_Search" id="btn_Search" value="Search">
             </td>
             </tr>

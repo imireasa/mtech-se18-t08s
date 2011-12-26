@@ -26,7 +26,7 @@
 	<div class="query">
    	 <form action="" method="post" enctype="multipart/form-data" name="form1">
 	  <input type="password" name="validation_Password" id="validation_Password">
-	  <table width="548" height="105" border="1">
+	  <table width="548" height="105" >
 	    <tr>
 	      <td width="103"><label>Salutation:</label></td>
 	      <td width="167"><select name="select_Title" id="select_Title">

@@ -29,7 +29,7 @@
 
 	<div class="query">
    	 <form name="form1" method="post" action="">
-	  <table width="475" height="105" border="1">
+	  <table width="475" height="105" >
 	    <tr>
 	      <td width="134"><label><fmt:message key="Message.ManageProject.ProjectCode.Label"/></label></td>
 	      <td width="325"><label id="label_projectCode"></label></td>

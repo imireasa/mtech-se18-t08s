@@ -25,7 +25,7 @@
     <h2> Update Project</h2>
 	<div class="query">
    	 <form name="form1" method="post" action="">
-	  <table width="548" height="105" border="1">
+	  <table width="548" height="105" >
 	    <tr>
 	      <td width="103"><label>Project Code:</label></td>
 	      <td width="167"></td>

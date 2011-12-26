@@ -22,7 +22,7 @@
 		<a href="#">Home</a> /<a href="#">Change Password</a></div>
 	<div class="query">
    	  <form name="form1" method="post" action="">
-	  <table width="1013" height="105" border="1">
+	  <table width="1013" height="105" >
 	    <tr>
 	      <td width="209"><label> Email:</label></td>
 	      <td width="788"><input type="text" name="textfield3" id="textfield3"></td>

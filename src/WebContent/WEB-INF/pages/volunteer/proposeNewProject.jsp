@@ -24,8 +24,8 @@
 	</div>
     <h2> Propose NewProject</h2>
 	<div class="query">
-   	 <form name="form1" method="post" action="">
-	  <table width="548" height="105" border="1">
+   	 <form action="" method="post" enctype="multipart/form-data" name="form1">
+	  <table width="548" height="105" >
 	    
 	    <tr>
 	      <td><label>Project Name:</label></td>
@@ -59,7 +59,9 @@
         </tr>
         <tr>
 	      <td><label>Supporting Documents:</label></td>
-	      <td><label for="txtArea_remark"></label></td>
+	      <td><label for="txtArea_remark">
+	        <input type="file" name="fileField_supportDocs" id="fileField_supportDocs">
+	      </label></td>
         </tr>
         <tr>
 	      <td><input name="btn_submit" type="submit" value="Submit"></td>
