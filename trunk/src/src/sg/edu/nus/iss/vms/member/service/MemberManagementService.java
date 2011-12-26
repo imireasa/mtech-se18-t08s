@@ -1,14 +1,11 @@
 package sg.edu.nus.iss.vms.member.service;
 
 import java.util.List;
-
-import sg.edu.nus.iss.vms.member.dto.Volunteer;
-import sg.edu.nus.iss.vms.member.vo.MemberVo;
-import sg.edu.nus.iss.vms.project.dto.ProjectMember;
+import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 
 public interface MemberManagementService {
-	public List<ProjectMember> getListOfMembers(long projectId);
-	
-	public List<MemberVo> getListOfMembers();
-	
+
+    public List<ProjectMemberDto> getListOfMembers(long projectId);
+
+    public List<ProjectMemberDto> getListOfMembers();
 }

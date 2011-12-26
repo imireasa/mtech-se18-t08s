@@ -40,11 +40,11 @@ public class MemberController extends BaseMultiActionFormController {
 		this.projectManagementService = projectManagementService;
 	}
 
-	@Override
-	public long getLastModified(HttpServletRequest arg0) {
-		logger.debug("###################################################################################");
-		return super.getLastModified(arg0);
-	}
+//	@Override
+//	public long getLastModified(HttpServletRequest arg0) {
+//		logger.debug("###################################################################################");
+//		return super.getLastModified(arg0);
+//	}
 
 	public ModelAndView searchProjectMember(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -53,39 +53,39 @@ public class MemberController extends BaseMultiActionFormController {
 		logger.debug("member/searchMember");
 		List memberList = new ArrayList();
 
-		logger.debug("REQUEST Project Name "
-				+ request.getParameter("projectName"));
-		logger.debug("REQUEST Project Id   "
-				+ request.getParameter("projectId"));
-
-		if (request.getParameter("projectId") != null
-				&& !request.getParameter("projectId").isEmpty()) {
-			long projectId = Long.parseLong(request.getParameter("projectId"));
-			List projectList = new ArrayList();
-			projectList.add(projectManagementService.getProject(projectId));
-			modelAndView.addObject("projectList", projectList);
-			modelAndView.addObject("projectName",
-					request.getParameter("projectName"));
-			memberList = memberManagementService.getListOfMembers(projectId);
-
-		} else if (request.getParameter("projectName") != null) {
-			String projectName = request.getParameter("projectName");
-			List projectList = projectManagementService
-					.getListOfProject(projectName);
-			modelAndView.addObject("projectList", projectList);
-			modelAndView.addObject("projectName",
-					request.getParameter("projectName"));
-		}
-
-		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
-		if (!memberList.isEmpty()) {
-			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-			memberPagedListHolder.setPage(page);
-			int pageSize = 10;
-			memberPagedListHolder.setPageSize(pageSize);
-		}
-		logger.debug("Completed the request");
-		modelAndView.addObject("pagedListHolder", memberPagedListHolder);
+//		logger.debug("REQUEST Project Name "
+//				+ request.getParameter("projectName"));
+//		logger.debug("REQUEST Project Id   "
+//				+ request.getParameter("projectId"));
+//
+//		if (request.getParameter("projectId") != null
+//				&& !request.getParameter("projectId").isEmpty()) {
+//			long projectId = Long.parseLong(request.getParameter("projectId"));
+//			List projectList = new ArrayList();
+//			projectList.add(projectManagementService.getProject(projectId));
+//			modelAndView.addObject("projectList", projectList);
+//			modelAndView.addObject("projectName",
+//					request.getParameter("projectName"));
+//			memberList = memberManagementService.getListOfMembers(projectId);
+//
+//		} else if (request.getParameter("projectName") != null) {
+//			String projectName = request.getParameter("projectName");
+//			List projectList = projectManagementService
+//					.getListOfProject(projectName);
+//			modelAndView.addObject("projectList", projectList);
+//			modelAndView.addObject("projectName",
+//					request.getParameter("projectName"));
+//		}
+//
+//		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
+//		if (!memberList.isEmpty()) {
+//			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+//			memberPagedListHolder.setPage(page);
+//			int pageSize = 10;
+//			memberPagedListHolder.setPageSize(pageSize);
+//		}
+//		logger.debug("Completed the request");
+//		modelAndView.addObject("pagedListHolder", memberPagedListHolder);
 		return modelAndView;
 	}
 

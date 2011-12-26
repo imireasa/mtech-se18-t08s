@@ -6,7 +6,23 @@
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
-
+        
+        
+        <bean id="codeManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.common.service.impl.CodeManagementServicesImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+        
+        <bean id="volunteerManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.volunteer.service.impl.VolunteerManagementServiceImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
+            
+        
+        
+        
 
 	<bean id="memberManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.member.service.impl.MemberManagementServiceImpl">

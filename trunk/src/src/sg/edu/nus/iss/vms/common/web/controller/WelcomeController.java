@@ -13,11 +13,11 @@ import sg.edu.nus.iss.vms.member.web.controller.MemberController;
 public class WelcomeController extends BaseMultiActionFormController {
 	private Logger logger = Logger.getLogger(MemberController.class);
 
-	@Override
-	public long getLastModified(HttpServletRequest arg0) {
-		logger.debug("###################################################################################");
-		return super.getLastModified(arg0);
-	}
+//	@Override
+//	public long getLastModified(HttpServletRequest arg0) {
+//		logger.debug("###################################################################################");
+//		return super.getLastModified(arg0);
+//	}
 
 	public ModelAndView welcome(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {

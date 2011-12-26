@@ -12,6 +12,7 @@
 				<value>sg.edu.nus.iss.vms.common.dto</value>
 				<value>sg.edu.nus.iss.vms.member.dto</value>
 				<value>sg.edu.nus.iss.vms.project.dto</value>
+                                <value>sg.edu.nus.iss.vms.volunteer.dto</value>
 				<value>sg.edu.nus.iss.vms.security.dto</value>
 			</list>
 		</property>

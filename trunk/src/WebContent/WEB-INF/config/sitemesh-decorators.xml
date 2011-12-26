@@ -9,7 +9,11 @@
 	</excludes>
 
 	<!-- Default URL. Handled all unhandled previous URL pattern -->
-
+        
+        <decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/volunteer/*</pattern>
+	</decorator>
+        
 	<decorator name="commonDecorator" page="administratorDecorator.jsp">
 		<pattern>/common/*</pattern>
 	</decorator>
@@ -21,4 +25,6 @@
 	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
 		<pattern>/report/*</pattern>
 	</decorator>
+        
+        
 </decorators>
