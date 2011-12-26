@@ -129,6 +129,25 @@
                   
                  </tr>
                </table>
+               
+               <form>
+                 <table width="200" border="1">
+  <tr>
+    <td>Name:</td>
+    <td>
+      <input type="text" name="txtField_memberName" id="txtField_memberName"></td>
+  </tr>
+  <tr>
+    <td>Experience:</td>
+    <td><textarea name="txtArea_Experience" id="txtArea_Experience" cols="45" rows="5"></textarea></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="right"><input type="submit" name="btn_PostExperience" id="btn_PostExperience" value="Post"></td>
+  
+  </tr>
+</table>
+
+    </form>
               
                </div>
             <div class="TabbedPanelsContent">
