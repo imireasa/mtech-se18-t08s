@@ -21,19 +21,30 @@
 
 <br />
 
-<form:form commandName="loginCommand" method="POST" name="login">
-
-Username:<form:input path="username" />
-	<font color="red"><form:errors path="username" /></font>
-	<br />
-
-Password:<form:password path="password" />
-	<font color="red"><form:errors path="password" /></font>
-	<br />
-
-	<input type="submit" value="Login" />
-
-</form:form></center>
+<form:form commandName="loginCommand" method="POST" name="login"></form:form>
+<table width="296">
+  <tr>
+    <td>UserId/Email:</td>
+    <td><input type="text" name="txtField_userName" id="txtField_userName"></td>
+  </tr>
+  <tr>
+    <td>Pasword</td>
+    <td><input type="text" name="txtField_password" id="txtField_password"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><input type="submit" name="btn_login" id="btn_login" value="Login"></td>
+   
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><a href="registerVolunteerAccount.jsp">New User/Register</a></td>
+   
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><a href="forgetPassword.jsp">Forget Password</a></td>
+   
+  </tr>
+</table>
+</center>
 
 </body>
 
