@@ -30,7 +30,7 @@
 		<div id="wrap-top">
 			<div id="loginInfo">
 				<ul>
-					<li><a href="#">My Account</a></li>
+					<li><a href="<%=request.getContextPath()%>/admin/volunteer/registerVolunteer.html">My Account</a></li>
 					<li class="last"><a href="#">Logout</a></li>
 				</ul>
 			</div>

@@ -2,7 +2,7 @@ package sg.edu.nus.iss.vms.common;
 
 import java.io.Serializable;
 
-import sg.edu.nus.iss.vms.common.dto.Person;
+import sg.edu.nus.iss.vms.security.dto.UserDto;
 
 /**
  * 
@@ -10,14 +10,13 @@ import sg.edu.nus.iss.vms.common.dto.Person;
  */
 public class SessionBean implements Serializable {
 
-	private Person person;
+        private UserDto userDto;
 
-	public Person getPerson() {
-		return person;
-	}
+        public UserDto getUser() {
+                return userDto;
+        }
 
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
+        public void setPerson(UserDto userDto) {
+                this.userDto = userDto;
+        }
 }

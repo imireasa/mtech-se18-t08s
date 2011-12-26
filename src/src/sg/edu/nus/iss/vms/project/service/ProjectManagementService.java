@@ -2,20 +2,19 @@ package sg.edu.nus.iss.vms.project.service;
 
 import java.util.List;
 
-import sg.edu.nus.iss.vms.member.vo.MemberVo;
-import sg.edu.nus.iss.vms.project.dto.Project;
-import sg.edu.nus.iss.vms.project.dto.ProjectMember;
-import sg.edu.nus.iss.vms.project.dto.ProjectRole;
+import sg.edu.nus.iss.vms.common.dto.CodeDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 
 public interface ProjectManagementService {
-	public List<Project> getListOfProject(String projectName);
-	
-	public Project getProject(long projectId);
-	
-	public List<ProjectMember> getProjectMember(long projectId, String memberName);
-	
-	public List<Project> getListAllProject();
-	
-	public List<ProjectRole> getProjectRoleList();
-	
+
+    public List<ProjectDto> getListOfProject(String projectName);
+
+    public ProjectDto getProject(long projectId);
+
+    public List<ProjectMemberDto> getProjectMember(long projectId, String memberName);
+
+    public List<ProjectDto> getListAllProject();
+
+    public List<CodeDto> getProjectRoleList();
 }

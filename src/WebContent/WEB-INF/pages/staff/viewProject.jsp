@@ -2,7 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%><body>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
+<body>
 <head>
 <script type='text/javascript'
 	src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
