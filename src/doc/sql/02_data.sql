@@ -11,6 +11,8 @@ INSERT INTO `TB_CODE_CATEGORY` VALUES
 (7,'MEMBER_ROLE','Member Role'),
 (8,'FEEDBACK_STATUS','Feedback Status'),
 (9,'TASK_STATUS','Task Status');
+(10,'CERTIFICATE_REQUEST_STATUS','Certificate Request Status');
+(11,'CERTIFICATE_REQUEST_TYPE','Certificate Request Type');
 /*!40000 ALTER TABLE `TB_CODE_CATEGORY` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,6 +52,10 @@ INSERT INTO `TB_CODE` VALUES
 (30,8,'Approved',''),
 (31,8,'Rejected',''),
 (32,9,'New',''),
-(33,9,'Close','');
+(33,9,'Close',''),
+(34,10,'Requested',''),
+(35,10,'Processed',''),
+(36,11,'Project',''),
+(36,12,'Individual','');
 /*!40000 ALTER TABLE `TB_CODE` ENABLE KEYS */;
 UNLOCK TABLES;
