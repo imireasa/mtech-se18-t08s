@@ -38,13 +38,13 @@
 	<div class="query">
 		<form id="form" name="form" method="post"
 			action="<%=request.getContextPath()%>/report/volunteer/generateCertificatePdf.html">
-			<table width="463" border="0">
+			<table width="545" >
 				<tr>
-					<td width="44"><label>Point</label></td>
-					<td width="59"><label>Project Name</label></td>
-                    <td width="61"><label>Request Type</label></td>
-                     <td width="76"><label>Requested by</label></td>
-                      <td width="201"><label>Request Date</label></td>
+					<td width="43"><label>Point</label></td>
+					<td width="116"><label>Project Name</label></td>
+                    <td width="105"><label>Request Type</label></td>
+                     <td width="97"><label>Requested by</label></td>
+                      <td width="160"><label>Request Date</label></td>
 				</tr>
 				<tr>
 					<td><input type="checkbox" name="check_gntCertificate" id="check_gntCertificate">
@@ -55,7 +55,7 @@
                     <td>&nbsp;</td>
 				</tr>
 				<tr>
-					<td colspan="5" align="right"><input type="submit" name="Search" id="Search"
+					<td colspan="5" align="center"><input type="submit" name="Search" id="Search"
 						value="Generate" class="button" />
 					</td>
                     </tr>
