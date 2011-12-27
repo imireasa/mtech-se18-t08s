@@ -67,8 +67,6 @@
 	</bean>
 	
 	<!-- Menu -->
-	<bean id="menu" class="net.sf.navigator.menu.MenuLoader">
-	  <property name="menuConfig" value="/WEB-INF/config/menu-config.xml"/>
-	</bean>
+	
 	
 </beans>
