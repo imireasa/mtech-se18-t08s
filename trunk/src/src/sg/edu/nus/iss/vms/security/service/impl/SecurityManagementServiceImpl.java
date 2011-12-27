@@ -115,4 +115,10 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		return authorised;
 	}
 
+	@Override
+	public List<String> getAllowedMenu(UserDto user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
