@@ -90,6 +90,9 @@ public class AuthorisationFilter implements Filter {
 		if (errorPage == null) {
 			returnError(request, response, Messages.getString("AuthorisationFilter.AUTH_FILTER_LOAD_ERROR"), errorPage); //$NON-NLS-1$
 		}
+
+		// checks for user information in the session. determines whether the
+		// user is logged in or not.
 		UserDto currentUser = null;
 		HttpSession session = ((HttpServletRequest) request).getSession(false);
 		if (session != null) {
@@ -97,15 +100,28 @@ public class AuthorisationFilter implements Filter {
 		}
 		if (currentUser == null) {
 			returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), loginPage); //$NON-NLS-1$
-			return;
+			return; // user not logged in or no session found.
 		}
 		else {
-			// Get relevant URI.
-
-			// Obtain AuthorisationManager singleton from Spring
-			// ApplicationContext.
+			// user has logged in.
+			// First step is to get the security manager. Will be using the security manager.
 			ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
 			SecurityManagementService authMgr = (SecurityManagementService) ctx.getBean("SecurityManagementServiceImpl"); //$NON-NLS-1$
+
+			
+			// see if the allowed menus are loaded into the
+			// session for the user. if not loaded, load now.
+			List <String> allowedMenus = (List <String>) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")); //$NON-NLS-1$
+			
+			if(allowedMenus == null){
+				//allowed menus not loaded. Load now.
+				allowedMenus = authMgr.getAllowedMenu(currentUser);
+				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), allowedMenus);//$NON-NLS-1$
+			}//else if allowedMenus is not null, no need to check.
+			
+			// Get relevant URI.
+			// Obtain AuthorisationManager singleton from Spring
+			// ApplicationContext.
 
 			// Invoke AuthorisationManager method to see if user can
 			// access resource.
@@ -123,7 +139,6 @@ public class AuthorisationFilter implements Filter {
 			}
 		}
 
-		
 	}
 
 	private void returnError(ServletRequest request, ServletResponse response, String errorString, String redirectPage) throws ServletException,
