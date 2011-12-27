@@ -44,7 +44,7 @@
 			<div id="leftCol">
 				<ul id="info">
 					<li><h3>
-							Chris Goh<br />Project Manager
+							Chris Goh<br />Volunteer
 						</h3></li>
 					<li>Last login : 20/07/2011 15:40</li>
 				</ul>
@@ -54,15 +54,13 @@
 						href="<%=request.getContextPath()%>/admin/member/searchProjectMember.html">Search
 							Member</a></li>
 					<li><a href="#">Manage Profile</a></li>
-					<li><a href="#">Review Request</a></li>
+					
 				</ul>
 				<ul id="project">
 					<li class="header">Project</li>
-					<li><a href="#">New</a></li>
-					<li><a href="#">Manage</a>
-					<li><a
-						href="<%=request.getContextPath()%>/admin/project/assignPrjMemberRole.html">Assign
-							Member Role</a></li>
+					<li><a href="<%=request.getContextPath()%>/admin/volunteer/browseProject.html">Browse</a></li>
+				
+					
 				</ul>
 				<ul id="cert">
 					<li class="header">Certificate</li>
@@ -74,11 +72,7 @@
 						href="<%=request.getContextPath()%>/report/volunteer/generateView.html">Generate
 							Cert (View)</a></li>
 				</ul>
-				<ul id="itinerary">
-					<li class="header">Itinerary</</li>
-					<li><a href="#">Prepare Plan</a></li>
-					<li><a href="#">Review Plan</a></li>
-				</ul>
+				
 			</div>
 			<!-- end of leftCol -->
 			<div id="main">
