@@ -14,6 +14,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.navigator.menu.PermissionsAdapter;
+
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -104,27 +106,31 @@ public class AuthorisationFilter implements Filter {
 		}
 		else {
 			// user has logged in.
-			// First step is to get the security manager. Will be using the security manager.
+			// First step is to get the security manager. Will be using the
+			// security manager.
 			ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
 			SecurityManagementService authMgr = (SecurityManagementService) ctx.getBean("SecurityManagementServiceImpl"); //$NON-NLS-1$
 
-			
 			// see if the allowed menus are loaded into the
 			// session for the user. if not loaded, load now.
-			List <String> allowedMenus = (List <String>) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")); //$NON-NLS-1$
-			
-			if(allowedMenus == null){
-				//allowed menus not loaded. Load now.
+			List<String> allowedMenus = (List<String>) session.getAttribute(Messages
+					.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")); //$NON-NLS-1$
+
+			if (allowedMenus == null) {
+				// allowed menus not loaded. Load now.
 				allowedMenus = authMgr.getAllowedMenu(currentUser);
+				// set the allowed menus into session for retrieval later.
 				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), allowedMenus);//$NON-NLS-1$
-			}//else if allowedMenus is not null, no need to check.
-			
+				// create a new menu permission adapter and set it in.
+				PermissionsAdapter permissions = new MenuPermissionsAdapter(allowedMenus);
+				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_MENU_PERMISSIONS_ATTR_NME")), permissions);
+
+			}// else if allowedMenus is not null, no need to check.
+
 			// Get relevant URI.
 			// Obtain AuthorisationManager singleton from Spring
 			// ApplicationContext.
-
-			// Invoke AuthorisationManager method to see if user can
-			// access resource.
+			// Invoke AuthorisationManager method to see if user can access resource.
 			boolean authorised = authMgr.isUserAuthorised(currentUser, URI);
 			if (authorised) {
 				chain.doFilter(request, response);
@@ -138,7 +144,6 @@ public class AuthorisationFilter implements Filter {
 				return;
 			}
 		}
-
 	}
 
 	private void returnError(ServletRequest request, ServletResponse response, String errorString, String redirectPage) throws ServletException,
