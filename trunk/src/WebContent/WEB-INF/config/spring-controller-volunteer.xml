@@ -17,6 +17,7 @@
     <bean id="volunteerController" class="sg.edu.nus.iss.vms.volunteer.web.controller.VolunteerController">		
         <property name="codeManagementServices" ref="codeManagementServiceImpl" />
         <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
+        <property name="projectManagementService" ref="ProjectManagementServiceImpl" />
         <property name="validators" ref="volunteerValidator" />        
     </bean>
     

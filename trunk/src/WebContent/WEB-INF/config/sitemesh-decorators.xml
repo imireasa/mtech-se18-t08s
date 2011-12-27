@@ -14,7 +14,7 @@
 		<pattern>/volunteer/*</pattern>
 	</decorator>
         
-	<decorator name="commonDecorator" page="administratorDecorator.jsp">
+	<decorator name="commonDecorator" page="volunteerDecorator.jsp">
 		<pattern>/common/*</pattern>
 	</decorator>
 

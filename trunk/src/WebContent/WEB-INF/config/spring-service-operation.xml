@@ -21,7 +21,11 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	</bean>
             
         
-        
+        <bean id="ProjectManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.project.service.impl.ProjectManagementServiceImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>
         
 
 	<bean id="memberManagementServiceImpl"
