@@ -68,7 +68,7 @@ public class AuthorisationFilter implements Filter {
 			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
 		}
 		String URI = ((HttpServletRequest) request).getRequestURI();
-		HttpSession session = ((HttpServletRequest) request).getSession(false);
+		HttpSession session = ((HttpServletRequest) request).getSession(true);
 
 		if (logger.isDebugEnabled()) {
 			logger
