@@ -29,7 +29,6 @@
 <body>
 	<h2>Generate Certificate</h2>
 	<div id="breadcrumb">
-
 		<a href="#">Home</a> > <a href="#">Project</a> > <a href="#">Generate Certificate</a> 
 	</div>
 	<br />
