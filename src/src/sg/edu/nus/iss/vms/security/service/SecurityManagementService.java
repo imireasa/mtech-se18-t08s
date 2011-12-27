@@ -16,5 +16,5 @@ public interface SecurityManagementService {
 	/*
 	 * Returns the list of allowed menu items (names configured in struts menu config) for the logged in user
 	 */
-	public List<String> getAllowedMenu(UserDto user);
+	public List<String> getAllowedMenus(UserDto user);
 }

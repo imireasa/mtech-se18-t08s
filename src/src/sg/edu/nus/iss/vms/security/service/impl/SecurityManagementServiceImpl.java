@@ -116,7 +116,7 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 	}
 
 	@Override
-	public List<String> getAllowedMenu(UserDto user) {
+	public List<String> getAllowedMenus(UserDto user) {
 		// TODO Auto-generated method stub
 		return null;
 	}

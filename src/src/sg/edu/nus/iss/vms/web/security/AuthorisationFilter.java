@@ -118,7 +118,7 @@ public class AuthorisationFilter implements Filter {
 
 			if (allowedMenus == null) {
 				// allowed menus not loaded. Load now.
-				allowedMenus = authMgr.getAllowedMenu(currentUser);
+				allowedMenus = authMgr.getAllowedMenus(currentUser);
 				// set the allowed menus into session for retrieval later.
 				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), allowedMenus);//$NON-NLS-1$
 				// create a new menu permission adapter and set it in.
