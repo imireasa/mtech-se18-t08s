@@ -21,6 +21,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import sg.edu.nus.iss.vms.common.Messages;
+import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
 
@@ -123,7 +124,7 @@ public class AuthorisationFilter implements Filter {
 				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), allowedMenus);//$NON-NLS-1$
 				// create a new menu permission adapter and set it in.
 				PermissionsAdapter permissions = new MenuPermissionsAdapter(allowedMenus);
-				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_MENU_PERMISSIONS_ATTR_NME")), permissions);
+				session.setAttribute(VMSConstants.MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME, permissions);
 
 			}// else if allowedMenus is not null, no need to check.
 
