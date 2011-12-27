@@ -67,6 +67,7 @@ public class AuthorisationFilter implements Filter {
 			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
 		}
 		String URI = ((HttpServletRequest) request).getRequestURI();
+		HttpSession session = ((HttpServletRequest) request).getSession(false);
 
 		if (logger.isDebugEnabled()) {
 			logger
@@ -75,6 +76,11 @@ public class AuthorisationFilter implements Filter {
 
 		// check if authorisation is enabled
 		if (!isAuthorisationFilterEnabled) {
+			//place into session a super userdto
+			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_ATTR_NME")), getSuperUser());
+			//place into session a pass through menu configuration
+			session.setAttribute(VMSConstants.MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME, new PassThroughMenuPermissionsAdapter());
+			//do the rest of the filters.
 			chain.doFilter(request, response);
 			return;
 		}
@@ -97,7 +103,6 @@ public class AuthorisationFilter implements Filter {
 		// checks for user information in the session. determines whether the
 		// user is logged in or not.
 		UserDto currentUser = null;
-		HttpSession session = ((HttpServletRequest) request).getSession(false);
 		if (session != null) {
 			currentUser = (UserDto) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_ATTR_NME")); //$NON-NLS-1$
 		}
@@ -145,6 +150,15 @@ public class AuthorisationFilter implements Filter {
 				return;
 			}
 		}
+	}
+
+	private UserDto getSuperUser() {
+		UserDto superUser = new UserDto();
+		superUser.setNme("Super user");
+		superUser.setUsrLoginId("SuperUser");
+		superUser.setActInd(true);
+		superUser.setUsrId(new Long(999999));
+		return superUser;
 	}
 
 	private void returnError(ServletRequest request, ServletResponse response, String errorString, String redirectPage) throws ServletException,
