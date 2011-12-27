@@ -6,10 +6,10 @@
 
 <body>
 <head>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/engine.js'></script>
+
+<script type='text/javascript' 
+    src='<%=request.getContextPath()%>/sys/scripts/datetimepicker.js'></script>
+	
 
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
@@ -30,7 +30,8 @@
 	      <td width="122"><label>Project Code:</label></td>
 	      <td width="197"><input type="text" name="textfield3" id="textfield3"></td>
 	      <td width="157"><label>Start Month:</label></td>
-	      <td width="203">          12/26/2011</td>
+	      <td width="203"><input type="text" name="txtField_startDate" id="txtField_startDate">
+	      </td>
         </tr>
 	    <tr>
 	      <td><label>Project Name:</label></td>
@@ -62,30 +63,18 @@
 			<th><label>Name</label></th>
 			<th><label>Description</label></th>
 			<th><label>StartDate</label></th>
-			<th><label>Details</label></th>
+			
 			
 		</tr>
-		<c:forEach items="${pagedListHolder.pageList}" var="item">
+		<c:forEach items="${projectList}" var="item" varStatus="status">
 			<tr>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
+				<td>${item.nme}</td>
+				<td>${item.desc}</td>
+                <td>${item.strDte}</td>
+				<td><a href="#">Details</a></td>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<div class="pagination">
-	  <jsp:useBean id="pagedListHolder" scope="request"
-			type="org.springframework.beans.support.PagedListHolder" />
-
-		<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-		<c:url value="/admin/member/searchProjectMember.html" var="pagedLink">
-			<c:param name="p" value="~" />
-		</c:url>
-
-		<%-- // load our paging tag, pass pagedListHolder and the link --%>
-		<tg:paging pagedListHolder="${pagedListHolder}"
-			pagedLink="${pagedLink}" />
-	</div>
+	
 </body>

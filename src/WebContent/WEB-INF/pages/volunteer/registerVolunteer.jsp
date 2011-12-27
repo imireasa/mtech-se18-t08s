@@ -112,7 +112,7 @@
                     </th>
                 </tr>		
                 <tr>
-                    <th align="left">Confm Password</th>
+                    <th align="left">Confirm Password</th>
                     <th>:</th>
                     <th align="left">
                         <form:password path="cfpwd"/>
