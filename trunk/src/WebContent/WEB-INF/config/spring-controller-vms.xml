@@ -43,7 +43,7 @@
 		
 		
 		
-		<bean id="loginValidator" class="sg.edu.nus.iss.vms.web.security.LoginValidator"/>
+	<bean id="loginValidator" class="sg.edu.nus.iss.vms.web.security.LoginValidator"/>
 	<bean id="loginController" class="sg.edu.nus.iss.vms.web.security.LoginFormController">
 		<property name="securityManager" ref="SecurityManagementServiceImpl" />
 		<property name="sessionForm">
@@ -65,4 +65,10 @@
 			<value>/common/welcome.html</value>
 		</property>			
 	</bean>
+	
+	<!-- Menu -->
+	<bean id="menu" class="net.sf.navigator.menu.MenuLoader">
+	  <property name="menuConfig" value="/WEB-INF/config/menu-config.xml"/>
+	</bean>
+	
 </beans>
