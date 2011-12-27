@@ -204,7 +204,7 @@
 		<%-- // load our paging tag, pass pagedListHolder and the link --%>
 		<tg:paging pagedListHolder="${pagedListHolder}"
 			pagedLink="${pagedLink}" />
-	</div>
+</div>
 <script type="text/javascript">
 var TabbedPanels1 = new Spry.Widget.TabbedPanels("TabbedPanels1");
 </script>
