@@ -115,10 +115,17 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		return authorised;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllowedMenus(UserDto user) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT permission.desc " +
+		"FROM PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole " +
+		"WHERE permission.permiId = permissionRole.permiId " +
+		"AND userRole.roleId = permissionRole.roleId " +
+		"AND user.usrId = userRole.usrId " +
+		"AND user.usrLoginId = "+user.getUsrLoginId() ;
+		List<String> allowedMenus = (List<String>)manager.find(query);	
+		return allowedMenus;
 	}
 
 }
