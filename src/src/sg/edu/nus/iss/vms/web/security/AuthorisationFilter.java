@@ -62,6 +62,7 @@ public class AuthorisationFilter implements Filter {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - start"); //$NON-NLS-1$
