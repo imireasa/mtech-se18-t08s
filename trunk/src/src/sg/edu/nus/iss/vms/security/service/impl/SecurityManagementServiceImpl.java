@@ -118,11 +118,12 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<String> getAllowedMenus(UserDto user) {
-		String query = "SELECT permission.desc " +
-		"FROM PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole " +
+		String query = "SELECT menufunction.menuFuncNme " +
+		"FROM MenuFunctionDto menufunction, PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole " +
 		"WHERE permission.permiId = permissionRole.permiId " +
 		"AND userRole.roleId = permissionRole.roleId " +
 		"AND user.usrId = userRole.usrId " +
+		"AND menufunction.permiId = permission.permiId " +
 		"AND user.usrLoginId = "+user.getUsrLoginId() ;
 		List<String> allowedMenus = (List<String>)manager.find(query);	
 		return allowedMenus;
