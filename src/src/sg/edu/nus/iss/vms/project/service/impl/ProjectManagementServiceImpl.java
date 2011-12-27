@@ -11,6 +11,7 @@ import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
+import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public class ProjectManagementServiceImpl implements ProjectManagementService {
 
@@ -93,6 +94,18 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	public List<ProjectDto> getListAllProject() {
 		List<ProjectDto> project = manager.list(ProjectDto.class);
 		return project;
+	}
+
+	@Override
+	public List<ProjectDto> getProjectbyProjectVo(ProjectVo projectVo) {
+		StringBuffer hQL = new StringBuffer("from ProjectDto where ");
+
+		if (projectVo.getName() != null) {
+
+			hQL.append("nme like '%" + projectVo.getName() + "%'");
+		}
+		List<ProjectDto> projectList = manager.find(hQL.toString());
+		return projectList;
 	}
 
 	@Override

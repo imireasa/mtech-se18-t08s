@@ -18,6 +18,7 @@ import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
+import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
@@ -146,7 +147,22 @@ public class VolunteerController extends BaseMultiActionFormController {
 				.getListAllProject();
 		logger.debug("The project size is" + projectList.size());
 		modelAndView.addObject("projectList", projectList);
+		modelAndView.addObject("command", new ProjectVo());
 		return modelAndView;
 	}
 
+	public ModelAndView searchProjects(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo command) throws Exception {
+
+		logger.debug("searchProjects");
+
+		modelAndView = new ModelAndView("volunteer/browseProject");
+		List<ProjectDto> projectList = projectManagementService
+				.getProjectbyProjectVo(command);
+		logger.debug("The project size is" + projectList.size());
+		modelAndView.addObject("projectList", projectList);
+		modelAndView.addObject("command", command);
+		return modelAndView;
+
+	}
 }
