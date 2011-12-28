@@ -3,7 +3,7 @@ package sg.edu.nus.iss.vms.project.vo;
 public class ProjectVo {
 
 	public String loginId;
-	private String nme;
+	private String name;
 	private String desc;
 	private String prjMgr;
 	private String strDte;
@@ -20,11 +20,11 @@ public class ProjectVo {
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
 	}
-	public String getNme() {
-		return nme;
+	public String getName() {
+		return name;
 	}
-	public void setNme(String nme) {
-		this.nme = nme;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getDesc() {
 		return desc;
