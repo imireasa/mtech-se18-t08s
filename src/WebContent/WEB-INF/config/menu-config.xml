@@ -43,8 +43,8 @@
     </Menu>
     
     <Menu name="itinerary" title="Itinerary">
-        <Item title="Prepare Itinerary" toolTip="Prepare Itinerary" page="/index.jsp"/>
-        <Item title="Review Itinerary" toolTip="Review Itinerary" page="/index.jsp"/>
+        <Item title="Prepare Itinerary Plan" toolTip="Prepare Itinerary Plan" page="/index.jsp"/>
+        <Item title="Review Itinerary Plan" toolTip="Review Itinerary Plan" page="/index.jsp"/>
     </Menu>
 
   </Menus>
