@@ -9,6 +9,7 @@ import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
@@ -106,6 +107,26 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 		List<ProjectDto> projectList = manager.find(hQL.toString());
 		return projectList;
+	}
+
+	@Override
+	public ProjectDto getProjectbyId(long projectId) {
+		try {
+			return (ProjectDto) manager.get(ProjectDto.class, projectId);
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+			return null;
+		} finally {
+			this.logger.debug("@ Service Layer getting user 2");
+		}
+
+	}
+
+	@Override
+	public void raseInterest(ProjectInterestDto projectInterestDto) {
+
+		manager.save(projectInterestDto);
+
 	}
 
 	@Override
