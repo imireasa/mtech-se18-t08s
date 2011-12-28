@@ -11,4 +11,6 @@ public interface VolunteerManagementService {
         public List<ProjectMemberDto> getListOfMembers();
 
         public void saveNewVolunteer(VolunteerVo volunteerVo) throws Exception;
+
+        boolean isLoginIdExists(String loginId);
 }
