@@ -1,72 +1,128 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sg.edu.nus.iss.vms.security.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
 import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 
+/**
+ *
+ * @author zaw
+ */
 @Entity
 @Table(name = "tb_permission")
-@PrimaryKeyJoinColumn(name = "permi_id")
-@NamedQueries( { 
-	@NamedQuery(name = "PermissionDto.findAll", query = "SELECT permissionDto FROM PermissionDto permissionDto"),
-	@NamedQuery(name = "PermissionDto.findCountOfAccessRightsByUserLoginIDAndURI",
-				query = "SELECT count(permission) " +
-						"FROM PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole " +
-						"WHERE permission.permiId = permissionRole.permiId " +
-						"AND userRole.roleId = permissionRole.roleId " +
-						"AND user.usrId = userRole.usrId " +
-						"AND user.usrLoginId = :userLoginID " +
-						"AND permission.uri = :uri")
-	
-})
-
+@NamedQueries({
+        @NamedQuery(name = "PermissionDto.findAll", query = "SELECT t FROM PermissionDto t"),
+        @NamedQuery(name = "PermissionDto.findCountOfAccessRightsByUserLoginIDAndURI",
+        query = "SELECT count(permission) "
+        + "FROM PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole "
+        + "WHERE permission.permiId = permissionRole.permiId "
+        + "AND userRole.roleId = permissionRole.roleId "
+        + "AND user.usrId = userRole.usrId "
+        + "AND user.usrLoginId = :userLoginID "
+        + "AND permission.uri = :uri")})
 public class PermissionDto extends BaseVersionDto implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
+        private static final long serialVersionUID = 1L;
+        @Id
+        @GeneratedValue
+        @Basic(optional = false)
+        @Column(name = "PERMI_ID")
+        private Long permiId;
+        @Basic(optional = false)
+        @Column(name = "URI")
+        private String uri;
+        @Column(name = "DESC")
+        private String desc;
+        @OneToMany(cascade = CascadeType.ALL, mappedBy = "permiId", fetch = FetchType.LAZY)
+        private List<PermissionRoleDto> tbPermissionRoleList;
+        @OneToMany(cascade = CascadeType.ALL, mappedBy = "permiId", fetch = FetchType.LAZY)
+        private List<MenuFunctionDto> tbMenuFunctionList;
 
-	private Long permiId;
-	private String uri;
-	private String desc;
+        public PermissionDto() {
+        }
 
-	public PermissionDto() {
-	}
+        public PermissionDto(Long permiId) {
+                this.permiId = permiId;
+        }
 
-	@Id
-	@GeneratedValue
-	@Column(name = "PERMI_ID", unique = true, nullable = false)
-	public Long getPermiId() {
-		return this.permiId;
-	}
+        public PermissionDto(Long permiId, String uri, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+                this.permiId = permiId;
+                this.uri = uri;
+                setCreatedBy(createdBy);
+                setCreatedDte(createdDte);
+                setUpdBy(updBy);
+                setUpdDte(updDte);
+                setVersion(version);
+        }
 
-	public void setPermiId(Long permiId) {
-		this.permiId = permiId;
-	}
+        public Long getPermiId() {
+                return permiId;
+        }
 
-	@Column(name = "URI", nullable = false, length = 1000)
-	public String getUri() {
-		return this.uri;
-	}
+        public void setPermiId(Long permiId) {
+                this.permiId = permiId;
+        }
 
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
+        public String getUri() {
+                return uri;
+        }
 
-	@Column(name = "DESC", length = 200)
-	public String getDesc() {
-		return this.desc;
-	}
+        public void setUri(String uri) {
+                this.uri = uri;
+        }
 
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
+        public String getDesc() {
+                return desc;
+        }
+
+        public void setDesc(String desc) {
+                this.desc = desc;
+        }
+
+        public List<PermissionRoleDto> getTbPermissionRoleList() {
+                return tbPermissionRoleList;
+        }
+
+        public void setTbPermissionRoleList(List<PermissionRoleDto> tbPermissionRoleList) {
+                this.tbPermissionRoleList = tbPermissionRoleList;
+        }
+
+        public List<MenuFunctionDto> getTbMenuFunctionList() {
+                return tbMenuFunctionList;
+        }
+
+        public void setTbMenuFunctionList(List<MenuFunctionDto> tbMenuFunctionList) {
+                this.tbMenuFunctionList = tbMenuFunctionList;
+        }
+
+        @Override
+        public int hashCode() {
+                int hash = 0;
+                hash += (permiId != null ? permiId.hashCode() : 0);
+                return hash;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+                // TODO: Warning - this method won't work in the case the id fields are not set
+                if (!(object instanceof PermissionDto)) {
+                        return false;
+                }
+                PermissionDto other = (PermissionDto) object;
+                if ((this.permiId == null && other.permiId != null) || (this.permiId != null && !this.permiId.equals(other.permiId))) {
+                        return false;
+                }
+                return true;
+        }
+
+        @Override
+        public String toString() {
+                return "sg.edu.nus.iss.vms.common.dto.PermissionDto[ permiId=" + permiId + " ]";
+        }
 }

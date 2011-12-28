@@ -4,22 +4,10 @@
  */
 package sg.edu.nus.iss.vms.volunteer.dto;
 
+import sg.edu.nus.iss.vms.security.dto.UserDto;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import sg.edu.nus.iss.vms.security.dto.UserDto;
+import javax.persistence.*;
 
 /**
  *
@@ -27,16 +15,10 @@ import sg.edu.nus.iss.vms.security.dto.UserDto;
  */
 @Entity
 @Table(name = "tb_user_detail")
-@XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "UserDetailDto.findAll", query = "SELECT t FROM UserDetailDto t"),
-        @NamedQuery(name = "UserDetailDto.findByUsrDtlId", query = "SELECT t FROM UserDetailDto t WHERE t.usrDtlId = :usrDtlId"),
-        @NamedQuery(name = "UserDetailDto.findByIntrst", query = "SELECT t FROM UserDetailDto t WHERE t.intrst = :intrst"),
-        @NamedQuery(name = "UserDetailDto.findBySkillSet", query = "SELECT t FROM UserDetailDto t WHERE t.skillSet = :skillSet"),
-        @NamedQuery(name = "UserDetailDto.findByQualAtt", query = "SELECT t FROM UserDetailDto t WHERE t.qualAtt = :qualAtt"),
-        @NamedQuery(name = "UserDetailDto.findByJobTitleCd", query = "SELECT t FROM UserDetailDto t WHERE t.jobTitleCd = :jobTitleCd"),
-        @NamedQuery(name = "UserDetailDto.findBySalary", query = "SELECT t FROM UserDetailDto t WHERE t.salary = :salary")})
+        @NamedQuery(name = "UserDetailDto.findAll", query = "SELECT t FROM UserDetailDto t")})
 public class UserDetailDto implements Serializable {
+
         private static final long serialVersionUID = 1L;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,12 +32,12 @@ public class UserDetailDto implements Serializable {
         @Column(name = "QUAL_ATT")
         private String qualAtt;
         @Column(name = "JOB_TITLE_CD")
-        private BigInteger jobTitleCd;
+        private Long jobTitleCd;
         // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
         @Column(name = "SALARY")
         private BigDecimal salary;
         @JoinColumn(name = "USR_ID", referencedColumnName = "USR_ID")
-        @OneToOne(optional = false)
+        @OneToOne(optional = false, fetch = FetchType.EAGER)
         private UserDto usrId;
 
         public UserDetailDto() {
@@ -97,11 +79,11 @@ public class UserDetailDto implements Serializable {
                 this.qualAtt = qualAtt;
         }
 
-        public BigInteger getJobTitleCd() {
+        public Long getJobTitleCd() {
                 return jobTitleCd;
         }
 
-        public void setJobTitleCd(BigInteger jobTitleCd) {
+        public void setJobTitleCd(Long jobTitleCd) {
                 this.jobTitleCd = jobTitleCd;
         }
 
@@ -143,7 +125,6 @@ public class UserDetailDto implements Serializable {
 
         @Override
         public String toString() {
-                return "sg.edu.nus.iss.vms.volunteer.dto.UserDetailDto[ usrDtlId=" + usrDtlId + " ]";
+                return "sg.edu.nus.iss.vms.common.dto.UserDetailDto[ usrDtlId=" + usrDtlId + " ]";
         }
-        
 }

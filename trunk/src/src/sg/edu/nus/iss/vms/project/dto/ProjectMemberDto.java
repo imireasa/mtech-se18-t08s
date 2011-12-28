@@ -5,21 +5,9 @@
 package sg.edu.nus.iss.vms.project.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
+import javax.persistence.*;
+import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 
 /**
  *
@@ -27,19 +15,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "tb_project_member")
-@XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "ProjectMemberDto.findAll", query = "SELECT t FROM ProjectMemberDto t"),
-        @NamedQuery(name = "ProjectMemberDto.findByPrjMbrId", query = "SELECT t FROM ProjectMemberDto t WHERE t.prjMbrId = :prjMbrId"),
-        @NamedQuery(name = "ProjectMemberDto.findByUsrLoginId", query = "SELECT t FROM ProjectMemberDto t WHERE t.usrLoginId = :usrLoginId"),
-        @NamedQuery(name = "ProjectMemberDto.findByRoleCd", query = "SELECT t FROM ProjectMemberDto t WHERE t.roleCd = :roleCd"),
-        @NamedQuery(name = "ProjectMemberDto.findByActInd", query = "SELECT t FROM ProjectMemberDto t WHERE t.actInd = :actInd"),
-        @NamedQuery(name = "ProjectMemberDto.findByCreatedBy", query = "SELECT t FROM ProjectMemberDto t WHERE t.createdBy = :createdBy"),
-        @NamedQuery(name = "ProjectMemberDto.findByCreatedDte", query = "SELECT t FROM ProjectMemberDto t WHERE t.createdDte = :createdDte"),
-        @NamedQuery(name = "ProjectMemberDto.findByUpdBy", query = "SELECT t FROM ProjectMemberDto t WHERE t.updBy = :updBy"),
-        @NamedQuery(name = "ProjectMemberDto.findByUpdDte", query = "SELECT t FROM ProjectMemberDto t WHERE t.updDte = :updDte"),
-        @NamedQuery(name = "ProjectMemberDto.findByVersion", query = "SELECT t FROM ProjectMemberDto t WHERE t.version = :version")})
-public class ProjectMemberDto implements Serializable {
+        @NamedQuery(name = "ProjectMemberDto.findAll", query = "SELECT t FROM ProjectMemberDto t")})
+public class ProjectMemberDto extends BaseVersionDto implements Serializable {
 
         private static final long serialVersionUID = 1L;
         @Id
@@ -56,23 +34,8 @@ public class ProjectMemberDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "ACT_IND")
         private boolean actInd;
-        @Basic(optional = false)
-        @Column(name = "CREATED_BY")
-        private String createdBy;
-        @Basic(optional = false)
-        @Column(name = "CREATED_DTE")
-        private Date createdDte;
-        @Basic(optional = false)
-        @Column(name = "UPD_BY")
-        private String updBy;
-        @Basic(optional = false)
-        @Column(name = "UPD_DTE")
-        private Date updDte;
-        @Basic(optional = false)
-        @Column(name = "VERSION")
-        private int version;
         @JoinColumn(name = "PRJ_ID", referencedColumnName = "PRJ_ID")
-        @ManyToOne(optional = false)
+        @ManyToOne(optional = false, fetch = FetchType.EAGER)
         private ProjectDto prjId;
 
         public ProjectMemberDto() {
@@ -87,11 +50,11 @@ public class ProjectMemberDto implements Serializable {
                 this.usrLoginId = usrLoginId;
                 this.roleCd = roleCd;
                 this.actInd = actInd;
-                this.createdBy = createdBy;
-                this.createdDte = createdDte;
-                this.updBy = updBy;
-                this.updDte = updDte;
-                this.version = version;
+                setCreatedBy(createdBy);
+                setCreatedDte(createdDte);
+                setUpdBy(updBy);
+                setUpdDte(updDte);
+                setVersion(version);
         }
 
         public Long getPrjMbrId() {
@@ -124,46 +87,6 @@ public class ProjectMemberDto implements Serializable {
 
         public void setActInd(boolean actInd) {
                 this.actInd = actInd;
-        }
-
-        public String getCreatedBy() {
-                return createdBy;
-        }
-
-        public void setCreatedBy(String createdBy) {
-                this.createdBy = createdBy;
-        }
-
-        public Date getCreatedDte() {
-                return createdDte;
-        }
-
-        public void setCreatedDte(Date createdDte) {
-                this.createdDte = createdDte;
-        }
-
-        public String getUpdBy() {
-                return updBy;
-        }
-
-        public void setUpdBy(String updBy) {
-                this.updBy = updBy;
-        }
-
-        public Date getUpdDte() {
-                return updDte;
-        }
-
-        public void setUpdDte(Date updDte) {
-                this.updDte = updDte;
-        }
-
-        public int getVersion() {
-                return version;
-        }
-
-        public void setVersion(int version) {
-                this.version = version;
         }
 
         public ProjectDto getPrjId() {

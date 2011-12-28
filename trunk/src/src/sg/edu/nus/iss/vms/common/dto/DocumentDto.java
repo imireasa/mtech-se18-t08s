@@ -4,24 +4,11 @@
  */
 package sg.edu.nus.iss.vms.common.dto;
 
-import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDocumentDto;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
 
 /**
  *
@@ -29,11 +16,8 @@ import sg.edu.nus.iss.vms.project.dto.ProjectProposalDocumentDto;
  */
 @Entity
 @Table(name = "tb_document")
-@XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "DocumentDto.findAll", query = "SELECT t FROM DocumentDto t"),
-        @NamedQuery(name = "DocumentDto.findByDocId", query = "SELECT t FROM DocumentDto t WHERE t.docId = :docId"),
-        @NamedQuery(name = "DocumentDto.findByFleNme", query = "SELECT t FROM DocumentDto t WHERE t.fleNme = :fleNme")})
+        @NamedQuery(name = "DocumentDto.findAll", query = "SELECT t FROM DocumentDto t")})
 public class DocumentDto extends BaseVersionDto implements Serializable {
 
         private static final long serialVersionUID = 1L;
@@ -50,11 +34,11 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
         @Column(name = "FLE")
         private byte[] fle;
         @Column(name = "DESC")
-        private String description;
+        private String desc;
         @Basic(optional = false)
         @Column(name = "DEL_IND")
         private boolean delInd;
-        @OneToMany(cascade = CascadeType.ALL, mappedBy = "docId")
+        @OneToMany(cascade = CascadeType.ALL, mappedBy = "docId", fetch = FetchType.LAZY)
         private List<ProjectProposalDocumentDto> tbProjectProposalDocumentList;
 
         public DocumentDto() {
@@ -64,11 +48,16 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
                 this.docId = docId;
         }
 
-        public DocumentDto(Long docId, String fleNme, byte[] fle, boolean delInd) {
+        public DocumentDto(Long docId, String fleNme, byte[] fle, boolean delInd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.docId = docId;
                 this.fleNme = fleNme;
                 this.fle = fle;
                 this.delInd = delInd;
+                setCreatedBy(createdBy);
+                setCreatedDte(createdDte);
+                setUpdBy(updBy);
+                setUpdDte(updDte);
+                setVersion(version);
         }
 
         public Long getDocId() {
@@ -96,11 +85,11 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
         }
 
         public String getDesc() {
-                return description;
+                return desc;
         }
 
         public void setDesc(String desc) {
-                this.description = desc;
+                this.desc = desc;
         }
 
         public boolean getDelInd() {
@@ -111,7 +100,6 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
                 this.delInd = delInd;
         }
 
-        @XmlTransient
         public List<ProjectProposalDocumentDto> getTbProjectProposalDocumentList() {
                 return tbProjectProposalDocumentList;
         }

@@ -1,57 +1,100 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sg.edu.nus.iss.vms.security.dto;
 
 import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-
+import java.util.Date;
+import javax.persistence.*;
 import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
+
+/**
+ *
+ * @author zaw
+ */
 @Entity
 @Table(name = "tb_user_role")
-@PrimaryKeyJoinColumn(name = "usr_role_id")
-@NamedQueries( { @NamedQuery(name = "UserRoleDto.findAll", query = "SELECT u FROM UserRoleDto u") })
+@NamedQueries({
+        @NamedQuery(name = "UserRoleDto.findAll", query = "SELECT t FROM UserRoleDto t")})
 public class UserRoleDto extends BaseVersionDto implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
 
-	private Long usrRoleId;
-	private long roleId;
-	private long usrId;
+        private static final long serialVersionUID = 1L;
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Basic(optional = false)
+        @Column(name = "USR_ROLE_ID")
+        private Long usrRoleId;
+        @Basic(optional = false)
+        @Column(name = "USR_ID")
+        private long usrId;
+        @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
+        @ManyToOne(optional = false, fetch = FetchType.EAGER)
+        private RoleDto roleId;
 
+        public UserRoleDto() {
+        }
 
+        public UserRoleDto(Long usrRoleId) {
+                this.usrRoleId = usrRoleId;
+        }
 
-	@Id
-	@GeneratedValue
-	@Column(name = "USR_ROLE_ID", unique = true, nullable = false)
-	public Long getUsrRoleId() {
-		return this.usrRoleId;
-	}
+        public UserRoleDto(Long usrRoleId, long usrId, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+                this.usrRoleId = usrRoleId;
+                this.usrId = usrId;
+                setCreatedBy(createdBy);
+                setCreatedDte(createdDte);
+                setUpdBy(updBy);
+                setUpdDte(updDte);
+                setVersion(version);
+        }
 
-	public void setUsrRoleId(Long usrRoleId) {
-		this.usrRoleId = usrRoleId;
-	}
+        public Long getUsrRoleId() {
+                return usrRoleId;
+        }
 
-	@Column(name = "ROLE_ID", nullable = false)
-	public long getRoleId() {
-		return this.roleId;
-	}
+        public void setUsrRoleId(Long usrRoleId) {
+                this.usrRoleId = usrRoleId;
+        }
 
-	public void setRoleId(long roleId) {
-		this.roleId = roleId;
-	}
+        public long getUsrId() {
+                return usrId;
+        }
 
-	@Column(name = "USR_ID", nullable = false)
-	public long getUsrId() {
-		return this.usrId;
-	}
+        public void setUsrId(long usrId) {
+                this.usrId = usrId;
+        }
 
-	public void setUsrId(long usrId) {
-		this.usrId = usrId;
-	}
+        public RoleDto getRoleId() {
+                return roleId;
+        }
+
+        public void setRoleId(RoleDto roleId) {
+                this.roleId = roleId;
+        }
+
+        @Override
+        public int hashCode() {
+                int hash = 0;
+                hash += (usrRoleId != null ? usrRoleId.hashCode() : 0);
+                return hash;
+        }
+
+        @Override
+        public boolean equals(Object object) {
+                // TODO: Warning - this method won't work in the case the id fields are not set
+                if (!(object instanceof UserRoleDto)) {
+                        return false;
+                }
+                UserRoleDto other = (UserRoleDto) object;
+                if ((this.usrRoleId == null && other.usrRoleId != null) || (this.usrRoleId != null && !this.usrRoleId.equals(other.usrRoleId))) {
+                        return false;
+                }
+                return true;
+        }
+
+        @Override
+        public String toString() {
+                return "sg.edu.nus.iss.vms.common.dto.UserRoleDto[ usrRoleId=" + usrRoleId + " ]";
+        }
 }
