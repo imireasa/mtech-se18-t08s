@@ -28,19 +28,23 @@ public class MenuPermissionsAdapter implements PermissionsAdapter {
 		}
 
 		for (String dbmenu : allowedMenus) {
-			logger.debug("checking for " + menu.getName() + " checking against " + dbmenu);
-			if(dbmenu.equals(menu.getName())){
+			logger.debug("checking for " + menu.getTitle() + " checking against " + dbmenu);
+			if (dbmenu.equals(menu.getTitle())) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("isAllowed(MenuComponent) - end"); //$NON-NLS-1$
 				}
 				return true;
 			}
-			MenuComponent[] childMenus = menu.getMenuComponents();
-			if(childMenus != null && childMenus.length >0){
-				//check for child menus
-				for (MenuComponent childMenu : childMenus){
-					logger.debug("checking for " + childMenu.getName() + " checking against " + dbmenu);
-					if(dbmenu.equals(childMenu.getName())){
+
+		}
+		//check child menus
+		MenuComponent[] childMenus = menu.getMenuComponents();
+		for (String dbmenu : allowedMenus) {
+			if (childMenus != null && childMenus.length > 0) {
+				// check for child menus
+				for (MenuComponent childMenu : childMenus) {
+					logger.debug("checking for child menu " + childMenu.getTitle() + " checking against " + dbmenu);
+					if (dbmenu.equals(childMenu.getTitle())) {
 						if (logger.isDebugEnabled()) {
 							logger.debug("isAllowed(MenuComponent) - end"); //$NON-NLS-1$
 						}
