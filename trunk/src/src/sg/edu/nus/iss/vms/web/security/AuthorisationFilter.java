@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -87,8 +89,13 @@ public class AuthorisationFilter implements Filter {
 		}
 		// check if routing to excluded pages
 		for (int i = 0; i < excludePages.size(); i++) {
-			logger.debug("checking for excluded page. URI is "+URI+" result is "+URI.matches((String) excludePages.get(i)));
-			if (URI.matches((String) excludePages.get(i))) {
+			
+			Pattern pattern = Pattern.compile((String) excludePages.get(i)); 
+			Matcher matcher = pattern.matcher(URI);
+			Boolean matchFound = matcher.find();
+			logger.debug("checking for excluded page. URI is "+URI+" pattern is "+pattern+" result is "+matchFound);
+			
+			if (matchFound) {
 				// if excluded, carry on
 				if (logger.isDebugEnabled()) {
 					logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - excluded page hit."); //$NON-NLS-1$
