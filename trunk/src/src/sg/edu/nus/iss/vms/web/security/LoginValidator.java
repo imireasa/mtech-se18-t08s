@@ -14,10 +14,10 @@ public class LoginValidator implements Validator {
     public void validate(Object obj, Errors errors) {
         LoginCommand login = (LoginCommand) obj;        
         if (login.getUsername() == null || login.getUsername().length() == 0) {
-            errors.rejectValue("username", "error.empty.field", Messages.getString("LoginPage.Validation.USERNAME_EMPTY")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            errors.rejectValue("username", "error.empty.field", Messages.getString("message.common.error.mandatory", new String[]{"User ID"})); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
         if (login.getPassword() == null || login.getPassword().length() == 0) {
-            errors.rejectValue("password", "error.empty.field", Messages.getString("LoginPage.Validation.PASSWORD_EMPTY")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            errors.rejectValue("password", "error.empty.field", Messages.getString("message.common.error.mandatory", new String[]{"Password"})); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
         
     }
