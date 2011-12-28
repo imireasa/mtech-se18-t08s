@@ -7,41 +7,26 @@ package sg.edu.nus.iss.vms.common.dwr;
 import org.apache.log4j.Logger;
 
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 
 /**
  *
- * @author Jay
+ * @author Zaw
  */
 public class VmsDwr {
-
-    private Logger log = Logger.getLogger(VmsDwr.class);
-    private Manager manager;
-    
-    /**
-     * @return the log
-     */
-    public Logger getLog() {
-        return log;
-    }
-
-    /**
-     * @param log the log to set
-     */
-    public void setLog(Logger log) {
-        this.log = log;
-    }
-
-    /**
-     * @return the manager
-     */
-    public Manager getManager() {
-        return manager;
-    }
-
-    /**
-     * @param manager the manager to set
-     */
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
+        
+        private Logger log = Logger.getLogger(VmsDwr.class);
+        private VolunteerManagementService volunteerManagementService;
+        
+        public VolunteerManagementService getVolunteerManagementService() {
+                return volunteerManagementService;
+        }
+        
+        public void setVolunteerManagementService(VolunteerManagementService volunteerManagementService) {
+                this.volunteerManagementService = volunteerManagementService;
+        }
+        
+        public boolean isUserLoginIdExist(String userloginId) {
+                return volunteerManagementService.isLoginIdExists(userloginId);
+        }
 }
