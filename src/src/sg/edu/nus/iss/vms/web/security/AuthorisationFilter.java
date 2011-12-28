@@ -87,7 +87,7 @@ public class AuthorisationFilter implements Filter {
 		}
 		// check if routing to excluded pages
 		for (int i = 0; i < excludePages.size(); i++) {
-			if (URI.equals((String) excludePages.get(i))) {
+			if (URI.matches((String) excludePages.get(i))) {
 				// if excluded, carry on
 				if (logger.isDebugEnabled()) {
 					logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - excluded page hit."); //$NON-NLS-1$
