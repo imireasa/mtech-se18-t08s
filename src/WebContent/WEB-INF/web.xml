@@ -14,7 +14,7 @@
 		<filter-class>sg.edu.nus.iss.vms.web.security.AuthorisationFilter</filter-class>
 			<init-param>
 			<param-name>authorisation_enabled</param-name>
-			<param-value>false</param-value>
+			<param-value>true</param-value>
 		</init-param>
 		<init-param>
 			<param-name>error_page</param-name>
@@ -30,7 +30,7 @@
 		</init-param>
 		<init-param>
 			<param-name>exclude_pages</param-name>
-			<param-value>/VMS/sys/*,/VMS/sys/css/*,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/sys/css/reset.css,/VMS/sys/css/global.css,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
+			<param-value>/VMS/index.jsp,/VMS/WEB-INF/pages/[.]*,/VMS/sys/[.]*,/VMS/sys/css/[.]*,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
 		</init-param>
 	</filter>
 
