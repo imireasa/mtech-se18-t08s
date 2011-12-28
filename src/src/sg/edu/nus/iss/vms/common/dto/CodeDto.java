@@ -5,18 +5,7 @@
 package sg.edu.nus.iss.vms.common.dto;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.*;
 
 /**
  *
@@ -24,12 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "tb_code")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CodeDto.findAll", query = "SELECT t FROM CodeDto t"),
-    @NamedQuery(name = "CodeDto.findByCdId", query = "SELECT t FROM CodeDto t WHERE t.cdId = :cdId"),
-    @NamedQuery(name = "CodeDto.findByVal", query = "SELECT t FROM CodeDto t WHERE t.val = :val"),
-    @NamedQuery(name = "CodeDto.findByDesc", query = "SELECT t FROM CodeDto t WHERE t.desc = :desc")})
+    @NamedQuery(name = "CodeDto.findAll", query = "SELECT t FROM CodeDto t")})
 public class CodeDto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,7 +29,7 @@ public class CodeDto implements Serializable {
     @Column(name = "DESC")
     private String desc;
     @JoinColumn(name = "CAT_ID", referencedColumnName = "CAT_ID")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private CodeCategoryDto catId;
 
     public CodeDto() {

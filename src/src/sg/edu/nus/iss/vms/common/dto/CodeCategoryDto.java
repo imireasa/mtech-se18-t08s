@@ -6,19 +6,7 @@ package sg.edu.nus.iss.vms.common.dto;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.persistence.*;
 
 /**
  *
@@ -26,12 +14,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "tb_code_category")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "CodeCategoryDto.findAll", query = "SELECT t FROM CodeCategoryDto t"),
-    @NamedQuery(name = "CodeCategoryDto.findByCatId", query = "SELECT t FROM CodeCategoryDto t WHERE t.catId = :catId"),
-    @NamedQuery(name = "CodeCategoryDto.findByNme", query = "SELECT t FROM CodeCategoryDto t WHERE t.nme = :nme"),
-    @NamedQuery(name = "CodeCategoryDto.findByDesc", query = "SELECT t FROM CodeCategoryDto t WHERE t.desc = :desc")})
+    @NamedQuery(name = "CodeCategoryDto.findAll", query = "SELECT t FROM CodeCategoryDto t")})
 public class CodeCategoryDto implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,8 +28,8 @@ public class CodeCategoryDto implements Serializable {
     private String nme;
     @Column(name = "DESC")
     private String desc;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId")
-    private List<CodeDto> tbCodeList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId", fetch = FetchType.LAZY)
+    private List<CodeDto> codeList;
 
     public CodeCategoryDto() {
     }
@@ -83,13 +67,12 @@ public class CodeCategoryDto implements Serializable {
         this.desc = desc;
     }
 
-    @XmlTransient
-    public List<CodeDto> getTbCodeList() {
-        return tbCodeList;
+    public List<CodeDto> getCodeList() {
+        return codeList;
     }
 
-    public void setTbCodeList(List<CodeDto> tbCodeList) {
-        this.tbCodeList = tbCodeList;
+    public void setCodeList(List<CodeDto> tbCodeList) {
+        this.codeList = tbCodeList;
     }
 
     @Override
