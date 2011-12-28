@@ -30,7 +30,7 @@
 		</init-param>
 		<init-param>
 			<param-name>exclude_pages</param-name>
-			<param-value>/VMS/sys/css/paging.css,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/sys/css/reset.css,/VMS/sys/css/global.css,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
+			<param-value>/VMS/sys/*,/VMS/sys/css/*,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/sys/css/reset.css,/VMS/sys/css/global.css,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
 		</init-param>
 	</filter>
 
