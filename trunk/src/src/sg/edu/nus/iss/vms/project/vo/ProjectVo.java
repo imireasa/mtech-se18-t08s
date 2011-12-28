@@ -2,41 +2,85 @@ package sg.edu.nus.iss.vms.project.vo;
 
 public class ProjectVo {
 
-	private String name;
-	private String code;
-	private String startDate;
-	private String status;
-
-	public String getName() {
-		return name;
+	public String loginId;
+	private String nme;
+	private String desc;
+	private String prjMgr;
+	private String strDte;
+	private String endDte;
+	private String ctryCd;
+	private String loc;
+	private String rmk;
+	private String prjPropId;
+	private String stsCd;
+	
+	public String getLoginId() {
+		return loginId;
+	}
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
+	public String getNme() {
+		return nme;
+	}
+	public void setNme(String nme) {
+		this.nme = nme;
+	}
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+	public String getPrjMgr() {
+		return prjMgr;
+	}
+	public void setPrjMgr(String prjMgr) {
+		this.prjMgr = prjMgr;
+	}
+	public String getStrDte() {
+		return strDte;
+	}
+	public void setStrDte(String strDte) {
+		this.strDte = strDte;
+	}
+	public String getEndDte() {
+		return endDte;
+	}
+	public void setEndDte(String endDte) {
+		this.endDte = endDte;
+	}
+	public String getCtryCd() {
+		return ctryCd;
+	}
+	public void setCtryCd(String ctryCd) {
+		this.ctryCd = ctryCd;
+	}
+	public String getLoc() {
+		return loc;
+	}
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
+	public String getRmk() {
+		return rmk;
+	}
+	public void setRmk(String rmk) {
+		this.rmk = rmk;
+	}
+	public String getPrjPropId() {
+		return prjPropId;
+	}
+	public void setPrjPropId(String prjPropId) {
+		this.prjPropId = prjPropId;
+	}
+	public String getStsCd() {
+		return stsCd;
+	}
+	public void setStsCd(String stsCd) {
+		this.stsCd = stsCd;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public String getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 }
