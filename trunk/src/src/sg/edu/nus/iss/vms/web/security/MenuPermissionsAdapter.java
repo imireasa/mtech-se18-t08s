@@ -26,7 +26,7 @@ public class MenuPermissionsAdapter implements PermissionsAdapter {
 		if (logger.isDebugEnabled()) {
 			logger.debug("isAllowed(MenuComponent) - start"); //$NON-NLS-1$
 		}
-
+		//checking for parent menu existence. If the menu object passed in is a parent, this loop will end with no result.
 		for (String dbmenu : allowedMenus) {
 			logger.debug("checking for " + menu.getTitle() + " checking against " + dbmenu);
 			if (dbmenu.equals(menu.getTitle())) {
@@ -37,7 +37,7 @@ public class MenuPermissionsAdapter implements PermissionsAdapter {
 			}
 
 		}
-		//check child menus
+		//the above loop has completed with no results. Lets check if there is at least 1 child menu that the user can see. if one child menu is matching, the parent should show as well.
 		MenuComponent[] childMenus = menu.getMenuComponents();
 		for (String dbmenu : allowedMenus) {
 			if (childMenus != null && childMenus.length > 0) {
