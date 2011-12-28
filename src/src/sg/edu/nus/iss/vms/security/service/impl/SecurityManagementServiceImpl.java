@@ -50,10 +50,10 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 			}
 			return null;
 		}
-		String query = "select user from UserDto user where " +
-				"user.userLoginId=" + username +
-				" AND user.pwd = " +password + 
-				" AND user.actInd = 1";
+		String query = "select user FROM UserDto user WHERE " +
+				"user.usrLoginId = '" + username +
+				"' AND user.pwd = '" +password + 
+				"' AND user.actInd = 1";
 		List<UserDto> result = null;
 		result = manager.find(query);		
 		if (result == null || result.size() == 0) {
@@ -120,7 +120,7 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		"AND userRole.roleId = permissionRole.roleId " +
 		"AND user.usrId = userRole.usrId " +
 		"AND menufunction.permiId = permission.permiId " +
-		"AND user.usrLoginId = "+user.getUsrLoginId() ;
+		"AND user.usrLoginId = '"+user.getUsrLoginId() + "'";
 		List<String> allowedMenus = (List<String>)manager.find(query);	
 		return allowedMenus;
 	}
