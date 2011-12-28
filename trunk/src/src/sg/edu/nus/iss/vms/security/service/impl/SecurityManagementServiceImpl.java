@@ -50,13 +50,12 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 			}
 			return null;
 		}
-		UserDto userSearchCriteria = new UserDto();
-		userSearchCriteria.setUsrLoginId(username);
-		userSearchCriteria.setPwd(password);
-		userSearchCriteria.setActInd(VMSConstants.ACTIVE);
+		String query = "select user from UserDto user where " +
+				"user.userLoginId=" + username +
+				" AND user.pwd = " +password + 
+				" AND user.actInd = 1";
 		List<UserDto> result = null;
-		result = manager.list(UserDto.class, userSearchCriteria);
-		
+		result = manager.find(query);		
 		// List result =
 		// securityManagementDao.getObjectsByNamedQuery(loginQuery, loginValues,
 		// null);
