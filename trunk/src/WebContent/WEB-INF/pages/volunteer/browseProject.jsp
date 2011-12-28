@@ -107,7 +107,17 @@
 				<td>${item.nme}</td>
 				<td>${item.desc}</td>
                 <td>${item.strDte}</td>
-				<td><a href="#">Details</a></td>
+                <td>
+              
+				
+				<a href="
+	<c:url value="viewProjectDetails.html">
+	     <c:param name="prjId" value="${item.prjId}"/> 
+	</c:url>
+	">
+	Details
+</a>
+				
 				</td>
 			</tr>
 		</c:forEach>
