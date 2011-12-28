@@ -56,9 +56,6 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 				" AND user.actInd = 1";
 		List<UserDto> result = null;
 		result = manager.find(query);		
-		// List result =
-		// securityManagementDao.getObjectsByNamedQuery(loginQuery, loginValues,
-		// null);
 		if (result == null || result.size() == 0) {
 			// username and /or password not valid or user cannot be found. now
 			// return null.
