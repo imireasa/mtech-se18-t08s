@@ -18,7 +18,9 @@
 	rel="stylesheet" type="text/css" />
 <link href="<%=request.getContextPath()%>/sys/css/reset.css"
 	rel="stylesheet" type="text/css" />
-
+<script type='text/javascript' 
+        src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
+        
 <!--[if lte IE 6]>
 <script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/supersleight.js"></script>
 <![endif]-->
