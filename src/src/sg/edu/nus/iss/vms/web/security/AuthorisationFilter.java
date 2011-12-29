@@ -24,6 +24,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
+import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
 
@@ -114,6 +115,7 @@ public class AuthorisationFilter implements Filter {
 		UserDto currentUser = null;
 		if (session != null) {
 			currentUser = (UserDto) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_ATTR_NME")); //$NON-NLS-1$
+			
 		}
 		if (currentUser == null) {
 			returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), loginPage); //$NON-NLS-1$
@@ -142,6 +144,13 @@ public class AuthorisationFilter implements Filter {
 
 			}// else if allowedMenus is not null, no need to check.
 
+			UserSessionInfoVo userSessionInfoVo = new UserSessionInfoVo();
+			userSessionInfoVo.setName(currentUser.getNme());
+			userSessionInfoVo.setSessionID(session.getId());
+			userSessionInfoVo.setUserID(currentUser.getUsrLoginId());
+			//userSessionInfoVo.setRoles() TODO: To set the roles in.
+			userSessionInfoVo.setUserSeqID(currentUser.getUsrId());
+			
 			// Get relevant URI.
 			// Obtain AuthorisationManager singleton from Spring
 			// ApplicationContext.
