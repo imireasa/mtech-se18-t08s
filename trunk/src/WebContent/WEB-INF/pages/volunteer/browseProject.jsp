@@ -7,9 +7,6 @@
 
 <head>
 
-<script type='text/javascript' 
-    src='<%=request.getContextPath()%>/sys/scripts/datetimepicker.js'></script>
-	
 
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
@@ -49,19 +46,19 @@
                    action="searchProjects.html" >
 	  <table width="707" height="105" >
 	    <tr>
-	      <td width="122"><label>Project Code:</label></td>
+	      <td width="122"><label>Project Id:</label></td>
 	      <td width="197">
-	      <spring:bind path="command.code">  
-                            <form:input path="code"/>
+	      <spring:bind path="command.prjPropId">  
+                            <form:input path="prjPropId"/>
                         </spring:bind>
-            <form:errors path="code" cssClass="error"/>  
+            <form:errors path="prjPropId" cssClass="error"/>  
             </td>
 	      <td width="157"><label>Start Month:</label></td>
 	      <td width="203">
-	      <spring:bind path="command.startDate">  
-                            <form:input path="startDate"/>
+	      <spring:bind path="command.strDte">
+                            <form:input path="strDte"/><img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte')" style="cursor:pointer"/>
            </spring:bind>
-            <form:errors path="startDate" cssClass="error"/>  
+            <form:errors path="strDte" cssClass="error"/>  
 	      </td>
         </tr>
 	    <tr>
