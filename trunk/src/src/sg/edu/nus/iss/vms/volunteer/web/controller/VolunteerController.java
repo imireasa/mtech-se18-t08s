@@ -18,8 +18,10 @@ import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
+import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
@@ -30,6 +32,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 	private CodeManagementServices codeManagementServices;
 	private VolunteerManagementService volunteerManagementService;
 	private ProjectManagementService projectManagementService;
+	private MemberManagementService memberManagementService;
 	// local
 	private final Logger logger = Logger.getLogger(VolunteerController.class);
 	BindingResult errors;
@@ -68,6 +71,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 	public void setProjectManagementService(
 			ProjectManagementService projectManagementService) {
 		this.projectManagementService = projectManagementService;
+	}
+
+	public void setMemberManagementService(
+			MemberManagementService memberManagementService) {
+		this.memberManagementService = memberManagementService;
 	}
 
 	@Override
@@ -176,8 +184,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		ProjectDto projectDto = projectManagementService.getProjectbyId(prjId);
 
+		List<ProjectMemberDto> memberList = memberManagementService
+				.getListOfMembers(prjId);
 		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
 		modelAndView.addObject("project", projectDto);
+		modelAndView.addObject("memberList", memberList);
 		return modelAndView;
 
 	}
