@@ -137,7 +137,7 @@ public class AuthorisationFilter implements Filter {
 				// allowed menus not loaded. Load now.
 				allowedMenus = authMgr.getAllowedMenus(currentUser);
 				// set the allowed menus into session for retrieval later.
-				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), allowedMenus);//$NON-NLS-1$
+				session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_ALLOWED_MENU_ATTR_NME")), allowedMenus);//$NON-NLS-1$
 				// create a new menu permission adapter and set it in.
 				PermissionsAdapter permissions = new MenuPermissionsAdapter(allowedMenus);
 				session.setAttribute(VMSConstants.MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME, permissions);
@@ -151,6 +151,7 @@ public class AuthorisationFilter implements Filter {
 			//userSessionInfoVo.setRoles() TODO: To set the roles in.
 			userSessionInfoVo.setUserSeqID(currentUser.getUsrId());
 			
+			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_ALLOWED_MENU_ATTR_NME")), userSessionInfoVo);
 			// Get relevant URI.
 			// Obtain AuthorisationManager singleton from Spring
 			// ApplicationContext.
