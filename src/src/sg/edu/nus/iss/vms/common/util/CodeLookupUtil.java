@@ -27,7 +27,7 @@ public class CodeLookupUtil {
 
 	
 	/**
-	 * gets the list of codes based on the category ID
+	 * gets the list of codes based on the category name
 	 * 
 	 */
 	public static List <CodeDto> getListOfCodeByCategory(String category){
