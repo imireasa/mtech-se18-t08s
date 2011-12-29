@@ -22,7 +22,7 @@ public class UserUtil {
     private UserUtil(){}
 
     /**
-     * Get User Session Info from the session map of FaceContext Object.
+     * Get User Session Info from the session map of Context Object.
      * 
      * @return user session info object.
      */
