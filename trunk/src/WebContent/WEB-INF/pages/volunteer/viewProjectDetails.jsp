@@ -2,18 +2,15 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib" %>
 
-<script src="SpryAssets/SpryTabbedPanels.js" type="text/javascript"></script>
-<link href="SpryAssets/SpryTabbedPanels.css" rel="stylesheet"
-	type="text/css">
-<body>
+
 <head>
 
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
-
+<tab:tabConfig />
 
 </head>
 <body>
@@ -66,6 +63,38 @@
 				id="btn_RaiseProjectInterest" value="Raise Project Interest">
 		</form:form>
 	</div>
+    
+    
+<tab:tabContainer id="foo-bar-container">
+	
+	<tab:tabPane id="member" tabTitle="Project Members">
+<table width="200" border="1">
+  <tr>
+    <td>ID</td>
+    <td>Role</td>
+    <td>isActive</td>
+  </tr>
+  <c:forEach items="${projectList}" var="item" varStatus="status">
+			<tr>
+				<td>${item.usrLoginId}</td>
+				<td>${item.roleCd}</td>
+                <td>${item.actInd}</td>
+                
+			</tr>
+</table>
+     </c:forEach>
 
+	</tab:tabPane>
+
+	<tab:tabPane id="experience" tabTitle="Experience">
+		
+	</tab:tabPane>
+    
+    <tab:tabPane id="feedback" tabTitle="Feedback">
+		
+	</tab:tabPane>
+
+</tab:tabContainer>
+			
 
 </body>
