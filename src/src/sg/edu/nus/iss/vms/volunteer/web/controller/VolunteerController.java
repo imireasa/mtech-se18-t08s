@@ -14,211 +14,251 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
+import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
+import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
+import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
+import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
 public class VolunteerController extends BaseMultiActionFormController {
 
-	private CodeManagementServices codeManagementServices;
-	private VolunteerManagementService volunteerManagementService;
-	private ProjectManagementService projectManagementService;
-	private MemberManagementService memberManagementService;
-	// local
-	private final Logger logger = Logger.getLogger(VolunteerController.class);
-	BindingResult errors;
+        private CodeManagementServices codeManagementServices;
+        private VolunteerManagementService volunteerManagementService;
+        private ProjectManagementService projectManagementService;
+        private MemberManagementService memberManagementService;
+        // local
+        private final Logger logger = Logger.getLogger(VolunteerController.class);
+        BindingResult errors;
 
-	public VolunteerController() {
-	}
+        public VolunteerController() {
+        }
 
-	public void setCodeManagementServices(
-			CodeManagementServices codeManagementServices) {
-		this.codeManagementServices = codeManagementServices;
-	}
+        public void setCodeManagementServices(
+                CodeManagementServices codeManagementServices) {
+                this.codeManagementServices = codeManagementServices;
+        }
 
-	public void setVolunteerManagementService(
-			VolunteerManagementService volunteerManagementService) {
-		this.volunteerManagementService = volunteerManagementService;
-	}
+        public void setVolunteerManagementService(
+                VolunteerManagementService volunteerManagementService) {
+                this.volunteerManagementService = volunteerManagementService;
+        }
 
-	@Override
-	public long getLastModified(HttpServletRequest arg0) {
-		logger.debug("###################################################################################");
-		return super.getLastModified(arg0);
-	}
+        @Override
+        public long getLastModified(HttpServletRequest arg0) {
+                logger.debug("###################################################################################");
+                return super.getLastModified(arg0);
+        }
 
-	public BindingResult getErrors() {
-		return errors;
-	}
+        public BindingResult getErrors() {
+                return errors;
+        }
 
-	public void setErrors(BindingResult errors) {
-		this.errors = errors;
-	}
+        public void setErrors(BindingResult errors) {
+                this.errors = errors;
+        }
 
-	public ProjectManagementService getProjectManagementService() {
-		return projectManagementService;
-	}
+        public ProjectManagementService getProjectManagementService() {
+                return projectManagementService;
+        }
 
-	public void setProjectManagementService(
-			ProjectManagementService projectManagementService) {
-		this.projectManagementService = projectManagementService;
-	}
+        public void setProjectManagementService(
+                ProjectManagementService projectManagementService) {
+                this.projectManagementService = projectManagementService;
+        }
 
-	public void setMemberManagementService(
-			MemberManagementService memberManagementService) {
-		this.memberManagementService = memberManagementService;
-	}
+        @Override
+        protected void bind(HttpServletRequest request, Object command)
+                throws Exception {
+                // TODO Auto-generated method stub
 
-	@Override
-	protected void bind(HttpServletRequest request, Object command)
-			throws Exception {
-		// TODO Auto-generated method stub
+                ServletRequestDataBinder binder = createBinder(request, command);
+                binder.bind(request);
+                errors = binder.getBindingResult();
+        }
 
-		ServletRequestDataBinder binder = createBinder(request, command);
-		binder.bind(request);
-		errors = binder.getBindingResult();
-	}
+        public void setMemberManagementService(
+                MemberManagementService memberManagementService) {
+                this.memberManagementService = memberManagementService;
+        }
 
-	public void validate(Object command) {
-		Validator[] validators = getValidators();
-		if (validators != null) {
-			for (int index = 0; index < validators.length; index++) {
-				Validator validator = validators[index];
-				if (validator instanceof VolunteerValidator) {
-					if (((VolunteerValidator) validator).supports(command
-							.getClass())) {
-						ValidationUtils.invokeValidator(validators[index],
-								command, errors);
-					}
-				} else if (validator.supports(command.getClass())) {
-					ValidationUtils.invokeValidator(validators[index], command,
-							errors);
-				}
-			}
-		}
-	}
+        public void validate(Object command) {
+                Validator[] validators = getValidators();
+                if (validators != null) {
+                        for (int index = 0; index < validators.length; index++) {
+                                Validator validator = validators[index];
+                                if (validator instanceof VolunteerValidator) {
+                                        if (((VolunteerValidator) validator).supports(command.getClass())) {
+                                                ValidationUtils.invokeValidator(validators[index],
+                                                        command, errors);
+                                        }
+                                } else if (validator.supports(command.getClass())) {
+                                        ValidationUtils.invokeValidator(validators[index], command,
+                                                errors);
+                                }
+                        }
+                }
+        }
 
-	public ModelAndView loadRegisterVolunteer(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
-		// page
-		modelAndView.addObject("titalList", codeManagementServices
-				.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
-		modelAndView.addObject("countryList", codeManagementServices
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
-		modelAndView.addObject("command", new VolunteerVo());
-		return modelAndView;
-	}
+        public ModelAndView registerVolunteer(HttpServletRequest request,
+                HttpServletResponse response, VolunteerVo command) throws Exception {
 
-	public ModelAndView registerVolunteer(HttpServletRequest request,
-			HttpServletResponse response, VolunteerVo command) throws Exception {
+                if (command.getLoginId() == null) {
+                        modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
+                        // page
+                        modelAndView.addObject("titalList", codeManagementServices.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+                        modelAndView.addObject("countryList", codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+                        VolunteerVo volVo = new VolunteerVo();
+                        volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
+                        modelAndView.addObject("command", volVo);
+                        return modelAndView;
+                } else {
+                        validate(command);
+                        modelAndView = new ModelAndView("volunteer/updateVolunteer");
+                        modelAndView.addObject("titalList", codeManagementServices.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+                        modelAndView.addObject("countryList", codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+                        VolunteerVo volunteerVo = command;
+                        if (errors.hasErrors()) {
+                                logger.debug("Error Handling : ");
+                                saveError(request, errors.getFieldError().getDefaultMessage());
+                                modelAndView.addObject("command", volunteerVo);
+                                return modelAndView;
+                        }
 
-		validate(command);
-		modelAndView = new ModelAndView("volunteer/registerVolunteer");
-		modelAndView.addObject("titalList", codeManagementServices
-				.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
-		modelAndView.addObject("countryList", codeManagementServices
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
-		VolunteerVo volunteerVo = command;
-		if (errors.hasErrors()) {
-			logger.debug("Error Handling : ");
-			saveError(request, errors.getFieldError().getDefaultMessage());
-			modelAndView.addObject("command", volunteerVo);
-			return modelAndView;
-		}
+                        try {
+                                volunteerManagementService.saveNewVolunteer(volunteerVo);
+                        } catch (ApplicationException ae) {
+                                List list = new ArrayList();
+                                list.add(ae.getMessage());
+                                modelAndView.addObject("errors", list);
+                                modelAndView.addObject("command", volunteerVo);
+                                return modelAndView;
+                        }
 
-		try {
-			volunteerManagementService.saveNewVolunteer(volunteerVo);
-		} catch (ApplicationException ae) {
-			List list = new ArrayList();
-			list.add(ae.getMessage());
-			modelAndView.addObject("errors", list);
-			modelAndView.addObject("command", volunteerVo);
-			return modelAndView;
-		}
+                        modelAndView.addObject("command", volunteerVo);
+                        modelAndView.addObject("msg", Messages.getString("message.common.save"));
+                        return modelAndView;
+                }
+        }
 
-		modelAndView.addObject("command", volunteerVo);
-		modelAndView.addObject("msg", "save success");
-		return modelAndView;
-	}
+        public ModelAndView updateVolunteer(HttpServletRequest request,
+                HttpServletResponse response, VolunteerVo command) throws Exception {
+                //TODO: get current login volunteer
+                if (command.getLoginId() == null) {
+                        VolunteerVo volunteer = volunteerManagementService.getVolunteer(UserUtil.getUserSessionInfoVo().getUserID());
+                        //TODO: Update Session User
+                        modelAndView = new ModelAndView("volunteer/updateVolunteer");// jsp
+                        // page
+                        modelAndView.addObject("titalList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+                        modelAndView.addObject("countryList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+                        volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
+                        modelAndView.addObject("command", volunteer);
+                        return modelAndView;
+                } else {
+                        validate(command);
+                        modelAndView = new ModelAndView("volunteer/updateVolunteer");
+                        modelAndView.addObject("titalList", codeManagementServices.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+                        modelAndView.addObject("countryList", codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+                        VolunteerVo volunteerVo = command;
+                        if (errors.hasErrors()) {
+                                logger.debug("Error Handling : ");
+                                saveError(request, errors.getFieldError().getDefaultMessage());
+                                modelAndView.addObject("command", volunteerVo);
+                                return modelAndView;
+                        }
 
-	public ModelAndView browseProject(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
-		List<ProjectDto> projectList = projectManagementService
-				.getListAllProject();
-		logger.debug("The project size is" + projectList.size());
-		modelAndView.addObject("projectList", projectList);
-		modelAndView.addObject("command", new ProjectVo());
-		return modelAndView;
-	}
+                        try {
+                                volunteerManagementService.updateVolunteer(volunteerVo);
+                        } catch (ApplicationException ae) {
+                                List list = new ArrayList();
+                                list.add(ae.getMessage());
+                                modelAndView.addObject("errors", list);
+                                modelAndView.addObject("command", volunteerVo);
+                                return modelAndView;
+                        }
 
-	public ModelAndView searchProjects(HttpServletRequest request,
-			HttpServletResponse response, ProjectVo command) throws Exception {
+                        modelAndView.addObject("command", volunteerVo);
+                        modelAndView.addObject("msg", Messages.getString("message.common.update"));
+                        return modelAndView;
+                }
+        }
 
-		logger.debug("searchProjects");
+        public ModelAndView browseProject(HttpServletRequest request,
+                HttpServletResponse response) throws Exception {
+                modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
+                List<ProjectDto> projectList = projectManagementService.getListAllProject();
+                logger.debug("The project size is" + projectList.size());
+                modelAndView.addObject("projectList", projectList);
+                modelAndView.addObject("command", new ProjectVo());
+                return modelAndView;
+        }
 
-		modelAndView = new ModelAndView("volunteer/browseProject");
-		List<ProjectDto> projectList = projectManagementService
-				.getProjectbyProjectVo(command);
-		logger.debug("The project size is" + projectList.size());
-		modelAndView.addObject("projectList", projectList);
-		modelAndView.addObject("command", command);
-		return modelAndView;
+        public ModelAndView searchProjects(HttpServletRequest request,
+                HttpServletResponse response, ProjectVo command) throws Exception {
 
-	}
+                logger.debug("searchProjects");
 
-	public ModelAndView viewProjectDetails(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+                modelAndView = new ModelAndView("volunteer/browseProject");
+                List<ProjectDto> projectList = projectManagementService.getProjectbyProjectVo(command);
+                logger.debug("The project size is" + projectList.size());
+                modelAndView.addObject("projectList", projectList);
+                modelAndView.addObject("command", command);
+                return modelAndView;
 
-		long prjId = Long.parseLong(request.getParameter("prjId"));
+        }
 
-		ProjectDto projectDto = projectManagementService.getProjectbyId(prjId);
+        public ModelAndView viewProjectDetails(HttpServletRequest request,
+                HttpServletResponse response) throws Exception {
 
-		List<ProjectMemberDto> memberList = memberManagementService
-				.getListOfMembers(prjId);
-		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
-		modelAndView.addObject("project", projectDto);
-		modelAndView.addObject("memberList", memberList);
-		return modelAndView;
+                long prjId = Long.parseLong(request.getParameter("prjId"));
 
-	}
+                ProjectDto projectDto = projectManagementService.getProjectbyId(prjId);
 
-	public ModelAndView raiseInterest(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
-				"project");
-		logger.debug("@@@@@@@@@@@@@@raiseInterest@@@@@@@@@:"
-				+ projectDto.getPrjId());
+                List<ProjectMemberDto> memberList = memberManagementService.getListOfMembers(prjId);
+                modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+                modelAndView.addObject("project", projectDto);
+                modelAndView.addObject("memberList", memberList);
+                return modelAndView;
 
-		ProjectInterestDto projectInterestDto = new ProjectInterestDto();
-		projectInterestDto.setPrjId(projectDto);
-		projectInterestDto.setCreatedDte(new Date());
-		projectInterestDto.setCreatedBy("XXX");
-		projectInterestDto.setReqBy("ss");
-		projectInterestDto.setVersion(1);
-		projectInterestDto.setUpdBy("ss");
-		projectInterestDto.setUpdDte(new Date());
-		projectInterestDto.setStsCd(11);
+        }
 
-		projectManagementService.raseInterest(projectInterestDto);
+        public ModelAndView raiseInterest(HttpServletRequest request,
+                HttpServletResponse response) throws Exception {
+                ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
+                        "project");
+                logger.debug("@@@@@@@@@@@@@@raiseInterest@@@@@@@@@:"
+                        + projectDto.getPrjId());
 
-		logger.debug("@@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
-				+ projectDto.getPrjId());
+                ProjectInterestDto projectInterestDto = new ProjectInterestDto();
+                projectInterestDto.setPrjId(projectDto);
+                projectInterestDto.setCreatedDte(new Date());
+                projectInterestDto.setCreatedBy("XXX");
+                projectInterestDto.setReqBy("ss");
+                projectInterestDto.setVersion(1);
+                projectInterestDto.setUpdBy("ss");
+                projectInterestDto.setUpdDte(new Date());
+                projectInterestDto.setStsCd(11);
 
-		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+                projectManagementService.raseInterest(projectInterestDto);
 
-		modelAndView.addObject("project", projectDto);
-		return modelAndView;
+                logger.debug("@@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
+                        + projectDto.getPrjId());
 
-	}
+                modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+
+                modelAndView.addObject("project", projectDto);
+                return modelAndView;
+
+        }
 }

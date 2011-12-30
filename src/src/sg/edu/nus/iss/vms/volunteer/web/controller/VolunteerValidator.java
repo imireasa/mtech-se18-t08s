@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
+import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
@@ -38,14 +39,23 @@ public class VolunteerValidator implements Validator {
         public void validate(Object o, Errors errors) {
                 VolunteerVo obj = (VolunteerVo) o;
                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loginId", "loginId", "Required LoginId field");
+                if(volunteerManagementService.isLoginIdExists(obj.getLoginId()) &&
+                        obj.getCmdType().equals(VMSConstants.SCREEN_CMD_REGISTER)){
+                        errors.reject("loginId", "Login Exist in System. Please chose the");
+                }
                 
-                
-                
+                if(!obj.getPwd().equals(obj.getCfpwd())){
+                        errors.reject("pwd", "Required Password not the same");
+                }
+                        
+                               
                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "title", "Required field");
                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nme", "nme", "Required Name  field");
                 ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email", "Required Email field");
-                ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mobile", "mobile", "Required Mobile field");
-                ValidationUtils.rejectIfEmptyOrWhitespace(errors, "mobile", "mobile", "Required Mobile field");
+                ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dob", "dob", "Required Date Of Birth field");
+                ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "pwd", "Required Password field. Can not be a blank.");
+                ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cfpwd", "cfpwd", "Required Password field. Can not be a blank.");
+                
 
 
                 logger.debug("Validation Done.");
