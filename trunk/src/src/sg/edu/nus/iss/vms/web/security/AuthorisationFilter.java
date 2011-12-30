@@ -24,7 +24,10 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
+import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.util.RoleUtil;
 import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
+import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
 
@@ -148,7 +151,7 @@ public class AuthorisationFilter implements Filter {
 			userSessionInfoVo.setName(currentUser.getNme());
 			userSessionInfoVo.setSessionID(session.getId());
 			userSessionInfoVo.setUserID(currentUser.getUsrLoginId());
-			//userSessionInfoVo.setRoles() TODO: To set the roles in.
+			//userSessionInfoVo.setRoles(RoleUtil.getRoleStringListByUserLoginId(currentUser.getUsrLoginId())); //TODO: To set the roles in.
 			userSessionInfoVo.setUserSeqID(currentUser.getUsrId());
 			
 			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_ALLOWED_MENU_ATTR_NME")), userSessionInfoVo);
@@ -159,6 +162,9 @@ public class AuthorisationFilter implements Filter {
 			boolean authorised = authMgr.isUserAuthorised(currentUser, URI);
 			if (authorised) {
 				chain.doFilter(request, response);
+				/*if (UserUtil.getUserSessionInfoVo() != null)
+					logger.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - User Session Info Object - Session Id: " + UserUtil.getUserSessionInfoVo().getSessionID()
+							+ ", Name: " + UserUtil.getUserSessionInfoVo().getName() + ", User Roles: " + UserUtil.getUserSessionInfoVo().getRoles().toString());*/
 				return;
 			}
 			else {
