@@ -96,10 +96,12 @@ public class LoginFormController extends SimpleFormController {
 
 			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), userSessionInfoVo);
 
-			if (UserUtil.getUserSessionInfoVo() != null) 
-				logger.debug("onSubmit(Object) - User Session Info Object - Session Id: "
-					+ UserUtil.getUserSessionInfoVo().getSessionID() + ", Name: " + UserUtil.getUserSessionInfoVo().getName() + ", User Roles: "
-					+ UserUtil.getUserSessionInfoVo().getRoles().toString());
+			if (logger.isDebugEnabled()) {
+				if (UserUtil.getUserSessionInfoVo() != null) 
+					logger.debug("onSubmit(Object) - User Session Info Object - Session Id: "
+						+ UserUtil.getUserSessionInfoVo().getSessionID() + ", Name: " + UserUtil.getUserSessionInfoVo().getName() + ", User Roles: "
+						+ UserUtil.getUserSessionInfoVo().getRoles().toString());
+			}
 		}
 
 		ModelAndView modelAndView = new ModelAndView(new RedirectView("/VMS/common/welcome.html"));
