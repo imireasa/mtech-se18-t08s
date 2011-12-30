@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @author zaw.htet -->
+<decorators defaultdir="/sys/decorator">
+
+	<excludes>
+		<pattern>/login*</pattern>
+		<pattern>/index.jsp</pattern>
+	</excludes>
+
+	<!-- Default URL. Handled all unhandled previous URL pattern -->
+        
+        <decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/volunteer/*</pattern>
+	</decorator>
+        
+	<decorator name="commonDecorator" page="volunteerDecorator.jsp">
+		<pattern>/common/*</pattern>
+	</decorator>
+
+	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/admin/*</pattern>
+	</decorator>
+
+	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/report/*</pattern>
+	</decorator>
+        
+        
+</decorators>
