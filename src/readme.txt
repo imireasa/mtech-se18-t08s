@@ -4,9 +4,11 @@
 	- <property name="username" value="sadmin" />
 	- <property name="password" value="admin" />
 
-2. In eclipse's menu, 'Window' > Preferences' > 'Ant' > 'Runtime', in the 'Classpath' tab, select 'Ant Home Entries (Default)', then click on 'Add External JARs' button. Look for 'catalina-ant.jar' from your tomcat installation/lib.
+2. In eclipse's menu, 'Window' > Preferences' > 'Ant' > 'Runtime', in the 'Classpath' tab, select 'Ant Home Entries (Default)', 
+then click on 'Add External JARs' button. Look for 'catalina-ant.jar' from your tomcat installation/lib.
 
-3. Setup your users in tomcat. Edit the file 'tomcat installation/conf/tomcat-users.xml'. Add the following just above the tag </tomcat-users>
+3. Setup your users in tomcat. Edit the file 'tomcat installation/conf/tomcat-users.xml'. Add the following just above the 
+tag </tomcat-users>
 
 <role rolename="manager-gui"/>
 <role rolename="manager-script"/>
