@@ -24,6 +24,7 @@
 
         <bean id="vmsDwr" class="sg.edu.nus.iss.vms.common.dwr.VmsDwr">
                 <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
+                <property name="mailSenderUtil" ref="mailSenderUtilImpl"/>
         </bean>
 
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -47,7 +48,7 @@
         <bean id="loginController" class="sg.edu.nus.iss.vms.web.security.LoginFormController">
                 <property name="securityManager" ref="SecurityManagementServiceImpl" />
                 <property name="sessionForm">
-                        <value>true</value>
+                        <value>false</value>
                 </property>
                 <property name="commandName">
                         <value>loginCommand</value>
@@ -67,8 +68,8 @@
         </bean>
 	
 	<!-- Menu -->
-	<bean id="menu" class="net.sf.navigator.menu.MenuLoader">
-	  <property name="menuConfig" value="/WEB-INF/config/menu-config.xml"/>
-	</bean>
+        <bean id="menu" class="net.sf.navigator.menu.MenuLoader">
+                <property name="menuConfig" value="/WEB-INF/config/menu-config.xml"/>
+        </bean>
 	
 </beans>
