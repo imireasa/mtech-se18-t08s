@@ -46,7 +46,10 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>
-
-
 	
+	<bean id="userManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.common.service.impl.UserManagementServicesImpl">
+		<property name="manager" ref="baseManager" />
+		<property name="sessionBean" ref="sessionBean" />
+	</bean>	
 </beans>
