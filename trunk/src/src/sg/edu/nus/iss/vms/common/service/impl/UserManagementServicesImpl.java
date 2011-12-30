@@ -40,7 +40,7 @@ public class UserManagementServicesImpl implements UserManagementServices {
 			
 		try {
 			String query = "SELECT role " +
-			"FROM UserRoleDto userRole, UserDto user, RoleDto role, " +
+			"FROM UserRoleDto userRole, UserDto user, RoleDto role " +
 			"WHERE user.usrId = userRole.usrId " +
 			"AND userRole.roleId = role.roleId " +
 			"AND user.usrLoginId = '"+ userLoginId + "'";

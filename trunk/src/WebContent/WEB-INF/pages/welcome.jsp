@@ -9,7 +9,7 @@
 <title>Welcome To VMS</title>
 </head>
 <body>
-	<h2>${message}, Zaw</h2>
+	<h2>${message}, <c:out value="${userName}"/></h2>
 	<div id="breadcrumb">Home</div>
 </body>
 </html>

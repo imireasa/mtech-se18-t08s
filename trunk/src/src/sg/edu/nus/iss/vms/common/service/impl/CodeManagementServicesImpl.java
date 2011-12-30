@@ -56,9 +56,10 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		String codeDescription = "";
 		try {
 			String hQL = "from CodeDto c where c.cdId=" + codeId.toString();
-			List<String> codeList = this.manager.find(hQL);
+			List<CodeDto> codeList = this.manager.find(hQL);
 			if (!codeList.isEmpty()) {
-				codeDescription = (String) codeList.get(0);
+				CodeDto codeDto = (CodeDto) codeList.get(0);
+				codeDescription = codeDto.getDesc();
 			}
 
 		}
