@@ -13,4 +13,8 @@ public interface VolunteerManagementService {
         public void saveNewVolunteer(VolunteerVo volunteerVo) throws Exception;
 
         boolean isLoginIdExists(String loginId);
+
+        VolunteerVo getVolunteer(String loginid);
+
+        void updateVolunteer(VolunteerVo volunteerVo) throws Exception;
 }

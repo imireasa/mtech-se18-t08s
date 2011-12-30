@@ -42,13 +42,19 @@
         </script>
 </head>
 <body>
-        <h2><fmt:message key="message.volunteerManagement.registerVolunteer.label"/></h2>
+        <h2><fmt:message key="message.volunteerManagement.updateVolunteer.label"/></h2>
         <div id="breadcrumb">
                 <a href="#"><fmt:message key="message.common.home.label"/></a>
                 / <a href="#"><fmt:message key="message.volunteerManagement.volunteer.label"/></a> / 
-                <fmt:message key="message.volunteerManagement.register.label"/>
+                <fmt:message key="message.volunteerManagement.updateVolunteer.label"/>
         </div>
         <div class="query">
+                <c:if test="${not empty msg}"> 
+                        <div class="info">
+                                <c:out value="${msg}" escapeXml="false"/><br/>
+                        </div>
+                </c:if>
+
                 <c:if test="${not empty errors}"> 
                         <div class="error">
                                 <c:forEach var="error" items="${errors}">  
@@ -59,7 +65,7 @@
 
                 <form:form name="registerVolunteer" method="post"
                            commandName="command" 
-                           action="registerVolunteer.html">
+                           action="updateVolunteer.html">
                         <form:hidden path="cmdType"/>
                         <table width="400" class="proj-table">
                                 <tr>
@@ -67,10 +73,10 @@
                                                 <fmt:message key="message.common.loginid.label"/>
                                         </th>
                                         <th>:</th>
-                                        <th align="left">       
-                                                <form:input path="loginId"/>
+                                        <th align="left">  
+                                                ${command.loginId}
+                                                <form:hidden path="loginId"/>
                                                 <form:errors path="loginId" cssClass="error"/> 
-                                                <input type="button" name="check" value="check" onclick="checkUserLoginId()"
                                         </th>
                                 </tr>	
                                 <tr>

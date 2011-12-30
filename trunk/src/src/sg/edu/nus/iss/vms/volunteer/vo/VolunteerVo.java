@@ -12,6 +12,7 @@ import java.sql.Date;
  */
 public class VolunteerVo {
 
+        public String usrId;
         public String loginId;
         public String title;
         public String nme;
@@ -26,6 +27,33 @@ public class VolunteerVo {
         public String intrst;
         public String skillSet;
         public String qualAtt;
+        public String version;
+        //Form Parameters
+        public String cmdType;
+
+        public String getUsrId() {
+                return usrId;
+        }
+
+        public void setUsrId(String usrId) {
+                this.usrId = usrId;
+        }
+
+        public String getCmdType() {
+                return cmdType;
+        }
+
+        public void setCmdType(String cmdType) {
+                this.cmdType = cmdType;
+        }
+
+        public String getVersion() {
+                return version;
+        }
+
+        public void setVersion(String version) {
+                this.version = version;
+        }
 
         public String getLoginId() {
                 return loginId;
