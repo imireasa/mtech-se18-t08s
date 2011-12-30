@@ -1,14 +1,14 @@
 package sg.edu.nus.iss.vms.security.service.impl;
 
-import org.apache.log4j.Logger;
-
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import sg.edu.nus.iss.vms.common.SessionBean;
-import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
 
@@ -83,14 +83,14 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 	 *Returns boolean indicating whether user has the appropriate role for the
 	 * specified URI.
 	 */
-	public boolean isUserAuthorised(UserDto user, String uri) {
+	public boolean isUserAuthorised(UserSessionInfoVo user, String uri) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("isUserAuthorised(UserDto, String) - start"); //$NON-NLS-1$
 		}
 
 		boolean authorised = true;
 
-		String userLoginID = user.getUsrLoginId();
+		String userLoginID = user.getUserID();
 		
 		HashMap<String, String> parameterMap = new HashMap<String, String>();
 		parameterMap.put("userLoginID", userLoginID);
