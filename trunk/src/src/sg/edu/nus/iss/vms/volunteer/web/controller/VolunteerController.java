@@ -125,7 +125,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			modelAndView.addObject("countryList", codeManagementServices
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volVo = new VolunteerVo();
-			volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
+			// volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
 			modelAndView.addObject("command", volVo);
 			return modelAndView;
 		} else {
@@ -173,7 +173,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 					.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
 			modelAndView.addObject("countryList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
-			volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
+			// volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			modelAndView.addObject("command", volunteer);
 			return modelAndView;
 		} else {
