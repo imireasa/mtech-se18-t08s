@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
+import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.web.controller.MemberController;
 
 public class WelcomeController extends BaseMultiActionFormController {
@@ -22,6 +23,7 @@ public class WelcomeController extends BaseMultiActionFormController {
 	public ModelAndView welcome(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		modelAndView = new ModelAndView("welcome");
+		modelAndView.addObject("userName", UserUtil.getUserSessionInfoVo().getName());
 		Calendar cal = Calendar.getInstance();
 		int hour_of_day = cal.get(Calendar.HOUR_OF_DAY);
 		if (hour_of_day < 12)

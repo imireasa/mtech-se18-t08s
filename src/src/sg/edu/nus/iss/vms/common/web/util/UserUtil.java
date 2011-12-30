@@ -32,7 +32,7 @@ public class UserUtil {
         HttpServletRequest curRequest = 
         	((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
         	.getRequest();
-        sessionInfo = (UserSessionInfoVo) curRequest.getSession().getAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_ALLOWED_MENU_ATTR_NME")));
+        sessionInfo = (UserSessionInfoVo) curRequest.getSession().getAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")));
         return sessionInfo;
     }
 }

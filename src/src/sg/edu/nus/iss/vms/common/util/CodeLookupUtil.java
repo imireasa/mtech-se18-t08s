@@ -21,7 +21,7 @@ public class CodeLookupUtil {
 	public static String getCodeDescriptionByCodeId(Long codeId) {
 		String codeDescription = "";
 		CodeManagementServices codeMgr = getCodeManagementServices();
-		codeMgr.getCodeDescriptionByCodeId(codeId);
+		codeDescription = codeMgr.getCodeDescriptionByCodeId(codeId);
 		return codeDescription;
 	}
 
