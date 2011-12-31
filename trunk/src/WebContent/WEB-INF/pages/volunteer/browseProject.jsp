@@ -12,35 +12,16 @@
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
 	
-	<script type="text/javascript">
-        var defProjName = 'Please select...';
-
-        window.onload = init;
-
-        function init() {
-		
-        }
-
-
-        function submit(val, name) {
-            var projectId = document.getElementById("projectId");
-            var projectName = document.getElementById("projectName");
-            var searchMemberForm = document.getElementById("searchMemberForm");
-
-            projectId.value = val;
-            projectName.value = name;
-            searchMemberForm.submit();
-        }
-    </script>
+	
 
 
 </head>
 <body>
-	
+	<h2>Browse Project</h2>
 	<div id="breadcrumb">
 		<a href="#">Home</a> / <a href="#">Volunteer</a> / <a href="#">Browse Project</a>
 	</div>
-    <h2>Browse Project</h2>
+    
 	<div class="query">
    	  <form:form name="browseProject" method="post"  commandName="command" 
                    action="searchProjects.html" >
