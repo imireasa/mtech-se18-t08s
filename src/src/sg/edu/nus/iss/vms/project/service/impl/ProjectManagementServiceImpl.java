@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -20,6 +21,7 @@ import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
+import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public class ProjectManagementServiceImpl implements ProjectManagementService {
@@ -175,11 +177,11 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
+	public List<ProjectFeedbackDto> getAllProjectFeedbackList() {
 
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectFeedbackDto.class);
-		criteria.add(Restrictions.eq("prjId", projectDto));
+
 		return manager.findByDetachedCriteria(criteria);
 
 	}
@@ -197,4 +199,58 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		manager.save(projectFeedbackDto);
 
 	}
+
+	@Override
+	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectFeedbackDto.class);
+		criteria.add(Restrictions.eq("prjId", projectDto));
+		return manager.findByDetachedCriteria(criteria);
+	}
+
+	@Override
+	public List<ProjectFeedbackDto> getProjectFeedbackListbyVo(
+			ProjectInfoVo projectInfoVo) {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectFeedbackDto.class);
+		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
+			criteria.add(Restrictions.like("title", projectInfoVo.getFbTitle(),
+					MatchMode.ANYWHERE));
+		}
+		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbStatus())) {
+			criteria.add(Restrictions.eq("stsCd",
+
+			Long.parseLong(projectInfoVo.getFbStatus())));
+
+		}
+
+		if (!StringUtil.isNullOrEmpty(projectInfoVo.getPrjName())) {
+			criteria.setFetchMode("prjId", FetchMode.JOIN)
+					.createAlias("prjId", "prj")
+					.add(Restrictions.like("prj.nme",
+							projectInfoVo.getPrjName(), MatchMode.ANYWHERE));
+		}
+
+		return manager.findByDetachedCriteria(criteria);
+	}
+
+	@Override
+	public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId) {
+		try {
+			return (ProjectFeedbackDto) manager.get(ProjectFeedbackDto.class,
+					projectFbId);
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+			return null;
+		} finally {
+			this.logger.debug("@ Service Layer getting user 2");
+		}
+
+	}
+
+	@Override
+	public void saveProjectObject(Object obj) {
+		manager.save(obj);
+	}
+
 }

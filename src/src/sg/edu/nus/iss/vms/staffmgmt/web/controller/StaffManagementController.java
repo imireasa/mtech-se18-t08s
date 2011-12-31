@@ -10,23 +10,29 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseFormController;
 import sg.edu.nus.iss.vms.staffmgmt.service.StaffManagementServices;
 
 public class StaffManagementController extends BaseFormController {
-	private Logger logger = Logger.getLogger(StaffManagementController.class);
+	private final Logger logger = Logger
+			.getLogger(StaffManagementController.class);
 	private StaffManagementServices staffManagementServicesImpl;
 
 	public StaffManagementServices getStaffManagementServices() {
 		return this.staffManagementServicesImpl;
 	}
 
-	public void setStaffManagementServices(StaffManagementServices staffManagementServicesImpl) {
+	public void setStaffManagementServices(
+			StaffManagementServices staffManagementServicesImpl) {
 		this.staffManagementServicesImpl = staffManagementServicesImpl;
 	}
 
-	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@Override
+	public ModelAndView handleRequestInternal(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		this.modelAndView = new ModelAndView(getFormView());
 		this.logger.debug(getFormView());
-//		List<Staff> staffList = this.staffManagementServicesImpl.getListOfUser();
-//		this.modelAndView.addObject("listUser", staffList);
+		// List<Staff> staffList =
+		// this.staffManagementServicesImpl.getListOfUser();
+		// this.modelAndView.addObject("listUser", staffList);
 		this.logger.debug("Completed the request");
 		return super.handleRequestInternal(request, response);
 	}
+
 }
