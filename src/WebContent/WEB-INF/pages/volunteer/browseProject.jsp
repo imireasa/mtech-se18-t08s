@@ -73,7 +73,7 @@
 	      <td>
 	        <form:select path="stsCd">
               <c:forEach items="${projectCodeList}" var="item" varStatus="status">
-                 <option value="'${item.cdId}'">${item.val}</option>
+                 <option value="${item.cdId}">${item.val}</option>
               </c:forEach>
            </form:select>       
          </td>
