@@ -25,9 +25,10 @@
 
   <Menus>
   	<Menu name="projects" title="Projects">
-        <Item title="List Projects" toolTip="List Projects" page="/index.jsp"/>
+        <Item title="Manage Projects" toolTip="Manage Projects" page="/index.jsp"/>
         <Item title="My Project Interests" toolTip="My Project Interests" page="/index.jsp"/>
         <Item title="Review Project Feedback" toolTip="Review Project Feedback" page="/index.jsp"/>
+        <Item title="Browse Projects" toolTip="Browse Projects" page="/VMS/admin/volunteer/browseProject.html"/>
     </Menu>
     
     <Menu name="account" title="Account">
