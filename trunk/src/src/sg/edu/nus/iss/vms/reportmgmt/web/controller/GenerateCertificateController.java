@@ -70,19 +70,23 @@ public class GenerateCertificateController extends
 		modelAndView = new ModelAndView("reports/generateCertificate");
 
 		if (request.getParameter("projectId") != null) {
-			String projectIdString = request.getParameter("projectId");
-			logger.info("Message " + request.getParameter("projectId"));
-			int projectId = Integer.getInteger(projectIdString);
-			List volunteerList = memberManagementService
-					.getListOfMembers(projectId);
-			modelAndView.addObject("volunteerList", volunteerList);
+//			String projectIdString = request.getParameter("projectId");
+//			logger.info("Message " + request.getParameter("projectId"));
+//			int projectId = Integer.getInteger(projectIdString);
+//			List volunteerList = memberManagementService.getListOfMembers(projectId);
+//			modelAndView.addObject("volunteerList", volunteerList);
 		} else {
 			// load to the projectList
-			List projectList = projectManagementService.getListAllProject();
-			modelAndView.addObject("projectList", projectList);
-			List volunteerList = memberManagementService.getListOfMembers(1);
-			modelAndView.addObject("volunteerList", volunteerList);
+//			List projectList = projectManagementService.getListAllProject();
+//			modelAndView.addObject("projectList", projectList);
+//			List volunteerList = memberManagementService.getListOfMembers(1);
+//			modelAndView.addObject("volunteerList", volunteerList);
+                        List reqCertList = certificateManagement.getReqCertList();
+                        modelAndView.addObject("reqCertList", reqCertList);
 		}
+                if (request.getParameter("generateList") != null){
+                        System.out.println(request.getParameter("generateList"));
+                }
 		if (request.getParameter("volunteerId") != null) {
 			modelAndView.addObject("volunteerId",
 					request.getParameter("volunteerId"));
