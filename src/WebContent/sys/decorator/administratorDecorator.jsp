@@ -72,7 +72,7 @@
                                         <ul id="project">
                                                 <li class="header">Project</li>
                                                 <li><a href="#">New</a></li>
-                                                <li><a href="#">Manage</a>
+                                                <li><a href="#">Manage</a></li>
                                                 <li><a
                                                                 href="<%=request.getContextPath()%>/admin/project/assignPrjMemberRole.html">Assign
                                                                 Member Role</a></li>
@@ -84,7 +84,7 @@
                                                 <li class="header">Certificate</li>
                                                 <li><a href="#">Request Cert</a></li>
                                                 <li><a
-                                                                href="<%=request.getContextPath()%>/report/volunteer/generateCertificate.html">Generate
+                                                                href="<%=request.getContextPath()%>/admin/reports/generateCertificate.html">Generate
                                                                 Cert (PDF)</a></li>
                                                 <li><a
                                                                 href="<%=request.getContextPath()%>/report/volunteer/generateCertificate.html">Generate

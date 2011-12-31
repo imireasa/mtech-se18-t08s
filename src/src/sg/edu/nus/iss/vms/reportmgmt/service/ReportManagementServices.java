@@ -8,4 +8,7 @@ public interface ReportManagementServices {
 
 	public byte[] generateVolunteerCertificate(int projectId, int volunteerId) throws JRException,SQLException;
 
+        //Need to get certificate request
+
+
 }

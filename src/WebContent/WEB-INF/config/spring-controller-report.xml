@@ -18,5 +18,6 @@
 		<property name="reportManagementServices" ref="reportManagementServicesImpl" />
 		<property name="memberManagementService" ref="memberManagementServiceImpl" />
 		<property name="projectManagementService" ref="projectManagementServiceImpl" />
+                <property name="certificateManagement" ref="certificateManagementImpl" />
 	</bean>
 </beans>
