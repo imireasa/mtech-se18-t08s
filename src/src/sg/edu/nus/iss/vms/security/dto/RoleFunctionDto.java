@@ -14,7 +14,7 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
  * @author zaw
  */
 @Entity
-@Table(name = "tb_function_role")
+@Table(name = "tb_role_function")
 @NamedQueries({
         @NamedQuery(name = "RoleFunctionDto.findAll", query = "SELECT t FROM RoleFunctionDto t")})
 public class RoleFunctionDto extends BaseVersionDto implements Serializable {

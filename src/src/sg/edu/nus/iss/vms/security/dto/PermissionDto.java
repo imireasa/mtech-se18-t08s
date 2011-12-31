@@ -20,9 +20,11 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
         @NamedQuery(name = "PermissionDto.findAll", query = "SELECT t FROM PermissionDto t"),
         @NamedQuery(name = "PermissionDto.findCountOfAccessRightsByUserLoginIDAndURI",
         query = "SELECT count(permission) "
-        + "FROM PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole "
-        + "WHERE permission.permiId = permissionRole.permiId "
-        + "AND userRole.roleId = permissionRole.roleId "
+        + "FROM MenuFunctionDto menufunction, PermissionDto permission, UserRoleDto userRole, UserDto user, RoleFunctionDto roleFunction " +
+		"WHERE menufunction.menuFuncId = roleFunction.menuFuncId " +
+		"AND userRole.roleId = roleFunction.roleId " +
+		"AND user.usrId = userRole.usrId " +
+		"AND menufunction.permiId = permission.permiId " 
         + "AND user.usrId = userRole.usrId "
         + "AND user.usrLoginId = :userLoginID "
         + "AND permission.uri = :uri")})
