@@ -31,7 +31,7 @@
 				</tr>
 				<tr>
 					<td width="103"><label>Description:</label></td>
-					<td width="167">${project.desc}</td>
+					<td width="300">${project.desc}</td>
 				</tr>
 				<tr>
 					<td><label>Start Date:</label></td>
@@ -60,21 +60,27 @@
 	<tab:tabContainer id="tab-container">
 
 		<tab:tabPane id="member" tabTitle="Project Members">
+		<form:form name="memberDetails" method="post"
+			commandName="command" action="requestCertificate.html">
 			<table width="200" border="1">
 				<tr>
-					<td>ID</td>
-					<td>Role</td>
-					<td>isActive</td>
+					<th>ID</th>
+					<th>Role</th>
+					<th>isActive</th>
 				</tr>
 				<c:forEach items="${projectList}" var="item" varStatus="status">
 					<tr>
 						<td>${item.usrLoginId}</td>
 						<td>${item.roleCd}</td>
 						<td>${item.actInd}</td>
+						<td><input type="submit" name="btn_RequestCertificate"
+				id="btn_RequestCertificate" value="Request PCertificate"></td>
 
 					</tr>
 					</c:forEach>
 			</table>
+			
+		</form:form>
 			
 
 		</tab:tabPane>

@@ -70,10 +70,13 @@
             <form:errors path="name" cssClass="error"/>  
 	      </td>
 	      <td><label>Status:</label></td>
-	      <td><label for="select_status"></label>
-	        <select name="select_status" id="select_status">
-	          <option>All</option>
-          </select></td>
+	      <td>
+	        <form:select path="stsCd">
+              <c:forEach items="${projectCodeList}" var="item" varStatus="status">
+                 <option value="'${item.cdId}'">${item.val}</option>
+              </c:forEach>
+           </form:select>       
+         </td>
         </tr>
         
         <tr>
