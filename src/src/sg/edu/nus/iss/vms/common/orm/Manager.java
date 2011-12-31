@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+
 import sg.edu.nus.iss.vms.common.dao.Dao;
 
 /**
@@ -123,18 +125,20 @@ public interface Manager {
 	 *            query properties
 	 * @return
 	 */
-	public List find(String queryString, Object[] values, QueryProperties properties);
+	public List find(String queryString, Object[] values,
+			QueryProperties properties);
 
-	
 	/**
 	 * 
-	 * @param namedQuery - the key to the named query
+	 * @param namedQuery
+	 *            - the key to the named query
 	 * @param values
 	 * @param properties
 	 *            query properties
 	 * @return
 	 */
-	public List findByNamedQuery(String namedQuery, HashMap values, QueryProperties properties);
+	public List findByNamedQuery(String namedQuery, HashMap values,
+			QueryProperties properties);
 
 	/**
 	 * Generic method to get an object based on class and identifier.
@@ -164,4 +168,6 @@ public interface Manager {
 	public void remove(Class type, Serializable id);
 
 	public void removeObjects(String query);
+
+	List findByDetachedCriteria(DetachedCriteria criteria);
 }
