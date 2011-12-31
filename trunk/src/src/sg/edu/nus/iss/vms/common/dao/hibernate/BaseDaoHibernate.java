@@ -46,6 +46,7 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 	/**
 	 * @see csg.edu.nus.iss.vms.dao.Dao#saveObject(java.lang.Object)
 	 */
+	@Override
 	public void saveObject(Object o) {
 
 		try {
@@ -59,6 +60,7 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 	 * @see sg.edu.nus.iss.vms.common.dao.Dao#removeObject(java.lang.Class,
 	 *      java.io.Serializable)
 	 */
+	@Override
 	public void removeObject(Class type, Serializable id) {
 
 		try {
@@ -72,6 +74,7 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 	 * @see sg.edu.nus.iss.vms.common.dao.Dao#removeObject(java.lang.Class,
 	 *      java.io.Serializable)
 	 */
+	@Override
 	public void removeObjects(String query) {
 		try {
 			getHibernateTemplate().bulkUpdate(query);
@@ -85,6 +88,7 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 	 * @see sg.edu.nus.iss.vms.common.dao.Dao#getObject(java.lang.Class,
 	 *      java.io.Serializable)
 	 */
+	@Override
 	public Object getObject(Class type, Serializable id) {
 
 		Object o = getHibernateTemplate().get(type, id);
@@ -96,23 +100,29 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 		return o;
 	}
 
+	@Override
 	public List getObjects(Class type, QueryProperties properties) {
 		if (properties != null) {
 			DetachedCriteria criteria = DetachedCriteria.forClass(type);
 			criteria = addOrder(criteria, properties.getOrder());
-			return getHibernateTemplate().findByCriteria(criteria, properties.getFirstResult(), properties.getMaxResults());
+			return getHibernateTemplate().findByCriteria(criteria,
+					properties.getFirstResult(), properties.getMaxResults());
 		} else {
 			return getHibernateTemplate().loadAll(type);
 		}
 	}
 
-	public List getObjects(final Class type, final Object example, final QueryProperties properties) {
+	@Override
+	public List getObjects(final Class type, final Object example,
+			final QueryProperties properties) {
 		if (properties != null) {
 			//
 			// Example is a Map
 			//
 			if (example != null && example instanceof Map) {
-				return (List) getHibernateTemplate().executeWithNativeSession(new ListHibernateCallback(type, (Map) example, properties));
+				return (List) getHibernateTemplate().executeWithNativeSession(
+						new ListHibernateCallback(type, (Map) example,
+								properties));
 			}
 
 			//
@@ -120,7 +130,8 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 			//
 
 			// Search by All (AND) or Search by Any (OR)
-			Example ex = properties.isMatchAllExampleFields() ? Example.create(example) : AnyExample.create(example);
+			Example ex = properties.isMatchAllExampleFields() ? Example
+					.create(example) : AnyExample.create(example);
 
 			if (properties.getMatchString() == QueryProperties.MATCH_STRING_ANYWHERE) {
 				ex.enableLike(MatchMode.ANYWHERE);
@@ -136,17 +147,20 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 				ex.ignoreCase();
 			}
 
-			DetachedCriteria criteria = DetachedCriteria.forClass(example.getClass()).add(ex);
+			DetachedCriteria criteria = DetachedCriteria.forClass(
+					example.getClass()).add(ex);
 
 			criteria = addOrder(criteria, properties.getOrder());
 
-			return getHibernateTemplate().findByCriteria(criteria, properties.getFirstResult(), properties.getMaxResults());
+			return getHibernateTemplate().findByCriteria(criteria,
+					properties.getFirstResult(), properties.getMaxResults());
 		} else {
 			//
 			// Example is a Map
 			//
 			if (example != null && example instanceof Map) {
-				return (List) getHibernateTemplate().executeWithNativeSession(new ListHibernateCallback(type, (Map) example));
+				return (List) getHibernateTemplate().executeWithNativeSession(
+						new ListHibernateCallback(type, (Map) example));
 			}
 
 			//
@@ -156,58 +170,73 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 		}
 	}
 
-	public List getObjects(final String queryString, final Object[] values, final QueryProperties properties) {
-		return (List) getHibernateTemplate().executeWithNativeSession(new HibernateCallback() {
+	@Override
+	public List getObjects(final String queryString, final Object[] values,
+			final QueryProperties properties) {
+		return (List) getHibernateTemplate().executeWithNativeSession(
+				new HibernateCallback() {
 
-			public Object doInHibernate(Session session) throws HibernateException {
-				Query queryObject = session.createQuery(queryString);
+					@Override
+					public Object doInHibernate(Session session)
+							throws HibernateException {
+						Query queryObject = session.createQuery(queryString);
 
-				// TODO implement this
-				// isCacheQueries available
-				// if (isCacheQueries()) {
-				// queryObject.setCacheable(true);
-				// if (getQueryCacheRegion() != null) {
-				// queryObject.setCacheRegion(getQueryCacheRegion());
-				// }
-				// }
-				SessionFactoryUtils.applyTransactionTimeout(queryObject, getSessionFactory());
+						// TODO implement this
+						// isCacheQueries available
+						// if (isCacheQueries()) {
+						// queryObject.setCacheable(true);
+						// if (getQueryCacheRegion() != null) {
+						// queryObject.setCacheRegion(getQueryCacheRegion());
+						// }
+						// }
+						SessionFactoryUtils.applyTransactionTimeout(
+								queryObject, getSessionFactory());
 
-				if (values != null) {
-					for (int i = 0; i < values.length; i++) {
-						queryObject.setParameter(i, values[i]);
+						if (values != null) {
+							for (int i = 0; i < values.length; i++) {
+								queryObject.setParameter(i, values[i]);
+							}
+						}
+
+						if (properties != null) {
+							if (properties.getFirstResult() >= 0) {
+								queryObject.setFirstResult(properties
+										.getFirstResult());
+							}
+							if (properties.getMaxResults() > 0) {
+								queryObject.setMaxResults(properties
+										.getMaxResults());
+							}
+						}
+
+						return queryObject.list();
 					}
-				}
-
-				if (properties != null) {
-					if (properties.getFirstResult() >= 0) {
-						queryObject.setFirstResult(properties.getFirstResult());
-					}
-					if (properties.getMaxResults() > 0) {
-						queryObject.setMaxResults(properties.getMaxResults());
-					}
-				}
-
-				return queryObject.list();
-			}
-		});
+				});
 	}
-	public List getObjectsByNamedQuery(String namedQueryReference,  HashMap values,  QueryProperties properties) {
+
+	@Override
+	public List getObjectsByNamedQuery(String namedQueryReference,
+			HashMap values, QueryProperties properties) {
 		Query query = getSession().getNamedQuery(namedQueryReference);
-		log.debug("getObjectsByNamedQuery - values passed in "+values);
-		 Iterator it = values.entrySet().iterator();
-		    while (it.hasNext()) {
-		        Map.Entry pairs = (Map.Entry)it.next();
-		        log.debug("getObjectsByNamedQuery - putting key "+(String)pairs.getKey()+" into value " +pairs.getValue());
-		        query.setParameter((String)pairs.getKey(), pairs.getValue());
-		    }
-		
+		log.debug("getObjectsByNamedQuery - values passed in " + values);
+		Iterator it = values.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pairs = (Map.Entry) it.next();
+			log.debug("getObjectsByNamedQuery - putting key "
+					+ (String) pairs.getKey() + " into value "
+					+ pairs.getValue());
+			query.setParameter((String) pairs.getKey(), pairs.getValue());
+		}
+
 		return query.list();
-		
+
 	}
+
 	//
 	// Internal method
 	//
-	protected DetachedCriteria addOrder(DetachedCriteria criteria, IdValue[] order) {
+	protected DetachedCriteria addOrder(DetachedCriteria criteria,
+			IdValue[] order) {
 		if (criteria != null) {
 			int length = order != null ? order.length : 0;
 			for (int i = 0; i < length; i++) {
@@ -224,22 +253,26 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 	// ----- INTERNAL CLASS -----
 	class ListHibernateCallback implements HibernateCallback {
 
-		private Class type;
-		private Map map;
-		private QueryProperties properties;
+		private final Class type;
+		private final Map map;
+		private final QueryProperties properties;
 
 		protected ListHibernateCallback(Class type, Map map) {
 			this(type, map, new QueryProperties());
 		}
 
-		protected ListHibernateCallback(Class type, Map map, QueryProperties properties) {
+		protected ListHibernateCallback(Class type, Map map,
+				QueryProperties properties) {
 			this.type = type;
 			this.map = map;
 			this.properties = properties;
 		}
 
-		public Object doInHibernate(Session session) throws HibernateException, SQLException {
-			StringBuffer sb = new StringBuffer().append("from ").append(this.type.getName()).append(" x");
+		@Override
+		public Object doInHibernate(Session session) throws HibernateException,
+				SQLException {
+			StringBuffer sb = new StringBuffer().append("from ")
+					.append(this.type.getName()).append(" x");
 			if (this.map.size() > 0) {
 				int i = 0;
 				for (Iterator iter = map.keySet().iterator(); iter.hasNext(); i++) {
@@ -257,7 +290,8 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 
 					Object obj = map.get(key);
 					if (obj instanceof String) {
-						sb.append("x.").append(key).append(" LIKE '").append(obj).append("'");
+						sb.append("x.").append(key).append(" LIKE '")
+								.append(obj).append("'");
 					} else {
 						sb.append("x.").append(key).append("=").append(obj);
 					}
@@ -300,11 +334,11 @@ public class BaseDaoHibernate extends HibernateDaoSupport implements Dao {
 		}
 	}
 
-	/*
-	 * SessionFactory sessionFactory = new
-	 * AnnotationConfiguration().configure().buildSessionFactory(); Session
-	 * session =sessionFactory.openSession(); session.beginTransaction();
-	 * session.sa
-	 */
-	
+	public List getObjectbyCriterion(DetachedCriteria criteria) {
+		if (criteria != null) {
+
+			return getHibernateTemplate().findByCriteria(criteria);
+		}
+		return null;
+	}
 }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.DetachedCriteria;
 
 import sg.edu.nus.iss.vms.common.dao.Dao;
 import sg.edu.nus.iss.vms.common.orm.Manager;
@@ -30,6 +31,7 @@ public class BaseManager implements Manager {
 	/**
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#setDao(sg.edu.nus.iss.vms.common.dao.Dao)
 	 */
+	@Override
 	public void setDao(Dao dao) {
 		this.dao = dao;
 	}
@@ -37,6 +39,7 @@ public class BaseManager implements Manager {
 	/**
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#list(java.lang.Class)
 	 */
+	@Override
 	public List list(Class type) {
 		return dao.getObjects(type, (QueryProperties) null);
 	}
@@ -45,6 +48,7 @@ public class BaseManager implements Manager {
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#list(java.lang.Class,
 	 *      sg.edu.nus.iss.vms.common.orm.service.QueryProperties)
 	 */
+	@Override
 	public List list(Class type, QueryProperties properties) {
 		return dao.getObjects(type, properties);
 	}
@@ -53,6 +57,7 @@ public class BaseManager implements Manager {
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#list(java.lang.Class,
 	 *      java.io.Serializable, int, int)
 	 */
+	@Override
 	public List list(Class type, Object example, QueryProperties properties) {
 		return dao.getObjects(type, example, properties);
 	}
@@ -60,6 +65,7 @@ public class BaseManager implements Manager {
 	/**
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#list(java.io.Serializable)
 	 */
+	@Override
 	public List list(Class type, Object example) {
 		return dao.getObjects(type, example, (QueryProperties) null);
 	}
@@ -67,8 +73,11 @@ public class BaseManager implements Manager {
 	/**
 	 * @see sg.edu.nus.iss.vms.common.orm.service.service.Manager#find(java.io.Serializable)
 	 */
+	@Override
 	public List find(Class type, Object example) {
-		return dao.getObjects(type, example, new QueryProperties().setMatchAllExampleFields(false).setMatchStringAnywhere().setIgnoreCase(true));
+		return dao.getObjects(type, example, new QueryProperties()
+				.setMatchAllExampleFields(false).setMatchStringAnywhere()
+				.setIgnoreCase(true));
 	}
 
 	/**
@@ -76,9 +85,11 @@ public class BaseManager implements Manager {
 	 *      java.lang.Object,
 	 *      sg.edu.nus.iss.vms.common.orm.service.QueryProperties)
 	 */
+	@Override
 	public List find(Class type, Object example, QueryProperties properties) {
 		if (properties == null) {
-			properties = new QueryProperties().setMatchAllExampleFields(false).setMatchStringAnywhere().setIgnoreCase(true);
+			properties = new QueryProperties().setMatchAllExampleFields(false)
+					.setMatchStringAnywhere().setIgnoreCase(true);
 		}
 		return dao.getObjects(type, example, properties);
 	}
@@ -88,8 +99,10 @@ public class BaseManager implements Manager {
 	 * @param queryString
 	 * @return
 	 */
+	@Override
 	public List find(String queryString) {
-		return dao.getObjects(queryString, (Object[]) null, DEFAULT_QUERY_PROPERTIES);
+		return dao.getObjects(queryString, (Object[]) null,
+				DEFAULT_QUERY_PROPERTIES);
 	}
 
 	/**
@@ -98,8 +111,10 @@ public class BaseManager implements Manager {
 	 * @param value
 	 * @return
 	 */
+	@Override
 	public List find(String queryString, Object value) {
-		return dao.getObjects(queryString, new Object[] { value }, DEFAULT_QUERY_PROPERTIES);
+		return dao.getObjects(queryString, new Object[] { value },
+				DEFAULT_QUERY_PROPERTIES);
 	}
 
 	/**
@@ -108,6 +123,7 @@ public class BaseManager implements Manager {
 	 * @param values
 	 * @return
 	 */
+	@Override
 	public List find(String queryString, Object[] values) {
 		return dao.getObjects(queryString, values, DEFAULT_QUERY_PROPERTIES);
 	}
@@ -117,7 +133,9 @@ public class BaseManager implements Manager {
 	 *      java.lang.Object[],
 	 *      sg.edu.nus.iss.vms.common.orm.service.QueryProperties)
 	 */
-	public List find(String queryString, Object[] values, QueryProperties properties) {
+	@Override
+	public List find(String queryString, Object[] values,
+			QueryProperties properties) {
 		return dao.getObjects(queryString, values, properties);
 	}
 
@@ -125,6 +143,7 @@ public class BaseManager implements Manager {
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#get(java.lang.Class,
 	 *      java.io.Serializable)
 	 */
+	@Override
 	public Object get(Class type, Serializable id) {
 		return dao.getObject(type, id);
 	}
@@ -132,6 +151,7 @@ public class BaseManager implements Manager {
 	/**
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#save(java.lang.Object)
 	 */
+	@Override
 	public void save(Object o) {
 		dao.saveObject(o);
 	}
@@ -140,17 +160,26 @@ public class BaseManager implements Manager {
 	 * @see sg.edu.nus.iss.vms.common.orm.service.Manager#remove(java.lang.Class,
 	 *      java.io.Serializable)
 	 */
+	@Override
 	public void remove(Class type, Serializable id) {
 		dao.removeObject(type, id);
 	}
 
+	@Override
 	public void removeObjects(String query) {
 		dao.removeObjects(query);
 	}
 
 	@Override
-	public List findByNamedQuery(String namedQuery, HashMap values, QueryProperties properties) {
+	public List findByNamedQuery(String namedQuery, HashMap values,
+			QueryProperties properties) {
 
 		return dao.getObjectsByNamedQuery(namedQuery, values, properties);
+	}
+
+	@Override
+	public List findByDetachedCriteria(DetachedCriteria criteria) {
+
+		return dao.getObjectbyCriterion(criteria);
 	}
 }
