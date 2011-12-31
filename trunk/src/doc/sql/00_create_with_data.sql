@@ -438,6 +438,7 @@ CREATE TABLE `tb_user` (
   `TP_CD` bigint(19) NOT NULL,
   `TITLE_CD` bigint(19) NOT NULL,
   `NME` varchar(100) NOT NULL,
+  `DOB` date,
   `EMAIL` varchar(100) NOT NULL,
   `PWD` varchar(50) NOT NULL,
   `MOBILE` varchar(100) DEFAULT NULL,
