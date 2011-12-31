@@ -22,7 +22,7 @@
 
 	<div class="query">
 		<form:form name="viewProjectDetails" method="post"
-			commandName="command" action="raiseInterest.html">
+			commandName="projectInfo" action="raiseInterest.html">
 			<table>
 				<tr>
 					<td width="103"><label>Project Name:</label></td>
@@ -64,20 +64,20 @@
 
 		<tab:tabPane id="member" tabTitle="Project Members">
 		<form:form name="memberDetails" method="post"
-			commandName="command" action="requestCertificate.html">
+			commandName="projectInfo" action="requestCertificate.html">
 			<table width="200" border="1">
 				<tr>
 					<th>ID</th>
 					<th>Role</th>
 					<th>isActive</th>
 				</tr>
-				<c:forEach items="${projectList}" var="item" varStatus="status">
+				<c:forEach items="${memberList}" var="item" varStatus="status">
 					<tr>
 						<td>${item.usrLoginId}</td>
 						<td>${item.roleCd}</td>
 						<td>${item.actInd}</td>
 						<td><input type="submit" name="btn_RequestCertificate"
-				id="btn_RequestCertificate" value="Request PCertificate"></td>
+				id="btn_RequestCertificate" value="Request for Certificate"></td>
 
 					</tr>
 					</c:forEach>
