@@ -12,6 +12,7 @@ import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
@@ -112,8 +113,14 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			criteria.add(Restrictions.like("nme", projectVo.getName(),
 					MatchMode.ANYWHERE));
 		}
-		if (projectVo.getStrDte() != null) {
-			criteria.add(Restrictions.gt("strDte", projectVo.getStrDte()));
+		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
+			criteria.add(Restrictions.gt("strDte",
+					DateUtil.parseDate(projectVo.getStrDte())));
+		}
+
+		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
+			criteria.add(Restrictions.eq("stsCd",
+					Long.parseLong(projectVo.getStsCd())));
 		}
 
 		List<ProjectDto> projectList = manager.findByDetachedCriteria(criteria);
