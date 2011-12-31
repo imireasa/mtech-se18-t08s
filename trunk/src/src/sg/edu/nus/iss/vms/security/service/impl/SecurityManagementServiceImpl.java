@@ -115,9 +115,9 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 	@Override
 	public List<String> getAllowedMenus(UserDto user) {
 		String query = "SELECT menufunction.menuFuncNme " +
-		"FROM MenuFunctionDto menufunction, PermissionDto permission, UserRoleDto userRole, UserDto user, PermissionRoleDto permissionRole " +
-		"WHERE permission.permiId = permissionRole.permiId " +
-		"AND userRole.roleId = permissionRole.roleId " +
+		"FROM MenuFunctionDto menufunction, PermissionDto permission, UserRoleDto userRole, UserDto user, RoleFunctionDto roleFunction " +
+		"WHERE menufunction.menuFuncId = roleFunction.menuFuncId " +
+		"AND userRole.roleId = roleFunction.roleId " +
 		"AND user.usrId = userRole.usrId " +
 		"AND menufunction.permiId = permission.permiId " +
 		"AND user.usrLoginId = '"+user.getUsrLoginId() + "'";
