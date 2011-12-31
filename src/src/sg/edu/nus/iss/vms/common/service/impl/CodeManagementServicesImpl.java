@@ -76,24 +76,16 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		}
 
 	}
-
-	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
-			String codeDesc) {
-
-		try {
-			DetachedCriteria criteria = DetachedCriteria
+	
+    public CodeDto getCodeDtoByCatVal(String Category,String val) {
+        this.logger.debug("@ Service Layer Getting Code DTO by a specific Category Value." + Category+", Category Value:"+val);
+                String hQL = "from CodeDto c where c.catId.nme='" + Category + "' and c.val='"+ val + "'" ;
 					.forClass(CodeDto.class);
 			criteria.setFetchMode("catId", FetchMode.JOIN)
 					.createAlias("catId", "cat")
-					.add(Restrictions.eq("cat.nme", category))
-					.add(Restrictions.eq("val", codeDesc));
-
+                codeList = this.manager.find(hQL);
+                if(codeList!=null)
 			return (CodeDto) manager.findByDetachedCriteria(criteria).get(0);
 
-		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
-			return null;
-		}
-
-	}
+        } finally {
 }
