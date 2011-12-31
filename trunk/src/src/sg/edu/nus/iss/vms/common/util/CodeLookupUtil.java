@@ -25,25 +25,33 @@ public class CodeLookupUtil {
 		return codeDescription;
 	}
 
-	
 	/**
 	 * gets the list of codes based on the category name
 	 * 
 	 */
-	public static List <CodeDto> getListOfCodeByCategory(String category){
+	public static List<CodeDto> getListOfCodeByCategory(String category) {
 		CodeManagementServices codeMgr = getCodeManagementServices();
 		return codeMgr.getListOfCodeByCategory(category);
 	}
-	
-	
+
+	public static CodeDto getCodeByCategoryAndCodeValue(String category,
+			String value) {
+		CodeManagementServices codeMgr = getCodeManagementServices();
+		return codeMgr.getCodeDescriptionByCodeCategoryAndCodeDesc(category,
+				value);
+	}
+
 	/**
 	 * @return the reference to Code management Services
 	 */
 	private static CodeManagementServices getCodeManagementServices() {
-		HttpServletRequest curRequest = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
+		HttpServletRequest curRequest = ((ServletRequestAttributes) RequestContextHolder
+				.currentRequestAttributes()).getRequest();
 		HttpSession session = curRequest.getSession();
-		ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
-		CodeManagementServices codeMgr = (CodeManagementServices) ctx.getBean("codeManagementServiceImpl"); //$NON-NLS-1$
+		ApplicationContext ctx = WebApplicationContextUtils
+				.getWebApplicationContext(session.getServletContext());
+		CodeManagementServices codeMgr = (CodeManagementServices) ctx
+				.getBean("codeManagementServiceImpl"); //$NON-NLS-1$
 		return codeMgr;
 	}
 

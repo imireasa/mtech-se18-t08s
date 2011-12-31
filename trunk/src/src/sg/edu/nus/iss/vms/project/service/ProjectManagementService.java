@@ -9,6 +9,7 @@ import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
+import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public interface ProjectManagementService {
@@ -40,4 +41,13 @@ public interface ProjectManagementService {
 	public void postProjectFeedback(ProjectFeedbackDto projectFeedbackDto);
 
 	public void requestCertificate(CertificateRequestDto certificateRequestDto);
+
+	public List<ProjectFeedbackDto> getAllProjectFeedbackList();
+
+	public List<ProjectFeedbackDto> getProjectFeedbackListbyVo(
+			ProjectInfoVo projectInfoVo);
+
+	public void saveProjectObject(Object obj);
+
+	public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId);
 }

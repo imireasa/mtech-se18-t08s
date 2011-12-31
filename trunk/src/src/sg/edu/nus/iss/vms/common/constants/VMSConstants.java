@@ -18,5 +18,7 @@ public class VMSConstants {
 
 	public static final String CERTIFIATE_REQUEST_TYPE_INDIVIDUAL = "Individual";
 	public static final String FEEDBACK_STATUS_SUMBITTED = "Submitted";
+	public static final String FEEDBACK_STATUS_APPROVED = "Approved";
+	public static final String FEEDBACK_STATUS_REJECTED = "Rejected";
 	public static final String CERTIFICATE_REQUEST_STATUS_REQUEST = "Requested";
 }
