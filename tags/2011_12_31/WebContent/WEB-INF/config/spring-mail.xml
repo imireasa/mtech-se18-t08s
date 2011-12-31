@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+    Document   : spring-mail.xml
+    Created on : December 28, 2011, 6:38 PM
+    Author     : zaw
+    Description: Purpose of the document is for spring mail function.
+-->
+
+<beans>
+
+        <bean id="mailSenderUtilImpl" class="sg.edu.nus.iss.vms.common.mail.impl.MailSenderUtilImpl">
+                <property name="host"     value="${sys.server.mail.send.host}"/>
+                <property name="username" value="${sys.server.mail.send.username}"/>
+                <property name="password" value="${sys.server.mail.send.password}"/>
+                <property name="port" value="${sys.server.mail.send.port}"/>
+                <property name="javaMailProperties">
+                        <props>
+                                <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+                                <prop key="mail.smtp.auth">true</prop>
+                                <!-- Use TLS to encrypt communication with SMTP server -->
+                                <prop key="mail.smtp.starttls.enable">true</prop>
+                        </props>
+                </property>
+                <property name="velocityEngine" ref="mailTemplateEngine"/>
+		<!-- [currently not used] -->
+		<!--
+		<property name="session"    ref="mailSession"/>
+		-->
+        </bean>
+
+        <bean id="mailReceiverUtilImpl" class="sg.edu.nus.iss.vms.common.mail.impl.MailReceiverUtilImpl">
+                <property name="host"     value="${sys.server.mail.receive.host}"/>
+                <property name="username" value="${sys.server.mail.receive.username}"/>
+                <property name="password" value="${sys.server.mail.receive.password}"/>
+                <property name="port" value="${sys.server.mail.receive.port}"/>
+        </bean>
+
+	<!-- configure velocity for sending e-mail -->
+        <bean id="mailTemplateEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+                <property name="resourceLoaderPath">
+                        <value>/WEB-INF/template/</value>
+                </property>
+		<!-- 
+		[currently not used]
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+				<prop key="velocimacro.library"></prop>
+			</props>
+		</property>
+		-->
+        </bean>
+
+	<!-- JNDI resource for mail session definition, Currently NOT USED -->
+	<!--
+	<bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName"><value>java:comp/env/mail/Session</value></property>
+	</bean>
+	-->
+
+	<!-- ======================================================== -->
+	<!-- MAIL SERVICES                                            -->
+	<!-- ======================================================== -->
+
+	<!--
+	NOT YET!
+	-->
+
+</beans>
