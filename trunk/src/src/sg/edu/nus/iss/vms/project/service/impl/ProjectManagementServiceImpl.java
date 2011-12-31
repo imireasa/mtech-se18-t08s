@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.SessionBean;
+import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
@@ -103,13 +106,17 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public List<ProjectDto> getProjectbyProjectVo(ProjectVo projectVo) {
-		StringBuffer hQL = new StringBuffer("from ProjectDto where ");
 
-		if (projectVo.getName() != null) {
-
-			hQL.append("nme like '%" + projectVo.getName() + "%'");
+		DetachedCriteria criteria = DetachedCriteria.forClass(ProjectDto.class);
+		if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
+			criteria.add(Restrictions.like("nme", projectVo.getName(),
+					MatchMode.ANYWHERE));
 		}
-		List<ProjectDto> projectList = manager.find(hQL.toString());
+		if (projectVo.getStrDte() != null) {
+			criteria.add(Restrictions.gt("strDte", projectVo.getStrDte()));
+		}
+
+		List<ProjectDto> projectList = manager.findByDetachedCriteria(criteria);
 		return projectList;
 	}
 
@@ -146,6 +153,13 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 				.forClass(ProjectExperienceDto.class);
 		criteria.add(Restrictions.eq("prjId", projectDto));
 		return manager.findByDetachedCriteria(criteria);
+
+	}
+
+	@Override
+	public void requestCertificate(CertificateRequestDto certificateRequestDto) {
+
+		manager.save(certificateRequestDto);
 
 	}
 

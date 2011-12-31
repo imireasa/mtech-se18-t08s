@@ -2,6 +2,7 @@ package sg.edu.nus.iss.vms.project.service;
 
 import java.util.List;
 
+import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
@@ -37,4 +38,6 @@ public interface ProjectManagementService {
 	public void postProjectExperience(ProjectExperienceDto projectExperienceDto);
 
 	public void postProjectFeedback(ProjectFeedbackDto projectFeedbackDto);
+
+	public void requestCertificate(CertificateRequestDto certificateRequestDto);
 }
