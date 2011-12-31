@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
+import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
@@ -260,6 +261,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			HttpServletResponse response) throws Exception {
 		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
 				"project");
+
 		logger.debug("@@@@@@@@@@@@@@raiseInterest@@@@@@@@@:"
 				+ projectDto.getPrjId());
 
@@ -332,6 +334,32 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);
 		modelAndView.addObject("projectInfo", new ProjectInfoVo());
+		return modelAndView;
+
+	}
+
+	public ModelAndView requestCertificate(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
+				"project");
+
+		logger.debug("@@@@@@@@@@@@@@requestCertificate@@@@@@@@@:"
+				+ projectDto.getPrjId());
+
+		CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
+		certificateRequestDto.setPrjId(projectDto.getPrjId());
+		certificateRequestDto.setCreatedBy(projectDto.getCreatedBy());
+		certificateRequestDto.setCreatedDte(new Date());
+		certificateRequestDto.setReqBy(projectDto.getCreatedBy());
+		certificateRequestDto.setReqDte(new Date());
+		certificateRequestDto.setReqSts(1);
+		certificateRequestDto.setReqTp(1);
+
+		projectManagementService.requestCertificate(certificateRequestDto);
+
+		logger.debug("@@@@@@@@@@@@@@successfully reqCertifictae@@@@@@@@@:"
+				+ projectDto.getPrjId());
+
 		return modelAndView;
 
 	}
