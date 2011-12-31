@@ -247,7 +247,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		ProjectDto projectDto = projectManagementService.getProjectbyId(prjId);
 		List<ProjectMemberDto> memberList = memberManagementService
-				.getListOfMembers(prjId);
+				.getListOfMembersbyProject(projectDto);
+		logger.debug("!!!!!!!!!!!!!!!!!!!!Total memebr:" + memberList.size());
 		List<ProjectExperienceDto> experienceList = projectManagementService
 				.getProjectExperienceList(projectDto);
 		List<ProjectFeedbackDto> feedbackList = projectManagementService
@@ -258,6 +259,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);
 		modelAndView.addObject("projectInfo", new ProjectInfoVo());
+		logger.debug("!!!!!!!!!!!!!!!!!!!!Total memebr:" + memberList.size());
 		return modelAndView;
 
 	}
@@ -362,14 +364,27 @@ public class VolunteerController extends BaseMultiActionFormController {
 		logger.debug("@@@@@@@@@@@@@@requestCertificate@@@@@@@@@:"
 				+ projectDto.getPrjId());
 
+		CodeDto codeDto = codeManagementServices
+				.getCodeDescriptionByCodeCategoryAndCodeDesc(
+						VMSConstants.CERTIFIATE_REQUEST_TYPE,
+						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
+
+		CodeDto codeStatusDto = codeManagementServices
+				.getCodeDescriptionByCodeCategoryAndCodeDesc(
+						VMSConstants.CERTIFICATE_REQUEST_STATUS,
+						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUEST);
+
 		CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
 		certificateRequestDto.setPrjId(projectDto.getPrjId());
 		certificateRequestDto.setCreatedBy(projectDto.getCreatedBy());
 		certificateRequestDto.setCreatedDte(new Date());
 		certificateRequestDto.setReqBy(projectDto.getCreatedBy());
 		certificateRequestDto.setReqDte(new Date());
-		certificateRequestDto.setReqSts(1);
-		certificateRequestDto.setReqTp(1);
+		certificateRequestDto.setReqSts(codeStatusDto.getCdId());
+		certificateRequestDto.setReqTp(codeDto.getCdId());
+		certificateRequestDto.setUpdBy(projectDto.getCreatedBy());
+		certificateRequestDto.setUpdDte(new Date());
+		certificateRequestDto.setVersion(1);
 
 		projectManagementService.requestCertificate(certificateRequestDto);
 
