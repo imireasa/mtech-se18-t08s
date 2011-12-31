@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
@@ -132,5 +136,40 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	@Override
 	public List<CodeDto> getProjectRoleList() {
 		return null;
+	}
+
+	@Override
+	public List<ProjectExperienceDto> getProjectExperienceList(
+			ProjectDto projectDto) {
+
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectExperienceDto.class);
+		criteria.add(Restrictions.eq("prjId", projectDto));
+		return manager.findByDetachedCriteria(criteria);
+
+	}
+
+	@Override
+	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
+
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectFeedbackDto.class);
+		criteria.add(Restrictions.eq("prjId", projectDto));
+		return manager.findByDetachedCriteria(criteria);
+
+	}
+
+	@Override
+	public void postProjectExperience(ProjectExperienceDto projectExperienceDto) {
+
+		manager.save(projectExperienceDto);
+
+	}
+
+	@Override
+	public void postProjectFeedback(ProjectFeedbackDto projectFeedbackDto) {
+
+		manager.save(projectFeedbackDto);
+
 	}
 }
