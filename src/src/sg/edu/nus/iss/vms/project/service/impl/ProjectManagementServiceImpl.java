@@ -115,7 +115,11 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
 			criteria.add(Restrictions.gt("strDte",
-					DateUtil.parseDate(projectVo.getStrDte())));
+
+			DateUtil.parseDate(projectVo.getStrDte())));
+
+			logger.debug("sssssssssssssss"
+					+ DateUtil.parseDate(projectVo.getStrDte()));
 		}
 
 		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
