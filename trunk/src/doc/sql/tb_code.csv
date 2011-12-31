@@ -1,44 +1,1 @@
-CD_ID,CAT_ID,VAL,DESC
-1,1,Singapore,Singapore
-2,1,Philippines,Philippines
-3,1,Myanmar,Myanmar
-4,2,Submitted,Submitted
-5,2,Approved,Approved
-6,2,Rejected,Rejected
-7,3,New,New
-8,3,In Progress,In Progress
-9,3,Close,Close
-10,4,Mr.,Mr.
-11,4,Ms.,Ms.
-12,4,Mrs.,Mrs.
-13,4,Mdm.,Mdm.
-14,4,Dr.,Dr.
-15,4,Sr.,Sr.
-16,4,Miss,Miss
-17,4,Mstr.,Mstr.
-18,4,Prof.,Prof.
-19,4,Unk.,Unk.
-20,5,Volunteer,Volunteer
-21,5,Staff,Staff
-22,6,New,New
-23,6,Approved,Approved
-24,6,Rejected,Rejected
-25,6,Withdraw,Withdraw
-26,7,Project Member,Project Member
-27,7,Project Manager,Project Manager
-28,7,Project Leader,Project Leader
-29,8,Submitted,Submitted
-30,8,Approved,Approved
-31,8,Rejected,Rejected
-32,9,New,New
-33,9,Close,Close
-34,12,System Administrator,System Administrator
-36,12,User,User
-38,12,Project Cordinator,Project Cordinator
-39,13,Director,Director
-40,13,Manager,Manager
-41,13,Employee,Employee
-42,10,Requested,Certificate Requested
-43,10,Processed,Certificate Processed
-44,11,Project,Project level request for certificate
-45,11,Individual,Individual level request for certificate
+CD_ID,CAT_ID,VAL,CD_DESC1,1,Singapore,Singapore2,1,Philippines,Philippines3,1,Myanmar,Myanmar4,2,Submitted,Submitted5,2,Approved,Approved6,2,Rejected,Rejected7,3,New,New8,3,In Progress,In Progress9,3,Close,Close10,4,Mr.,Mr.11,4,Ms.,Ms.12,4,Mrs.,Mrs.13,4,Mdm.,Mdm.14,4,Dr.,Dr.15,4,Sr.,Sr.16,4,Miss,Miss17,4,Mstr.,Mstr.18,4,Prof.,Prof.19,4,Unk.,Unk.20,5,Volunteer,Volunteer21,5,Staff,Staff22,6,New,New23,6,Approved,Approved24,6,Rejected,Rejected25,6,Withdraw,Withdraw26,7,Project Member,Project Member27,7,Project Manager,Project Manager28,7,Project Leader,Project Leader29,8,Submitted,Submitted30,8,Approved,Approved31,8,Rejected,Rejected32,9,New,New33,9,Close,Close34,12,System Administrator,System Administrator36,12,User,User38,12,Project Cordinator,Project Cordinator39,13,Director,Director40,13,Manager,Manager41,13,Employee,Employee42,10,Requested,Certificate Requested43,10,Processed,Certificate Processed44,11,Project,Project level request for certificate45,11,Individual,Individual level request for certificate
