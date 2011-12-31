@@ -19,7 +19,7 @@ import sg.edu.nus.iss.vms.volunteer.dto.UserDetailDto;
 @NamedQueries({
         @NamedQuery(name = "UserDto.findAll", query = "SELECT t FROM UserDto t")})
 public class UserDto extends BaseVersionDto implements Serializable {
-        
+
         private static final long serialVersionUID = 1L;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +38,10 @@ public class UserDto extends BaseVersionDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "NME")
         private String nme;
+        @Basic(optional = false)
+        @Column(name = "DOB")
+        @Temporal(TemporalType.TIMESTAMP)
+        private Date dob;
         @Basic(optional = false)
         @Column(name = "EMAIL")
         private String email;
@@ -62,150 +66,160 @@ public class UserDto extends BaseVersionDto implements Serializable {
         //
         @OneToOne(cascade = CascadeType.ALL, mappedBy = "usrId", fetch = FetchType.EAGER)
         private UserDetailDto tbUserDetail;
-        
+
         public UserDto() {
         }
-        
+
         public UserDto(Long usrId) {
                 this.usrId = usrId;
         }
-        
-        public UserDto(Long usrId, String usrLoginId, long tpCd, long titleCd, String nme, String email, String pwd, boolean actInd, Date joinDte, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+
+        public UserDto(Long usrId, String usrLoginId, long tpCd, long titleCd, String nme, Date dob, String email, String pwd, boolean actInd, Date joinDte, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.usrId = usrId;
                 this.usrLoginId = usrLoginId;
                 this.tpCd = tpCd;
                 this.titleCd = titleCd;
                 this.nme = nme;
+                this.dob = dob;
                 this.email = email;
                 this.pwd = pwd;
                 this.actInd = actInd;
                 this.joinDte = joinDte;
+
                 setCreatedBy(createdBy);
                 setCreatedDte(createdDte);
                 setUpdBy(updBy);
                 setUpdDte(updDte);
                 setVersion(version);
         }
-        
+
         public Long getUsrId() {
                 return usrId;
         }
-        
+
         public void setUsrId(Long usrId) {
                 this.usrId = usrId;
         }
-        
+
         public String getUsrLoginId() {
                 return usrLoginId;
         }
-        
+
         public void setUsrLoginId(String usrLoginId) {
                 this.usrLoginId = usrLoginId;
         }
-        
+
         public long getTpCd() {
                 return tpCd;
         }
-        
+
         public void setTpCd(long tpCd) {
                 this.tpCd = tpCd;
         }
-        
+
         public long getTitleCd() {
                 return titleCd;
         }
-        
+
         public void setTitleCd(long titleCd) {
                 this.titleCd = titleCd;
         }
-        
+
         public String getNme() {
                 return nme;
         }
-        
+
         public void setNme(String nme) {
                 this.nme = nme;
         }
-        
+
+        public Date getDob() {
+                return dob;
+        }
+
+        public void setDob(Date dob) {
+                this.dob = dob;
+        }
+
         public String getEmail() {
                 return email;
         }
-        
+
         public void setEmail(String email) {
                 this.email = email;
         }
-        
+
         public String getPwd() {
                 return pwd;
         }
-        
+
         public void setPwd(String pwd) {
                 this.pwd = pwd;
         }
-        
+
         public String getMobile() {
                 return mobile;
         }
-        
+
         public void setMobile(String mobile) {
                 this.mobile = mobile;
         }
-        
+
         public String getAddr() {
                 return addr;
         }
-        
+
         public void setAddr(String addr) {
                 this.addr = addr;
         }
-        
+
         public Integer getPostCd() {
                 return postCd;
         }
-        
+
         public void setPostCd(Integer postCd) {
                 this.postCd = postCd;
         }
-        
+
         public Long getCtryCd() {
                 return ctryCd;
         }
-        
+
         public void setCtryCd(Long ctryCd) {
                 this.ctryCd = ctryCd;
         }
-        
+
         public boolean getActInd() {
                 return actInd;
         }
-        
+
         public void setActInd(boolean actInd) {
                 this.actInd = actInd;
         }
-        
+
         public Date getJoinDte() {
                 return joinDte;
         }
-        
+
         public void setJoinDte(Date joinDte) {
                 this.joinDte = joinDte;
         }
-        
+
         public UserDetailDto getTbUserDetail() {
                 return tbUserDetail;
         }
-        
+
         public void setTbUserDetail(UserDetailDto tbUserDetail) {
                 this.tbUserDetail = tbUserDetail;
         }
-        
+
         @Override
         public int hashCode() {
                 int hash = 0;
                 hash += (usrId != null ? usrId.hashCode() : 0);
                 return hash;
         }
-        
+
         @Override
         public boolean equals(Object object) {
                 // TODO: Warning - this method won't work in the case the id fields are not set
@@ -218,7 +232,7 @@ public class UserDto extends BaseVersionDto implements Serializable {
                 }
                 return true;
         }
-        
+
         @Override
         public String toString() {
                 return "sg.edu.nus.iss.vms.common.dto.UserDto[ usrId=" + usrId + " ]";
