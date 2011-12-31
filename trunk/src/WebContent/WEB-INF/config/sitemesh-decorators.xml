@@ -25,6 +25,10 @@
 	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
 		<pattern>/report/*</pattern>
 	</decorator>
+	
+	 <decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/project/*</pattern>
+	</decorator>
         
         
 </decorators>

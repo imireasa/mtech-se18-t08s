@@ -47,6 +47,7 @@
 		<div id="container">
 			<div id="leftCol">
 				<ul id="info">
+				  
 					<li><h3>
 							Serene Tan<br />Volunteer Member
 					</li>

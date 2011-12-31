@@ -2,7 +2,8 @@ package sg.edu.nus.iss.vms.project.vo;
 
 public class ProjectVo {
 
-	public String loginId;
+	private Long prjId;
+	private Long prjIdDisplayed;
 	private String name;
 	private String desc;
 	private String prjMgr;
@@ -13,12 +14,20 @@ public class ProjectVo {
 	private String rmk;
 	private String prjPropId;
 	private String stsCd;
-	
-	public String getLoginId() {
-		return loginId;
+	public String version;
+	private String cmdType;
+		
+	public Long getPrjId() {
+		return prjId;
 	}
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	public void setPrjId(Long prjId) {
+		this.prjId = prjId;
+	}
+	public Long getPrjIdDisplayed() {
+		return prjIdDisplayed;
+	}
+	public void setPrjIdDisplayed(Long prjIdDisplayed) {
+		this.prjIdDisplayed = prjIdDisplayed;
 	}
 	public String getName() {
 		return name;
@@ -74,13 +83,25 @@ public class ProjectVo {
 	public void setPrjPropId(String prjPropId) {
 		this.prjPropId = prjPropId;
 	}
+
 	public String getStsCd() {
 		return stsCd;
 	}
 	public void setStsCd(String stsCd) {
 		this.stsCd = stsCd;
 	}
-
+	public String getVersion() {
+		return version;
+	}
+	public void setVersion(String version) {
+		this.version = version;
+	}
+	public String getCmdType() {
+		return cmdType;
+	}
+	public void setCmdType(String cmdType) {
+		this.cmdType = cmdType;
+	}
 
 
 }

@@ -42,6 +42,15 @@ public interface ProjectManagementService {
 
 	public void requestCertificate(CertificateRequestDto certificateRequestDto);
 
+	
+	public ProjectVo getProjectVoById(Long projectId);
+	
+	public void saveProject(ProjectVo projectVo) throws Exception;
+	
+	public void updateProject(ProjectVo projectVo) throws Exception;
+
+
+
 	public List<ProjectFeedbackDto> getAllProjectFeedbackList();
 
 	public List<ProjectFeedbackDto> getProjectFeedbackListbyVo(
@@ -50,4 +59,5 @@ public interface ProjectManagementService {
 	public void saveProjectObject(Object obj);
 
 	public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId);
+
 }
