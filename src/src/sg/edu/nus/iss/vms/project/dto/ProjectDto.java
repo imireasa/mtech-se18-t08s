@@ -14,7 +14,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -38,7 +37,7 @@ public class ProjectDto extends BaseVersionDto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	@Basic(optional = false)
 	@Column(name = "PRJ_ID")
 	private Long prjId;
@@ -60,7 +59,7 @@ public class ProjectDto extends BaseVersionDto implements Serializable {
 	private Date endDte;
 	@Basic(optional = false)
 	@Column(name = "CTRY_CD")
-	private long ctryCd;
+	private Long ctryCd;
 	@Basic(optional = false)
 	@Column(name = "LOC")
 	private String loc;
@@ -74,7 +73,7 @@ public class ProjectDto extends BaseVersionDto implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "prjId", fetch = FetchType.LAZY)
 	private List<ProjectMemberDto> projectMemberList;
 	@JoinColumn(name = "PRJ_PROP_ID", referencedColumnName = "PRJ_PROP_ID")
-	@ManyToOne(optional = false, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private ProjectProposalDto prjPropId;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "prjId", fetch = FetchType.LAZY)
 	private List<ProjectInterestDto> projectInterestList;

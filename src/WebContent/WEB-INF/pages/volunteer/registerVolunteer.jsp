@@ -70,7 +70,7 @@
                                         <th align="left">       
                                                 <form:input path="loginId"/>
                                                 <form:errors path="loginId" cssClass="error"/> 
-                                                <input type="button" name="check" value="check" onclick="checkUserLoginId()"
+                                                <input type="button" name="check" value="check" onclick="checkUserLoginId()"/>
                                         </th>
                                 </tr>	
                                 <tr>
