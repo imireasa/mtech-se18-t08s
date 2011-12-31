@@ -11,10 +11,6 @@
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
-	
-	
-
-
 </head>
 <body>
 	<h2>Browse Project</h2>
