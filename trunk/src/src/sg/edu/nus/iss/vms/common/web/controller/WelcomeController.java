@@ -12,18 +12,21 @@ import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.web.controller.MemberController;
 
 public class WelcomeController extends BaseMultiActionFormController {
-	private Logger logger = Logger.getLogger(MemberController.class);
+	private final Logger logger = Logger.getLogger(MemberController.class);
 
-//	@Override
-//	public long getLastModified(HttpServletRequest arg0) {
-//		logger.debug("###################################################################################");
-//		return super.getLastModified(arg0);
-//	}
+	// @Override
+	// public long getLastModified(HttpServletRequest arg0) {
+	// logger.debug("###################################################################################");
+	// return super.getLastModified(arg0);
+	// }
 
 	public ModelAndView welcome(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		modelAndView = new ModelAndView("welcome");
-		modelAndView.addObject("userName", UserUtil.getUserSessionInfoVo().getName());
+
+		if (UserUtil.getUserSessionInfoVo() != null)
+			modelAndView.addObject("userName", UserUtil.getUserSessionInfoVo()
+					.getName());
 		Calendar cal = Calendar.getInstance();
 		int hour_of_day = cal.get(Calendar.HOUR_OF_DAY);
 		if (hour_of_day < 12)

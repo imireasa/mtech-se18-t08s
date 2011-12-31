@@ -17,10 +17,12 @@ import org.springframework.web.servlet.ModelAndView;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
+import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
+import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
@@ -265,15 +267,23 @@ public class VolunteerController extends BaseMultiActionFormController {
 		logger.debug("@@@@@@@@@@@@@@raiseInterest@@@@@@@@@:"
 				+ projectDto.getPrjId());
 
+		CodeDto codeDto = codeManagementServices
+				.getCodeDescriptionByCodeCategoryAndCodeDesc(
+						VMSConstants.CERTIFIATE_REQUEST_TYPE,
+						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
+
 		ProjectInterestDto projectInterestDto = new ProjectInterestDto();
 		projectInterestDto.setPrjId(projectDto);
 		projectInterestDto.setCreatedDte(new Date());
+
+		projectInterestDto.setVersion(1);
+
+		projectInterestDto.setUpdDte(new Date());
+		projectInterestDto.setStsCd(codeDto.getCdId());
+
 		projectInterestDto.setCreatedBy("XXX");
 		projectInterestDto.setReqBy("ss");
-		projectInterestDto.setVersion(1);
 		projectInterestDto.setUpdBy("ss");
-		projectInterestDto.setUpdDte(new Date());
-		projectInterestDto.setStsCd(11);
 
 		projectManagementService.raseInterest(projectInterestDto);
 
@@ -291,7 +301,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
 				"project");
 
-		if (projectInfoVo.getExperience() != null) {
+		if (!StringUtil.isNullOrEmpty(projectInfoVo.getExperience())) {
 
 			ProjectExperienceDto projectExperienceDto = new ProjectExperienceDto();
 			projectExperienceDto.setPrjId(projectDto);
@@ -303,20 +313,23 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		}
 
-		if (projectInfoVo.getFbTitle() != null) {
+		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
+
+			CodeDto codeDto = codeManagementServices
+					.getCodeDescriptionByCodeCategoryAndCodeDesc(
+							VMSConstants.FEEDBACK_STATUS,
+							VMSConstants.FEEDBACK_STATUS_SUMBITTED);
 
 			ProjectFeedbackDto projectFeedbackDto = new ProjectFeedbackDto();
 			projectFeedbackDto.setPrjId(projectDto);
 			projectFeedbackDto.setCont(projectInfoVo.getFbContent());
-
 			projectFeedbackDto.setTitle(projectInfoVo.getFbTitle());
-			projectFeedbackDto.setUpdBy(projectDto.getCreatedBy());
-			projectFeedbackDto.setVersion(1);
+
 			projectFeedbackDto.setUpdDte(new Date());
 			projectFeedbackDto.setCreatedDte(new Date());
-
-			projectFeedbackDto.setStsCd(1);
+			projectFeedbackDto.setStsCd(codeDto.getCdId());
 			projectFeedbackDto.setCreatedBy(projectDto.getCreatedBy());
+			projectFeedbackDto.setUpdBy(projectDto.getCreatedBy());
 
 			projectManagementService.postProjectFeedback(projectFeedbackDto);
 
