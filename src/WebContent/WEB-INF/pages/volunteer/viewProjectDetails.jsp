@@ -49,14 +49,17 @@
 					<td><label>Country:</label></td>
 					<td>${project.ctryCd}</td>
 				</tr>
-
+				<tr>
+					<td><input type="submit" name="btn_RaiseProjectInterest"
+				id="btn_RaiseProjectInterest" value="Raise Project Interest"></td>
+					
+				</tr>
 			</table>
-			<input type="submit" name="btn_RaiseProjectInterest"
-				id="btn_RaiseProjectInterest" value="Raise Project Interest">
+			
 		</form:form>
 	</div>
 
-
+<div>
 	<tab:tabContainer id="tab-container">
 
 		<tab:tabPane id="member" tabTitle="Project Members">
@@ -176,6 +179,5 @@
 		</tab:tabPane>
 
 	</tab:tabContainer>
-
-
+	</div>
 </body>
