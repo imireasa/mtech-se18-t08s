@@ -76,16 +76,40 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		}
 
 	}
-	
-    public CodeDto getCodeDtoByCatVal(String Category,String val) {
-        this.logger.debug("@ Service Layer Getting Code DTO by a specific Category Value." + Category+", Category Value:"+val);
-                String hQL = "from CodeDto c where c.catId.nme='" + Category + "' and c.val='"+ val + "'" ;
+
+	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
+			String codeDesc) {
+
+		try {
+			DetachedCriteria criteria = DetachedCriteria
 					.forClass(CodeDto.class);
 			criteria.setFetchMode("catId", FetchMode.JOIN)
 					.createAlias("catId", "cat")
-                codeList = this.manager.find(hQL);
-                if(codeList!=null)
+					.add(Restrictions.eq("cat.nme", category))
+					.add(Restrictions.eq("val", codeDesc));
+
 			return (CodeDto) manager.findByDetachedCriteria(criteria).get(0);
 
-        } finally {
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+			return null;
+		}
+
+	}
+	
+	 public CodeDto getCodeDtoByCatVal(String Category,String val) {
+	        this.logger.debug("@ Service Layer Getting Code DTO by a specific Category Value." + Category+", Category Value:"+val);
+	        List<CodeDto> codeList = new ArrayList<CodeDto>();
+	        try {
+	                String hQL = "from CodeDto c where c.catId.nme='" + Category + "' and c.val='"+ val + "'" ;
+	                codeList = this.manager.find(hQL);
+	                if(codeList!=null)
+	                	return codeList.get(0);
+	        } catch (Exception ex) {
+	                this.logger.error("Data Access Error", ex);
+	        } finally {
+	                this.logger.debug("@ Service Layer: getCodeDtoByCatVal");
+	        }
+	        return null;
+	    }
 }
