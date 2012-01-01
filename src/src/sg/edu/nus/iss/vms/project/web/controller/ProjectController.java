@@ -22,12 +22,15 @@ import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
+import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public class ProjectController extends BaseMultiActionFormController {
@@ -345,7 +348,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		ModelAndView modelAndView = new ModelAndView(
 				"project/proposeNewProject");
-		modelAndView.addObject("projectVo", new ProjectVo());
+		modelAndView.addObject("proposalVo", new ProjectProposalVo());
 
 		modelAndView.addObject("countryList", CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
@@ -354,9 +357,10 @@ public class ProjectController extends BaseMultiActionFormController {
 	}
 
 	public ModelAndView submitProjectProposal(HttpServletRequest request,
-			HttpServletResponse response, ProjectVo projectVo) throws Exception {
+			HttpServletResponse response, ProjectProposalVo proposalVo)
+			throws Exception {
 
-		validateProjectProposal(projectVo);
+		validateProjectProposal(proposalVo);
 		if (errors.hasErrors()) {
 			logger.debug("Error Handling : ");
 			saveError(request, errors.getFieldError().getDefaultMessage());
@@ -368,27 +372,46 @@ public class ProjectController extends BaseMultiActionFormController {
 				VMSConstants.PROPOSAL_STATUS,
 				VMSConstants.PROPOSAL_STATUS_SUMBITTED);
 
+		List<CodeDto> countryCodeDtos = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+
+		long countryCodeId = 0;
+		for (CodeDto countryCodeDto : countryCodeDtos) {
+			if (countryCodeDto.getVal().equals(proposalVo.getCtryCd())) {
+				countryCodeId = codeDto.getCdId();
+				break;
+			}
+		}
+
+		String loginId = "SuperUser";
+		if (UserUtil.getUserSessionInfoVo() != null
+				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
+						.getUserID())) {
+			loginId = UserUtil.getUserSessionInfoVo().getUserID();
+		}
+
 		ProjectProposalDto projectProposalDto = new ProjectProposalDto();
-		projectProposalDto.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
-		projectProposalDto
-				.setEstDur(Integer.valueOf(projectVo.getEstDuration()));
-		projectProposalDto.setLoc(projectVo.getLoc());
-		projectProposalDto.setNme(projectVo.getName());
-		projectProposalDto.setDesc(projectVo.getDesc());
+		projectProposalDto.setCtryCd(countryCodeId);
+		projectProposalDto.setEstDur(Integer.valueOf(proposalVo
+				.getEstDuration()));
+		projectProposalDto.setLoc(proposalVo.getLoc());
+		projectProposalDto.setNme(proposalVo.getName());
+		projectProposalDto.setDesc(proposalVo.getDesc());
 		projectProposalDto.setCreatedDte(new Date());
 		projectProposalDto.setUpdDte(new Date());
 		projectProposalDto.setStsCd(codeDto.getCdId());
-		projectProposalDto.setProposerId("PendingToUpdate");
-		projectProposalDto.setCreatedBy("PendingToUpdate");
-		projectProposalDto.setUpdBy("PendingToUpdate");
+		projectProposalDto.setProposerId(loginId);
+		projectProposalDto.setCreatedBy(loginId);
+		projectProposalDto.setUpdBy(loginId);
 		projectProposalDto.setVersion(1);
 
-		logger.debug("ctycd:" + projectProposalDto.getCtryCd());
-		logger.debug("Name:" + projectProposalDto.getNme());
-		logger.debug("location:" + projectProposalDto.getLoc());
-		logger.debug("status:" + projectProposalDto.getStsCd());
-
 		projectManagementService.saveOrUpdateProjectObject(projectProposalDto);
+
+		ModelAndView modelAndView = new ModelAndView(
+				"project/proposeNewProject");
+		modelAndView.addObject("proposalVo", proposalVo);
+
+		modelAndView.addObject("countryList", countryCodeDtos);
 
 		return modelAndView;
 	}
