@@ -59,7 +59,6 @@
 		</form:form>
 	</div>
 
-<div>
 	<tab:tabContainer id="tab-container">
 
 		<tab:tabPane id="member" tabTitle="Project Members">
@@ -179,5 +178,4 @@
 		</tab:tabPane>
 
 	</tab:tabContainer>
-	</div>
 </body>
