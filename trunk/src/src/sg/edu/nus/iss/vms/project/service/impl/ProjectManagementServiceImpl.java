@@ -23,6 +23,7 @@ import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
@@ -176,16 +177,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	public void requestCertificate(CertificateRequestDto certificateRequestDto) {
 
 		manager.save(certificateRequestDto);
-
-	}
-
-	@Override
-	public List<ProjectFeedbackDto> getAllProjectFeedbackList() {
-
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectFeedbackDto.class);
-
-		return manager.findByDetachedCriteria(criteria);
 
 	}
 
@@ -344,8 +335,40 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public void saveProjectObject(Object obj) {
+	public void saveOrUpdateProjectObject(Object obj) {
 		manager.save(obj);
+	}
+
+	@Override
+	public List getAllProjectObjectList(Class type) {
+		DetachedCriteria criteria = DetachedCriteria.forClass(type);
+		return manager.findByDetachedCriteria(criteria);
+	}
+
+	@Override
+	public List<ProjectProposalDto> getProjectProposalListbyVo(
+			ProjectVo projectVo) {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectProposalDto.class);
+		if (!StringUtil.isNullOrEmpty(projectVo.getProposalName())) {
+			criteria.add(Restrictions.like("nme", projectVo.getProposalName(),
+					MatchMode.ANYWHERE));
+		}
+		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
+			criteria.add(Restrictions.eq("stsCd",
+
+			Long.parseLong(projectVo.getStsCd())));
+
+		}
+
+		if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
+			criteria.setFetchMode("prjId", FetchMode.JOIN)
+					.createAlias("prjId", "prj")
+					.add(Restrictions.like("prj.nme", projectVo.getName(),
+							MatchMode.ANYWHERE));
+		}
+
+		return manager.findByDetachedCriteria(criteria);
 	}
 
 
