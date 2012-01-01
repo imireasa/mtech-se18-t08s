@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.ServletRequestDataBinder;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
@@ -34,10 +38,12 @@ import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 
 public class ProjectController extends BaseMultiActionFormController {
@@ -45,6 +51,7 @@ public class ProjectController extends BaseMultiActionFormController {
 	private CodeManagementServices codeManagementServices;
 	private MemberManagementService memberManagementService;
 	private ProjectManagementService projectManagementService;
+	private BindingResult errors;
 
 	 BindingResult errors;
 	 
@@ -68,6 +75,16 @@ public class ProjectController extends BaseMultiActionFormController {
 	public void setProjectManagementService(
 			ProjectManagementService projectManagementService) {
 		this.projectManagementService = projectManagementService;
+	}
+
+	@Override
+	protected void bind(HttpServletRequest request, Object command)
+			throws Exception {
+		// TODO Auto-generated method stub
+
+		ServletRequestDataBinder binder = createBinder(request, command);
+		binder.bind(request);
+		errors = binder.getBindingResult();
 	}
 
 	@Override
@@ -263,10 +280,8 @@ public class ProjectController extends BaseMultiActionFormController {
 	public ModelAndView browseProjectFeedback(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 
-		logger.debug("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXbrowseProject");
-
 		List<ProjectFeedbackDto> projectFeedbackList = projectManagementService
-				.getAllProjectFeedbackList();
+				.getAllProjectObjectList(ProjectFeedbackDto.class);
 
 		List<CodeDto> codeDtos = CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
@@ -321,7 +336,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		projectFbDto.setUpdBy("pendingToUpdate");
 		projectFbDto.setUpdDte(new Date());
 		projectFbDto.setStsCd(codeDto.getCdId());
-		projectManagementService.saveProjectObject(projectFbDto);
+		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
 
 		return modelAndView;
 	}
@@ -340,9 +355,119 @@ public class ProjectController extends BaseMultiActionFormController {
 		projectFbDto.setUpdBy("pendingToUpdate");
 		projectFbDto.setUpdDte(new Date());
 		projectFbDto.setStsCd(codeDto.getCdId());
-		projectManagementService.saveProjectObject(projectFbDto);
+		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
 
 		return modelAndView;
+	}
+
+	public ModelAndView proposeNewProject(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		ModelAndView modelAndView = new ModelAndView(
+				"project/proposeNewProject");
+		modelAndView.addObject("projectVo", new ProjectVo());
+
+		modelAndView.addObject("countryList", CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+
+		return modelAndView;
+	}
+
+	public ModelAndView submitProjectProposal(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo projectVo) throws Exception {
+
+		validateProjectProposal(projectVo);
+		if (errors.hasErrors()) {
+			logger.debug("Error Handling : ");
+			saveError(request, errors.getFieldError().getDefaultMessage());
+
+			return modelAndView;
+		}
+
+		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.PROPOSAL_STATUS,
+				VMSConstants.PROPOSAL_STATUS_SUMBITTED);
+
+		ProjectProposalDto projectProposalDto = new ProjectProposalDto();
+		projectProposalDto.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
+		projectProposalDto
+				.setEstDur(Integer.valueOf(projectVo.getEstDuration()));
+		projectProposalDto.setLoc(projectVo.getLoc());
+		projectProposalDto.setNme(projectVo.getName());
+		projectProposalDto.setDesc(projectVo.getDesc());
+		projectProposalDto.setCreatedDte(new Date());
+		projectProposalDto.setUpdDte(new Date());
+		projectProposalDto.setStsCd(codeDto.getCdId());
+		projectProposalDto.setProposerId("PendingToUpdate");
+		projectProposalDto.setCreatedBy("PendingToUpdate");
+		projectProposalDto.setUpdBy("PendingToUpdate");
+		projectProposalDto.setVersion(1);
+
+		logger.debug("ctycd:" + projectProposalDto.getCtryCd());
+		logger.debug("Name:" + projectProposalDto.getNme());
+		logger.debug("location:" + projectProposalDto.getLoc());
+		logger.debug("status:" + projectProposalDto.getStsCd());
+
+		projectManagementService.saveOrUpdateProjectObject(projectProposalDto);
+
+		return modelAndView;
+	}
+
+	public ModelAndView browseProjectProposal(HttpServletRequest request,
+			HttpServletResponse response) {
+
+		List<ProjectProposalDto> projectProposalDtos = projectManagementService
+				.getAllProjectObjectList(ProjectProposalDto.class);
+
+		List<CodeDto> codeDtos = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+
+		modelAndView = new ModelAndView("project/browseProjectProposal");
+		modelAndView.addObject("proposalList", projectProposalDtos);
+		modelAndView.addObject("proposalVo", new ProjectVo());
+		modelAndView.addObject("stsCdList", codeDtos);
+
+		return modelAndView;
+
+	}
+
+	public ModelAndView searchProjectProposal(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo projectVo) throws Exception {
+
+		List<ProjectProposalDto> projectProposalDtos = projectManagementService
+				.getProjectProposalListbyVo(projectVo);
+
+		modelAndView.addObject("proposalList", projectProposalDtos);
+
+		return modelAndView;
+
+	}
+
+	public void validateProjectProposal(Object command) {
+		Validator[] validators = getValidators();
+		if (validators != null) {
+			for (int index = 0; index < validators.length; index++) {
+				Validator validator = validators[index];
+				if (validator instanceof ProjectProposalValidator) {
+					if (((ProjectProposalValidator) validator).supports(command
+							.getClass())) {
+						ValidationUtils.invokeValidator(validators[index],
+								command, errors);
+					}
+				} else if (validator.supports(command.getClass())) {
+					ValidationUtils.invokeValidator(validators[index], command,
+							errors);
+				}
+			}
+		}
+	}
+
+	public BindingResult getErrors() {
+		return errors;
+	}
+
+	public void setErrors(BindingResult errors) {
+		this.errors = errors;
 	}
 
 }
