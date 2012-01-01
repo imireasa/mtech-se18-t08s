@@ -245,7 +245,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		long prjId = Long.parseLong(request.getParameter("prjId"));
 
-		ProjectDto projectDto = projectManagementService.getProjectbyId(prjId);
+		ProjectDto projectDto = (ProjectDto) projectManagementService
+				.getProjectObjbyId(prjId, ProjectDto.class);
 		List<ProjectMemberDto> memberList = memberManagementService
 				.getListOfMembersbyProject(projectDto);
 		logger.debug("!!!!!!!!!!!!!!!!!!!!Total memebr:" + memberList.size());
