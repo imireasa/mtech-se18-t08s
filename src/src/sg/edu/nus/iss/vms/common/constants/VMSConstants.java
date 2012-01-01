@@ -11,6 +11,7 @@ public class VMSConstants {
 	public static final String CERTIFICATE_REQUEST_STATUS = "CERTIFICATE_REQUEST_STATUS";
 	public static final String FEEDBACK_STATUS = "FEEDBACK_STATUS";
 	public static final String PROJECT_STATUS = "PROJECT_STATUS";
+	public static final String PROPOSAL_STATUS = "PROPOSAL_STATUS";
 	public static final String MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME = "menuPermissionAdapter";
 
 	public static final String SCREEN_CMD_REGISTER = "REGISTER";
@@ -20,6 +21,9 @@ public class VMSConstants {
 	public static final String FEEDBACK_STATUS_SUMBITTED = "Submitted";
 	public static final String FEEDBACK_STATUS_APPROVED = "Approved";
 	public static final String FEEDBACK_STATUS_REJECTED = "Rejected";
+	public static final String PROPOSAL_STATUS_SUMBITTED = "Submitted";
+	public static final String PROPOSAL_STATUS_APPROVED = "Approved";
+	public static final String PROPOSAL_STATUS_REJECTED = "Rejected";
 	public static final String CERTIFICATE_REQUEST_STATUS_REQUEST = "Requested";
         public static final String SCREEN_CMD_CREATE = "CREATE";
         
