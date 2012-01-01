@@ -30,9 +30,7 @@ public class MenuFunctionDto extends BaseVersionDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "MENU_FUNC_NME")
         private String menuFuncNme;
-        @JoinColumn(name = "PERMI_ID", referencedColumnName = "PERMI_ID")
-        @ManyToOne(optional = false, fetch = FetchType.EAGER)
-        private PermissionDto permiId;
+      
 
         public MenuFunctionDto() {
         }
@@ -75,13 +73,7 @@ public class MenuFunctionDto extends BaseVersionDto implements Serializable {
                 this.menuFuncNme = menuFuncNme;
         }
 
-        public PermissionDto getPermiId() {
-                return permiId;
-        }
-
-        public void setPermiId(PermissionDto permiId) {
-                this.permiId = permiId;
-        }
+    
 
         @Override
         public int hashCode() {

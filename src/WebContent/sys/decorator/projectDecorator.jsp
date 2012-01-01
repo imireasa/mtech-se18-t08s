@@ -35,7 +35,7 @@
 			<div id="loginInfo">
 				<ul>
 					<li><a href="#">My Account</a></li>
-					<li class="last"><a href="#">Logout</a></li>
+					<li class="last"><a href="<%=request.getContextPath()%>/logout.html">Logout</a></li>
 				</ul>
 			</div>
 		</div>

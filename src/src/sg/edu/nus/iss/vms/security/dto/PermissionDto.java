@@ -24,13 +24,21 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 		"WHERE menufunction.menuFuncId = roleFunction.menuFuncId " +
 		"AND userRole.roleId = roleFunction.roleId " +
 		"AND user.usrId = userRole.usrId " +
-		"AND menufunction.permiId = permission.permiId " 
+		"AND menufunction.menuFuncId = permission.menuFuncId " 
         + "AND user.usrId = userRole.usrId "
         + "AND user.usrLoginId = :userLoginID "
         + "AND permission.uri = :uri")})
 public class PermissionDto extends BaseVersionDto implements Serializable {
 
-        private static final long serialVersionUID = 1L;
+        public Long getMenuFuncId() {
+		return menuFuncId;
+	}
+
+	public void setMenuFuncId(Long menuFuncId) {
+		this.menuFuncId = menuFuncId;
+	}
+
+		private static final long serialVersionUID = 1L;
         @Id
         @GeneratedValue
         @Basic(optional = false)
@@ -41,9 +49,9 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
         private String uri;
         @Column(name = "PERMI_DESC")
         private String desc;
-        @OneToMany(cascade = CascadeType.ALL, mappedBy = "permiId", fetch = FetchType.LAZY)
-        private List<PermissionRoleDto> tbPermissionRoleList;
-        @OneToMany(cascade = CascadeType.ALL, mappedBy = "permiId", fetch = FetchType.LAZY)
+        @Column(name = "MENU_FUNC_ID")
+        private Long menuFuncId;
+        @OneToMany(cascade = CascadeType.ALL, mappedBy = "menuFuncId", fetch = FetchType.LAZY)
         private List<MenuFunctionDto> tbMenuFunctionList;
 
         public PermissionDto() {
@@ -87,13 +95,6 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
                 this.desc = desc;
         }
 
-        public List<PermissionRoleDto> getTbPermissionRoleList() {
-                return tbPermissionRoleList;
-        }
-
-        public void setTbPermissionRoleList(List<PermissionRoleDto> tbPermissionRoleList) {
-                this.tbPermissionRoleList = tbPermissionRoleList;
-        }
 
         public List<MenuFunctionDto> getTbMenuFunctionList() {
                 return tbMenuFunctionList;

@@ -119,7 +119,7 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		"WHERE menufunction.menuFuncId = roleFunction.menuFuncId " +
 		"AND userRole.roleId = roleFunction.roleId " +
 		"AND user.usrId = userRole.usrId " +
-		"AND menufunction.permiId = permission.permiId " +
+		"AND menufunction.menuFuncId = permission.menuFuncId " +
 		"AND user.usrLoginId = '"+user.getUsrLoginId() + "'";
 		List<String> allowedMenus = (List<String>)manager.find(query);	
 		return allowedMenus;
