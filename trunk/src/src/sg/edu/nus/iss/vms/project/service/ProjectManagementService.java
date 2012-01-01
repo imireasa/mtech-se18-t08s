@@ -44,16 +44,12 @@ public interface ProjectManagementService {
 	public void requestCertificate(CertificateRequestDto certificateRequestDto);
 
 	public List getAllProjectObjectList(Class type);
-	
+
 	public ProjectVo getProjectVoById(Long projectId);
-	
+
 	public void saveProject(ProjectVo projectVo) throws Exception;
-	
+
 	public void updateProject(ProjectVo projectVo) throws Exception;
-
-
-
-	public List<ProjectFeedbackDto> getAllProjectFeedbackList();
 
 	public List<ProjectFeedbackDto> getProjectFeedbackListbyVo(
 			ProjectInfoVo projectInfoVo);
