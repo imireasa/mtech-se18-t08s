@@ -25,29 +25,29 @@
 			commandName="projectInfo" action="raiseInterest.html">
 			<table>
 				<tr>
-					<td width="103"><label>Project Name:</label></td>
+					<th><label>Project Name:</label></th>
 
-					<td width="186"><label>${project.nme}</label></td>
+					<td>${projectVo.name}</td>
 				</tr>
 				<tr>
-					<td width="103"><label>Description:</label></td>
-					<td width="300">${project.desc}</td>
+					<th><label>Description:</label></th>
+					<td>${projectVo.desc}</td>
 				</tr>
 				<tr>
-					<td><label>Start Date:</label></td>
-					<td>${project.strDte}</td>
+					<th><label>Start Date:</label></th>
+					<td>${projectVo.strDte}</td>
 				</tr>
 				<tr>
-					<td><label>Project Status:</label></td>
-					<td>${project.stsCd}</td>
+					<th><label>Project Status:</label></th>
+					<td>${projectVo.stsCd}</td>
 				</tr>
 				<tr>
-					<td><label>Location:</label></td>
-					<td>${project.loc}</td>
+					<th><label>Location:</label></th>
+					<td>${projectVo.loc}</td>
 				</tr>
 				<tr>
-					<td><label>Country:</label></td>
-					<td>${project.ctryCd}</td>
+					<th><label>Country:</label></th>
+					<td>${projectVo.ctryCd}</td>
 				</tr>
 				<tr>
 					<td><input type="submit" name="btn_RaiseProjectInterest"
