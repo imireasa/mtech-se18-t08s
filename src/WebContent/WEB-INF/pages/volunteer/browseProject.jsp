@@ -81,7 +81,7 @@
 		</tr>
 		<c:forEach items="${projectList}" var="item" varStatus="status">
 			<tr>
-				<td>${item.nme}</td>
+				<td>${item.name}</td>
 				<td>${item.desc}</td>
                 <td>${item.strDte}</td>
                 <td>
