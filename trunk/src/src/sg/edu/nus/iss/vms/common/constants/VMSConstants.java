@@ -33,4 +33,6 @@ public class VMSConstants {
     	
     	public static final String PROJECT_STATUS_CATEGORY = "PROJECT_STATUS";
     	public static final String PROJECT_STATUS_CATEGORY_NEW = "NEW";
+
+        
 }

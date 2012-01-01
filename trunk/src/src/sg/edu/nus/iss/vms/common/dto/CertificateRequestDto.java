@@ -7,6 +7,7 @@ package sg.edu.nus.iss.vms.common.dto;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
 
 /**
  *
