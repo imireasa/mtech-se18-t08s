@@ -11,10 +11,12 @@ import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.SessionBean;
+import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
@@ -30,334 +32,330 @@ import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public class ProjectManagementServiceImpl implements ProjectManagementService {
 
-	private Manager manager;
-	private SessionBean sessionBean;
+        private Manager manager;
+        private SessionBean sessionBean;
+        private static Logger logger = Logger.getLogger(ProjectManagementServiceImpl.class);
 
-	private static Logger logger = Logger
-			.getLogger(ProjectManagementServiceImpl.class);
+        public Manager getManager() {
+                return manager;
+        }
 
-	public Manager getManager() {
-		return manager;
-	}
+        public void setManager(Manager manager) {
+                this.manager = manager;
+        }
 
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
+        public SessionBean getSessionBean() {
+                return sessionBean;
+        }
 
-	public SessionBean getSessionBean() {
-		return sessionBean;
-	}
+        public void setSessionBean(SessionBean sessionBean) {
+                this.sessionBean = sessionBean;
+        }
 
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
-	}
+        @Override
+        public List<ProjectDto> getListOfProject(String projectName) {
+                List<ProjectDto> memberList = new ArrayList<ProjectDto>();
+                return memberList;
+        }
 
-	// @Override
-	// public List<Project> getListOfProject(String projectName) {
-	// String hQL = "from Project where projectName LIKE '%" + projectName +
-	// "%'";
-	// List<Project> projectMemberList = manager.find(hQL);
-	// return projectMemberList;
-	// }
-	//
-	// @Override
-	// public Project getProject(long projectId) {
-	// Project project = (Project) manager.get(Project.class, projectId);
-	// return project;
-	// }
-	//
-	// @Override
-	// public List<ProjectMember> getProjectMember(long projectId, String
-	// memberName) {
-	// String hQL = "from ProjectMember where projectId.projectId=" + projectId;
-	// if (memberName != null && !memberName.isEmpty())
-	// hQL += " and (volunteerId.firstName LIKE '%" + memberName + "%' " +
-	// "OR volunteerId.lastName LIKE '%" + memberName + "%')";
-	// List<ProjectMember> projectMemberList = manager.find(hQL);
-	// return projectMemberList;
-	// }
-	//
-	// @Override
-	// public List<Project> getListAllProject() {
-	// List<Project> project = manager.list(Project.class);
-	// return project;
-	// }
-	//
-	// @Override
-	// public List<ProjectRole> getProjectRoleList() {
-	// List<ProjectRole> projectRoleList = manager.list(ProjectRole.class);
-	// return projectRoleList;
-	// }
-	@Override
-	public List<ProjectDto> getListOfProject(String projectName) {
-		List<ProjectDto> memberList = new ArrayList<ProjectDto>();
-		return memberList;
-	}
+        @Override
+        public ProjectDto getProject(long projectId) {
+                return null;
+        }
 
-	@Override
-	public ProjectDto getProject(long projectId) {
-		return null;
-	}
+        @Override
+        public List<ProjectMemberDto> getProjectMember(long projectId,
+                String memberName) {
+                return null;
+        }
 
-	@Override
-	public List<ProjectMemberDto> getProjectMember(long projectId,
-			String memberName) {
-		return null;
-	}
+        @Override
+        public List<ProjectVo> getListAllProject() {
+                String userLogInId = UserUtil.getUserSessionInfoVo().getUserID();
+                String hQL = "from ProjectMemberDto where usrLoginId='" + userLogInId + "'";
+                List<ProjectMemberDto> projectMemberList = manager.find(hQL);
+                List<ProjectVo> projectList = new ArrayList<ProjectVo>();
+                for (ProjectMemberDto projectMemberDto : projectMemberList) {
+                        projectList.add(getProjectVo(projectMemberDto.getPrjId()));
+                }
+                return projectList;
+        }
 
-	@Override
-	public List<ProjectDto> getListAllProject() {
-		List<ProjectDto> project = manager.list(ProjectDto.class);
-		return project;
-	}
+        private ProjectVo getProjectVo(ProjectDto _projectVo) {
+                ProjectVo project = new ProjectVo();
+                project.setName(_projectVo.getNme());
+                project.setDesc(_projectVo.getDesc());
+                project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+                project.setStrDte(DateUtil.formatDate(_projectVo.getStrDte(), DateUtil.DEFAULT_DATE_FORMAT));
+                project.setEndDte(DateUtil.formatDate(_projectVo.getEndDte(), DateUtil.DEFAULT_DATE_FORMAT));
+                project.setCtryCd(CodeLookupUtil.getCodeDescriptionByCodeId(_projectVo.getCtryCd()));
+                project.setLoc(_projectVo.getLoc());
+                project.setRmk(_projectVo.getRmk());
+                project.setPrjPropId(null);
+                project.setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(_projectVo.getStsCd()));
+                return project;
+        }
 
-	@Override
-	public List<ProjectDto> getProjectbyProjectVo(ProjectVo projectVo) {
+        @Override
+        public List<ProjectDto> getProjectbyProjectVo(ProjectVo projectVo) {
 
-		DetachedCriteria criteria = DetachedCriteria.forClass(ProjectDto.class);
-		if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
-			criteria.add(Restrictions.like("nme", projectVo.getName(),
-					MatchMode.ANYWHERE));
-		}
-		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
-			criteria.add(Restrictions.gt("strDte",
+                DetachedCriteria criteria = DetachedCriteria.forClass(ProjectDto.class);
+                if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
+                        criteria.add(Restrictions.like("nme", projectVo.getName(),
+                                MatchMode.ANYWHERE));
+                }
+                if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
+                        criteria.add(Restrictions.gt("strDte",
+                                DateUtil.parseDate(projectVo.getStrDte())));
 
-			DateUtil.parseDate(projectVo.getStrDte())));
+                        logger.debug("sssssssssssssss"
+                                + DateUtil.parseDate(projectVo.getStrDte()));
+                }
 
-			logger.debug("sssssssssssssss"
-					+ DateUtil.parseDate(projectVo.getStrDte()));
-		}
+                if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
+                        criteria.add(Restrictions.eq("stsCd",
+                                Long.parseLong(projectVo.getStsCd())));
+                }
 
-		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
-			criteria.add(Restrictions.eq("stsCd",
-					Long.parseLong(projectVo.getStsCd())));
-		}
+                List<ProjectDto> projectList = manager.findByDetachedCriteria(criteria);
+                return projectList;
+        }
 
-		List<ProjectDto> projectList = manager.findByDetachedCriteria(criteria);
-		return projectList;
-	}
+        @Override
+        public Object getProjectObjbyId(long id, Class type) {
+                try {
+                        return manager.get(type, id);
+                } catch (Exception ex) {
+                        this.logger.error("Data Access Error", ex);
+                        return null;
+                } finally {
+                        this.logger.debug("@ Service Layer getting user 2");
+                }
 
-	@Override
-	public Object getProjectObjbyId(long id, Class type) {
-		try {
-			return manager.get(type, id);
-		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
-			return null;
-		} finally {
-			this.logger.debug("@ Service Layer getting user 2");
-		}
+        }
 
-	}
+        @Override
+        public void raseInterest(ProjectInterestDto projectInterestDto) {
 
-	@Override
-	public void raseInterest(ProjectInterestDto projectInterestDto) {
+                manager.save(projectInterestDto);
 
-		manager.save(projectInterestDto);
+        }
 
-	}
+        @Override
+        public List<CodeDto> getProjectRoleList() {
+                return null;
+        }
 
-	@Override
-	public List<CodeDto> getProjectRoleList() {
-		return null;
-	}
+        @Override
+        public List<ProjectExperienceDto> getProjectExperienceList(
+                ProjectDto projectDto) {
 
-	@Override
-	public List<ProjectExperienceDto> getProjectExperienceList(
-			ProjectDto projectDto) {
+                DetachedCriteria criteria = DetachedCriteria.forClass(ProjectExperienceDto.class);
+                criteria.add(Restrictions.eq("prjId", projectDto));
+                return manager.findByDetachedCriteria(criteria);
 
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectExperienceDto.class);
-		criteria.add(Restrictions.eq("prjId", projectDto));
-		return manager.findByDetachedCriteria(criteria);
+        }
 
-	}
+        @Override
+        public void requestCertificate(CertificateRequestDto certificateRequestDto) {
 
-	@Override
-	public void requestCertificate(CertificateRequestDto certificateRequestDto) {
+                manager.save(certificateRequestDto);
 
-		manager.save(certificateRequestDto);
+        }
 
-	}
+        @Override
+        public void postProjectExperience(ProjectExperienceDto projectExperienceDto) {
 
-	@Override
-	public void postProjectExperience(ProjectExperienceDto projectExperienceDto) {
+                manager.save(projectExperienceDto);
 
-		manager.save(projectExperienceDto);
+        }
 
-	}
+        @Override
+        public void postProjectFeedback(ProjectFeedbackDto projectFeedbackDto) {
 
-	@Override
-	public void postProjectFeedback(ProjectFeedbackDto projectFeedbackDto) {
+                manager.save(projectFeedbackDto);
 
-		manager.save(projectFeedbackDto);
+        }
 
-	}
+        // Thida
+        @Override
+        public ProjectVo getProjectVoById(Long projectId) {
 
-	// Thida
+                ProjectDto project = null;
+                project = (ProjectDto) manager.get(ProjectDto.class, projectId);
 
-	@Override
-	public ProjectVo getProjectVoById(Long projectId) {
+                ProjectVo projectVo = new ProjectVo();
+                if (project != null) {
+                        projectVo.setPrjId(project.getPrjId());
+                        projectVo.setPrjIdDisplayed(project.getPrjId());
+                        projectVo.setName(project.getNme());
+                        projectVo.setDesc(project.getDesc());
+                        projectVo.setPrjMgr(project.getPrjMgr());
+                        projectVo.setStrDte(DateUtil.formatDate(project.getStrDte()));
+                        projectVo.setEndDte(DateUtil.formatDate(project.getEndDte()));
+                        projectVo.setCtryCd(Long.toString(project.getCtryCd()));
+                        projectVo.setLoc(project.getLoc());
+                        projectVo.setRmk(project.getRmk());
+                        if (project.getPrjPropId() != null) {
+                                projectVo.setPrjPropId(Long.toString(project.getPrjPropId().getPrjPropId()));
+                        } else {
+                                projectVo.setPrjPropId("0");
+                        }
+                        projectVo.setStsCd(Long.toString(project.getStsCd()));
+                        projectVo.setVersion(Integer.toString(project.getVersion()));
+                }
+                return projectVo;
+        }
 
-		ProjectDto project = null;
-		project = (ProjectDto) manager.get(ProjectDto.class, projectId);
+        @Override
+        public void saveProject(ProjectVo projectVo) throws Exception {
+                try {
+                        ProjectDto project = new ProjectDto();
+                        project.setNme(projectVo.getName());
+                        project.setDesc(projectVo.getDesc());
+                        project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+                        project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
+                        project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
+                        project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
+                        project.setLoc(projectVo.getLoc());
+                        project.setRmk(projectVo.getRmk());
+                        project.setPrjPropId(null);
+                        project.setStsCd(Long.parseLong(projectVo.getStsCd()));
+                        project.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
+                        project.setCreatedDte(DateUtil.getDate());
+                        project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
+                        project.setUpdDte(DateUtil.getDate());
+                        project.setVersion(1);
+                        manager.save(project);
 
-		ProjectVo projectVo = new ProjectVo();
-		if (project != null) {
-			projectVo.setPrjId(project.getPrjId());
-			projectVo.setPrjIdDisplayed(project.getPrjId());
-			projectVo.setName(project.getNme());
-			projectVo.setDesc(project.getDesc());
-			projectVo.setPrjMgr(project.getPrjMgr());
-			projectVo.setStrDte(DateUtil.formatDate(project.getStrDte()));
-			projectVo.setEndDte(DateUtil.formatDate(project.getEndDte()));
-			projectVo.setCtryCd(Long.toString(project.getCtryCd()));
-			projectVo.setLoc(project.getLoc());
-			projectVo.setRmk(project.getRmk());
-			if (project.getPrjPropId() != null)
-				projectVo.setPrjPropId(Long.toString(project.getPrjPropId()
-						.getPrjPropId()));
-			else
-				projectVo.setPrjPropId("0");
-			projectVo.setStsCd(Long.toString(project.getStsCd()));
-			projectVo.setVersion(Integer.toString(project.getVersion()));
-		}
-		return projectVo;
-	}
+                } catch (Exception ex) {
+                        logger.error("Save Project", ex);
+                        throw new ApplicationException(
+                                Messages.getString("message.common.error.save"));
+                }
+        }
 
-	@Override
-	public void saveProject(ProjectVo projectVo) throws Exception {
-		try {
-			ProjectDto project = new ProjectDto();
-			project.setNme(projectVo.getName());
-			project.setDesc(projectVo.getDesc());
-			project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
-			project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
-			project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
-			project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
-			project.setLoc(projectVo.getLoc());
-			project.setRmk(projectVo.getRmk());
-			project.setPrjPropId(null);
-			project.setStsCd(Long.parseLong(projectVo.getStsCd()));
-			project.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
-			project.setCreatedDte(DateUtil.getDate());
-			project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
-			project.setUpdDte(DateUtil.getDate());
-			project.setVersion(1);
-			manager.save(project);
+        @Override
+        public void updateProject(ProjectVo projectVo) throws Exception {
+                try {
+                        ProjectDto project = null;
+                        String hQL = "from ProjectDto where prjId = "
+                                + projectVo.getPrjId();
+                        List<ProjectDto> projectList = manager.find(hQL);
+                        if (projectList != null && !projectList.isEmpty()) {
+                                project = projectList.get(0);
 
-		} catch (Exception ex) {
-			logger.error("Save Project", ex);
-			throw new ApplicationException(
-					Messages.getString("message.common.error.save"));
-		}
-	}
+                        } else {
+                                throw new ApplicationException(
+                                        Messages.getString("message.common.error.update"));
+                        }
+                        project.setNme(projectVo.getName());
+                        project.setDesc(projectVo.getDesc());
+                        project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
+                        project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
+                        project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
+                        project.setLoc(projectVo.getLoc());
+                        project.setRmk(projectVo.getRmk());
+                        project.setStsCd(Long.parseLong(projectVo.getStsCd()));
+                        project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
+                        project.setUpdDte(DateUtil.getDate());
+                        int currentVersion = Integer.parseInt(projectVo.getVersion());
+                        project.setVersion(currentVersion + 1);
+                        // Todo: have to test save after updating the "DESC" column in DB
+                        manager.save(project);
 
-	@Override
-	public void updateProject(ProjectVo projectVo) throws Exception {
-		try {
-			ProjectDto project = null;
-			String hQL = "from ProjectDto where prjId = "
-					+ projectVo.getPrjId();
-			List<ProjectDto> projectList = manager.find(hQL);
-			if (projectList != null && !projectList.isEmpty()) {
-				project = projectList.get(0);
+                } catch (Exception ex) {
+                        logger.error("Update Project", ex);
+                        throw new ApplicationException(
+                                Messages.getString("message.common.error.update"));
+                }
+        }
 
-			} else {
-				throw new ApplicationException(
-						Messages.getString("message.common.error.update"));
-			}
-			project.setNme(projectVo.getName());
-			project.setDesc(projectVo.getDesc());
-			project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
-			project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
-			project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
-			project.setLoc(projectVo.getLoc());
-			project.setRmk(projectVo.getRmk());
-			project.setStsCd(Long.parseLong(projectVo.getStsCd()));
-			project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
-			project.setUpdDte(DateUtil.getDate());
-			int currentVersion = Integer.parseInt(projectVo.getVersion());
-			project.setVersion(currentVersion + 1);
-			// Todo: have to test save after updating the "DESC" column in DB
-			manager.save(project);
+        @Override
+        public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
+                DetachedCriteria criteria = DetachedCriteria.forClass(ProjectFeedbackDto.class);
+                criteria.add(Restrictions.eq("prjId", projectDto));
+                return manager.findByDetachedCriteria(criteria);
+        }
 
-		} catch (Exception ex) {
-			logger.error("Update Project", ex);
-			throw new ApplicationException(
-					Messages.getString("message.common.error.update"));
-		}
-	}
+        @Override
+        public List<ProjectFeedbackDto> getProjectFeedbackListbyVo(
+                ProjectInfoVo projectInfoVo) {
+                DetachedCriteria criteria = DetachedCriteria.forClass(ProjectFeedbackDto.class);
+                if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
+                        criteria.add(Restrictions.like("title", projectInfoVo.getFbTitle(),
+                                MatchMode.ANYWHERE));
+                }
+                if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbStatus())) {
+                        criteria.add(Restrictions.eq("stsCd",
+                                Long.parseLong(projectInfoVo.getFbStatus())));
 
-	@Override
-	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectFeedbackDto.class);
-		criteria.add(Restrictions.eq("prjId", projectDto));
-		return manager.findByDetachedCriteria(criteria);
-	}
+                }
 
-	@Override
-	public List<ProjectFeedbackDto> getProjectFeedbackListbyVo(
-			ProjectInfoVo projectInfoVo) {
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectFeedbackDto.class);
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
-			criteria.add(Restrictions.like("title", projectInfoVo.getFbTitle(),
-					MatchMode.ANYWHERE));
-		}
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbStatus())) {
-			criteria.add(Restrictions.eq("stsCd",
+                if (!StringUtil.isNullOrEmpty(projectInfoVo.getPrjName())) {
+                        criteria.setFetchMode("prjId", FetchMode.JOIN).createAlias("prjId", "prj").add(Restrictions.like("prj.nme",
+                                projectInfoVo.getPrjName(), MatchMode.ANYWHERE));
+                }
 
-			Long.parseLong(projectInfoVo.getFbStatus())));
+                return manager.findByDetachedCriteria(criteria);
+        }
 
-		}
+        @Override
+        public void saveOrUpdateProjectObject(Object obj) {
+                manager.save(obj);
+        }
 
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getPrjName())) {
-			criteria.setFetchMode("prjId", FetchMode.JOIN)
-					.createAlias("prjId", "prj")
-					.add(Restrictions.like("prj.nme",
-							projectInfoVo.getPrjName(), MatchMode.ANYWHERE));
-		}
+        @Override
+        public List getAllProjectObjectList(Class type) {
+                DetachedCriteria criteria = DetachedCriteria.forClass(type);
+                return manager.findByDetachedCriteria(criteria);
+        }
 
-		return manager.findByDetachedCriteria(criteria);
-	}
+        @Override
+        public List<ProjectProposalDto> getProjectProposalListbyVo(
+                ProjectVo projectVo) {
+                DetachedCriteria criteria = DetachedCriteria.forClass(ProjectProposalDto.class);
+                if (!StringUtil.isNullOrEmpty(projectVo.getProposalName())) {
+                        criteria.add(Restrictions.like("nme", projectVo.getProposalName(),
+                                MatchMode.ANYWHERE));
+                }
+                if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
+                        criteria.add(Restrictions.eq("stsCd",
+                                Long.parseLong(projectVo.getStsCd())));
 
-	@Override
-	public void saveOrUpdateProjectObject(Object obj) {
-		manager.save(obj);
-	}
+                }
 
-	@Override
-	public List getAllProjectObjectList(Class type) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(type);
-		return manager.findByDetachedCriteria(criteria);
-	}
+                if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
+                        criteria.setFetchMode("prjId", FetchMode.JOIN).createAlias("prjId", "prj").add(Restrictions.like("prj.nme", projectVo.getName(),
+                                MatchMode.ANYWHERE));
+                }
 
-	@Override
-	public List<ProjectProposalDto> getProjectProposalListbyVo(
-			ProjectVo projectVo) {
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectProposalDto.class);
-		if (!StringUtil.isNullOrEmpty(projectVo.getProposalName())) {
-			criteria.add(Restrictions.like("nme", projectVo.getProposalName(),
-					MatchMode.ANYWHERE));
-		}
-		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
-			criteria.add(Restrictions.eq("stsCd",
+                return manager.findByDetachedCriteria(criteria);
+        }
 
-			Long.parseLong(projectVo.getStsCd())));
+        @Override
+        public List<CodeDto> getProjectStatusList() {
+                return CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+        }
 
-		}
-
-		if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
-			criteria.setFetchMode("prjId", FetchMode.JOIN)
-					.createAlias("prjId", "prj")
-					.add(Restrictions.like("prj.nme", projectVo.getName(),
-							MatchMode.ANYWHERE));
-		}
-
-		return manager.findByDetachedCriteria(criteria);
-	}
-
+        @Override
+        public List<ProjectVo> listProjectbyProjectVo(ProjectVo projectVo) {
+                String hQL = "from ProjectMemberDto where usrLoginId='" + UserUtil.getUserSessionInfoVo().getUserID() + "'";
+                if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
+                        hQL += " and prjId.nme LIKE '%" + projectVo.getName() + "%'";
+                }
+                if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
+                        hQL += " and prjId.strDte LIKE '" + DateUtil.parseDate(projectVo.getStrDte()) + "'";
+                }
+                if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
+                        hQL += " and prjId.stsCd=" + Long.parseLong(projectVo.getStsCd());
+                }
+                logger.debug("Find Project By " + hQL);
+                List<ProjectMemberDto> projectMemberList = manager.find(hQL);
+                List<ProjectVo> projectList = new ArrayList<ProjectVo>();
+                for (ProjectMemberDto projectMember : projectMemberList) {
+                        projectList.add(getProjectVo(projectMember.getPrjId()));
+                }
+                return projectList;
+        }
 }

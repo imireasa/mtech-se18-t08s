@@ -123,8 +123,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (command.getLoginId() == null) {
 			modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
 			// page
-			modelAndView.addObject("titalList", codeManagementServices
-					.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+			modelAndView.addObject("titleList", codeManagementServices
+					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
 			modelAndView.addObject("countryList", codeManagementServices
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volVo = new VolunteerVo();
@@ -134,8 +134,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 		} else {
 			validate(command);
 			modelAndView = new ModelAndView("volunteer/updateVolunteer");
-			modelAndView.addObject("titalList", codeManagementServices
-					.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+			modelAndView.addObject("titleList", codeManagementServices
+					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
 			modelAndView.addObject("countryList", codeManagementServices
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volunteerVo = command;
@@ -172,8 +172,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 			// TODO: Update Session User
 			modelAndView = new ModelAndView("volunteer/updateVolunteer");// jsp
 			// page
-			modelAndView.addObject("titalList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+			modelAndView.addObject("titleList", CodeLookupUtil
+					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
 			modelAndView.addObject("countryList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			// volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
@@ -182,8 +182,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 		} else {
 			validate(command);
 			modelAndView = new ModelAndView("volunteer/updateVolunteer");
-			modelAndView.addObject("titalList", codeManagementServices
-					.getListOfCodeByCategory(VMSConstants.TITAL_CATEGORY));
+			modelAndView.addObject("titleList", codeManagementServices
+					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
 			modelAndView.addObject("countryList", codeManagementServices
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volunteerVo = command;
@@ -214,7 +214,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 	public ModelAndView browseProject(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
-		List<ProjectDto> projectList = projectManagementService
+		List<ProjectVo> projectList = projectManagementService
 				.getListAllProject();
 		List<CodeDto> projectCodeList = codeManagementServices
 				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
