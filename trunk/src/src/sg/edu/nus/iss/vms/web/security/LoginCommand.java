@@ -4,8 +4,25 @@ public class LoginCommand {
 
 	private String username;
 	private String password;
+	private String requestedUrl;
+
+	public String getRequestedUrl() {
+		return requestedUrl;
+	}
+
+	public void setRequestedUrl(String requestedUrl) {
+		this.requestedUrl = requestedUrl;
+	}
 
 	public LoginCommand() {
+	}
+
+
+	public LoginCommand(String username, String password, String requestedUrl) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.requestedUrl = requestedUrl;
 	}
 
 	public String getPassword() {

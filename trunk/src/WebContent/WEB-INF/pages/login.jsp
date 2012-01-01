@@ -52,6 +52,9 @@
    
   </tr>
 </table>
+
+<input id="requestedUrl" name="requestedUrl" type="hidden" value="${requestedUrl}"/>
+
 </form:form>
 </center>
 
