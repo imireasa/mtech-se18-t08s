@@ -48,7 +48,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	</bean>
 	
 	<bean id="userManagementServiceImpl"
-		class="sg.edu.nus.iss.vms.common.service.impl.UserManagementServicesImpl">
+		class="sg.edu.nus.iss.vms.admin.service.impl.UserManagementServicesImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>	

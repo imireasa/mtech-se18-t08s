@@ -150,7 +150,7 @@ public class AuthorisationFilter implements Filter {
 		userSessionInfoVo.setName("SuperUser");
 		userSessionInfoVo.setSessionID(session.getId());
 		userSessionInfoVo.setUserID("SuperUser");
-
+		userSessionInfoVo.setEmail("superuser@fashion.com");
 		List<String> roleList = new ArrayList<String>();
 		roleList.add("User");
 		userSessionInfoVo.setRoles(roleList);

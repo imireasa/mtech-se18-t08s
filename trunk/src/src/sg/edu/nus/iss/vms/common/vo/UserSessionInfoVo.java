@@ -21,6 +21,8 @@ public class UserSessionInfoVo {
 
     private List<String> roles;
     
+    private String email;
+    
     protected String sessionID = null;
 
     /**
@@ -96,4 +98,12 @@ public class UserSessionInfoVo {
     public String getSessionID () {
         return sessionID;
     }
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
