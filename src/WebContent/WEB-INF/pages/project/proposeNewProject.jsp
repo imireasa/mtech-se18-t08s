@@ -20,7 +20,7 @@
 	</div>
 	<h2>Propose NewProject</h2>
 	<div class="query">
-		<form:form name="proposeProject" method="post" commandName="projectVo"
+		<form:form name="proposeProject" method="post" commandName="proposalVo"
 			action="submitProjectProposal.html">
 			<table width="548" height="105">
 
@@ -28,7 +28,7 @@
 					<th><label>Project Name:</label>
 					</td>
 					<td>
-					 <spring:bind path="projectVo.name">  
+					 <spring:bind path="proposalVo.name">  
 					<form:input path="name" />
 					 </spring:bind>
 					 <form:errors path="name"
@@ -41,7 +41,7 @@
 					</th>
 					<td>
 					
-					 <spring:bind path="projectVo.desc">  
+					 <spring:bind path="proposalVo.desc">  
 					<form:textarea path="desc" rows="5" cols="30" /> 
 					 </spring:bind>
 					<form:errors
@@ -55,7 +55,7 @@
 				
 					<form:select path="ctryCd">
 							<c:forEach items="${countryList}" var="item" varStatus="status">
-								<option value="${item.cdId}">${item.val}</option>
+								<option value="${item.val}">${item.val}</option>
 							</c:forEach>
 						</form:select>
 						
@@ -66,7 +66,7 @@
 					<th><label>Location:</label>
 					</th>
 					<td>
-					 <spring:bind path="projectVo.loc">  
+					 <spring:bind path="proposalVo.loc">  
 					<form:textarea path="loc" rows="5" cols="30" /> 
 					 </spring:bind>
 					<form:errors
@@ -77,7 +77,7 @@
 					<th><label>Estimated Duration:</label>
 					</th>
 					<td>
-					 <spring:bind path="projectVo.estDuration">  
+					 <spring:bind path="proposalVo.estDuration">  
 					<form:input path="estDuration" /> (days) 
 					</spring:bind>
 					<form:errors
