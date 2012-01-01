@@ -194,97 +194,100 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	}
 
-	
-	//Thida
-	
+	// Thida
+
 	@Override
-    public ProjectVo getProjectVoById(Long projectId) {
+	public ProjectVo getProjectVoById(Long projectId) {
 
-            ProjectDto project=null;
-            project=(ProjectDto) manager.get(ProjectDto.class, projectId);
+		ProjectDto project = null;
+		project = (ProjectDto) manager.get(ProjectDto.class, projectId);
 
-            ProjectVo projectVo = new ProjectVo();
-            if (project != null) {
-           	 projectVo.setPrjId(project.getPrjId());
-           	 projectVo.setPrjIdDisplayed(project.getPrjId());
-           	 projectVo.setName(project.getNme());
-           	 projectVo.setDesc(project.getDesc());
-           	 projectVo.setPrjMgr(project.getPrjMgr());
-           	 projectVo.setStrDte(DateUtil.formatDate(project.getStrDte()));
-           	 projectVo.setEndDte(DateUtil.formatDate(project.getEndDte()));
-           	 projectVo.setCtryCd(Long.toString(project.getCtryCd()));
-           	 projectVo.setLoc(project.getLoc());
-           	 projectVo.setRmk(project.getRmk());
-           	 if(project.getPrjPropId()!=null)
-           		projectVo.setPrjPropId(Long.toString(project.getPrjPropId().getPrjPropId()));
-           	 else
-           		projectVo.setPrjPropId("0");
-           	 projectVo.setStsCd(Long.toString(project.getStsCd()));
-           	 projectVo.setVersion(Integer.toString(project.getVersion()));
-            }
-            return projectVo;
-    }
-	 
-	 @Override
-	  public void saveProject(ProjectVo projectVo) throws Exception {
-             try {
-            	  ProjectDto project = new ProjectDto();
-                  project.setNme(projectVo.getName());
-                  project.setDesc(projectVo.getDesc());
-                  project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
-                  project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
-                  project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
-                  project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
-                  project.setLoc(projectVo.getLoc());
-                  project.setRmk(projectVo.getRmk());
-                  project.setPrjPropId(null);
-                  project.setStsCd(Long.parseLong(projectVo.getStsCd()));
-                  project.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
-                  project.setCreatedDte(DateUtil.getDate());
-                  project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
-                  project.setUpdDte(DateUtil.getDate());
-                  project.setVersion(1);
-                  manager.save(project);
-                   
-             } catch (Exception ex) {
-                     logger.error("Save Project", ex);
-                     throw new ApplicationException(Messages.getString("message.common.error.save"));
-             }
-     }
-	
+		ProjectVo projectVo = new ProjectVo();
+		if (project != null) {
+			projectVo.setPrjId(project.getPrjId());
+			projectVo.setPrjIdDisplayed(project.getPrjId());
+			projectVo.setName(project.getNme());
+			projectVo.setDesc(project.getDesc());
+			projectVo.setPrjMgr(project.getPrjMgr());
+			projectVo.setStrDte(DateUtil.formatDate(project.getStrDte()));
+			projectVo.setEndDte(DateUtil.formatDate(project.getEndDte()));
+			projectVo.setCtryCd(Long.toString(project.getCtryCd()));
+			projectVo.setLoc(project.getLoc());
+			projectVo.setRmk(project.getRmk());
+			if (project.getPrjPropId() != null)
+				projectVo.setPrjPropId(Long.toString(project.getPrjPropId()
+						.getPrjPropId()));
+			else
+				projectVo.setPrjPropId("0");
+			projectVo.setStsCd(Long.toString(project.getStsCd()));
+			projectVo.setVersion(Integer.toString(project.getVersion()));
+		}
+		return projectVo;
+	}
+
 	@Override
-    public void updateProject(ProjectVo projectVo) throws Exception {
-            try {
-            	 ProjectDto project=null;
-            	 String hQL = "from ProjectDto where prjId = " + projectVo.getPrjId();
-            	 List<ProjectDto> projectList = manager.find(hQL);
-            	 if (projectList != null && !projectList.isEmpty()) {
-            		 project = projectList.get(0);
+	public void saveProject(ProjectVo projectVo) throws Exception {
+		try {
+			ProjectDto project = new ProjectDto();
+			project.setNme(projectVo.getName());
+			project.setDesc(projectVo.getDesc());
+			project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+			project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
+			project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
+			project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
+			project.setLoc(projectVo.getLoc());
+			project.setRmk(projectVo.getRmk());
+			project.setPrjPropId(null);
+			project.setStsCd(Long.parseLong(projectVo.getStsCd()));
+			project.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
+			project.setCreatedDte(DateUtil.getDate());
+			project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
+			project.setUpdDte(DateUtil.getDate());
+			project.setVersion(1);
+			manager.save(project);
 
-            	 } else {
-            		 throw new ApplicationException(Messages.getString("message.common.error.update"));
-            	 }
-            	 project.setNme(projectVo.getName());
-                 project.setDesc(projectVo.getDesc());
-                 project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
-                 project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
-                 project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
-                 project.setLoc(projectVo.getLoc());
-                 project.setRmk(projectVo.getRmk());
-                 project.setStsCd(Long.parseLong(projectVo.getStsCd()));
-                 project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
-                 project.setUpdDte(DateUtil.getDate());
-                 int currentVersion= Integer.parseInt(projectVo.getVersion());
-                 project.setVersion(currentVersion+1);
-                 //Todo: have to test save after updating the "DESC" column in DB
-                 manager.save(project);
+		} catch (Exception ex) {
+			logger.error("Save Project", ex);
+			throw new ApplicationException(
+					Messages.getString("message.common.error.save"));
+		}
+	}
 
-            } catch (Exception ex) {
-                    logger.error("Update Project", ex);
-                    throw new ApplicationException(Messages.getString("message.common.error.update"));
-            }
-    }
+	@Override
+	public void updateProject(ProjectVo projectVo) throws Exception {
+		try {
+			ProjectDto project = null;
+			String hQL = "from ProjectDto where prjId = "
+					+ projectVo.getPrjId();
+			List<ProjectDto> projectList = manager.find(hQL);
+			if (projectList != null && !projectList.isEmpty()) {
+				project = projectList.get(0);
 
+			} else {
+				throw new ApplicationException(
+						Messages.getString("message.common.error.update"));
+			}
+			project.setNme(projectVo.getName());
+			project.setDesc(projectVo.getDesc());
+			project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
+			project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
+			project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
+			project.setLoc(projectVo.getLoc());
+			project.setRmk(projectVo.getRmk());
+			project.setStsCd(Long.parseLong(projectVo.getStsCd()));
+			project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
+			project.setUpdDte(DateUtil.getDate());
+			int currentVersion = Integer.parseInt(projectVo.getVersion());
+			project.setVersion(currentVersion + 1);
+			// Todo: have to test save after updating the "DESC" column in DB
+			manager.save(project);
+
+		} catch (Exception ex) {
+			logger.error("Update Project", ex);
+			throw new ApplicationException(
+					Messages.getString("message.common.error.update"));
+		}
+	}
 
 	@Override
 	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
@@ -370,6 +373,5 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 		return manager.findByDetachedCriteria(criteria);
 	}
-
 
 }
