@@ -291,7 +291,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		projectInterestDto.setReqBy("ss");
 		projectInterestDto.setUpdBy("ss");
 
-		projectManagementService.raseInterest(projectInterestDto);
+		projectManagementService.saveOrUpdateProjectObject(projectInterestDto);
 
 		logger.debug("@@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
 				+ projectDto.getPrjId());
@@ -315,7 +315,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			projectExperienceDto.setCreatedBy(projectDto.getCreatedBy());
 			projectExperienceDto.setCreatedDte(DateUtil.formatDate(new Date()));
 			projectManagementService
-					.postProjectExperience(projectExperienceDto);
+					.saveOrUpdateProjectObject(projectExperienceDto);
 
 		}
 
@@ -337,7 +337,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 			projectFeedbackDto.setCreatedBy(projectDto.getCreatedBy());
 			projectFeedbackDto.setUpdBy(projectDto.getCreatedBy());
 
-			projectManagementService.postProjectFeedback(projectFeedbackDto);
+			projectManagementService
+					.saveOrUpdateProjectObject(projectFeedbackDto);
 
 		}
 

@@ -79,7 +79,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		List projectList = projectManagementService.getListAllProject();
 		modelAndView.addObject("projectList", projectList);
 
-		List projectRoleList = projectManagementService.getProjectRoleList();
+		List projectRoleList = new ArrayList<CodeDto>();
 		modelAndView.addObject("projectRoleList", projectRoleList);
 
 		if (request.getParameter("project") != null
