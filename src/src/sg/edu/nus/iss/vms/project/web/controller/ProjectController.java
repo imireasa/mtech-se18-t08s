@@ -22,6 +22,7 @@ import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
@@ -299,7 +300,32 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectFeedbackDto projectFbDto = (ProjectFeedbackDto) projectManagementService
 				.getProjectObjbyId(prjFbId, ProjectFeedbackDto.class);
 
+		List<CodeDto> codeDtos = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
+		String status = "Unknown";
+
+		for (CodeDto codeDto : codeDtos) {
+
+			if (codeDto.getCdId().equals(projectFbDto.getStsCd())) {
+				status = codeDto.getVal();
+				break;
+			}
+
+		}
+
+		ProjectInfoVo projectInfoVo = new ProjectInfoVo();
+		projectInfoVo.setFbContent(projectFbDto.getCont());
+		projectInfoVo.setFbTitle(projectFbDto.getTitle());
+		projectInfoVo.setPrjName(projectFbDto.getPrjId().getNme());
+		projectInfoVo.setCreatedBy(projectFbDto.getCreatedBy());
+		projectInfoVo.setCreatedDte(DateUtil.formatDate(projectFbDto
+				.getCreatedDte()));
+		projectInfoVo.setPrjId(String.valueOf(projectFbDto.getPrjId()
+				.getPrjId()));
+		projectInfoVo.setFbStatus(status);
+
 		modelAndView = new ModelAndView("project/viewProjectFeedbackDetails");
+		modelAndView.addObject("projectFbVo", projectInfoVo);
 		modelAndView.addObject("projectFb", projectFbDto);
 		return modelAndView;
 	}
@@ -314,9 +340,16 @@ public class ProjectController extends BaseMultiActionFormController {
 				VMSConstants.FEEDBACK_STATUS,
 				VMSConstants.FEEDBACK_STATUS_APPROVED);
 
-		projectFbDto.setApprBy("pendingToUpdate");
 		projectFbDto.setApprDte(new Date());
-		projectFbDto.setUpdBy("pendingToUpdate");
+
+		String loginId = "SuperUser";
+		if (UserUtil.getUserSessionInfoVo() != null
+				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
+						.getUserID())) {
+			loginId = UserUtil.getUserSessionInfoVo().getUserID();
+		}
+		projectFbDto.setApprBy(loginId);
+		projectFbDto.setUpdBy(loginId);
 		projectFbDto.setUpdDte(new Date());
 		projectFbDto.setStsCd(codeDto.getCdId());
 		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
@@ -333,9 +366,16 @@ public class ProjectController extends BaseMultiActionFormController {
 				VMSConstants.FEEDBACK_STATUS,
 				VMSConstants.FEEDBACK_STATUS_REJECTED);
 
-		projectFbDto.setApprBy("pendingToUpdate");
+		String loginId = "SuperUser";
+		if (UserUtil.getUserSessionInfoVo() != null
+				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
+						.getUserID())) {
+			loginId = UserUtil.getUserSessionInfoVo().getUserID();
+		}
+
+		projectFbDto.setApprBy(loginId);
 		projectFbDto.setApprDte(new Date());
-		projectFbDto.setUpdBy("pendingToUpdate");
+		projectFbDto.setUpdBy(loginId);
 		projectFbDto.setUpdDte(new Date());
 		projectFbDto.setStsCd(codeDto.getCdId());
 		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
@@ -464,19 +504,46 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectProposalDto projectPropDto = (ProjectProposalDto) projectManagementService
 				.getProjectObjbyId(prjProId, ProjectProposalDto.class);
 
+		List<CodeDto> projectStatusCodeList = codeManagementServices
+				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+		List<CodeDto> countryCodeList = codeManagementServices
+				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+		String projectStatus = "Unknown";
+		String country = "Unknown";
+
+		for (CodeDto codeDto : projectStatusCodeList) {
+			if (codeDto.getCdId().equals(projectPropDto.getStsCd())) {
+				projectStatus = codeDto.getVal();
+				break;
+			}
+		}
+		for (CodeDto codeDto : countryCodeList) {
+			if (codeDto.getCdId().equals(projectPropDto.getCtryCd())) {
+				country = codeDto.getVal();
+				break;
+			}
+		}
+
+		ProjectProposalVo projectProposalVo = new ProjectProposalVo();
+		projectProposalVo.setName(projectPropDto.getNme());
+		projectProposalVo.setDesc(projectPropDto.getDesc());
+		projectProposalVo.setEstDuration(projectPropDto.getEstDur());
+		projectProposalVo.setLoc(projectPropDto.getLoc());
+		projectProposalVo.setRmk(projectPropDto.getRmk());
+		projectProposalVo.setCtryCd(country);
+		projectProposalVo.setStatus(projectStatus);
+		projectProposalVo.setProposerId(projectPropDto.getProposerId());
+
 		modelAndView = new ModelAndView("project/viewProjectProposalDetails");
 		modelAndView.addObject("proposal", projectPropDto);
 		modelAndView.addObject("stsCdList", codeDtos);
-		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@total status"
-				+ codeDtos.size());
-
-		modelAndView.addObject("proposalVo", new ProjectVo());
+		modelAndView.addObject("proposalVo", projectProposalVo);
 		return modelAndView;
 
 	}
 
 	public ModelAndView reviewProposal(HttpServletRequest request,
-			HttpServletResponse response, ProjectVo proposalVo)
+			HttpServletResponse response, ProjectProposalVo proposalVo)
 			throws Exception {
 
 		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
@@ -495,12 +562,22 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 
 		}
+
+		String loginId = "SuperUser";
+		if (UserUtil.getUserSessionInfoVo() != null
+				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
+						.getUserID())) {
+			loginId = UserUtil.getUserSessionInfoVo().getUserID();
+		}
+
 		if (projectPropDto.getStsCd() == approveCodeId
 				|| projectPropDto.getStsCd() == rejectCodeId) {
-			projectPropDto.setApprBy("toBeUpdated");
+
 			projectPropDto.setApprDte(new Date());
-			projectPropDto.setUpdBy("toBeUpdated");
-			projectPropDto.setUpdBy("toBeUpdated");
+			projectPropDto.setUpdDte(new Date());
+			projectPropDto.setApprBy(loginId);
+			projectPropDto.setUpdBy(loginId);
+			projectPropDto.setUpdBy(loginId);
 		}
 		projectPropDto.setRmk(proposalVo.getRmk());
 		projectManagementService.saveOrUpdateProjectObject(projectPropDto);

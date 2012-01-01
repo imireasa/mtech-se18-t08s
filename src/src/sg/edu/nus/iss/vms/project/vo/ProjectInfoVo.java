@@ -9,6 +9,8 @@ public class ProjectInfoVo {
 	private String prjName;
 	private String strDate;
 	private String fbStatus;
+	private String createdBy;
+	private String createdDte;
 
 	public String getExperience() {
 		return experience;
@@ -64,6 +66,22 @@ public class ProjectInfoVo {
 
 	public void setFbStatus(String fbStatus) {
 		this.fbStatus = fbStatus;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getCreatedDte() {
+		return createdDte;
+	}
+
+	public void setCreatedDte(String createdDte) {
+		this.createdDte = createdDte;
 	}
 
 }
