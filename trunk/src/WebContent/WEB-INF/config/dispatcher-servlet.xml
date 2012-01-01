@@ -46,6 +46,7 @@
 				<prop key="/project/*.html">projectController</prop>
 				<prop key="/report/volunteer/*.html">certificateController</prop>
 				<prop key="/login.html">loginController</prop>
+				<prop key="/logout.html">logoutController</prop>
 			</props>
 		</property>
 

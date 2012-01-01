@@ -66,6 +66,8 @@
                         <value>/common/welcome.html</value>
                 </property>			
         </bean>
+        <bean id="logoutController" class="sg.edu.nus.iss.vms.web.security.LogoutController">
+        </bean>
 	
 	<!-- Menu -->
         <bean id="menu" class="net.sf.navigator.menu.MenuLoader">
