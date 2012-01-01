@@ -23,50 +23,50 @@
    	 <form:form name="reviewproposal" method="post" commandName="proposalVo" action="reviewProposal.html">
 	  <table width="475" height="105" >
 	    <tr>
-	      <td width><label> Name</label></td>
-	      <td width>${proposal.nme}</td>
+	      <th><label> Name</label></th>
+	      <td width>${proposalVo.name}</td>
         </tr>
 	    
         <tr>
-	      <td><label>Description</label></td>
+	      <th><label>Description</label></th>
 	      <td>
-	      ${proposal.desc}
+	      ${proposalVo.desc}
           </td>
         </tr>
         
         
          <tr>
-	      <td><label>Country</label></td>
-	      <td> ${proposal.ctryCd}</td>
+	      <th><label>Country</label></th>
+	      <td> ${proposalVo.ctryCd}</td>
         </tr>
         <tr>
-	      <td><label>Location</label></td>
-	      <td>${proposal.loc}</td>
+	      <th><label>Location</label></th>
+	      <td>${proposalVo.loc}</td>
         </tr>
         <tr>
-	      <td><label>Estimated Duration</label></td>
-	      <td>${proposal.estDur}</td>
+	      <th><label>Estimated Duration</label></th>
+	      <td>${proposalVo.estDuration}</td>
         </tr>
 	    <tr>
-	      <td><label>Proposed by</label></td>
-	      <td>${proposal.proposerId}</td>
+	      <th><label>Proposed by</label></th>
+	      <td>${proposalVo.proposerId}</td>
         </tr>
         <tr>
-	      <td><label>Status</label></td>
+	      <th><label>Status</label></th>
 	      <td>
-	      <form:select path="stsCd">
+	      <form:select path="status">
 	      <c:forEach items="${stsCdList}" var="item" varStatus="status">
-				<option value="${item.cdId}">${item.val}</option>
+				<option value="${item.val}">${item.val}</option>
 		      </c:forEach>
 		  </form:select>
 		 </td>
         </tr>
         <tr>
-	      <td><label>Supporting Documents</label></td>
+	      <th><label>Supporting Documents</label></th>
 	      <td></td>
         </tr>
          <tr>
-	      <td><label>Remark</label></td>
+	      <th><label>Remark</label></th>
 	      <td> <spring:bind path="proposalVo.rmk">  
 					<form:textarea path="rmk" rows="5" cols="30" /> 
 					 </spring:bind>

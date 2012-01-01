@@ -24,27 +24,27 @@
 				<tr>
 					<td width="103"><label>Project Name:</label></td>
 
-					<td width="186"><label>${projectFb.prjId.nme}</label></td>
+					<td width="186"><label>${projectFbVo.prjName}</label></td>
 				</tr>
 				<tr>
 					<td width="103"><label>FeedBack Title:</label></td>
-					<td width="300">${projectFb.title}</td>
+					<td width="300">${projectFbVo.fbTitle}</td>
 				</tr>
 				<tr>
 					<td><label>Feedback Content:</label></td>
-					<td>${projectFb.cont}</td>
+					<td>${projectFbVo.fbContent}</td>
 				</tr>
 				<tr>
 					<td><label>Feedback Status:</label></td>
-					<td>${projectFb.stsCd}</td>
+					<td>${projectFbVo.fbStatus}</td>
 				</tr>
 				<tr>
 					<td><label>Created by:</label></td>
-					<td>${projectFb.createdBy}</td>
+					<td>${projectFbVo.createdBy}</td>
 				</tr>
 				<tr>
 					<td><label>Creation Date:</label></td>
-					<td>${project.createdDte}</td>
+					<td>${projectVo.createdDte}</td>
 				</tr>
 				<tr>
 					<td>

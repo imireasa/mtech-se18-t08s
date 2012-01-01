@@ -12,8 +12,9 @@
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- BEAN : Page -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+                
+
 	<bean id="projectValidator" class="sg.edu.nus.iss.vms.project.web.controller.ProjectValidator">
-                <property name="projectManagementService" ref="projectManagementServiceImpl" />
     </bean>
         
 	<bean id="projectController"
@@ -23,5 +24,9 @@
 		<property name="projectManagementService" ref="projectManagementServiceImpl" />
 		<property name="validators" ref="projectValidator" />
 	</bean>
+	
+	
+	
+	
 
 </beans>
