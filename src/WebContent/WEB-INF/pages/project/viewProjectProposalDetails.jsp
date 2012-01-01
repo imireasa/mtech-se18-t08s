@@ -4,10 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%><body>
 <head>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/engine.js'></script>
 
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
@@ -21,45 +17,49 @@
 	<a href="#">Home</a> / <a href="#">Review Project proposal</a></div>
     
 <h2> Review Project Proposal</h2>
-    <form action="" method="post">
-    </form>
+    
 
-	<div class="query">
-   	 <form name="form1" method="post" action="">
+	<div class="reviewproposal">
+   	 <form:form name="reviewproposal" method="post" commandName="proposal" action="reviewProposal.html">
 	  <table width="475" height="105" >
 	    <tr>
-	      <td width="160"><label>Project Proposal Name</label></td>
-	      <td width="299"><label id="label_projectCode"></label></td>
+	      <td width><label> Name</label></td>
+	      <td width>${proposal.nme}</td>
         </tr>
 	    
         <tr>
 	      <td><label>Description</label></td>
 	      <td>
-	        <label for="txtArea_projectDesc"></label>
-	        <textarea name="txtArea_projectDesc" id="txtArea_projectDesc" cols="45" rows="5"></textarea>
+	      ${proposal.desc}
           </td>
         </tr>
         
         
          <tr>
 	      <td><label>Country</label></td>
-	      <td></td>
+	      <td> ${proposal.ctryCd}</td>
         </tr>
         <tr>
 	      <td><label>Location</label></td>
-	      <td></td>
+	      <td>${proposal.loc}</td>
         </tr>
         <tr>
 	      <td><label>Estimated Duration</label></td>
-	      <td></td>
+	      <td>${proposal.estDur}</td>
         </tr>
 	    <tr>
 	      <td><label>Proposed by</label></td>
-	      <td></td>
+	      <td>${proposal.proposerId}</td>
         </tr>
         <tr>
 	      <td><label>Status</label></td>
-	      <td></td>
+	      <td>
+	      <form:select path="stsCd">
+	      <c:forEach items="${stsCdList}" var="item" varStatus="status">
+				<option value="${item.cdId}">${item.val}</option>
+		      </c:forEach>
+		  </form:select>
+		 </td>
         </tr>
         <tr>
 	      <td><label>Supporting Documents</label></td>
@@ -67,16 +67,23 @@
         </tr>
          <tr>
 	      <td><label>Remark</label></td>
-	      <td><textarea name="txtArea_Remark" cols="45" rows="5"></textarea></td>
+	      <td> <spring:bind path="proposal.rmk">  
+					<form:textarea path="rmk" rows="5" cols="30" /> 
+					 </spring:bind>
+					<form:errors
+							path="rmk" cssClass="error" />
+		</td>
         </tr>
         <tr>
-	      <td><input name="btn_update" type="button" value="Update"></td>
-	      <td><input name="btn_cancel" type="button" value="Cancel"></td>
+        
         </tr>
         
       </table>
-   	 </form>
-   	 
+   	 </form:form>
+   	  <form:form name="reviewproposal" method="post" commandName="proposal" action="reviewProposal.html">
+        
+    	      <td><input name="btn_submit" type="button" value="Submit"></td>
+	      </form:form>
     </div>
     
 
