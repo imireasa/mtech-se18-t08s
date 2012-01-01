@@ -20,7 +20,7 @@
     
 
 	<div class="reviewproposal">
-   	 <form:form name="reviewproposal" method="post" commandName="proposal" action="reviewProposal.html">
+   	 <form:form name="reviewproposal" method="post" commandName="proposalVo" action="reviewProposal.html">
 	  <table width="475" height="105" >
 	    <tr>
 	      <td width><label> Name</label></td>
@@ -67,7 +67,7 @@
         </tr>
          <tr>
 	      <td><label>Remark</label></td>
-	      <td> <spring:bind path="proposal.rmk">  
+	      <td> <spring:bind path="proposalVo.rmk">  
 					<form:textarea path="rmk" rows="5" cols="30" /> 
 					 </spring:bind>
 					<form:errors
@@ -75,15 +75,13 @@
 		</td>
         </tr>
         <tr>
-        
+    	      <td><input name="btn_submit" id="btn_submit" type="submit" value="Submit"></td>
+	     
         </tr>
         
       </table>
    	 </form:form>
-   	  <form:form name="reviewproposal" method="post" commandName="proposal" action="reviewProposal.html">
-        
-    	      <td><input name="btn_submit" type="button" value="Submit"></td>
-	      </form:form>
+   	 
     </div>
     
 
