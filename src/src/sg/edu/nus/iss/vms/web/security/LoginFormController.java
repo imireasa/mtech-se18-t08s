@@ -43,6 +43,7 @@ public class LoginFormController extends SimpleFormController {
 		LoginCommand loginCommand = (LoginCommand) command;
 		String username = loginCommand.getUsername();
 		String password = loginCommand.getPassword();
+		String requestedUrl = loginCommand.getRequestedUrl();
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("onSubmit(Object) - Before calling Security Manager - username=" + username + ", password=" + password); //$NON-NLS-1$ //$NON-NLS-2$
@@ -104,7 +105,16 @@ public class LoginFormController extends SimpleFormController {
 			}
 		}
 
-		ModelAndView modelAndView = new ModelAndView(new RedirectView("/VMS/common/welcome.html"));
+		ModelAndView modelAndView;
+		if(requestedUrl!=null || !requestedUrl.equalsIgnoreCase("")){
+			//it was a requested URL
+			modelAndView = new ModelAndView(new RedirectView(requestedUrl));
+		}else {
+		//no requested URL
+		modelAndView = new ModelAndView(new RedirectView("/VMS/common/welcome.html"));
+		}
+		
+		
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("onSubmit(Object) - end , user found and placed in session"); //$NON-NLS-1$

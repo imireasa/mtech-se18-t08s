@@ -22,9 +22,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
-import sg.edu.nus.iss.vms.common.util.RoleUtil;
 import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
-import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
 
 public class AuthorisationFilter implements Filter {
@@ -79,22 +77,22 @@ public class AuthorisationFilter implements Filter {
 
 		// check if authorisation is enabled
 		if (!isAuthorisationFilterEnabled) {
-			//place into session a super userdto
+			// place into session a super userdto
 			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), getSuperUser(session));
-			//place into session a pass through menu configuration
+			// place into session a pass through menu configuration
 			session.setAttribute(VMSConstants.MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME, new PassThroughMenuPermissionsAdapter());
-			//do the rest of the filters.
+			// do the rest of the filters.
 			chain.doFilter(request, response);
 			return;
 		}
 		// check if routing to excluded pages
 		for (int i = 0; i < excludePages.size(); i++) {
-			
-			Pattern pattern = Pattern.compile((String) excludePages.get(i)); 
+
+			Pattern pattern = Pattern.compile((String) excludePages.get(i));
 			Matcher matcher = pattern.matcher(URI);
 			Boolean matchFound = matcher.find();
-			logger.debug("checking for excluded page. URI is "+URI+" pattern is "+pattern+" result is "+matchFound);
-			
+			logger.debug("checking for excluded page. URI is " + URI + " pattern is " + pattern + " result is " + matchFound);
+
 			if (matchFound) {
 				// if excluded, carry on
 				if (logger.isDebugEnabled()) {
@@ -114,24 +112,27 @@ public class AuthorisationFilter implements Filter {
 		UserSessionInfoVo currentUser = null;
 		if (session != null) {
 			currentUser = (UserSessionInfoVo) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")); //$NON-NLS-1$
-			
+
 		}
 		if (currentUser == null) {
+			// map the requested URL and login parameters
+			request.setAttribute("requestedUrl", URI);
 			returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), loginPage); //$NON-NLS-1$
 			return; // user not logged in or no session found.
 		}
 		else {
-			
+
 			// Get relevant URI.
 			// Obtain AuthorisationManager singleton from Spring
 			// ApplicationContext.
-			// Invoke AuthorisationManager method to see if user can access resource.
+			// Invoke AuthorisationManager method to see if user can access
+			// resource.
 			ApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(session.getServletContext());
 			SecurityManagementService authMgr = (SecurityManagementService) ctx.getBean("SecurityManagementServiceImpl"); //$NON-NLS-1$
 			boolean authorised = authMgr.isUserAuthorised(currentUser, URI);
 			if (authorised) {
 				chain.doFilter(request, response);
-				
+
 				return;
 			}
 			else {
@@ -149,11 +150,11 @@ public class AuthorisationFilter implements Filter {
 		userSessionInfoVo.setName("SuperUser");
 		userSessionInfoVo.setSessionID(session.getId());
 		userSessionInfoVo.setUserID("SuperUser");
-		
+
 		List<String> roleList = new ArrayList<String>();
 		roleList.add("User");
 		userSessionInfoVo.setRoles(roleList);
-		
+
 		userSessionInfoVo.setUserSeqID(new Long(999999));
 
 		session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), userSessionInfoVo);
