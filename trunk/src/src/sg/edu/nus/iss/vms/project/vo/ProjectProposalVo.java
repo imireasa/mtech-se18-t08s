@@ -9,6 +9,7 @@ public class ProjectProposalVo {
 	private String rmk;
 	private String status;
 	private int estDuration;
+	private String proposerId;
 
 	public String getName() {
 		return name;
@@ -64,6 +65,14 @@ public class ProjectProposalVo {
 
 	public void setEstDuration(int estDuration) {
 		this.estDuration = estDuration;
+	}
+
+	public String getProposerId() {
+		return proposerId;
+	}
+
+	public void setProposerId(String proposerId) {
+		this.proposerId = proposerId;
 	}
 
 }
