@@ -85,7 +85,6 @@ DROP TABLE IF EXISTS `tb_menu_function`;
 
 CREATE TABLE `tb_menu_function` (
   `MENU_FUNC_ID` bigint(19) NOT NULL AUTO_INCREMENT,
-  `PERMI_ID` bigint(19) NOT NULL,
   `PRNT_MENU_FUNC_ID` bigint(19) DEFAULT NULL,
   `MENU_FUNC_NME` varchar(100) NOT NULL,
   `CREATED_BY` varchar(20) NOT NULL,
@@ -93,11 +92,7 @@ CREATE TABLE `tb_menu_function` (
   `UPD_BY` varchar(20) NOT NULL,
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL,
-  PRIMARY KEY (`MENU_FUNC_ID`),
-  KEY `FKTB_MENU_FU354806` (`PERMI_ID`),
-  CONSTRAINT `tb_menu_function_ibfk_2` FOREIGN KEY (`PERMI_ID`) REFERENCES `tb_permission` (`PERMI_ID`),
-  CONSTRAINT `FKTB_MENU_FU354806` FOREIGN KEY (`PERMI_ID`) REFERENCES `tb_permission` (`PERMI_ID`),
-  CONSTRAINT `tb_menu_function_ibfk_1` FOREIGN KEY (`PERMI_ID`) REFERENCES `tb_permission` (`PERMI_ID`)
+  PRIMARY KEY (`MENU_FUNC_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_permission` */
@@ -108,6 +103,7 @@ CREATE TABLE `tb_permission` (
   `PERMI_ID` bigint(19) NOT NULL AUTO_INCREMENT,
   `URI` varchar(1000) NOT NULL,
   `PERMI_DESC` varchar(200) DEFAULT NULL,
+  `MENU_FUNC_ID` bigint(19),
   `CREATED_BY` varchar(20) NOT NULL,
   `CREATED_DTE` datetime NOT NULL,
   `UPD_BY` varchar(20) NOT NULL,
@@ -118,6 +114,7 @@ CREATE TABLE `tb_permission` (
 
 /*Table structure for table `tb_permission_role` */
 
+/*
 DROP TABLE IF EXISTS `tb_permission_role`;
 
 CREATE TABLE `tb_permission_role` (
@@ -139,7 +136,7 @@ CREATE TABLE `tb_permission_role` (
   CONSTRAINT `tb_permission_role_ibfk_1` FOREIGN KEY (`PERMI_ID`) REFERENCES `tb_permission` (`PERMI_ID`),
   CONSTRAINT `tb_permission_role_ibfk_2` FOREIGN KEY (`ROLE_ID`) REFERENCES `tb_role` (`ROLE_ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
-
+*/
 /*Table structure for table `tb_project` */
 
 DROP TABLE IF EXISTS `tb_project`;
