@@ -54,6 +54,7 @@
 					<td>
 				
 					<form:select path="ctryCd">
+					<form:option value="" label="--Select--"/>
 							<c:forEach items="${countryList}" var="item" varStatus="status">
 								<option value="${item.val}">${item.val}</option>
 							</c:forEach>
@@ -91,6 +92,7 @@
 					</label>
 					</td>
 				</tr>
+				
 				<tr>
 					<td><input type="submit" name="btn_Post" id="btn_Post"
 						value="Submit"></td>

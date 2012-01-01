@@ -48,7 +48,8 @@
 	      <td><label>Status:</label></td>
 	      <td>
 	        <form:select path="fbStatus">
-              <c:forEach items="${fbCodeList}" var="item" varStatus="status">
+	        <form:option value="" label="ALL"/>
+	            <c:forEach items="${fbCodeList}" var="item" varStatus="status">
                  <option value="${item.cdId}">${item.val}</option>
               </c:forEach>
            </form:select>       
@@ -88,7 +89,13 @@
 				<td>${item.prjId.nme}</td>
 				<td>${item.title}</td>
 				<td>${item.createdBy}</td>
-                <td>${item.stsCd};</td>
+                <td>
+                <c:forEach items="${fbCodeList}" var="item2" varStatus="status">
+                   <c:if test="{item2.cdId == item.stsCd}">
+                   	<c:out value="${item2.val}"/>
+                   </c:if>
+                 </c:forEach>
+ </td>
                 <td><a href="
 	<c:url value="viewProjectFeedbackDetails.html">
 	     <c:param name="prjFbId" value="${item.prjFbId}"/> 
