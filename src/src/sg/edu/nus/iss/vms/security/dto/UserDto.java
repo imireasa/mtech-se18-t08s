@@ -31,16 +31,16 @@ public class UserDto extends BaseVersionDto implements Serializable {
         private String usrLoginId;
         @Basic(optional = false)
         @Column(name = "TP_CD")
-        private long tpCd;
+        private Long tpCd;
         @Basic(optional = false)
         @Column(name = "TITLE_CD")
-        private long titleCd;
+        private Long titleCd;
         @Basic(optional = false)
         @Column(name = "NME")
         private String nme;
         @Basic(optional = false)
         @Column(name = "DOB")
-        @Temporal(TemporalType.TIMESTAMP)
+        @Temporal(TemporalType.DATE)
         private Date dob;
         @Basic(optional = false)
         @Column(name = "EMAIL")
@@ -74,7 +74,7 @@ public class UserDto extends BaseVersionDto implements Serializable {
                 this.usrId = usrId;
         }
 
-        public UserDto(Long usrId, String usrLoginId, long tpCd, long titleCd, String nme, Date dob, String email, String pwd, boolean actInd, Date joinDte, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public UserDto(Long usrId, String usrLoginId, Long tpCd, Long titleCd, String nme, Date dob, String email, String pwd, boolean actInd, Date joinDte, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.usrId = usrId;
                 this.usrLoginId = usrLoginId;
                 this.tpCd = tpCd;
@@ -109,19 +109,19 @@ public class UserDto extends BaseVersionDto implements Serializable {
                 this.usrLoginId = usrLoginId;
         }
 
-        public long getTpCd() {
+        public Long getTpCd() {
                 return tpCd;
         }
 
-        public void setTpCd(long tpCd) {
+        public void setTpCd(Long tpCd) {
                 this.tpCd = tpCd;
         }
 
-        public long getTitleCd() {
+        public Long getTitleCd() {
                 return titleCd;
         }
 
-        public void setTitleCd(long titleCd) {
+        public void setTitleCd(Long titleCd) {
                 this.titleCd = titleCd;
         }
 

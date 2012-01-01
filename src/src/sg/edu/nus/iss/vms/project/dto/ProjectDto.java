@@ -45,7 +45,7 @@ public class ProjectDto extends BaseVersionDto implements Serializable {
 	@Column(name = "NME")
 	private String nme;
 	@Basic(optional = false)
-	@Column(name = "DESC")
+	@Column(name = "PRJ_DESC")
 	private String desc;
 	@Column(name = "PRJ_MGR")
 	private String prjMgr;
@@ -67,7 +67,7 @@ public class ProjectDto extends BaseVersionDto implements Serializable {
 	private String rmk;
 	@Basic(optional = false)
 	@Column(name = "STS_CD")
-	private long stsCd;
+	private Long stsCd;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "prjId", fetch = FetchType.LAZY)
 	private List<ProjectExperienceDto> projectExperienceList;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "prjId", fetch = FetchType.LAZY)
@@ -155,11 +155,11 @@ public class ProjectDto extends BaseVersionDto implements Serializable {
 		this.endDte = endDte;
 	}
 
-	public long getCtryCd() {
+	public Long getCtryCd() {
 		return ctryCd;
 	}
 
-	public void setCtryCd(long ctryCd) {
+	public void setCtryCd(Long ctryCd) {
 		this.ctryCd = ctryCd;
 	}
 
@@ -179,11 +179,11 @@ public class ProjectDto extends BaseVersionDto implements Serializable {
 		this.rmk = rmk;
 	}
 
-	public long getStsCd() {
+	public Long getStsCd() {
 		return stsCd;
 	}
 
-	public void setStsCd(long stsCd) {
+	public void setStsCd(Long stsCd) {
 		this.stsCd = stsCd;
 	}
 

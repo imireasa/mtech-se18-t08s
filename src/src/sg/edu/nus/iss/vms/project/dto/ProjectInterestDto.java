@@ -36,7 +36,7 @@ public class ProjectInterestDto extends BaseVersionDto implements Serializable {
         private String apprRmk;
         @Basic(optional = false)
         @Column(name = "STS_CD")
-        private long stsCd;
+        private Long stsCd;
         @JoinColumn(name = "PRJ_ID", referencedColumnName = "PRJ_ID")
         @ManyToOne(optional = false, fetch = FetchType.EAGER)
         private ProjectDto prjId;
@@ -48,7 +48,7 @@ public class ProjectInterestDto extends BaseVersionDto implements Serializable {
                 this.prjIntrstId = prjIntrstId;
         }
 
-        public ProjectInterestDto(Long prjIntrstId, String reqBy, long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public ProjectInterestDto(Long prjIntrstId, String reqBy, Long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.prjIntrstId = prjIntrstId;
                 this.reqBy = reqBy;
                 this.stsCd = stsCd;
@@ -99,11 +99,11 @@ public class ProjectInterestDto extends BaseVersionDto implements Serializable {
                 this.apprRmk = apprRmk;
         }
 
-        public long getStsCd() {
+        public Long getStsCd() {
                 return stsCd;
         }
 
-        public void setStsCd(long stsCd) {
+        public void setStsCd(Long stsCd) {
                 this.stsCd = stsCd;
         }
 

@@ -26,7 +26,7 @@ public class CodeDto implements Serializable {
     @Column(name = "VAL")
     private String val;
     @Basic(optional = false)
-    @Column(name = "DESC")
+    @Column(name = "tb_code.DESC")
     private String desc;
     @JoinColumn(name = "CAT_ID", referencedColumnName = "CAT_ID")
     @ManyToOne(optional = false, fetch = FetchType.EAGER)

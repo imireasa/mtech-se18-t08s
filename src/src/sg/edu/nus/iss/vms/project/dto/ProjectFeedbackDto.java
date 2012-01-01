@@ -39,7 +39,7 @@ public class ProjectFeedbackDto extends BaseVersionDto implements Serializable {
         private Date apprDte;
         @Basic(optional = false)
         @Column(name = "STS_CD")
-        private long stsCd;
+        private Long stsCd;
         @JoinColumn(name = "PRJ_ID", referencedColumnName = "PRJ_ID")
         @ManyToOne(optional = false, fetch = FetchType.EAGER)
         private ProjectDto prjId;
@@ -51,7 +51,7 @@ public class ProjectFeedbackDto extends BaseVersionDto implements Serializable {
                 this.prjFbId = prjFbId;
         }
 
-        public ProjectFeedbackDto(Long prjFbId, String title, String cont, long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public ProjectFeedbackDto(Long prjFbId, String title, String cont, Long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.prjFbId = prjFbId;
                 this.title = title;
                 this.cont = cont;
@@ -103,11 +103,11 @@ public class ProjectFeedbackDto extends BaseVersionDto implements Serializable {
                 this.apprDte = apprDte;
         }
 
-        public long getStsCd() {
+        public Long getStsCd() {
                 return stsCd;
         }
 
-        public void setStsCd(long stsCd) {
+        public void setStsCd(Long stsCd) {
                 this.stsCd = stsCd;
         }
 

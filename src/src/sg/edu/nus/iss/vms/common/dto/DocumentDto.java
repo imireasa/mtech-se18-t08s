@@ -33,7 +33,7 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
         @Lob
         @Column(name = "FLE")
         private byte[] fle;
-        @Column(name = "DESC")
+        @Column(name = "DOC_DESC")
         private String desc;
         @Basic(optional = false)
         @Column(name = "DEL_IND")

@@ -27,7 +27,7 @@ public class UserRoleDto extends BaseVersionDto implements Serializable {
         private Long usrRoleId;
         @Basic(optional = false)
         @Column(name = "USR_ID")
-        private long usrId;
+        private Long usrId;
         @JoinColumn(name = "ROLE_ID", referencedColumnName = "ROLE_ID")
         @ManyToOne(optional = false, fetch = FetchType.EAGER)
         private RoleDto roleId;
@@ -57,7 +57,7 @@ public class UserRoleDto extends BaseVersionDto implements Serializable {
                 this.usrRoleId = usrRoleId;
         }
 
-        public long getUsrId() {
+        public Long getUsrId() {
                 return usrId;
         }
 

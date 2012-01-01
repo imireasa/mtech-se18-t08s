@@ -26,13 +26,13 @@ public class CertificateRequestDto extends BaseVersionDto implements Serializabl
         private Long certReqId;
         @Basic(optional = false)
         @Column(name = "PRJ_ID")
-        private long prjId;
+        private Long prjId;
         @Basic(optional = false)
         @Column(name = "REQ_TP")
-        private long reqTp;
+        private Long reqTp;
         @Basic(optional = false)
         @Column(name = "REQ_STS")
-        private long reqSts;
+        private Long reqSts;
         @Basic(optional = false)
         @Column(name = "REQ_DTE")
         @Temporal(TemporalType.TIMESTAMP)
@@ -48,7 +48,7 @@ public class CertificateRequestDto extends BaseVersionDto implements Serializabl
                 this.certReqId = certReqId;
         }
 
-        public CertificateRequestDto(Long certReqId, long prjId, long reqTp, long reqSts, Date reqDte, String reqBy, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public CertificateRequestDto(Long certReqId, Long prjId, Long reqTp, Long reqSts, Date reqDte, String reqBy, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.certReqId = certReqId;
                 this.prjId = prjId;
                 this.reqTp = reqTp;
@@ -70,27 +70,27 @@ public class CertificateRequestDto extends BaseVersionDto implements Serializabl
                 this.certReqId = certReqId;
         }
 
-        public long getPrjId() {
+        public Long getPrjId() {
                 return prjId;
         }
 
-        public void setPrjId(long prjId) {
+        public void setPrjId(Long prjId) {
                 this.prjId = prjId;
         }
 
-        public long getReqTp() {
+        public Long getReqTp() {
                 return reqTp;
         }
 
-        public void setReqTp(long reqTp) {
+        public void setReqTp(Long reqTp) {
                 this.reqTp = reqTp;
         }
 
-        public long getReqSts() {
+        public Long getReqSts() {
                 return reqSts;
         }
 
-        public void setReqSts(long reqSts) {
+        public void setReqSts(Long reqSts) {
                 this.reqSts = reqSts;
         }
 

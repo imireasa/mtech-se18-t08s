@@ -21,7 +21,7 @@ public class ProjectMemberDto extends BaseVersionDto implements Serializable {
 
         private static final long serialVersionUID = 1L;
         @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @GeneratedValue
         @Basic(optional = false)
         @Column(name = "PRJ_MBR_ID")
         private Long prjMbrId;
@@ -30,7 +30,7 @@ public class ProjectMemberDto extends BaseVersionDto implements Serializable {
         private String usrLoginId;
         @Basic(optional = false)
         @Column(name = "ROLE_CD")
-        private long roleCd;
+        private Long roleCd;
         @Basic(optional = false)
         @Column(name = "ACT_IND")
         private boolean actInd;
@@ -45,7 +45,7 @@ public class ProjectMemberDto extends BaseVersionDto implements Serializable {
                 this.prjMbrId = prjMbrId;
         }
 
-        public ProjectMemberDto(Long prjMbrId, String usrLoginId, long roleCd, boolean actInd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public ProjectMemberDto(Long prjMbrId, String usrLoginId, Long roleCd, boolean actInd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.prjMbrId = prjMbrId;
                 this.usrLoginId = usrLoginId;
                 this.roleCd = roleCd;
@@ -73,11 +73,11 @@ public class ProjectMemberDto extends BaseVersionDto implements Serializable {
                 this.usrLoginId = usrLoginId;
         }
 
-        public long getRoleCd() {
+        public Long getRoleCd() {
                 return roleCd;
         }
 
-        public void setRoleCd(long roleCd) {
+        public void setRoleCd(Long roleCd) {
                 this.roleCd = roleCd;
         }
 
