@@ -39,7 +39,7 @@ public class PermissionDto extends BaseVersionDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "URI")
         private String uri;
-        @Column(name = "DESC")
+        @Column(name = "PERMI_DESC")
         private String desc;
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "permiId", fetch = FetchType.LAZY)
         private List<PermissionRoleDto> tbPermissionRoleList;

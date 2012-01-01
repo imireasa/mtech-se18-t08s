@@ -29,11 +29,11 @@ public class ProjectTaskDto extends BaseVersionDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "NME")
         private String nme;
-        @Column(name = "DESC")
+        @Column(name = "PRJ_TASK_DESC")
         private String desc;
         @Basic(optional = false)
         @Column(name = "ODR_NO")
-        private int odrNo;
+        private Integer odrNo;
         @Basic(optional = false)
         @Column(name = "STR_DTE")
         @Temporal(TemporalType.TIMESTAMP)
@@ -44,7 +44,7 @@ public class ProjectTaskDto extends BaseVersionDto implements Serializable {
         private Date endDte;
         @Basic(optional = false)
         @Column(name = "STS_CD")
-        private long stsCd;
+        private Long stsCd;
         @Column(name = "DEL_IND")
         private Boolean delInd;
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "prjTaskId", fetch = FetchType.LAZY)
@@ -60,7 +60,7 @@ public class ProjectTaskDto extends BaseVersionDto implements Serializable {
                 this.prjTaskId = prjTaskId;
         }
 
-        public ProjectTaskDto(Long prjTaskId, String nme, int odrNo, Date strDte, Date endDte, long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public ProjectTaskDto(Long prjTaskId, String nme, Integer odrNo, Date strDte, Date endDte, Long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.prjTaskId = prjTaskId;
                 this.nme = nme;
                 this.odrNo = odrNo;
@@ -102,7 +102,7 @@ public class ProjectTaskDto extends BaseVersionDto implements Serializable {
                 return odrNo;
         }
 
-        public void setOdrNo(int odrNo) {
+        public void setOdrNo(Integer odrNo) {
                 this.odrNo = odrNo;
         }
 
@@ -122,11 +122,11 @@ public class ProjectTaskDto extends BaseVersionDto implements Serializable {
                 this.endDte = endDte;
         }
 
-        public long getStsCd() {
+        public Long getStsCd() {
                 return stsCd;
         }
 
-        public void setStsCd(long stsCd) {
+        public void setStsCd(Long stsCd) {
                 this.stsCd = stsCd;
         }
 

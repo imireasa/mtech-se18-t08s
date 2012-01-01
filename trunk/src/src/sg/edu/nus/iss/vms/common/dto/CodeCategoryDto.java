@@ -26,7 +26,7 @@ public class CodeCategoryDto implements Serializable {
     @Basic(optional = false)
     @Column(name = "NME")
     private String nme;
-    @Column(name = "DESC")
+    @Column(name = "CD_CAT_DESC")
     private String desc;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catId", fetch = FetchType.LAZY)
     private List<CodeDto> codeList;

@@ -29,11 +29,11 @@ public class ProjectProposalDto extends BaseVersionDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "NME")
         private String nme;
-        @Column(name = "DESC")
+        @Column(name = "PRJ_PROP_DESC")
         private String desc;
         @Basic(optional = false)
         @Column(name = "CTRY_CD")
-        private long ctryCd;
+        private Long ctryCd;
         @Basic(optional = false)
         @Column(name = "LOC")
         private String loc;
@@ -50,7 +50,7 @@ public class ProjectProposalDto extends BaseVersionDto implements Serializable {
         private Date apprDte;
         @Basic(optional = false)
         @Column(name = "STS_CD")
-        private long stsCd;
+        private Long stsCd;
         @Column(name = "RMK")
         private String rmk;
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "prjPropId", fetch = FetchType.LAZY)
@@ -65,7 +65,7 @@ public class ProjectProposalDto extends BaseVersionDto implements Serializable {
                 this.prjPropId = prjPropId;
         }
 
-        public ProjectProposalDto(Long prjPropId, String nme, long ctryCd, String loc, int estDur, String proposerId, long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public ProjectProposalDto(Long prjPropId, String nme, Long ctryCd, String loc, int estDur, String proposerId, Long stsCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.prjPropId = prjPropId;
                 this.nme = nme;
                 this.ctryCd = ctryCd;
@@ -104,11 +104,11 @@ public class ProjectProposalDto extends BaseVersionDto implements Serializable {
                 this.desc = desc;
         }
 
-        public long getCtryCd() {
+        public Long getCtryCd() {
                 return ctryCd;
         }
 
-        public void setCtryCd(long ctryCd) {
+        public void setCtryCd(Long ctryCd) {
                 this.ctryCd = ctryCd;
         }
 
@@ -152,11 +152,11 @@ public class ProjectProposalDto extends BaseVersionDto implements Serializable {
                 this.apprDte = apprDte;
         }
 
-        public long getStsCd() {
+        public Long getStsCd() {
                 return stsCd;
         }
 
-        public void setStsCd(long stsCd) {
+        public void setStsCd(Long stsCd) {
                 this.stsCd = stsCd;
         }
 

@@ -20,7 +20,7 @@ import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
         @NamedQuery(name = "RoleDto.findAll", query = "SELECT t FROM RoleDto t")})
 public class RoleDto extends BaseVersionDto implements Serializable {
 
-        private static final long serialVersionUID = 1L;
+        private static final Long serialVersionUID = 1L;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Basic(optional = false)
@@ -28,7 +28,7 @@ public class RoleDto extends BaseVersionDto implements Serializable {
         private Long roleId;
         @Basic(optional = false)
         @Column(name = "ROLE_CD")
-        private long roleCd;
+        private Long roleCd;
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId", fetch = FetchType.LAZY)
         private List<UserRoleDto> userRoleList;
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId", fetch = FetchType.LAZY)
@@ -41,7 +41,7 @@ public class RoleDto extends BaseVersionDto implements Serializable {
                 this.roleId = roleId;
         }
 
-        public RoleDto(Long roleId, long roleCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public RoleDto(Long roleId, Long roleCd, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.roleId = roleId;
                 this.roleCd = roleCd;
                 setCreatedBy(createdBy);
@@ -59,11 +59,11 @@ public class RoleDto extends BaseVersionDto implements Serializable {
                 this.roleId = roleId;
         }
 
-        public long getRoleCd() {
+        public Long getRoleCd() {
                 return roleCd;
         }
 
-        public void setRoleCd(long roleCd) {
+        public void setRoleCd(Long roleCd) {
                 this.roleCd = roleCd;
         }
 

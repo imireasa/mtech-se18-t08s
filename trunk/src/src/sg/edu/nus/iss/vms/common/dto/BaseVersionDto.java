@@ -28,7 +28,7 @@ public class BaseVersionDto {
 	private java.util.Date updDte;
 	@Basic(optional = false)
 	@Column(name = "VERSION")
-	private int version;
+	private Integer version;
 
 	public String getCreatedBy() {
 		return createdBy;
@@ -62,11 +62,11 @@ public class BaseVersionDto {
 		this.updDte = updDte;
 	}
 
-	public int getVersion() {
+	public Integer getVersion() {
 		return version;
 	}
 
-	public void setVersion(int version) {
+	public void setVersion(Integer version) {
 		this.version = version;
 	}
 }
