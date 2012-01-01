@@ -22,6 +22,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
+import sg.edu.nus.iss.vms.common.util.RoleUtil;
 import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
@@ -79,7 +80,7 @@ public class AuthorisationFilter implements Filter {
 		// check if authorisation is enabled
 		if (!isAuthorisationFilterEnabled) {
 			//place into session a super userdto
-			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_ATTR_NME")), getSuperUser());
+			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), getSuperUser(session));
 			//place into session a pass through menu configuration
 			session.setAttribute(VMSConstants.MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME, new PassThroughMenuPermissionsAdapter());
 			//do the rest of the filters.
@@ -143,13 +144,20 @@ public class AuthorisationFilter implements Filter {
 		}
 	}
 
-	private UserDto getSuperUser() {
-		UserDto superUser = new UserDto();
-		superUser.setNme("Super user");
-		superUser.setUsrLoginId("SuperUser");
-		superUser.setActInd(true);
-		superUser.setUsrId(new Long(999999));
-		return superUser;
+	private UserSessionInfoVo getSuperUser(HttpSession session) {
+		UserSessionInfoVo userSessionInfoVo = new UserSessionInfoVo();
+		userSessionInfoVo.setName("SuperUser");
+		userSessionInfoVo.setSessionID(session.getId());
+		userSessionInfoVo.setUserID("SuperUser");
+		
+		List<String> roleList = new ArrayList<String>();
+		roleList.add("User");
+		userSessionInfoVo.setRoles(roleList);
+		
+		userSessionInfoVo.setUserSeqID(new Long(999999));
+
+		session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), userSessionInfoVo);
+		return userSessionInfoVo;
 	}
 
 	private void returnError(ServletRequest request, ServletResponse response, String errorString, String redirectPage) throws ServletException,
