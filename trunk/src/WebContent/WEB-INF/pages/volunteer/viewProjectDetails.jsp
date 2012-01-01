@@ -58,7 +58,6 @@
 			
 		</form:form>
 	</div>
-
 	<tab:tabContainer id="tab-container">
 
 		<tab:tabPane id="member" tabTitle="Project Members">

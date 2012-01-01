@@ -30,7 +30,7 @@
 		</init-param>
 		<init-param>
 			<param-name>exclude_pages</param-name>
-			<param-value>/VMS/logout.html,/VMS/index.jsp,/VMS/WEB-INF/pages/[.]*,/VMS/sys/[.]*,/VMS/sys/css/[.]*,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
+			<param-value>/VMS/org.ditchnet.taglib/[.]*,/VMS/logout.html,/VMS/index.jsp,/VMS/WEB-INF/pages/[.]*,/VMS/sys/[.]*,/VMS/sys/css/[.]*,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
 		</init-param>
 	</filter>
 
