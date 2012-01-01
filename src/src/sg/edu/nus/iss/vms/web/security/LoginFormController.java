@@ -94,6 +94,7 @@ public class LoginFormController extends SimpleFormController {
 			userSessionInfoVo.setUserID(user.getUsrLoginId());
 			 userSessionInfoVo.setRoles(RoleUtil.getRoleStringListByUserLoginId(user.getUsrLoginId()));
 			userSessionInfoVo.setUserSeqID(user.getUsrId());
+			userSessionInfoVo.setEmail(user.getEmail());
 
 			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), userSessionInfoVo);
 

@@ -38,7 +38,6 @@ public class UserDto extends BaseVersionDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "NME")
         private String nme;
-        @Basic(optional = false)
         @Column(name = "DOB")
         @Temporal(TemporalType.DATE)
         private Date dob;
