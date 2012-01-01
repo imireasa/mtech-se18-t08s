@@ -292,8 +292,8 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		long prjFbId = Long.parseLong(request.getParameter("prjFbId"));
 
-		ProjectFeedbackDto projectFbDto = projectManagementService
-				.getProjectFeedbackbyId(prjFbId);
+		ProjectFeedbackDto projectFbDto = (ProjectFeedbackDto) projectManagementService
+				.getProjectObjbyId(prjFbId, ProjectFeedbackDto.class);
 
 		modelAndView = new ModelAndView("project/viewProjectFeedbackDetails");
 		modelAndView.addObject("projectFb", projectFbDto);
@@ -417,6 +417,60 @@ public class ProjectController extends BaseMultiActionFormController {
 				.getProjectProposalListbyVo(projectVo);
 
 		modelAndView.addObject("proposalList", projectProposalDtos);
+
+		return modelAndView;
+
+	}
+
+	public ModelAndView viewProjectProposalDetails(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+
+		List<CodeDto> codeDtos = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+
+		long prjProId = Long.parseLong(request.getParameter("prjPropId"));
+
+		ProjectProposalDto projectPropDto = (ProjectProposalDto) projectManagementService
+				.getProjectObjbyId(prjProId, ProjectProposalDto.class);
+
+		modelAndView = new ModelAndView("project/viewProjectProposalDetails");
+		modelAndView.addObject("proposal", projectPropDto);
+		modelAndView.addObject("stsCdList", codeDtos);
+		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@total status"
+				+ codeDtos.size());
+		modelAndView.addObject("projectVo", new ProjectVo());
+		return modelAndView;
+
+	}
+
+	public ModelAndView reviewProposal(HttpServletRequest request,
+			HttpServletResponse response, ProjectProposalDto proposal)
+			throws Exception {
+
+		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
+				.getModel().get("proposal");
+		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
+				"stsCdList");
+
+		long approveCodeId = 0;
+		long rejectCodeId = 0;
+		for (CodeDto codeDto : codeDtos) {
+			if (codeDto.getVal().equals(VMSConstants.PROPOSAL_STATUS_APPROVED)) {
+				approveCodeId = codeDto.getCdId();
+			} else if (codeDto.getVal().equals(
+					VMSConstants.PROPOSAL_STATUS_REJECTED)) {
+				rejectCodeId = codeDto.getCdId();
+			}
+
+		}
+		if (projectPropDto.getStsCd() == approveCodeId
+				|| projectPropDto.getStsCd() == rejectCodeId) {
+			projectPropDto.setApprBy("toBeUpdated");
+			projectPropDto.setApprDte(new Date());
+			projectPropDto.setUpdBy("toBeUpdated");
+			projectPropDto.setUpdBy("toBeUpdated");
+			projectManagementService.saveOrUpdateProjectObject(projectPropDto);
+		}
 
 		return modelAndView;
 

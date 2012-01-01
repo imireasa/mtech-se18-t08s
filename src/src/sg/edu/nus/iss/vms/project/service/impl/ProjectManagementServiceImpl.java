@@ -138,9 +138,9 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public ProjectDto getProjectbyId(long projectId) {
+	public Object getProjectObjbyId(long id, Class type) {
 		try {
-			return (ProjectDto) manager.get(ProjectDto.class, projectId);
+			return manager.get(type, id);
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
 			return null;
@@ -321,20 +321,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 
 		return manager.findByDetachedCriteria(criteria);
-	}
-
-	@Override
-	public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId) {
-		try {
-			return (ProjectFeedbackDto) manager.get(ProjectFeedbackDto.class,
-					projectFbId);
-		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
-			return null;
-		} finally {
-			this.logger.debug("@ Service Layer getting user 2");
-		}
-
 	}
 
 	@Override

@@ -28,7 +28,7 @@ public interface ProjectManagementService {
 
 	public List<ProjectDto> getProjectbyProjectVo(ProjectVo projectVo);
 
-	public ProjectDto getProjectbyId(long projectId);
+	public Object getProjectObjbyId(long id, Class type);
 
 	public void raseInterest(ProjectInterestDto projectInterestDto);
 
@@ -55,8 +55,6 @@ public interface ProjectManagementService {
 			ProjectInfoVo projectInfoVo);
 
 	public void saveOrUpdateProjectObject(Object obj);
-
-	public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId);
 
 	public List<ProjectProposalDto> getProjectProposalListbyVo(
 			ProjectVo projectVo);
