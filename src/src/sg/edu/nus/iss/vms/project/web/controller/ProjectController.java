@@ -391,7 +391,16 @@ public class ProjectController extends BaseMultiActionFormController {
         public ModelAndView searchProjectProposal(HttpServletRequest request,
                 HttpServletResponse response, ProjectVo projectVo) throws Exception {
 
+<<<<<<< .mine
+		List<CodeDto> codeDtos = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+		modelAndView = new ModelAndView("project/browseProjectProposal");
+		modelAndView.addObject("proposalList", projectProposalDtos);
+=======
                 List<ProjectProposalDto> projectProposalDtos = projectManagementService.getProjectProposalListbyVo(projectVo);
+>>>>>>> .r1179
+		modelAndView.addObject("proposalVo", new ProjectVo());
+		modelAndView.addObject("stsCdList", codeDtos);
 
                 modelAndView.addObject("proposalList", projectProposalDtos);
 
@@ -399,56 +408,61 @@ public class ProjectController extends BaseMultiActionFormController {
 
         }
 
-        public ModelAndView viewProjectProposalDetails(HttpServletRequest request,
-                HttpServletResponse response) throws Exception {
+	public ModelAndView viewProjectProposalDetails(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 
-                List<CodeDto> codeDtos = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+		List<CodeDto> codeDtos = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
 
-                long prjProId = Long.parseLong(request.getParameter("prjPropId"));
+		long prjProId = Long.parseLong(request.getParameter("prjPropId"));
 
-                ProjectProposalDto projectPropDto = (ProjectProposalDto) projectManagementService.getProjectObjbyId(prjProId, ProjectProposalDto.class);
+		ProjectProposalDto projectPropDto = (ProjectProposalDto) projectManagementService
+				.getProjectObjbyId(prjProId, ProjectProposalDto.class);
 
-                modelAndView = new ModelAndView("project/viewProjectProposalDetails");
-                modelAndView.addObject("proposal", projectPropDto);
-                modelAndView.addObject("stsCdList", codeDtos);
-                logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@total status"
-                        + codeDtos.size());
-                modelAndView.addObject("projectVo", new ProjectVo());
-                return modelAndView;
+		modelAndView = new ModelAndView("project/viewProjectProposalDetails");
+		modelAndView.addObject("proposal", projectPropDto);
+		modelAndView.addObject("stsCdList", codeDtos);
+		logger.debug("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@total status"
+				+ codeDtos.size());
 
-        }
+		modelAndView.addObject("proposalVo", new ProjectVo());
+		return modelAndView;
 
-        public ModelAndView reviewProposal(HttpServletRequest request,
-                HttpServletResponse response, ProjectProposalDto proposal)
-                throws Exception {
+	}
 
-                ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView.getModel().get("proposal");
-                List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
-                        "stsCdList");
+	public ModelAndView reviewProposal(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo proposalVo)
+			throws Exception {
 
-                long approveCodeId = 0;
-                long rejectCodeId = 0;
-                for (CodeDto codeDto : codeDtos) {
-                        if (codeDto.getVal().equals(VMSConstants.PROPOSAL_STATUS_APPROVED)) {
-                                approveCodeId = codeDto.getCdId();
-                        } else if (codeDto.getVal().equals(
-                                VMSConstants.PROPOSAL_STATUS_REJECTED)) {
-                                rejectCodeId = codeDto.getCdId();
-                        }
+		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
+				.getModel().get("proposal");
+		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
+				"stsCdList");
 
-                }
-                if (projectPropDto.getStsCd() == approveCodeId
-                        || projectPropDto.getStsCd() == rejectCodeId) {
-                        projectPropDto.setApprBy("toBeUpdated");
-                        projectPropDto.setApprDte(new Date());
-                        projectPropDto.setUpdBy("toBeUpdated");
-                        projectPropDto.setUpdBy("toBeUpdated");
-                        projectManagementService.saveOrUpdateProjectObject(projectPropDto);
-                }
+		long approveCodeId = 0;
+		long rejectCodeId = 0;
+		for (CodeDto codeDto : codeDtos) {
+			if (codeDto.getVal().equals(VMSConstants.PROPOSAL_STATUS_APPROVED)) {
+				approveCodeId = codeDto.getCdId();
+			} else if (codeDto.getVal().equals(
+					VMSConstants.PROPOSAL_STATUS_REJECTED)) {
+				rejectCodeId = codeDto.getCdId();
+			}
 
-                return modelAndView;
+		}
+		if (projectPropDto.getStsCd() == approveCodeId
+				|| projectPropDto.getStsCd() == rejectCodeId) {
+			projectPropDto.setApprBy("toBeUpdated");
+			projectPropDto.setApprDte(new Date());
+			projectPropDto.setUpdBy("toBeUpdated");
+			projectPropDto.setUpdBy("toBeUpdated");
+		}
+		projectPropDto.setRmk(proposalVo.getRmk());
+		projectManagementService.saveOrUpdateProjectObject(projectPropDto);
 
-        }
+		return modelAndView;
+
+	}
 
         public void validateProjectProposal(Object command) {
                 Validator[] validators = getValidators();
