@@ -91,7 +91,10 @@
 				<td>${item.createdBy}</td>
                 <td>
                 <c:forEach items="${fbCodeList}" var="item2" varStatus="status">
-                   <c:if test="{item2.cdId == item.stsCd}">
+                <c:set var="fbStsId">${item.stsCd}</c:set>
+                 <c:set var="codeId">${item2.cdId}</c:set>
+                
+                   <c:if test="${fbStsId == codeId}">
                    	<c:out value="${item2.val}"/>
                    </c:if>
                  </c:forEach>

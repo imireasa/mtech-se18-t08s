@@ -76,7 +76,18 @@
 				
 				<td>${item.nme}</td>
 				<td>${item.createdBy}</td>
-                <td>${item.stsCd};</td>
+                
+                
+                <td>
+                <c:forEach items="${stsCdList}" var="item2" varStatus="status">
+                <c:set var="fbStsId">${item.stsCd}</c:set>
+                 <c:set var="codeId">${item2.cdId}</c:set>
+                
+                   <c:if test="${fbStsId == codeId}">
+                   	<c:out value="${item2.val}"/>
+                   </c:if>
+                 </c:forEach>
+ </td>
                 <td><a href="<c:url value="viewProjectProposalDetails.html">
 	                    <c:param name="prjPropId" value="${item.prjPropId}"/> 
 	    </c:url>
