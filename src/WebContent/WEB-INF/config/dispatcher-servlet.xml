@@ -40,12 +40,11 @@
 		<property name="mappings">
 			<props>
 				<prop key="/common/*.html">welcomeController</prop>
-                <prop key="/admin/volunteer/*.html">volunteerController</prop>
-                <prop key="/admin/project/*.html">projectController</prop>
-				<prop key="/admin/member/*.html">memberController</prop>
+                <prop key="/volunteer/*.html">volunteerController</prop>
+                <prop key="/project/*.html">projectController</prop>
+				<prop key="/member/*.html">memberController</prop>
 				<prop key="/admin/user/*.html">userManagementController</prop>
-				<prop key="/project/*.html">projectController</prop>
-				<prop key="/admin/reports/*.html">certificateController</prop>
+				<prop key="/certificate/*.html">certificateController</prop>
 				<prop key="/login.html">loginController</prop>
 				<prop key="/logout.html">logoutController</prop>
 			</props>
