@@ -34,7 +34,6 @@
 		<div id="wrap-top">
 			<div id="loginInfo">
 				<ul>
-					<li><a href="#">My Account</a></li>
 					<li class="last"><a href="<%=request.getContextPath()%>/logout.html">Logout</a></li>
 				</ul>
 			</div>
@@ -60,14 +59,6 @@
 				<menu:useMenuDisplayer name="CSSListMenu" id="menuAccount"
 					permissions="menuPermissionAdapter">
 					<menu:displayMenu name="account" />
-				</menu:useMenuDisplayer>
-				<menu:useMenuDisplayer name="CSSListMenu" id="menuCert"
-					permissions="menuPermissionAdapter">
-					<menu:displayMenu name="certificate" />
-				</menu:useMenuDisplayer>
-				<menu:useMenuDisplayer name="CSSListMenu" id="menuItinerary"
-					permissions="menuPermissionAdapter">
-					<menu:displayMenu name="itinerary" />
 				</menu:useMenuDisplayer>
 			</div>
 			<!-- end of leftCol -->

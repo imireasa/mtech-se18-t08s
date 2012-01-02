@@ -32,7 +32,6 @@
 		<div id="wrap-top">
 			<div id="loginInfo">
 				<ul>
-					<li><a href="#">My Account</a></li>
 					<li class="last"><a href="#">Logout</a></li>
 				</ul>
 			</div>
@@ -50,31 +49,14 @@
 						</h3></li>
 					<li>Last login : 20/07/2011 15:40</li>
 				</ul>
-				<ul id="membership">
-					<li class="header">Membership</li>
-					<li><a
-						href="<%=request.getContextPath()%>/admin/member/searchProjectMember.html">Search
-							Member</a></li>
-					<li><a href="#">Manage Profile</a></li>
-					
-				</ul>
-				<ul id="project">
-					<li class="header">Project</li>
-					<li><a href="<%=request.getContextPath()%>/admin/volunteer/browseProject.html">Browse</a></li>
-				
-					
-				</ul>
-				<ul id="cert">
-					<li class="header">Certificate</li>
-					<li><a href="#">Request Cert</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/report/volunteer/generatePdf.html">Generate
-							Cert (PDF)</a></li>
-					<li><a
-						href="<%=request.getContextPath()%>/report/volunteer/generateView.html">Generate
-							Cert (View)</a></li>
-				</ul>
-				
+				<menu:useMenuDisplayer name="CSSListMenu" id="menuProject"
+					permissions="menuPermissionAdapter">
+					<menu:displayMenu name="projects" />
+				</menu:useMenuDisplayer>
+				<menu:useMenuDisplayer name="CSSListMenu" id="menuAccount"
+					permissions="menuPermissionAdapter">
+					<menu:displayMenu name="account" />
+				</menu:useMenuDisplayer>
 			</div>
 			<!-- end of leftCol -->
 			<div id="main">
