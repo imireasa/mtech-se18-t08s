@@ -50,7 +50,6 @@
 					<li><h3>
 							Serene Tan<br />Volunteer Member
 					</li>
-					<li>Last login : 20/07/2011 15:40</li>
 				</ul>
 				<menu:useMenuDisplayer name="CSSListMenu" id="menuProject"
 					permissions="menuPermissionAdapter">
