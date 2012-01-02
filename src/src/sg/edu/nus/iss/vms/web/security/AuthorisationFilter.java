@@ -70,7 +70,12 @@ public class AuthorisationFilter implements Filter {
 		String URI = ((HttpServletRequest) request).getRequestURI();
 		HttpSession session = ((HttpServletRequest) request).getSession(true);
 		String queryString= ((HttpServletRequest) request).getQueryString();
-		String fullURL = URI+"?"+queryString;
+		String fullURL;
+		if (queryString!=null){
+			fullURL = URI+"?"+queryString;
+		}else{
+			fullURL = URI;
+		}
 
 		if (logger.isDebugEnabled()) {
 			logger
