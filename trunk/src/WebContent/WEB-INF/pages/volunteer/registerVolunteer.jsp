@@ -84,7 +84,7 @@
                                         <th width="246" align="left">
                                                 <form:select path="title">
                                                         <c:forEach items="${titleList}" var="item" varStatus="status">
-                                                                <form:option value="'${item.cdId}'">${item.val}</form:option>
+                                                                <form:option value="${item.cdId}">${item.val}</form:option>
                                                         </c:forEach>
                                                 </form:select>                        
                                                 <form:errors path="title" cssClass="error"/>
