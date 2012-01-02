@@ -12,6 +12,18 @@
 	rel="stylesheet" />
 <tab:tabConfig/>
 
+<script language="javaScript">
+function verify()
+{
+	
+	var msg = document.getElementById("msg").value;
+	if(msg !="")
+	{
+		alert(msg);
+	}
+}
+</script>
+
 </head>
 <body>
 	<h2>Project Details</h2>

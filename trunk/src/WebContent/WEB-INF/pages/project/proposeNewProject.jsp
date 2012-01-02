@@ -8,25 +8,39 @@
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
+	
+	 <style> 
+                .error{ color:red;}  
+                .info{ color:blue;}  
+        </style>
 
 
 </head>
 <body>
-
+   <h2>Propose New Project</h2>
 	<div id="breadcrumb">
 		<a href="#">Home</a> / <a href="#">Project </a> / <a href="#">Propose
 			New Project</a>
 
 	</div>
-	<h2>Propose NewProject</h2>
+	
 	<div class="query">
+	     <c:if test="${not empty errors}"> 
+                        <div class="error">
+                                <c:forEach var="error" items="${errors}">
+                                 <c:out value="Error:"/>  
+                                        <c:out value="${error}" escapeXml="false"/><br/>
+                                </c:forEach>
+                        </div>
+           </c:if>
+	     
 		<form:form name="proposeProject" method="post" commandName="proposalVo"
 			action="submitProjectProposal.html">
-			<table width="548" height="105">
+			<table class="borderAll" width="100%">
 
 				<tr>
-					<th><label>Project Name:</label>
-					</td>
+					<th align="left"><fmt:message key="message.projectManagement.projectName.label"/>(*):
+					</th>
 					<td>
 					 <spring:bind path="proposalVo.name">  
 					<form:input path="name" />
@@ -37,7 +51,7 @@
 							</td>
 				</tr>
 				<tr>
-					<th><label>Description:</label>
+					<th align="left"><fmt:message key="message.common.description.label"/>:
 					</th>
 					<td>
 					
@@ -49,7 +63,7 @@
 				</tr>
 
 				<tr>
-					<th><label>Country:</label>
+					<th align="left"><fmt:message key="message.common.country.label"/>(*):
 					</th>
 					<td>
 				
@@ -60,11 +74,12 @@
 							</c:forEach>
 						</form:select>
 						
-						
+						<form:errors
+							path="ctryCd" cssClass="error" /></td>
 						</td>
 				</tr>
 				<tr>
-					<th><label>Location:</label>
+					<th align="left"><fmt:message key="message.common.location.label"/>(*):
 					</th>
 					<td>
 					 <spring:bind path="proposalVo.loc">  
@@ -75,7 +90,7 @@
 				</tr>
 
 				<tr>
-					<th><label>Estimated Duration:</label>
+					<th align="left"><fmt:message key="message.common.duration.label"/>(*):
 					</th>
 					<td>
 					 <spring:bind path="proposalVo.estDuration">  
@@ -85,20 +100,26 @@
 							path="estDuration" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<th><label>Supporting Documents:</label>
+					<th align="left"><fmt:message key="message.common.supportingDoc.label"/>:
 					</th>
-					<td><label for="txtArea_remark"> <input type="file"
+					<td><input type="file"
 							name="fileField_supportDocs" id="fileField_supportDocs">
 					</label>
 					</td>
 				</tr>
 				
 				<tr>
-					<td><input type="submit" name="btn_Post" id="btn_Post"
+					<td colspan="2" align="center"><input type="button" name="btn_Post" id="btn_Post"
 						value="Submit"></td>
 				</tr>
 			</table>
 			</form:form>
+			
+			<c:if test="${not empty msg}"> 
+                        <div class="info">
+                                <c:out value="${msg}" escapeXml="false"/><br/>
+                        </div>
+            </c:if>
 	</div>
 
 
