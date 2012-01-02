@@ -36,7 +36,8 @@ public class VMSConstants {
 	public static final String SCREEN_CMD_CREATE = "CREATE";
 	// Thida
 	public static final String USER_TYPE_CATEGORY = "USER_TYPE";
-	public static final String USER_TYPE_CATEGORY_PROJECT_MANAGER = "Project Manager";
+	public static final String USER_TYPE_CATEGORY_VOLUNTEER = "Volunteer";
+        public static final String USER_TYPE_CATEGORY_STAFF = "Staff";
 
 	public static final String PROJECT_STATUS_CATEGORY = "PROJECT_STATUS";
 	public static final String PROJECT_STATUS_CATEGORY_NEW = "NEW";

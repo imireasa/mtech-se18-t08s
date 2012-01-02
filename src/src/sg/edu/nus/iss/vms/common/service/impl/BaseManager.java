@@ -152,18 +152,24 @@ public class BaseManager implements Manager {
          */
         @Override
         public void save(Object o) {
-                BaseVersionDto dto = (BaseVersionDto) o;
-                if (dto.getCreatedBy() == null) {
-                        dto.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
-                }
-                if (dto.getCreatedDte() == null) {
-                        dto.setCreatedDte(new java.util.Date());
-                }
-                dto.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
-                dto.setUpdDte(new java.util.Date());
+                if (o instanceof BaseVersionDto) {
+                        BaseVersionDto dto = (BaseVersionDto) o;
+                        if (dto.getCreatedBy() == null) {
+                                dto.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
+                        }
+                        if (dto.getCreatedDte() == null) {
+                                dto.setCreatedDte(new java.util.Date());
+                        }
+                        if (dto.getUpdBy() != null) {
+                                dto.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
+                        }
+                        dto.setUpdDte(new java.util.Date());
 
-                dto.updateVersion();
-                dao.saveObject(dto);
+                        dto.updateVersion();
+                        dao.saveObject(dto);
+                } else {
+                        dao.saveObject(o);
+                }
         }
 
         /**
