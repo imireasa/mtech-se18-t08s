@@ -76,4 +76,12 @@ public interface ProjectManagementService {
         List<CertificateRequestDto> getCertificateRequestsbyProject(Long prjId, String userId);
 
         List<ProjectInterestDto> getProjectInterestListbyProject(ProjectDto projectDto, String userId);
+        
+        List<ProjectInterestVo> getProjectInterestListByUser(
+    			Long prjId, String userId);
+        
+        public List<CodeDto> getProjectInterestStatusList2();
+        public List<ProjectInterestVo> getProjectInterestListByUserLoginId();
+
+    	
 }
