@@ -6,11 +6,15 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import org.springframework.security.providers.encoding.PasswordEncoder;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.SessionBean;
+import sg.edu.nus.iss.vms.common.constants.VMSConstants;
+import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 
+import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
@@ -23,6 +27,7 @@ public class VolunteerManagementServiceImpl implements VolunteerManagementServic
         private Manager manager;
         private SessionBean sessionBean;
         private Logger logger = Logger.getLogger(VolunteerManagementServiceImpl.class);
+        private PasswordEncoder passwordEncoder;
 
         public Manager getManager() {
                 return this.manager;
@@ -38,6 +43,14 @@ public class VolunteerManagementServiceImpl implements VolunteerManagementServic
 
         public void setSessionBean(SessionBean sessionBean) {
                 this.sessionBean = sessionBean;
+        }
+
+        public PasswordEncoder getPasswordEncoder() {
+                return passwordEncoder;
+        }
+
+        public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+                this.passwordEncoder = passwordEncoder;
         }
 
         @Override
@@ -86,18 +99,18 @@ public class VolunteerManagementServiceImpl implements VolunteerManagementServic
                         UserDto user = new UserDto();
                         user.setUsrLoginId(volunteerVo.getLoginId());
                         user.setNme(volunteerVo.getNme());
+                        user.setTitleCd(Long.parseLong(volunteerVo.getTitle()));
+                        CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.USER_TYPE_CATEGORY, VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER);
+                        user.setTpCd(codeDto.getCdId());
                         user.setEmail(volunteerVo.getEmail());
                         user.setMobile(volunteerVo.getMobile());
-                        user.setPwd(volunteerVo.getPwd());
+                        user.setPwd(passwordEncoder.encodePassword(volunteerVo.getPwd(), null));
                         user.setAddr(volunteerVo.getAddr());
                         user.setPostCd(Integer.parseInt(volunteerVo.getPostCd()));
                         user.setCtryCd(Long.parseLong(volunteerVo.getCtryCd()));
                         user.setJoinDte(new Date());
-                        user.setCreatedBy(volunteerVo.getLoginId());//TODO: Should be login user
-                        user.setCreatedDte(new Date());
-                        user.setUpdBy(volunteerVo.getLoginId());//TODO: Should be login user
-                        user.setUpdDte(new Date());
-                        user.setVersion(1);
+                        user.setUpdBy(volunteerVo.getLoginId());
+                        user.setCreatedBy(volunteerVo.getLoginId());
                         UserDetailDto userDetail = new UserDetailDto();
 
                         userDetail.setIntrst(volunteerVo.getIntrst());
