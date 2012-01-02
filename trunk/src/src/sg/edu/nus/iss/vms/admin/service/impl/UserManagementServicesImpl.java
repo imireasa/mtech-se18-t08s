@@ -59,6 +59,10 @@ public class UserManagementServicesImpl implements UserManagementServices {
 	}
 
 	public void updatePassword(String email, String currentPassword, String newPassword, String userLoginId) throws ApplicationException {
+		if (logger.isDebugEnabled()) {
+			logger.debug("updatePassword(String, String, String, String) - start");
+		}
+
 		UserDto user = null;
 		String query = "from UserDto where " + " pwd='" + currentPassword + "' " + "AND email='" + email + "' AND usrLoginId='"+userLoginId +"' AND actInd=1";
 		List<UserDto> userList = manager.find(query);
@@ -72,5 +76,8 @@ public class UserManagementServicesImpl implements UserManagementServices {
 		user.setPwd(newPassword);
 		manager.save(user);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("updatePassword(String, String, String, String) - end");
+		}
 	}
 }
