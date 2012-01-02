@@ -36,7 +36,7 @@
 	     
 		<form:form name="proposeProject" method="post" commandName="proposalVo"
 			action="submitProjectProposal.html">
-			<table border="2" width="100%">
+			<table class="proj-table">
 
 				<tr>
 					<th align="left"><fmt:message key="message.projectManagement.projectName.label"/>(*):

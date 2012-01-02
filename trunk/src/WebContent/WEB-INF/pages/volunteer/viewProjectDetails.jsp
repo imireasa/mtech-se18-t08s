@@ -81,7 +81,7 @@
 		<tab:tabPane id="member" tabTitle="Project Members">
 		<form:form name="memberDetails" method="post"
 			commandName="projectInfo" action="requestCertificate.html">
-			<table  border="1">
+			<table  class="proj-table">
 				<tr>
 					<th><fmt:message key="message.common.loginid.label"/></th>
 					<th><fmt:message key="message.common.role.label"/></th>
@@ -92,8 +92,12 @@
 						<td>${item.usrLoginId}</td>
 						<td>${item.roleCd}</td>
 						<td>${item.actInd}</td>
-						<td><input type="submit" name="btn_RequestCertificate"
+						
+					
+						<c:if test="${item.usrLoginId ==projectVo.loginId}">					
+							<td><input type="submit" name="btn_RequestCertificate" 
 				id="btn_RequestCertificate" value="Request for Certificate"></td>
+				</c:if>
 
 					</tr>
 					</c:forEach>
@@ -106,11 +110,11 @@
 
 		<tab:tabPane id="experience" tabTitle="Experience">
 
-			<table border="1">
+			<table>
 				<tr>
-					<td>Id</td>
-					<td width="114">Createdby</td>
-					<td width="300">Content</td>
+					<th>Id</th>
+					<th>Createdby</th>
+					<th>Content</th>
 				</tr>
 				<c:forEach items="${experienceList}" var="item" varStatus="status">
 					<tr>
@@ -124,7 +128,7 @@
 
 			<form:form name="postExperience" method="post" commandName="projectInfo"
 				action="postExperienceAndFb.html">
-				<table width="707" height="105">
+				<table border="2">
  					<tr> 
 						<td width="122"><label>Content</label> 
 						</td> 
@@ -162,22 +166,24 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+			<br/>
 
 		<form:form name="posetFeedback" method="post" commandName="projectInfo"
 				action="postExperienceAndFb.html">
-				<table width="707" height="105">
+				<table>
  					<tr> 
-						<td width="122"><label>Title</label> 
-						</td> 
+						<th width="122"><label>Title</label> 
+						</th> 
 						<td width="197"><spring:bind path="projectInfo.fbTitle">
 								<form:input path="fbTitle" />
 							</spring:bind> <form:errors path="fbTitle" cssClass="error" />
 						</td> 
 					</tr> 
 					<tr> 
-						<td width="122"><label>Feedback</label> 
-						</td> 
-						<td width="197"><spring:bind path="projectInfo.fbContent">
+						<th><label>Feedback</label> 
+						</th> 
+						<td><spring:bind path="projectInfo.fbContent">
 								<form:textarea path="fbContent" rows="5" cols="30" />
 							</spring:bind> <form:errors path="fbContent" cssClass="error" />
 						</td> 
