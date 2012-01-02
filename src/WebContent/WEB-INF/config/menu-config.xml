@@ -27,7 +27,7 @@
   	<Menu name="projects" title="Projects">
         <Item title="Manage Projects" toolTip="Manage Projects" page="/project/listProjects.html"/>
         <Item title="My Project Interests" toolTip="My Project Interests" page="/index.jsp"/>
-        <Item title="Review Project Feedback" toolTip="Review Project Feedback" page="/index.jsp"/>
+        <Item title="Review Project Feedback" toolTip="Review Project Feedback" page="/project/browseProjectFeedback.html"/>
         <Item title="Propose Project" toolTip="Propose Project" page="/project/proposeNewProject.html"/>
         <Item title="Browse Project Proposal" toolTip="Browse Project Project" page="/project/browseProjectProposal.html"/>
         <Item title="Browse Projects" toolTip="Browse Projects" page="/volunteer/browseProject.html"/>
