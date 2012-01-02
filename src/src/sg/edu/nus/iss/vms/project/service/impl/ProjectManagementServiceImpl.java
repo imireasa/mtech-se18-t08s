@@ -23,7 +23,6 @@ import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
@@ -350,25 +349,21 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 		return projectList;
 	}
-
-	@Override
-	public List<ProjectInterestDto> getProjectInterestListbyProject(
-			ProjectDto projectDto, String userId) {
+	
+	public List<CodeDto> getProjectInterestStatusList() {
+		return CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROJECT_INTREST_STATUS);
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectInterestDto.class);
 		criteria.add(Restrictions.eq("prjId", projectDto)).add(
 				Restrictions.eq("reqBy", userId));
 		return manager.findByDetachedCriteria(criteria);
-	}
 
-	@Override
-	public List<CertificateRequestDto> getCertificateRequestsbyProject(
-			Long prjId, String userId) {
+	public List<ProjectInterestVo> getProjectInterestListByUser(){
+		String hQL = "from ProjectInterestDto where reqBy='"
 		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectInterestDto.class);
+			+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
 		criteria.add(Restrictions.eq("prjId", prjId)).add(
-				Restrictions.eq("reqBy", userId));
-		return manager.findByDetachedCriteria(criteria);
-	}
-
+		logger.debug("Find Project Interest By User" + hQL);
+		List<ProjectInterestDto> projInterestList = manager.find(hQL);
+		
 }

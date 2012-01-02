@@ -26,7 +26,7 @@ public class CodeLookupUtil {
 	}
 	
 	/**
-	 * Gets the code Description based on the code ID passed in.
+	 * Gets the code Value based on the code ID passed in.
 	 */
 	public static String getCodeValueByCodeId(Long codeId) {
 		String codeValue = "";

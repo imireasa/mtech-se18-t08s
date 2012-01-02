@@ -16,6 +16,7 @@ public class VMSConstants {
 	public static final String FEEDBACK_STATUS = "FEEDBACK_STATUS";
 	public static final String PROJECT_STATUS = "PROJECT_STATUS";
 	public static final String PROPOSAL_STATUS = "PROPOSAL_STATUS";
+	public static final String PROJECT_INTREST_STATUS="PROJECT_INTREST_STATUS";
 	public static final String MEMBER_ROLE = "MEMBER_ROLE";
 
 	public static final String MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME = "menuPermissionAdapter";

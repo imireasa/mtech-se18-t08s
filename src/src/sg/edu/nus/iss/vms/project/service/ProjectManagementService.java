@@ -52,10 +52,10 @@ public interface ProjectManagementService {
 	List<CodeDto> getProjectStatusList();
 
 	List<ProjectVo> listProjectbyProjectVo(ProjectVo projectVo);
-
-	public List<ProjectInterestDto> getProjectInterestListbyProject(
+	
+	List<CodeDto> getProjectInterestStatusList();
 			ProjectDto projectDto, String userId);
-
-	public List<CertificateRequestDto> getCertificateRequestsbyProject(
+	
+    List<ProjectInterestVo> getProjectInterestListByUser();
 			Long prjId, String userId);
 }

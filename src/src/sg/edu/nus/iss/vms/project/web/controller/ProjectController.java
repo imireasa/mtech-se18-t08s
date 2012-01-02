@@ -31,6 +31,7 @@ import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
@@ -639,4 +640,35 @@ public class ProjectController extends BaseMultiActionFormController {
 	public void setErrors(BindingResult errors) {
 		this.errors = errors;
 	}
+	
+
+	public ModelAndView viewProjectInterest(HttpServletRequest request,
+			HttpServletResponse response, ProjectInterestSearchVo command) throws Exception {
+		modelAndView = new ModelAndView("project/viewProjectInterest");
+		modelAndView.addObject("projInterestStatusList",
+				projectManagementService.getProjectInterestStatusList());
+		List projectInterestVoList = null;
+		if (command != null
+				&& (command.getPrjId() != null || command.getProjNme() != null || command
+						.getPrjIntStatus() != null)) {
+			projectInterestVoList = projectManagementService
+					.getProjectInterestListByUserWithSearch(command);
+		} else {
+			projectInterestVoList = projectManagementService.getProjectInterestListByUser();
+		}
+
+		PagedListHolder projInterestPagedListHolder = new PagedListHolder(projectInterestVoList);
+		if (!projectInterestVoList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+			projInterestPagedListHolder.setPage(page);
+			projInterestPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+		}
+
+		modelAndView.addObject("command", command);
+		modelAndView.addObject("pagedListHolder", projInterestPagedListHolder);
+		return modelAndView;
+	}
+
+	
+	
 }
