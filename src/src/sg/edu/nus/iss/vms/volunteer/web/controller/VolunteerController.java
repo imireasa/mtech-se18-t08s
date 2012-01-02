@@ -205,7 +205,7 @@ public class VolunteerController extends BaseMultiActionFormController {
                 HttpServletResponse response) throws Exception {
                 modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
                 List<ProjectDto> projectList = projectManagementService.getAllProjectObjectList(ProjectDto.class);
-                List<CodeDto> projectCodeList = codeManagementServices.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+                List<CodeDto> projectCodeList = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
                 logger.debug("The project size is" + projectList.size());
                 modelAndView.addObject("projectList", projectList);
                 modelAndView.addObject("command", new ProjectVo());
@@ -219,8 +219,8 @@ public class VolunteerController extends BaseMultiActionFormController {
                 logger.debug("searchProjects");
 
                 modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
-                List<CodeDto> projectCodeList = codeManagementServices.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
-
+                List<CodeDto> projectCodeList = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+                
                 modelAndView.addObject("projectCodeList", projectCodeList);
 
                 List<ProjectDto> projectList = projectManagementService.getProjectbyProjectVo(command);
@@ -242,10 +242,10 @@ public class VolunteerController extends BaseMultiActionFormController {
                 }
                 ProjectDto projectDto = (ProjectDto) projectManagementService.getProjectObjbyId(prjId, ProjectDto.class);
 
-                List<CodeDto> projectStatusCodeList = codeManagementServices.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
-                List<CodeDto> roleCodeList = codeManagementServices.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE);
-
-                List<CodeDto> countryCodeList = codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+                List<CodeDto> projectStatusCodeList = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+                List<CodeDto> roleCodeList = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE);
+                List<CodeDto> countryCodeList = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+                
                 String projectStatus = "Unknown";
                 String country = "Unknown";
 
