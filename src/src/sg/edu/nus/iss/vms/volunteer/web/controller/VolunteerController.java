@@ -230,6 +230,12 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		logger.debug("searchProjects");
 
+		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
+		List<CodeDto> projectCodeList = codeManagementServices
+				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+
+		modelAndView.addObject("projectCodeList", projectCodeList);
+
 		List<ProjectDto> projectList = projectManagementService
 				.getProjectbyProjectVo(command);
 		logger.debug("The project size is" + projectList.size());
@@ -282,12 +288,14 @@ public class VolunteerController extends BaseMultiActionFormController {
 		List<ProjectFeedbackDto> feedbackList = projectManagementService
 				.getProjectFeedbackList(projectDto);
 		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+
 		modelAndView.addObject("projectVo", projectVo);
 		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);
 		modelAndView.addObject("projectInfo", new ProjectInfoVo());
+
 		logger.debug("!!!!!!!!!!!!!!!!!!!!Total memebr:" + memberList.size());
 		return modelAndView;
 
@@ -322,14 +330,27 @@ public class VolunteerController extends BaseMultiActionFormController {
 			loginId = UserUtil.getUserSessionInfoVo().getUserID();
 		}
 
-		projectInterestDto.setCreatedBy(loginId);
-		projectInterestDto.setReqBy(loginId);
-		projectInterestDto.setUpdBy(loginId);
+		List<ProjectInterestDto> projectInterestDtos = projectManagementService
+				.getProjectInterestListbyProject(projectDto, loginId);
 
-		projectManagementService.saveOrUpdateProjectObject(projectInterestDto);
+		if (projectInterestDtos.size() == 0) {
 
-		logger.debug("@@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
-				+ projectDto.getPrjId());
+			projectInterestDto.setCreatedBy(loginId);
+			projectInterestDto.setReqBy(loginId);
+			projectInterestDto.setUpdBy(loginId);
+
+			projectManagementService
+					.saveOrUpdateProjectObject(projectInterestDto);
+
+			logger.debug("@@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
+					+ projectDto.getPrjId());
+
+			modelAndView.addObject("riMsg",
+					"New project interest has been raised!");
+		} else {
+			modelAndView.addObject("riMsg",
+					"You have already raised project interest!");
+		}
 
 		return modelAndView;
 

@@ -7,6 +7,7 @@ import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
@@ -53,4 +54,7 @@ public interface ProjectManagementService {
 	List<CodeDto> getProjectStatusList();
 
 	List<ProjectVo> listProjectbyProjectVo(ProjectVo projectVo);
+
+	public List<ProjectInterestDto> getProjectInterestListbyProject(
+			ProjectDto projectDto, String userId);
 }
