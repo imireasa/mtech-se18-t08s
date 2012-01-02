@@ -627,9 +627,10 @@ public class ProjectController extends BaseMultiActionFormController {
                                         }
                                 }
                         }
-
-                        //get list of project
+                        
                         projectVo = projectManagementService.getProjectVoByLoginUserAccessRight(prjId);
+                        
+                        //get list of project
                         PagedListHolder memberPagedListHolder = new PagedListHolder(projectVo.getProjectMemberVo());
                         if (!projectVo.getProjectMemberVo().isEmpty()) {
                                 int page = ServletRequestUtils.getIntParameter(request, "p_member", 0);
@@ -637,20 +638,8 @@ public class ProjectController extends BaseMultiActionFormController {
                                 memberPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
                         }
                         modelAndView.addObject("projectMemberList", projectVo.getProjectMemberVo());
-
-                        //get list of project intrest
-                        List<ProjectInterestVo> projectInterestVoList = projectManagementService.getProjectIntrestVoByLoginUserAccessRight(prjId);
-                        PagedListHolder projectInterestPagedListHolder = new PagedListHolder(projectInterestVoList);
-                        if (!projectVo.getProjectMemberVo().isEmpty()) {
-                                int page = ServletRequestUtils.getIntParameter(request, "p_projectInterest", 0);
-                                memberPagedListHolder.setPage(page);
-                                memberPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
-                        }
-
                         modelAndView.addObject("projectVo", projectVo);
-
-                        modelAndView.addObject("memberPagedListHolder", memberPagedListHolder);
-                        modelAndView.addObject("projectInterestPagedListHolder", projectInterestPagedListHolder);
+                        modelAndView.addObject("memberPagedListHolder", memberPagedListHolder);                        
                         modelAndView.addObject("roleList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE_CATEGORY));
 
                         modelAndView.addObject("prjId", prjId);
@@ -661,12 +650,12 @@ public class ProjectController extends BaseMultiActionFormController {
 
         public ModelAndView manageProjectInterest(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
-
+                ProjectVo projectVo = new ProjectVo();
                 if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
                         Long prjId = Long.parseLong(request.getParameter("prjId"));
                         modelAndView = new ModelAndView("project/manageProjectInterest");
                         logger.debug("project/manageProjectMember");
-
+                        
                         if (request.getParameter("removeMember") != null) {//REMOVE COMMAND
                                 if (request.getParameter("prjMbrId") != null) {
                                         String[] prjMbrIdList = request.getParameterValues("prjMbrId");
@@ -692,7 +681,8 @@ public class ProjectController extends BaseMultiActionFormController {
                                         }
                                 }
                         }
-
+                        projectVo = projectManagementService.getProjectVoByLoginUserAccessRight(prjId);
+                        
                         //get list of project intrest
                         List<ProjectInterestVo> projectInterestVoList = projectManagementService.getProjectIntrestVoByLoginUserAccessRight(prjId);
                         PagedListHolder projectInterestPagedListHolder = new PagedListHolder(projectInterestVoList);
@@ -702,7 +692,7 @@ public class ProjectController extends BaseMultiActionFormController {
                                 projectInterestPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
                         }
 
-
+                        modelAndView.addObject("projectVo", projectVo);
                         modelAndView.addObject("projectInterestPagedListHolder", projectInterestPagedListHolder);
                         modelAndView.addObject("roleList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE_CATEGORY));
 
