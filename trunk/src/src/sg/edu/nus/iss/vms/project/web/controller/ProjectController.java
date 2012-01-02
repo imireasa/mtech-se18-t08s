@@ -711,17 +711,19 @@ public class ProjectController extends BaseMultiActionFormController {
         }
 
         public ModelAndView viewProjectInterest(HttpServletRequest request,
-                HttpServletResponse response, ProjectInterestSearchVo command) throws Exception {
-                modelAndView = new ModelAndView("project/viewProjectInterest");
-                modelAndView.addObject("projInterestStatusList",
-                        projectManagementService.getProjectInterestStatusList());
-                List projectInterestVoList = null;
-                if (command != null
-                        && (command.getPrjId() != null || command.getProjNme() != null || command.getPrjIntStatus() != null)) {
-                        projectInterestVoList = projectManagementService.getProjectInterestListByUserWithSearch(command);
-                } else {
-                        projectInterestVoList = projectManagementService.getProjectInterestListByUser();
-                }
+			HttpServletResponse response, ProjectInterestSearchVo command) throws Exception {
+		modelAndView = new ModelAndView("project/viewProjectInterest");
+		modelAndView.addObject("projInterestStatusList",
+				projectManagementService.getProjectInterestStatusList2());
+		List projectInterestVoList = null;
+		if (command != null
+				&& (command.getPrjId() != null || command.getProjNme() != null || command
+						.getPrjIntStatus() != null)) {
+			projectInterestVoList = projectManagementService
+					.getProjectInterestListByUserWithSearch(command);
+		} else {
+			projectInterestVoList = projectManagementService.getProjectInterestListByUserLoginId();
+		}
 
                 PagedListHolder projInterestPagedListHolder = new PagedListHolder(projectInterestVoList);
                 if (!projectInterestVoList.isEmpty()) {

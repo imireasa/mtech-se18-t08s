@@ -494,9 +494,74 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
                 List<ProjectInterestVo> projIntrestVoList = new ArrayList<ProjectInterestVo>();
                 return projIntrestVoList;
         }
-
+        
         @Override
-        public List getProjectInterestListByUserWithSearch(ProjectInterestSearchVo command) {
-                throw new UnsupportedOperationException("Not supported yet.");
-        }
+    	public List<CodeDto> getProjectInterestStatusList2() {
+    		return CodeLookupUtil
+    				.getListOfCodeByCategory(VMSConstants.PROJECT_INTREST_STATUS);
+    	}
+    	
+    	@Override
+    	public List<ProjectInterestVo> getProjectInterestListByUserWithSearch(ProjectInterestSearchVo searchVo){
+    		String hQL = "from ProjectInterestDto where reqBy='"
+    			+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
+    		if (!StringUtil.isNullOrEmpty(searchVo.getProjNme())) {
+    			hQL += " and prjId.nme LIKE '%" + searchVo.getProjNme() + "%'";
+    		}
+    		if (searchVo.getPrjId()!=null) {
+    			hQL += " and prjId.prjId ="+searchVo.getPrjId();
+    		}
+    		if (!StringUtil.isNullOrEmpty(searchVo.getPrjIntStatus())) {
+    			hQL += " and stsCd=" + Long.parseLong(searchVo.getPrjIntStatus());
+    		}
+    		logger.debug("Find Project By " + hQL);
+    		List<ProjectInterestDto> projIntDtoList = manager.find(hQL);
+    		
+    		return changeProjectInterestDtoToVo(projIntDtoList);
+    	}
+    	
+    	@Override
+    	public List<ProjectInterestVo> getProjectInterestListByUserLoginId(){
+    		String hQL = "from ProjectInterestDto where reqBy='"
+    			+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
+    			
+    		List<ProjectInterestDto> projIntDtoList = manager.find(hQL);
+    		
+    		return changeProjectInterestDtoToVo(projIntDtoList);
+    	}
+    	private List<ProjectInterestVo> changeProjectInterestDtoToVo(List dtoList){
+    	
+    		List projIntVoList=new ArrayList();
+    		if(dtoList!=null){
+    			for(int i=0;i<dtoList.size();i++){
+    				ProjectInterestDto obj=(ProjectInterestDto) dtoList.get(i);
+    				ProjectInterestVo objVo=new ProjectInterestVo();
+    				objVo.setPrjIntrstId(obj.getPrjIntrstId());
+    				objVo.setPrjId(obj.getPrjId().getPrjId());
+    				objVo.setPrjName(obj.getPrjId().getNme());
+    				objVo.setPrjStartDate(obj.getPrjId().getStrDte());
+    				objVo.setReqBy(obj.getReqBy());
+    				objVo.setApprBy(obj.getApprBy());
+    				objVo.setApprDte(obj.getApprDte());
+    				objVo.setApprRmk(obj.getApprRmk());
+    				objVo.setStsCD(obj.getStsCd());
+    				objVo.setStsVal(CodeLookupUtil.getCodeValueByCodeId(obj.getStsCd()));
+    				objVo.setCreatedBy(obj.getCreatedBy());
+    				objVo.setCreatedDate(obj.getCreatedDte());
+    				objVo.setUpdBy(obj.getUpdBy());
+    				objVo.setUpdDate(obj.getUpdDte());
+    				objVo.setVersion(obj.getVersion());
+    				projIntVoList.add(objVo);
+    				
+    			}
+    		}
+    		return projIntVoList;
+    	}
+
+		@Override
+		public List<ProjectInterestVo> getProjectInterestListByUser(Long prjId,
+				String userId) {
+			// TODO Auto-generated method stub
+			return null;
+		}
 }
