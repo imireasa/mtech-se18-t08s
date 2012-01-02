@@ -2,7 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="tab" uri="http://ditchnet.org/jsp-tabs-taglib"%>
 
 
 <head>
@@ -10,7 +9,6 @@
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
-<tab:tabConfig/>
 
 </head>
 <body>
@@ -20,7 +18,7 @@
 	</div>
 
 	<div class="query">
-	<table>
+	<table class="proj-table">
 				<tr>
 					<td width="103"><label>Project Name:</label></td>
 

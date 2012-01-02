@@ -13,10 +13,10 @@
 
 </head>
 <body>
-	
+	<h2>Search Project Proposal</h2>
 	<div id="breadcrumb">
 		<a href="#">Home</a> / <a href="#">Manage Project</a> / <a href="#">Search Project Proposal</a></div>
-        <h2>Search Project Proposal</h2>
+        
 	<div class="query">  
     <form:form name="browseProjectProposal" method="post"  commandName="proposalVo" 
                    action="searchProjectProposal.html" >
