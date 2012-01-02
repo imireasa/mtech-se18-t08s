@@ -55,20 +55,10 @@
 		<form id="form" name="form" method="post" action="generateCertificate.html">
 			<table width="545" >
 				<tr>
-				<!-- 		private Long certReqId;
-	private Long prjId;
-	private String prjName;
-	private Long reqTp;
-	private String reqTpName;
-	private Date reqDte;
-	private String reqBy;
-	private String reqByName;; -->
+
 					<td width="200"><label>Certificate Request Id</label></td>
-				<!-- <td width="40"><label>Project Id</label></td> 	-->
 					<td width="200"><label> <fmt:message key="message.projectManagement.projectName.label"/></label></td>
-                <!--    <td width="40"><label>Request Type Id</label></td> -->
                     <td width="150"><label><fmt:message key="message.administration.requestType.label"/></label></td>
-                <!--       <td width="40"><label>Requested By Id</label></td>  -->
                     <td width="200"><label><fmt:message key="message.administration.requestBy.label"/></label></td>
                     <td width="150"><label><fmt:message key="message.administration.requestDate.label"/></label></td>
                     <td width="100"><label><fmt:message key="message.common.generate.button"/></label></td>
@@ -78,29 +68,15 @@
       <!-- 			<td><input type="checkbox" name="check_gntCertificate" id="check_gntCertificate${item.certReqId}" onclick="generateCert('check_gntCertificate'+${item.certReqId}, ${item.certReqId})" >
                                         <label for="check_gntCertificate"></label></td>  -->              
 								<td>${item.certReqId}</td>
-                    		   <!--	<td>${item.prjId}</td> -->
                     			<td>${item.prjName}</td>
-                    		<!-- 	<td>${item.reqTp}</td> -->
                     			<td>${item.reqTpName}</td>
-                    		<!--	<td>${item.reqBy}</td> -->
                     			<td>${item.reqByName}</td>
                                 <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.reqDte}" /></td>
                                 <td><input type="hidden" name="certRequestId" value="${item.certReqId}"/></td>
                                 <td><input type="submit" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/> class="button"/></td>
 						</tr>
                    </c:forEach>
-				<!--  
-				<tr>
 			
-                                        <td>
-                                                <input type="hidden" name="generateList" id="generateList"/>
-                                        </td>
-					<td colspan="5" align="center">
-                                                <input type="submit" name="generate" id="generate" value="Generate" class="button" />
-					</td>
-					
-                    </tr>
-                    -->
 			</table>
 		</form>
 	</div>
