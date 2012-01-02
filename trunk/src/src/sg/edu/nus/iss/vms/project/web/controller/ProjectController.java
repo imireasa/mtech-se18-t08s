@@ -718,8 +718,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
 				.getModel().get("proposal");
 
-		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
-				"stsCdList");
+		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get("stsCdList");
 
 		long approveCodeId = 0;
 		long rejectCodeId = 0;
