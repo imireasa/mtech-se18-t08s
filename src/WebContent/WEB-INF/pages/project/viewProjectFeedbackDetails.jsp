@@ -9,6 +9,11 @@
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
+	
+<style> 
+                .error{ color:red;}  
+                .info{ color:blue;}  
+</style>
 
 </head>
 <body>
@@ -20,29 +25,30 @@
 	<div class="query">
 	<table class="proj-table">
 				<tr>
-					<td width="103"><label>Project Name:</label></td>
+					<th><fmt:message key="message.projectManagement.projectName.label"/></th>
 
-					<td width="186"><label>${projectFbVo.prjName}</label></td>
+					<td><label>${projectFbVo.prjName}</label></td>
 				</tr>
 				<tr>
-					<td width="103"><label>FeedBack Title:</label></td>
-					<td width="300">${projectFbVo.fbTitle}</td>
+					<th><fmt:message key="message.common.title.label"/></th>
+					<td>${projectFbVo.fbTitle}</td>
 				</tr>
 				<tr>
-					<td><label>Feedback Content:</label></td>
+					<th><fmt:message key="message.common.content.label"/></th>
 					<td>${projectFbVo.fbContent}</td>
 				</tr>
 				<tr>
-					<td><label>Feedback Status:</label></td>
+					<th><fmt:message key="message.common.status.label"/></th>
 					<td>${projectFbVo.fbStatus}</td>
 				</tr>
 				<tr>
-					<td><label>Created by:</label></td>
+					<th><fmt:message key="message.common.creator.label"/></th>
 					<td>${projectFbVo.createdBy}</td>
 				</tr>
 				<tr>
-					<td><label>Creation Date:</label></td>
+					<th><fmt:message key="message.common.creatdate.label"/></th>
 					<td>${projectVo.createdDte}</td>
+					
 				</tr>
 				<tr>
 					<td>
@@ -62,6 +68,15 @@
 					
 					
 				</tr>
+				
+				
+				<tr>
+			<c:if test="${not empty fbMsg}"> 
+                        <div class="info">
+                                <c:out value="${fbMsg}" escapeXml="false"/><br/>
+                        </div>
+            </c:if>
+            </tr>
 			</table>
 			
 		

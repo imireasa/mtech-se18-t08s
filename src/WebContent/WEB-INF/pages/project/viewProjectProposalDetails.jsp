@@ -9,26 +9,31 @@
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
 
-
+<style> 
+                .error{ color:red;}  
+                .info{ color:blue;}  
+</style>
 </head>
 <body>
-	
+	<h2> Review Project Proposal</h2>
 	<div id="breadcrumb">
 	<a href="#">Home</a> / <a href="#">Review Project proposal</a></div>
     
-<h2> Review Project Proposal</h2>
+
     
 
-	<div class="reviewproposal">
+	<div class="query">
    	 <form:form name="reviewproposal" method="post" commandName="proposalVo" action="reviewProposal.html">
-	  <table width="475" height="105" >
+	  <table class="proj-table">
 	    <tr>
-	      <th><label> Name</label></th>
+	    
+	     <th><fmt:message key="message.common.name.label"/></th>
+
 	      <td width>${proposalVo.name}</td>
         </tr>
 	    
         <tr>
-	      <th><label>Description</label></th>
+	     <th><fmt:message key="message.common.description.label"/></th>
 	      <td>
 	      ${proposalVo.desc}
           </td>
@@ -36,23 +41,24 @@
         
         
          <tr>
-	      <th><label>Country</label></th>
+	     <th><fmt:message key="message.common.country.label"/></th>
 	      <td> ${proposalVo.ctryCd}</td>
         </tr>
         <tr>
-	      <th><label>Location</label></th>
+	       <th><fmt:message key="message.common.location.label"/></th>
 	      <td>${proposalVo.loc}</td>
         </tr>
         <tr>
-	      <th><label>Estimated Duration</label></th>
-	      <td>${proposalVo.estDuration}</td>
+	      	<th><fmt:message key="message.common.duration.label"/></th>
+	        <td>${proposalVo.estDuration}</td>
         </tr>
 	    <tr>
-	      <th><label>Proposed by</label></th>
+	      <th><fmt:message key="message.common.creator.label"/></th>
 	      <td>${proposalVo.proposerId}</td>
         </tr>
         <tr>
-	      <th><label>Status</label></th>
+	      
+	      <th><fmt:message key="message.common.status.label"/></th>
 	      <td>
 	      <form:select path="status">
 	      <c:forEach items="${stsCdList}" var="item" varStatus="status">
@@ -66,7 +72,7 @@
 	      <td></td>
         </tr>
          <tr>
-	      <th><label>Remark</label></th>
+	       <th><fmt:message key="message.common.remark.label"/></th>
 	      <td> <spring:bind path="proposalVo.rmk">  
 					<form:textarea path="rmk" rows="5" cols="30" /> 
 					 </spring:bind>
@@ -78,6 +84,14 @@
     	      <td><input name="btn_submit" id="btn_submit" type="submit" value="Submit"></td>
 	     
         </tr>
+        
+        <tr>
+			<c:if test="${not empty propMsg}"> 
+                        <div class="info">
+                                <c:out value="${propMsg}" escapeXml="false"/><br/>
+                        </div>
+            </c:if>
+            </tr>
         
       </table>
    	 </form:form>
