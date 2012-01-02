@@ -31,6 +31,9 @@ import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
+
+import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
+
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
@@ -632,6 +635,72 @@ public class ProjectController extends BaseMultiActionFormController {
 		modelAndView.addObject("pagedListHolder", memberPagedListHolder);
 		return modelAndView;
 	}
+        
+        public ModelAndView manageProjectMember(HttpServletRequest request,
+                HttpServletResponse response) throws Exception {
+
+                ProjectVo projectVo = new ProjectVo();
+                if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
+                        Long prjId = Long.parseLong(request.getParameter("prjId"));
+                        modelAndView = new ModelAndView("project/manageProjectMember");
+                        logger.debug("project/manageProjectMember");
+
+                        if (request.getParameter("removeMember") != null) {//REMOVE COMMAND
+                                if (request.getParameter("prjMbrId") != null) {
+                                        String[] prjMbrIdList = request.getParameterValues("prjMbrId");
+                                        for (int i = 0; i < prjMbrIdList.length; i++) {
+                                                logger.debug("Removing Project Member " + prjMbrIdList[i]);
+                                                String[] val = prjMbrIdList[i].split("[,]");
+                                                projectManagementService.deleteProjectMember(val[0]);
+                                        }
+                                }
+                        } else if (request.getParameter("updateMember") != null) {//UPDATE COMMAND
+                                if (request.getParameter("prjMbrId") != null) {
+                                        String[] prjMbrIdList = request.getParameterValues("prjMbrId");
+                                        for (int i = 0; i < prjMbrIdList.length; i++) {
+                                                logger.debug("Update Project Member Role" + prjMbrIdList[i]);
+                                                String[] val = prjMbrIdList[i].split("[,]");
+                                                String roleValue = request.getParameter("roleCd_" + val[0]);
+                                                if (!StringUtil.isNullOrEmpty(roleValue)) {
+                                                        Long roleCd = Long.parseLong(roleValue);
+                                                        projectManagementService.updateProjectMemberRole(val[0], roleCd);
+                                                } else {
+                                                        //TODO: Error Control
+                                                }
+                                        }
+                                }
+                        }
+
+                        //get list of project
+                        projectVo = projectManagementService.getProjectVoByLoginUserAccessRight(prjId);
+                        PagedListHolder memberPagedListHolder = new PagedListHolder(projectVo.getProjectMemberVo());
+                        if (!projectVo.getProjectMemberVo().isEmpty()) {
+                                int page = ServletRequestUtils.getIntParameter(request, "p_member", 0);
+                                memberPagedListHolder.setPage(page);
+                                memberPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+                        }
+                        modelAndView.addObject("projectMemberList", projectVo.getProjectMemberVo());
+
+                        //get list of project intrest
+                        List<ProjectInterestVo> projectInterestVoList = projectManagementService.getProjectIntrestVoByLoginUserAccessRight(prjId);
+                        PagedListHolder projectInterestPagedListHolder = new PagedListHolder(projectInterestVoList);
+                        if (!projectVo.getProjectMemberVo().isEmpty()) {
+                                int page = ServletRequestUtils.getIntParameter(request, "p_projectInterest", 0);
+                                memberPagedListHolder.setPage(page);
+                                memberPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+                        }
+
+                        modelAndView.addObject("projectVo", projectVo);
+
+                        modelAndView.addObject("memberPagedListHolder", memberPagedListHolder);
+                        modelAndView.addObject("projectInterestPagedListHolder", projectInterestPagedListHolder);
+                        modelAndView.addObject("roleList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE_CATEGORY));
+
+                        modelAndView.addObject("prjId", prjId);
+                }
+
+                return modelAndView;
+        }
 
 	public BindingResult getErrors() {
 		return errors;
