@@ -12,21 +12,14 @@
 	rel="stylesheet" />
 <tab:tabConfig/>
 
-<script language="javaScript">
-function verify()
-{
-	
-	var msg = document.getElementById("msg").value;
-	if(msg !="")
-	{
-		alert(msg);
-	}
-}
-</script>
+<style> 
+                .error{ color:red;}  
+                .info{ color:blue;}  
+</style>
 
 </head>
 <body>
-	<h2>Project Details</h2>
+	<h2><fmt:message key="message.projectManagement.viewProject.label"/></h2>
 	<div id="breadcrumb">
 		<a href="#">Home</a> / <a href="#">Volunteer</a> / <a href="#">Project
 			Details</a>
@@ -35,38 +28,51 @@ function verify()
 	<div class="query">
 		<form:form name="viewProjectDetails" method="post"
 			commandName="projectInfo" action="raiseInterest.html">
-			<table>
+			<table border="2" width="100%">
 				<tr>
-					<th><label>Project Name:</label></th>
+					<th align="left"><fmt:message key="message.projectManagement.projectName.label"/></th>
 
 					<td>${projectVo.name}</td>
 				</tr>
 				<tr>
-					<th><label>Description:</label></th>
+					<th align="left"><fmt:message key="message.common.description.label"/>:
+					</th>
 					<td>${projectVo.desc}</td>
 				</tr>
 				<tr>
-					<th><label>Start Date:</label></th>
+					<th align="left"><fmt:message key="message.common.startDate.label"/></th>
 					<td>${projectVo.strDte}</td>
 				</tr>
 				<tr>
-					<th><label>Project Status:</label></th>
+					<th align="left"><fmt:message key="message.common.status.label"/></th>
 					<td>${projectVo.stsCd}</td>
 				</tr>
 				<tr>
-					<th><label>Location:</label></th>
+					<th align="left"><fmt:message key="message.common.location.label"/></th>
 					<td>${projectVo.loc}</td>
 				</tr>
 				<tr>
-					<th><label>Country:</label></th>
+					<th align="left"><fmt:message key="message.common.country.label"/></th>
 					<td>${projectVo.ctryCd}</td>
 				</tr>
+				
+				<c:if test="${projectVo.stsCd != 'Close'}">
 				<tr>
 					<td><input type="submit" name="btn_RaiseProjectInterest"
 				id="btn_RaiseProjectInterest" value="Raise Project Interest"></td>
-					
 				</tr>
+				<tr>
+			<c:if test="${not empty riMsg}"> 
+                        <div class="info">
+                                <c:out value="${riMsg}" escapeXml="false"/><br/>
+                        </div>
+            </c:if>
+            </tr>
+				
+					</c:if>
+				
 			</table>
+			
 			
 		</form:form>
 	</div>
@@ -75,10 +81,10 @@ function verify()
 		<tab:tabPane id="member" tabTitle="Project Members">
 		<form:form name="memberDetails" method="post"
 			commandName="projectInfo" action="requestCertificate.html">
-			<table width="200" border="1">
+			<table  border="1">
 				<tr>
-					<th>ID</th>
-					<th>Role</th>
+					<th><fmt:message key="message.common.loginid.label"/></th>
+					<th><fmt:message key="message.common.role.label"/></th>
 					<th>isActive</th>
 				</tr>
 				<c:forEach items="${memberList}" var="item" varStatus="status">

@@ -23,15 +23,15 @@
                    action="searchProjects.html" >
 	  <table width="707" height="105" >
 	    <tr>
-	      <td><label>Project Name:</label></td>
+	      <td><fmt:message key="message.projectManagement.projectName.label"/></td>
 	      <td>
 	      <spring:bind path="command.name">  
                             <form:input path="name"/>
                         </spring:bind>
             <form:errors path="name" cssClass="error"/>  
 	      </td>
-	      <td width="157"><label>Start Date:</label></td>
-	      <td width="203">
+	      <td><fmt:message key="message.common.startDate.label"/></td>
+	      <td>
 	      <spring:bind path="command.strDte">
                             <form:input path="strDte"/><img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte')" style="cursor:pointer"/>
            </spring:bind>
@@ -40,7 +40,7 @@
         </tr>
 	    <tr>
 	      
-	      <td><label>Status:</label></td>
+	      <td><fmt:message key="message.common.status.label"/></td>
 	      <td>
 	        <form:select path="stsCd">
 	        <form:option value="" label="ALL"/>
@@ -49,7 +49,7 @@
               </c:forEach>
            </form:select>       
          </td>
-         <td colspan="4" align="center">    
+         <td colspan="2" align="center">    
         	<input type="submit" name="btn_Search" id="btn_Search" value="Search">
             </td>
         </tr>
@@ -63,15 +63,12 @@
     </div>
 	<!-- end of query -->
 	<table width="700" class="proj-table">
+		
 		<tr>
-			<td colspan="5"><b><label>Project List</label></b></td>
-		</tr>
-		<tr>
-			<th><label>Name</label></th>
-			<th><label>Description</label></th>
-			<th><label>StartDate</label></th>
-			
-			
+			<th><fmt:message key="message.projectManagement.projectName.label"/></th>
+			<th><fmt:message key="message.common.description.label"/></th>
+			<th><fmt:message key="message.common.startDate.label"/></th>
+				
 		</tr>
 		<c:forEach items="${projectList}" var="item" varStatus="status">
 			<tr>
@@ -79,9 +76,7 @@
 				<td>${item.desc}</td>
                 <td>${item.strDte}</td>
                 <td>
-              
-				
-				<a href="
+  				<a href="
 	<c:url value="viewProjectDetails.html">
 	     <c:param name="prjId" value="${item.prjId}"/> 
 	</c:url>
