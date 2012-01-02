@@ -400,7 +400,15 @@ public class ProjectController extends BaseMultiActionFormController {
 			HttpServletResponse response, ProjectProposalVo proposalVo)
 			throws Exception {
 
-		validateProjectProposal(proposalVo);
+		validate(proposalVo);
+
+		ModelAndView modelAndView = new ModelAndView(
+				"project/proposeNewProject");
+		modelAndView.addObject("proposalVo", proposalVo);
+
+		List<CodeDto> countryCodeDtos = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+		modelAndView.addObject("countryList", countryCodeDtos);
 		if (errors.hasErrors()) {
 			logger.debug("Error Handling : ");
 			saveError(request, errors.getFieldError().getDefaultMessage());
@@ -411,9 +419,6 @@ public class ProjectController extends BaseMultiActionFormController {
 		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.PROPOSAL_STATUS,
 				VMSConstants.PROPOSAL_STATUS_SUMBITTED);
-
-		List<CodeDto> countryCodeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
 
 		long countryCodeId = 0;
 		for (CodeDto countryCodeDto : countryCodeDtos) {
@@ -446,12 +451,6 @@ public class ProjectController extends BaseMultiActionFormController {
 		projectProposalDto.setVersion(1);
 
 		projectManagementService.saveOrUpdateProjectObject(projectProposalDto);
-
-		ModelAndView modelAndView = new ModelAndView(
-				"project/proposeNewProject");
-		modelAndView.addObject("proposalVo", proposalVo);
-
-		modelAndView.addObject("countryList", countryCodeDtos);
 
 		return modelAndView;
 	}
@@ -584,25 +583,6 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		return modelAndView;
 
-	}
-
-	public void validateProjectProposal(Object command) {
-		Validator[] validators = getValidators();
-		if (validators != null) {
-			for (int index = 0; index < validators.length; index++) {
-				Validator validator = validators[index];
-				if (validator instanceof ProjectProposalValidator) {
-					if (((ProjectProposalValidator) validator).supports(command
-							.getClass())) {
-						ValidationUtils.invokeValidator(validators[index],
-								command, errors);
-					}
-				} else if (validator.supports(command.getClass())) {
-					ValidationUtils.invokeValidator(validators[index], command,
-							errors);
-				}
-			}
-		}
 	}
 
 	public ModelAndView listProjects(HttpServletRequest request,

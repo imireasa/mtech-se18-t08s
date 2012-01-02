@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
@@ -23,8 +24,8 @@ public class ProjectValidator implements Validator {
 
 	@Override
 	public boolean supports(Class type) {
-		boolean val = type.equals(ProjectVo.class)
-				|| type.equals(ProjectProposalVo.class);
+		boolean val = ProjectVo.class.isAssignableFrom(type)
+				|| ProjectProposalVo.class.isAssignableFrom(type);
 		return val;
 	}
 
@@ -36,21 +37,33 @@ public class ProjectValidator implements Validator {
 
 			if (obj.getCmdType().equalsIgnoreCase(
 					VMSConstants.SCREEN_CMD_UPDATE))
+
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors, "stsCd",
-						"stsCd", "Required Status field");
+						"stsCd", Messages.getString(
+								"message.common.error.mandatory",
+								new String[] { "Status" }));
 
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name",
-					"Required Name field");
+					Messages.getString("message.common.error.mandatory",
+							new String[] { "Name" }));
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "desc", "desc",
-					"Required Description field");
+					Messages.getString("message.common.error.mandatory",
+							new String[] { "Description" }));
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "strDte",
-					"strDte", "Required Start Date field");
+					"strDte", Messages.getString(
+							"message.common.error.mandatory",
+							new String[] { "startDate" }));
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "endDte",
-					"endDte", "Required endDte field");
+					"endDte", Messages.getString(
+							"message.common.error.mandatory",
+							new String[] { "endDate" }));
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ctryCd",
-					"ctryCd", "Required Country Code field");
+					"ctryCd", Messages.getString(
+							"message.common.error.mandatory",
+							new String[] { "Country" }));
 			ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loc", "loc",
-					"Required Location field");
+					Messages.getString("message.common.error.mandatory",
+							new String[] { "Location" }));
 
 			logger.debug("Validation Done.");
 		}
@@ -63,17 +76,21 @@ public class ProjectValidator implements Validator {
 
 	public void validateProposal(Object o, Errors errors) {
 		ProjectProposalVo obj = (ProjectProposalVo) o;
-		// ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loginId",
-		// "loginId",
-		// "Required LoginId field");
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name",
-				"Required Name  field");
+				Messages.getString("message.common.error.mandatory",
+						new String[] { "Name" }));
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loc", "loc",
-				"Required Location field");
+				Messages.getString("message.common.error.mandatory",
+						new String[] { "Location" }));
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ctryCd", "ctryCd",
-				"Required Country field. Can not be a blank.");
+				Messages.getString("message.common.error.mandatory",
+						new String[] { "Country" }));
+		if (obj.getEstDuration() <= 0) {
+			errors.rejectValue(
+					"estDuration", "error.empty.field", Messages.getString("message.common.error.mandatory", new String[] { "estDuration" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
 
 		logger.debug("Project Proposal Validation Done.");
 	}

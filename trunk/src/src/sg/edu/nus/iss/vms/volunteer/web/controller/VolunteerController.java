@@ -378,6 +378,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			projectFeedbackDto.setStsCd(codeDto.getCdId());
 			projectFeedbackDto.setCreatedBy(loginId);
 			projectFeedbackDto.setUpdBy(loginId);
+			projectFeedbackDto.setVersion(1);
 
 			projectManagementService
 					.saveOrUpdateProjectObject(projectFeedbackDto);
