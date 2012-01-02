@@ -38,7 +38,7 @@
 		</div>
 		<!-- end of wrap-top -->
 		<div id="header">
-			<h1>Volunteer Management System</h1>
+			<h1><a href="<%=request.getContextPath()%>/common/welcome.html">Volunteer Management System</a></h1>
 		</div>
 		<!-- end of header -->
 		<div id="container">
