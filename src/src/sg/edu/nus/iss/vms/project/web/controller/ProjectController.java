@@ -153,7 +153,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			modelAndView.addObject("countryList", codeManagementServices
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			ProjectVo projectVo = command;
-			System.out.println("after assigning the command to projectvo....");
+
 			if (errors.hasErrors()) {
 				logger.debug("Error Handling : ");
 				saveError(request, errors.getFieldError().getDefaultMessage());

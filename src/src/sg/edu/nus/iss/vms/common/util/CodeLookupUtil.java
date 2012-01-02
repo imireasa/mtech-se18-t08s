@@ -24,6 +24,16 @@ public class CodeLookupUtil {
 		codeDescription = codeMgr.getCodeDescriptionByCodeId(codeId);
 		return codeDescription;
 	}
+	
+	/**
+	 * Gets the code Description based on the code ID passed in.
+	 */
+	public static String getCodeValueByCodeId(Long codeId) {
+		String codeValue = "";
+		CodeManagementServices codeMgr = getCodeManagementServices();
+		codeValue = codeMgr.getCodeValueByCodeId(codeId);
+		return codeValue;
+	}
 
 	/**
 	 * gets the list of codes based on the category name

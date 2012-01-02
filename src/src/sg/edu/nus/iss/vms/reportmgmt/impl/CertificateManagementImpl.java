@@ -3,9 +3,12 @@ package sg.edu.nus.iss.vms.reportmgmt.impl;
 import java.util.List;
 import org.apache.log4j.Logger;
 
+import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
+import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.reportmgmt.service.CertificateManagement;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
@@ -30,7 +33,32 @@ public class CertificateManagementImpl implements CertificateManagement {
     public void setSessionBean(SessionBean sessionBean) {
         this.sessionBean = sessionBean;
     }
+    @Override
+	public CertificateRequestDto getCertRequest(long certReqId) {
+		 String hQL = "from CertificateRequestDto where certReqId = " + certReqId;
+         List<CertificateRequestDto> certRequestList = manager.find(hQL);
+         CertificateRequestDto certRequest = null;
+ 
+         if (certRequestList != null && !certRequestList.isEmpty())
+        	 certRequest = certRequestList.get(0);
 
+         return certRequest;
+	}
+    
+    public void updateCertRequestStatus(long certReqId,long certReqStatus) throws Exception{
+    	try {
+    		CertificateRequestDto certRequest=this.getCertRequest(certReqId);
+    		if(certRequest!=null){
+    			certRequest.setReqSts(certReqStatus);
+    			manager.save(certRequest);
+    		}
+    	} catch (Exception ex) {
+			logger.error("Save update Cert Request Status", ex);
+			throw new ApplicationException(
+					Messages.getString("message.common.error.save"));
+		}
+
+    }
     //engine
 	/* (non-Javadoc)
      * @see sg.edu.nus.iss.vms.reportmgmt.impl.CertificateManagement#volunteerCertificate(int, int)
@@ -46,11 +74,9 @@ public class CertificateManagementImpl implements CertificateManagement {
 
 
     @Override
-    public List<CertificateRequestDto> getReqCertList(){
-        String hQL = "FROM CertificateRequestDto WHERE reqSts = 42";
-        //System.out.println("enter the getReqCertList");
+    public List<CertificateRequestDto> getReqCertList(Long requestedStatus){
+        String hQL = "FROM CertificateRequestDto WHERE reqSts ="+requestedStatus;
         List<CertificateRequestDto> collection = manager.find(hQL);
-        //System.out.println("list size :" + collection.size());
         return collection;
     }
 }

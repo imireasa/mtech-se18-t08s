@@ -1,7 +1,7 @@
 package sg.edu.nus.iss.vms.reportmgmt.impl;
 
 import java.io.File;
-import java.io.IOException;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -23,9 +23,8 @@ import org.apache.log4j.Logger;
 
 import java.util.Properties;
 
-import javax.servlet.ServletContext;
-
 import sg.edu.nus.iss.vms.common.SessionBean;
+import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementServices;
 
@@ -33,6 +32,10 @@ public class ReportManagementServicesImpl implements ReportManagementServices {
 	private Logger logger = Logger.getLogger(ReportManagementServicesImpl.class);
 	private Manager manager;
 	private SessionBean sessionBean;
+	private String url;
+	private String username;
+	private String password;
+	
 
 	public Manager getManager() {
 		return this.manager;
@@ -49,51 +52,68 @@ public class ReportManagementServicesImpl implements ReportManagementServices {
 	public void setSessionBean(SessionBean sessionBean) {
 		this.sessionBean = sessionBean;
 	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Override
-	public byte[] generateVolunteerCertificate(int projectId, int volunteerId) throws JRException, SQLException {
+	public byte[] generateVolunteerCertificate(Long certRequestId, String reqBy,String RequestType) throws JRException, SQLException {
 
 		JasperPrint jasperPrint = null;
-
-		/*
-		 * ServletContext application=getServletConfig().getServletContext();
-		 * 
-		 * JasperCompileManager.compileReportToFile(application.getRealPath(
-		 * "/pages/reports/volunteer_certificate.jrxml")); File reportFile = new
-		 * File
-		 * (application.getRealPath("/pages/reports/volunteer_certificate.jasper"
-		 * ));
-		 */
-
-		// Need to do to get the application path.
-
-		JasperCompileManager.compileReportToFile("C:/volunteer_certificate.jrxml");
-		File reportFile = new File("C:/volunteer_certificate.jasper");
+		
+		//JasperCompileManager.compileReportToFile("C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jrxml");
+		//File reportFile = new File("C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jasper");
+		
+		JasperCompileManager.compileReportToFile(VMSConstants.REPORT_TEMPLATE_PATH_JRXML);
+		File reportFile = new File(VMSConstants.REPORT_TEMPLATE_PATH_JASPER);
+		
 		if (!reportFile.exists())
-			throw new JRRuntimeException("File volunteer_certificate.jrxml not found. The report design must be compiled first.");
+			throw new JRRuntimeException("File volunteer_certificate_multipages.jrxml not found. The report design must be compiled first.");
 		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportFile.getPath());
-
-		// Need to do to read from properties file
-		String url = "jdbc:mysql://127.0.0.1:3306/vms_prototype";
+		
+		String url = this.getUrl();
 		Properties props = new Properties();
-		props.setProperty("user", "root");// sys.server.database.default.username
-		props.setProperty("password", "root");// sys.server.database.default.password
+		props.setProperty("user",  this.getUsername());
+		props.setProperty("password",this.getPassword());
 		Connection conn = DriverManager.getConnection(url, props);
 		Statement stmt = conn.createStatement();
 		ResultSet rs;
 
-		String queryString = "SELECT p.projectName, p.ProjectStartDate,p.ProjectEndDate, CONCAT(person.FirstName,' ',person.LastName)as volunteerName";
-		queryString = queryString + " FROM project p, person, project_member pm";
-		queryString = queryString + " WHERE p.projectId=pm.projectId";
-		queryString = queryString + " AND person.personId=pm.volunteerId";
-		queryString = queryString + " AND person.personId=" + volunteerId;
-		queryString = queryString + " AND p.projectId=" + projectId;
-		System.out.println(queryString);
+		String queryString = "SELECT prj.nme AS ProjectName, prj.str_dte as ProjectStartDate, prj.end_dte As ProjectEndDate,usr.nme As VolunteerName";
+		queryString = queryString + " FROM tb_project prj, tb_project_member prjMem, tb_certificate_request req,tb_user usr";
+		queryString = queryString + " WHERE req.prj_id=prj.prj_id";
+		queryString = queryString + " AND prjMem.prj_id=prj.prj_id";
+		queryString = queryString + " AND prjMem.usr_login_id=usr.usr_login_id";
+		queryString = queryString + " AND req.cert_req_id=" + certRequestId;
+		
+		if(RequestType.equalsIgnoreCase(VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL))
+			queryString = queryString + " AND req.req_by='"+reqBy+"'";
+
 		rs = stmt.executeQuery(queryString);
 		JRResultSetDataSource dataSource = new JRResultSetDataSource(rs);
 
-		// Need to do get the organization name through hibernate (need to modify)
-		String orgName = "National University of Singapore(NUS)";
+		String orgName =VMSConstants.ORGANIZATION_NAME;
 		// Report's parameters
 		Map parameters = new HashMap();
 		parameters.put("org_name", orgName.toUpperCase());

@@ -417,7 +417,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		CodeDto codeStatusDto = codeManagementServices
 				.getCodeDescriptionByCodeCategoryAndCodeDesc(
 						VMSConstants.CERTIFICATE_REQUEST_STATUS,
-						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUEST);
+						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
 
 		String loginId = "SuperUser";
 		if (UserUtil.getUserSessionInfoVo() != null

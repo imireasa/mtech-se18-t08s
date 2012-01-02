@@ -11,6 +11,7 @@ public interface CertificateManagement {
 	public abstract JRBeanCollectionDataSource volunteerCertificate(
 			int projectId, int volunteerId);
 
-	public abstract List<CertificateRequestDto> getReqCertList();
-
+	public abstract List<CertificateRequestDto> getReqCertList(Long requestedStatus);
+	public CertificateRequestDto getCertRequest(long certReqId);
+	public void updateCertRequestStatus(long certReqId,long certReqStatus)throws Exception;
 }

@@ -1,13 +1,7 @@
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
-<%-- 
-    Document   : noSession
-    Created on : Jun 13, 2011, 10:54:53 AM
-    Author     : Zaw.Htet
---%>
+
 <body>
 <head>
 <script type='text/javascript'
@@ -48,44 +42,65 @@
 </script>
 </head>
 <body>
-	<h2>Generate Certificate</h2>
+	<h2><fmt:message key="message.administration.generateCertificate.label"/></h2>
+	
 	<div id="breadcrumb">
-		<a href="#">Home</a> > <a href="#">Certificate</a> > <a href="#">Generate Certificate</a>
+		 <a href="#"><fmt:message key="message.common.home.label"/></a>/ 
+                <fmt:message key="message.administration.generateCertificate.label"/>
 	</div>
 	<br />
 
 	<br />
 	<div class="query">
-		<form id="form" name="form" method="post"
-			action="generateCertificate.html">
+		<form id="form" name="form" method="post" action="generateCertificate.html">
 			<table width="545" >
 				<tr>
-					<td width="43"><label></label></td>
-					<td width="116"><label>Project Name</label></td>
-                    <td width="105"><label>Request Type</label></td>
-                     <td width="97"><label>Requested by</label></td>
-                      <td width="160"><label>Request Date</label></td>
+				<!-- 		private Long certReqId;
+	private Long prjId;
+	private String prjName;
+	private Long reqTp;
+	private String reqTpName;
+	private Date reqDte;
+	private String reqBy;
+	private String reqByName;; -->
+					<td width="200"><label>Certificate Request Id</label></td>
+				<!-- <td width="40"><label>Project Id</label></td> 	-->
+					<td width="200"><label> <fmt:message key="message.projectManagement.projectName.label"/></label></td>
+                <!--    <td width="40"><label>Request Type Id</label></td> -->
+                    <td width="150"><label><fmt:message key="message.administration.requestType.label"/></label></td>
+                <!--       <td width="40"><label>Requested By Id</label></td>  -->
+                    <td width="200"><label><fmt:message key="message.administration.requestBy.label"/></label></td>
+                    <td width="150"><label><fmt:message key="message.administration.requestDate.label"/></label></td>
+                    <td width="100"><label><fmt:message key="message.common.generate.button"/></label></td>
 				</tr>
-
-
-                                <c:forEach items="${reqCertList}" var="item" varStatus="status">
+					<c:forEach items="${certReqVoList}" var="item" varStatus="status">
+						<tr>
+      <!-- 			<td><input type="checkbox" name="check_gntCertificate" id="check_gntCertificate${item.certReqId}" onclick="generateCert('check_gntCertificate'+${item.certReqId}, ${item.certReqId})" >
+                                        <label for="check_gntCertificate"></label></td>  -->              
+								<td>${item.certReqId}</td>
+                    		   <!--	<td>${item.prjId}</td> -->
+                    			<td>${item.prjName}</td>
+                    		<!-- 	<td>${item.reqTp}</td> -->
+                    			<td>${item.reqTpName}</td>
+                    		<!--	<td>${item.reqBy}</td> -->
+                    			<td>${item.reqByName}</td>
+                                <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.reqDte}" /></td>
+                                <td><input type="hidden" name="certRequestId" value="${item.certReqId}"/></td>
+                                <td><input type="submit" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/> class="button"/></td>
+						</tr>
+                   </c:forEach>
+				<!--  
 				<tr>
-                                        <td><input type="checkbox" name="check_gntCertificate" id="check_gntCertificate${item.certReqId}" onclick="generateCert('check_gntCertificate'+${item.certReqId}, ${item.certReqId})" >
-                                        <label for="check_gntCertificate"></label></td>
-					<td>${item.prjId}</td>
-                                        <td>${item.reqTp}</td>
-                                        <td>${item.reqBy}</td>
-                                        <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.reqDte}" /></td>
-				</tr>
-                                </c:forEach>
-				<tr>
+			
                                         <td>
                                                 <input type="hidden" name="generateList" id="generateList"/>
                                         </td>
 					<td colspan="5" align="center">
                                                 <input type="submit" name="generate" id="generate" value="Generate" class="button" />
 					</td>
+					
                     </tr>
+                    -->
 			</table>
 		</form>
 	</div>

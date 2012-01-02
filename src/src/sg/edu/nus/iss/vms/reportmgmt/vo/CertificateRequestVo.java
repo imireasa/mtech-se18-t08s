@@ -5,85 +5,77 @@
 
 package sg.edu.nus.iss.vms.reportmgmt.vo;
 
+import java.util.Date;
+
 
 public class CertificateRequestVo {
-        private int projectId;
-        private int reqType;
-        private int reqStatus;
-        private String reqBy;
-        private String reqDate;
-
-        /**
-         * @return the projectId
-         */
-        public int getProjectId() {
-                return projectId;
-        }
-
-        /**
-         * @param projectId the projectId to set
-         */
-        public void setProjectId(int projectId) {
-                this.projectId = projectId;
-        }
-
-        /**
-         * @return the reqType
-         */
-        public int getReqType() {
-                return reqType;
-        }
-
-        /**
-         * @param reqType the reqType to set
-         */
-        public void setReqType(int reqType) {
-                this.reqType = reqType;
-        }
-
-        /**
-         * @return the reqStatus
-         */
-        public int getReqStatus() {
-                return reqStatus;
-        }
-
-        /**
-         * @param reqStatus the reqStatus to set
-         */
-        public void setReqStatus(int reqStatus) {
-                this.reqStatus = reqStatus;
-        }
-
-        /**
-         * @return the reqBy
-         */
-        public String getReqBy() {
-                return reqBy;
-        }
-
-        /**
-         * @param reqBy the reqBy to set
-         */
-        public void setReqBy(String reqBy) {
-                this.reqBy = reqBy;
-        }
-
-        /**
-         * @return the reqDate
-         */
-        public String getReqDate() {
-                return reqDate;
-        }
-
-        /**
-         * @param reqDate the reqDate to set
-         */
-        public void setReqDate(String reqDate) {
-                this.reqDate = reqDate;
-        }
-
-
+	
+	private Long certReqId;
+	private Long prjId;
+	private String prjName;
+	private Long reqTp;
+	private String reqTpName;
+	private Long reqSts;
+	private Date reqDte;
+	private String reqBy;
+	private String reqByName;
+	
+	public Long getCertReqId() {
+		return certReqId;
+	}
+	public void setCertReqId(Long certReqId) {
+		this.certReqId = certReqId;
+	}
+	public Long getPrjId() {
+		return prjId;
+	}
+	public void setPrjId(Long prjId) {
+		this.prjId = prjId;
+	}
+	public String getPrjName() {
+		return prjName;
+	}
+	public void setPrjName(String prjName) {
+		this.prjName = prjName;
+	}
+	public Long getReqTp() {
+		return reqTp;
+	}
+	public void setReqTp(Long reqTp) {
+		this.reqTp = reqTp;
+	}
+	public String getReqTpName() {
+		return reqTpName;
+	}
+	public void setReqTpName(String reqTpName) {
+		this.reqTpName = reqTpName;
+	}
+	public Long getReqSts() {
+		return reqSts;
+	}
+	public void setReqSts(Long reqSts) {
+		this.reqSts = reqSts;
+	}
+	public Date getReqDte() {
+		return reqDte;
+	}
+	public void setReqDte(Date reqDte) {
+		this.reqDte = reqDte;
+	}
+	public String getReqBy() {
+		return reqBy;
+	}
+	public void setReqBy(String reqBy) {
+		this.reqBy = reqBy;
+	}
+	public String getReqByName() {
+		return reqByName;
+	}
+	public void setReqByName(String reqByName) {
+		this.reqByName = reqByName;
+	}
+	 
+	
 
 }
 

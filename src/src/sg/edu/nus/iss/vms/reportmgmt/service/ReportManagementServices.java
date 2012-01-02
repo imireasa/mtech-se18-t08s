@@ -6,7 +6,7 @@ import net.sf.jasperreports.engine.JRException;
 
 public interface ReportManagementServices {
 
-	public byte[] generateVolunteerCertificate(int projectId, int volunteerId) throws JRException,SQLException;
+	public byte[] generateVolunteerCertificate(Long certRequestId,String reqBy,String requestType) throws JRException,SQLException;
 
         //Need to get certificate request
 
