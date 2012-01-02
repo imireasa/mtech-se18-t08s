@@ -109,7 +109,7 @@
 				</tr>
 				
 				<tr>
-					<td colspan="2" align="center"><input type="button" name="btn_Post" id="btn_Post"
+					<td colspan="2" align="center"><input type="submit" name="btn_Post" id="btn_Post"
 						value="Submit"></td>
 				</tr>
 			</table>
