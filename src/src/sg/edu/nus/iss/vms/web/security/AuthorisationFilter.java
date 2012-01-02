@@ -69,6 +69,8 @@ public class AuthorisationFilter implements Filter {
 		}
 		String URI = ((HttpServletRequest) request).getRequestURI();
 		HttpSession session = ((HttpServletRequest) request).getSession(true);
+		String queryString= ((HttpServletRequest) request).getQueryString();
+		String fullURL = URI+"?"+queryString;
 
 		if (logger.isDebugEnabled()) {
 			logger
@@ -116,7 +118,7 @@ public class AuthorisationFilter implements Filter {
 		}
 		if (currentUser == null) {
 			// map the requested URL and login parameters
-			request.setAttribute("requestedUrl", URI);
+			request.setAttribute("requestedUrl", fullURL);
 			returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), loginPage); //$NON-NLS-1$
 			return; // user not logged in or no session found.
 		}
