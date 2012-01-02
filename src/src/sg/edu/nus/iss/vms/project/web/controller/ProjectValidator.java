@@ -89,7 +89,7 @@ public class ProjectValidator implements Validator {
 						new String[] { "Country" }));
 		if (obj.getEstDuration() <= 0) {
 			errors.rejectValue(
-					"estDuration", "error.empty.field", Messages.getString("message.common.error.mandatory", new String[] { "estDuration" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					"estDuration", "error.empty.field", Messages.getString("message.common.error.numeric.gt.invalid", new String[] { "Estimated Duration", "0" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 
 		logger.debug("Project Proposal Validation Done.");

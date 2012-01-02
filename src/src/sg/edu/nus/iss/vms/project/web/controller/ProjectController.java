@@ -564,12 +564,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		}
 
-		String loginId = "SuperUser";
-		if (UserUtil.getUserSessionInfoVo() != null
-				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
-						.getUserID())) {
-			loginId = UserUtil.getUserSessionInfoVo().getUserID();
-		}
+		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		if (projectPropDto.getStsCd() == approveCodeId
 				|| projectPropDto.getStsCd() == rejectCodeId) {
