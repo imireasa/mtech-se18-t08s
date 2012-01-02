@@ -110,11 +110,12 @@
 
 		<tab:tabPane id="experience" tabTitle="Experience">
 
-			<table>
+			<table class="query">
 				<tr>
-					<th>Id</th>
-					<th>Createdby</th>
-					<th>Content</th>
+					<th><fmt:message key="message.common.id.label"/></th>
+					<th><fmt:message key="message.common.creator.label"/></th>
+				
+					<th><fmt:message key="message.common.content.label"/></th>
 				</tr>
 				<c:forEach items="${experienceList}" var="item" varStatus="status">
 					<tr>
@@ -128,9 +129,9 @@
 
 			<form:form name="postExperience" method="post" commandName="projectInfo"
 				action="postExperienceAndFb.html">
-				<table border="2">
+				<table class="query">
  					<tr> 
-						<td width="122"><label>Content</label> 
+						<td width="122"><fmt:message key="message.common.content.label"/>
 						</td> 
 						<td width="197"><spring:bind path="projectInfo.experience">
 								<form:textarea path="experience" rows="5" cols="30" />
@@ -150,12 +151,11 @@
 		</tab:tabPane>
 
 		<tab:tabPane id="feedback" tabTitle="Feedback">
-
-			<table>
+			<table class="query">
 				<tr>
-					<th>Id</th>
-					<th>Createdby</th>
-					<th>Title</th>
+					<th><fmt:message key="message.common.id.label"/></th>
+					<th><fmt:message key="message.common.creator.label"/></th>
+					<th><fmt:message key="message.common.title.label"/></th>
 				</tr>
 				<c:forEach items="${feedbackList}" var="item" varStatus="status">
 					<tr>
@@ -171,7 +171,7 @@
 
 		<form:form name="posetFeedback" method="post" commandName="projectInfo"
 				action="postExperienceAndFb.html">
-				<table>
+				<table class="query">
  					<tr> 
 						<th width="122"><label>Title</label> 
 						</th> 
