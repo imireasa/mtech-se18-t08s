@@ -89,7 +89,7 @@ public class CodeLookupUtil {
 		return returnCodeDto;
 	}
 	
-	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
+	public static CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
 			String codeDesc) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDescriptionByCodeCategoryAndCodeDesc(String, String) - start");
