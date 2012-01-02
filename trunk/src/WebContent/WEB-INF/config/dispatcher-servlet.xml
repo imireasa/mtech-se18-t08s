@@ -48,7 +48,6 @@
 				<prop key="/report/volunteer/*.html">certificateController</prop>
 				<prop key="/login.html">loginController</prop>
 				<prop key="/logout.html">logoutController</prop>
-				
 			</props>
 		</property>
 

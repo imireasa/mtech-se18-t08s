@@ -16,8 +16,10 @@
 	<bean id="certificateController"
 		class="sg.edu.nus.iss.vms.reportmgmt.web.controller.GenerateCertificateController">
 		<property name="reportManagementServices" ref="reportManagementServicesImpl" />
-		<property name="memberManagementService" ref="memberManagementServiceImpl" />
 		<property name="projectManagementService" ref="projectManagementServiceImpl" />
-                <property name="certificateManagement" ref="certificateManagementImpl" />
+        <property name="certificateManagement" ref="certificateManagementImpl" />
+        <property name="codeManagementServices" ref="codeManagementServiceImpl" />
+        <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
+        
 	</bean>
 </beans>

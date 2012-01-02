@@ -9,6 +9,8 @@ public interface CodeManagementServices {
 	public List<CodeDto> getListOfCodeByCategory(String category);
 
 	public String getCodeDescriptionByCodeId(Long codeId);
+	
+	public String getCodeValueByCodeId(Long codeId);
 
 	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
 			String codeDesc);

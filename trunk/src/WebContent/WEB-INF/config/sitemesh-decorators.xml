@@ -23,7 +23,7 @@
 	</decorator>
 
 	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
-		<pattern>/report/*</pattern>
+		<pattern>/reports/*</pattern>
 	</decorator>
 	
 	 <decorator name="administratorDecorator" page="administratorDecorator.jsp">

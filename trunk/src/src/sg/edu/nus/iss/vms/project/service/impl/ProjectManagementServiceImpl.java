@@ -60,7 +60,14 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public ProjectDto getProject(long projectId) {
-		return null;
+		 String hQL = "from ProjectDto where prjId = " + projectId;
+         List<ProjectDto> projectList = manager.find(hQL);
+         ProjectDto project = null;
+ 
+         if (projectList != null && !projectList.isEmpty())
+                 project = projectList.get(0);
+
+         return project;
 	}
 
 	@Override

@@ -76,6 +76,25 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		}
 
 	}
+	
+	@Override
+	public String getCodeValueByCodeId(Long codeId) {
+		String codeValue = "";
+		try {
+			String hQL = "from CodeDto c where c.cdId=" + codeId.toString();
+			List<CodeDto> codeList = this.manager.find(hQL);
+			if (!codeList.isEmpty()) {
+				CodeDto codeDto = codeList.get(0);
+				codeValue = codeDto.getVal();
+			}
+
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+		} finally {
+			return codeValue;
+		}
+
+	}
 
 	@Override
 	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
