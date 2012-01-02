@@ -33,8 +33,6 @@ public interface ProjectManagementService {
 
 	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto);
 
-	public void requestCertificate(CertificateRequestDto certificateRequestDto);
-
 	public List getAllProjectObjectList(Class type);
 
 	public ProjectVo getProjectVoById(Long projectId);
@@ -57,4 +55,7 @@ public interface ProjectManagementService {
 
 	public List<ProjectInterestDto> getProjectInterestListbyProject(
 			ProjectDto projectDto, String userId);
+
+	public List<CertificateRequestDto> getCertificateRequestsbyProject(
+			Long prjId, String userId);
 }
