@@ -93,6 +93,10 @@
                                                 <li><a href="#">Prepare Plan</a></li>
                                                 <li><a href="#">Review Plan</a></li>
                                         </ul>
+                                         <menu:useMenuDisplayer name="CSSListMenu" id="menuCert"
+											permissions="menuPermissionAdapter">
+											<menu:displayMenu name="certificate" />
+										</menu:useMenuDisplayer>
                                 </div>
                                 <!-- end of leftCol -->
                                 <div id="main">
