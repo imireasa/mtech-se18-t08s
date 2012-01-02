@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.security.providers.encoding.PasswordEncoder;
 
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
@@ -20,6 +22,7 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 
 	private Manager manager;
 	private SessionBean sessionBean;
+	private PasswordEncoder passwordEncorder;
 
 	public Manager getManager() {
 		return this.manager;
@@ -36,13 +39,21 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 	public void setSessionBean(SessionBean sessionBean) {
 		this.sessionBean = sessionBean;
 	}
+	
+	public PasswordEncoder getPasswordEncorder() {
+		return passwordEncorder;
+	}
+
+	public void setPasswordEncorder(PasswordEncoder passwordEncorder) {
+		this.passwordEncorder = passwordEncorder;
+	}
 
 	public UserDto login(String username, String password) throws ApplicationException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("login(String, String) - start"); //$NON-NLS-1$
 		}
 
-		if ((username == null || username.trim().equalsIgnoreCase("")) || (password == null || password.trim().equalsIgnoreCase(""))) {
+		if (StringUtil.isNullOrBlank(username) || StringUtil.isNullOrBlank(password)) {
 			// username and password is not valid
 
 			if (logger.isDebugEnabled()) {
@@ -50,6 +61,9 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 			}
 			return null;
 		}
+		
+		//String encodedPassword = passwordEncorder.encodePassword(password, null); //TODO: To enable check for encode password.
+		
 		String query = "select user FROM UserDto user WHERE " +
 				"user.usrLoginId = '" + username +
 				"' AND user.pwd = '" +password + 
