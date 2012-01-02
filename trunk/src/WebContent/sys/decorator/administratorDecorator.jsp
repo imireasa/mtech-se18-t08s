@@ -79,6 +79,7 @@
                                                 <li><a href="<%=request.getContextPath()%>/admin/project/createProject.html">Create Project</a></li>
                                                 <li><a href="<%=request.getContextPath()%>/admin/project/updateProject.html">Update Project</a></li>
                                                 <li><a href="<%=request.getContextPath()%>/admin/project/viewProject.html">View Project</a></li>
+                                                <li><a href="<%=request.getContextPath()%>/admin/project/viewProjectInterest.html">View Project Interest</a></li>
                                         </ul>
                                         <ul id="cert">
                                                 <li class="header">Certificate</li>
