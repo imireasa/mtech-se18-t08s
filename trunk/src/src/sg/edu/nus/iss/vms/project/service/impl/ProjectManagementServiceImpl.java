@@ -23,6 +23,7 @@ import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
@@ -356,4 +357,15 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 		return projectList;
 	}
+
+	@Override
+	public List<ProjectInterestDto> getProjectInterestListbyProject(
+			ProjectDto projectDto, String userId) {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectInterestDto.class);
+		criteria.add(Restrictions.eq("prjId", projectDto)).add(
+				Restrictions.eq("reqBy", userId));
+		return manager.findByDetachedCriteria(criteria);
+	}
+
 }

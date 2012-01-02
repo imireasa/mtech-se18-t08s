@@ -451,6 +451,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		projectProposalDto.setVersion(1);
 
 		projectManagementService.saveOrUpdateProjectObject(projectProposalDto);
+		modelAndView
+				.addObject("msg", Messages.getString("message.common.save"));
 
 		return modelAndView;
 	}

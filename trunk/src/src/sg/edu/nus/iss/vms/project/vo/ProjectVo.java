@@ -17,6 +17,7 @@ public class ProjectVo {
 	private String stsCd;
 	private String estDuration;
 	private String proposalName;
+	private String msg;
 
 	public String getLoginId() {
 		return loginId;
@@ -53,107 +54,115 @@ public class ProjectVo {
 		this.name = name;
 	}
 
-        public String getDesc() {
-                return desc;
-        }
+	public String getDesc() {
+		return desc;
+	}
 
-        public void setDesc(String desc) {
-                this.desc = desc;
-        }
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
-        public String getPrjMgr() {
-                return prjMgr;
-        }
+	public String getPrjMgr() {
+		return prjMgr;
+	}
 
-        public void setPrjMgr(String prjMgr) {
-                this.prjMgr = prjMgr;
-        }
+	public void setPrjMgr(String prjMgr) {
+		this.prjMgr = prjMgr;
+	}
 
-        public String getStrDte() {
-                return strDte;
-        }
+	public String getStrDte() {
+		return strDte;
+	}
 
-        public void setStrDte(String strDte) {
-                this.strDte = strDte;
-        }
+	public void setStrDte(String strDte) {
+		this.strDte = strDte;
+	}
 
-        public String getEndDte() {
-                return endDte;
-        }
+	public String getEndDte() {
+		return endDte;
+	}
 
-        public void setEndDte(String endDte) {
-                this.endDte = endDte;
-        }
+	public void setEndDte(String endDte) {
+		this.endDte = endDte;
+	}
 
-        public String getCtryCd() {
-                return ctryCd;
-        }
+	public String getCtryCd() {
+		return ctryCd;
+	}
 
-        public void setCtryCd(String ctryCd) {
-                this.ctryCd = ctryCd;
-        }
+	public void setCtryCd(String ctryCd) {
+		this.ctryCd = ctryCd;
+	}
 
-        public String getLoc() {
-                return loc;
-        }
+	public String getLoc() {
+		return loc;
+	}
 
-        public void setLoc(String loc) {
-                this.loc = loc;
-        }
+	public void setLoc(String loc) {
+		this.loc = loc;
+	}
 
-        public String getRmk() {
-                return rmk;
-        }
+	public String getRmk() {
+		return rmk;
+	}
 
 	public void setRmk(String rmk) {
 		this.rmk = rmk;
 	}
 
-        public String getPrjPropId() {
-                return prjPropId;
-        }
+	public String getPrjPropId() {
+		return prjPropId;
+	}
 
-        public void setPrjPropId(String prjPropId) {
-                this.prjPropId = prjPropId;
-        }
+	public void setPrjPropId(String prjPropId) {
+		this.prjPropId = prjPropId;
+	}
 
-        public String getStsCd() {
-                return stsCd;
-        }
+	public String getStsCd() {
+		return stsCd;
+	}
 
-        public void setStsCd(String stsCd) {
-                this.stsCd = stsCd;
-        }
+	public void setStsCd(String stsCd) {
+		this.stsCd = stsCd;
+	}
 
-        public String getVersion() {
-                return version;
-        }
+	public String getVersion() {
+		return version;
+	}
 
-        public void setVersion(String version) {
-                this.version = version;
-        }
+	public void setVersion(String version) {
+		this.version = version;
+	}
 
-        public String getCmdType() {
-                return cmdType;
-        }
+	public String getCmdType() {
+		return cmdType;
+	}
 
-        public void setCmdType(String cmdType) {
-                this.cmdType = cmdType;
-        }
+	public void setCmdType(String cmdType) {
+		this.cmdType = cmdType;
+	}
 
-        public String getEstDuration() {
-                return estDuration;
-        }
+	public String getEstDuration() {
+		return estDuration;
+	}
 
-        public void setEstDuration(String estDuration) {
-                this.estDuration = estDuration;
-        }
+	public void setEstDuration(String estDuration) {
+		this.estDuration = estDuration;
+	}
 
-        public String getProposalName() {
-                return proposalName;
-        }
+	public String getProposalName() {
+		return proposalName;
+	}
 
-        public void setProposalName(String proposalName) {
-                this.proposalName = proposalName;
-        }
+	public void setProposalName(String proposalName) {
+		this.proposalName = proposalName;
+	}
+
+	public String getMsg() {
+		return msg;
+	}
+
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 }
