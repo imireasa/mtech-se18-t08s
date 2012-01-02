@@ -48,6 +48,10 @@
 	<decorator name="projectDecorator" page="projectDecorator.jsp">
 		<pattern>/common/*</pattern>
 	</decorator>
+	
+	<decorator name="projectDecorator" page="projectDecorator.jsp">
+		<pattern>/member/*</pattern>
+	</decorator>
 	<!-- Project - end -->
 
 </decorators>
