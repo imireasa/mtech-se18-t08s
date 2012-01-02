@@ -77,16 +77,13 @@ public class ProjectValidator implements Validator {
 	public void validateProposal(Object o, Errors errors) {
 		ProjectProposalVo obj = (ProjectProposalVo) o;
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "name",
-				Messages.getString("message.common.error.mandatory",
-						new String[] { "Name" }));
+		errors.rejectValue("name", "name", Messages.getString(
+				"message.common.error.mandatory", new String[] { "Name" }));
 
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loc", "loc",
-				Messages.getString("message.common.error.mandatory",
-						new String[] { "Location" }));
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "ctryCd", "ctryCd",
-				Messages.getString("message.common.error.mandatory",
-						new String[] { "Country" }));
+		errors.rejectValue("loc", "loc", Messages.getString(
+				"message.common.error.mandatory", new String[] { "Location" }));
+		errors.rejectValue("ctryCd", "ctryCd", Messages.getString(
+				"message.common.error.mandatory", new String[] { "Country" }));
 		if (obj.getEstDuration() <= 0) {
 			errors.rejectValue(
 					"estDuration", "error.empty.field", Messages.getString("message.common.error.numeric.gt.invalid", new String[] { "Estimated Duration", "0" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

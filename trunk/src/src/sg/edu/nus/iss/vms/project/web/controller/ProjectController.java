@@ -327,6 +327,9 @@ public class ProjectController extends BaseMultiActionFormController {
 		modelAndView = new ModelAndView("project/viewProjectFeedbackDetails");
 		modelAndView.addObject("projectFbVo", projectInfoVo);
 		modelAndView.addObject("projectFb", projectFbDto);
+		logger.debug("XXXXXXXXXXXXXXXXXXXXXXcretaed date"
+				+ projectInfoVo.getCreatedDte() + ","
+				+ projectFbDto.getCreatedDte());
 		return modelAndView;
 	}
 
@@ -353,6 +356,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		projectFbDto.setUpdDte(new Date());
 		projectFbDto.setStsCd(codeDto.getCdId());
 		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
+		modelAndView.addObject("fbMsg", Messages.getString(
+				"message.common.publish", new String[] { "Feedback" }));
 
 		return modelAndView;
 	}
@@ -379,6 +384,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		projectFbDto.setUpdDte(new Date());
 		projectFbDto.setStsCd(codeDto.getCdId());
 		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
+		modelAndView.addObject("fbMsg", Messages.getString(
+				"message.common.reject", new String[] { "Feedback" }));
 
 		return modelAndView;
 	}
@@ -549,6 +556,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
 				.getModel().get("proposal");
+
 		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
 				"stsCdList");
 
@@ -566,17 +574,32 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
-		if (projectPropDto.getStsCd() == approveCodeId
-				|| projectPropDto.getStsCd() == rejectCodeId) {
+		String propMsg = Messages.getString("message.common.update");
+
+		if (VMSConstants.PROPOSAL_STATUS_APPROVED
+				.equals(proposalVo.getStatus())
+				|| VMSConstants.PROPOSAL_STATUS_REJECTED.equals(proposalVo
+						.getStatus())) {
 
 			projectPropDto.setApprDte(new Date());
 			projectPropDto.setUpdDte(new Date());
 			projectPropDto.setApprBy(loginId);
 			projectPropDto.setUpdBy(loginId);
 			projectPropDto.setUpdBy(loginId);
+
+			if (VMSConstants.PROPOSAL_STATUS_APPROVED.equals(proposalVo
+					.getStatus())) {
+				propMsg = Messages.getString("message.common.approve",
+						new String[] { "Project Proposal" });
+			} else {
+				propMsg = Messages.getString("message.common.reject",
+						new String[] { "Project Proposal" });
+
+			}
 		}
 		projectPropDto.setRmk(proposalVo.getRmk());
 		projectManagementService.saveOrUpdateProjectObject(projectPropDto);
+		modelAndView.addObject("propMsg", propMsg);
 
 		return modelAndView;
 
