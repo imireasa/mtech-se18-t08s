@@ -23,14 +23,14 @@
                    action="searchProjects.html" >
 	  <table width="707" height="105" >
 	    <tr>
-	      <td width="122"><label>Project Id:</label></td>
-	      <td width="197">
-	      <spring:bind path="command.prjPropId">  
-                            <form:input path="prjPropId"/>
+	      <td><label>Project Name:</label></td>
+	      <td>
+	      <spring:bind path="command.name">  
+                            <form:input path="name"/>
                         </spring:bind>
-            <form:errors path="prjPropId" cssClass="error"/>  
-            </td>
-	      <td width="157"><label>Start Month:</label></td>
+            <form:errors path="name" cssClass="error"/>  
+	      </td>
+	      <td width="157"><label>Start Date:</label></td>
 	      <td width="203">
 	      <spring:bind path="command.strDte">
                             <form:input path="strDte"/><img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte')" style="cursor:pointer"/>
@@ -39,13 +39,7 @@
 	      </td>
         </tr>
 	    <tr>
-	      <td><label>Project Name:</label></td>
-	      <td>
-	      <spring:bind path="command.name">  
-                            <form:input path="name"/>
-                        </spring:bind>
-            <form:errors path="name" cssClass="error"/>  
-	      </td>
+	      
 	      <td><label>Status:</label></td>
 	      <td>
 	        <form:select path="stsCd">
@@ -55,13 +49,12 @@
               </c:forEach>
            </form:select>       
          </td>
-        </tr>
-        
-        <tr>
-					<td colspan="4" align="center">    
+         <td colspan="4" align="center">    
         	<input type="submit" name="btn_Search" id="btn_Search" value="Search">
             </td>
-            </tr>
+        </tr>
+        
+       
 	   
       </table>
 

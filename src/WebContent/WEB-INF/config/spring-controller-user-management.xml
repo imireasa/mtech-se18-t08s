@@ -17,7 +17,7 @@
 	
 		<bean id="userManagementController"
 		class="sg.edu.nus.iss.vms.admin.web.controller.UserManagementController">		
-		<property name="userManagementServices" ref="userManagementServiceImpl" />
+		 <property name="userManagementServices" ref="userManagementServiceImpl" />
 		 <property name="validators" ref="userManagementValidator" />  
 	</bean>
 
