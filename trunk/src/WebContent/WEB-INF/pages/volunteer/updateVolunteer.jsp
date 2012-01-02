@@ -85,11 +85,11 @@
                                         <th width="246" align="left">
                                                 <form:select path="title">
                                                         <c:forEach items="${titalList}" var="item" varStatus="status">
-                                                <option value="'${item.cdId}'">${item.val}</option>
-                                        </c:forEach>
-                                </form:select>                        
-                                <form:errors path="title" cssClass="error"/>
-                                </th>
+                                                                <form:option value="'${item.cdId}'">${item.val}</form:option>
+                                                        </c:forEach>
+                                                </form:select>                        
+                                                <form:errors path="title" cssClass="error"/>
+                                        </th>
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.name.label"/></th>
@@ -145,11 +145,11 @@
                                         <th align="left">
                                                 <form:select path="ctryCd">
                                                         <c:forEach items="${countryList}" var="item" varStatus="status">
-                                                <option value="${item.cdId}">${item.val}</option>
-                                        </c:forEach>
-                                </form:select>
-                                <form:errors path="ctryCd" cssClass="error"/>
-                                </th>
+                                                                <form:option value="${item.cdId}">${item.val}</form:option>
+                                                        </c:forEach>
+                                                </form:select>
+                                                <form:errors path="ctryCd" cssClass="error"/>
+                                        </th>
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.mobile.label"/></th>

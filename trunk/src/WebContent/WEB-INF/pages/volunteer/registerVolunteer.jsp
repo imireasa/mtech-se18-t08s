@@ -63,6 +63,11 @@
                         <form:hidden path="cmdType"/>
                         <table width="400" class="proj-table">
                                 <tr>
+                                        <th colspan="3">
+                                                <form:errors path="*" cssClass="error" element="div" />
+                                        </th>
+                                </tr>
+                                <tr>
                                         <th align="left">
                                                 <fmt:message key="message.common.loginid.label"/>
                                         </th>
@@ -78,12 +83,12 @@
                                         <th width="10">:</th>
                                         <th width="246" align="left">
                                                 <form:select path="title">
-                                                        <c:forEach items="${titalList}" var="item" varStatus="status">
-                                                <option value="'${item.cdId}'">${item.val}</option>
-                                        </c:forEach>
-                                </form:select>                        
-                                <form:errors path="title" cssClass="error"/>
-                                </th>
+                                                        <c:forEach items="${titleList}" var="item" varStatus="status">
+                                                                <form:option value="'${item.cdId}'">${item.val}</form:option>
+                                                        </c:forEach>
+                                                </form:select>                        
+                                                <form:errors path="title" cssClass="error"/>
+                                        </th>
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.name.label"/></th>
@@ -139,11 +144,11 @@
                                         <th align="left">
                                                 <form:select path="ctryCd">
                                                         <c:forEach items="${countryList}" var="item" varStatus="status">
-                                                <option value="${item.cdId}">${item.val}</option>
-                                        </c:forEach>
-                                </form:select>
-                                <form:errors path="ctryCd" cssClass="error"/>
-                                </th>
+                                                                <form:option value="${item.cdId}">${item.val}</form:option>
+                                                        </c:forEach>
+                                                </form:select>
+                                                <form:errors path="ctryCd" cssClass="error"/>
+                                        </th>
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.mobile.label"/></th>

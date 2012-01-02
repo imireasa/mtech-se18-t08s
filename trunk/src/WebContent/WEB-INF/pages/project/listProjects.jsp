@@ -78,7 +78,7 @@
                                 <td>${item.strDte}</td>
                                 <td>${item.endDte}</td>
                                 <td>${item.stsCd}</td>
-                                <td><a href="../staff/manageMember.jsp">Member</a></td>
+                                <td><a href="manageProjectMember.html?prjId=${item.prjId}">Member</a></td>
                                 <td><a href="#">View</a></td>
                                 <td><a href="../staff/updateProject.jsp">Update</a></td>
                         </tr>
