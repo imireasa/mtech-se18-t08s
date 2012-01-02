@@ -32,25 +32,6 @@
 	</decorator> -->
 
 	<!-- With ACL decorator -->
-	<!-- Volunteer - start -->
-	<decorator name="volunteerDecorator" page="volunteerDecorator.jsp">
-		<pattern>/volunteer/*</pattern>
-	</decorator>
-	
-	<decorator name="volunteerDecorator" page="volunteerDecorator.jsp">
-		<pattern>/admin/*</pattern>
-	</decorator>
-	
-	<decorator name="volunteerDecorator" page="volunteerDecorator.jsp">
-		<pattern>/project/*</pattern>
-	</decorator>
-	
-	<decorator name="volunteerDecorator" page="volunteerDecorator.jsp">
-		<pattern>/common/*</pattern>
-	</decorator>
-	
-	<!-- Volunteer - end -->
-	
 	<!-- Project - start -->
 	<decorator name="projectDecorator" page="projectDecorator.jsp">
 		<pattern>/volunteer/*</pattern>
