@@ -48,35 +48,45 @@ public class ProjectController extends BaseMultiActionFormController {
 
         public void setCodeManagementServices(
                 CodeManagementServices codeManagementServices) {
-                this.codeManagementServices = codeManagementServices;
+			this.codeManagementServices = codeManagementServices;
         }
 
         public MemberManagementService getMemberManagementService() {
-                return memberManagementService;
+        	return memberManagementService;
         }
 
         public void setMemberManagementService(
                 MemberManagementService memberManagementService) {
-                this.memberManagementService = memberManagementService;
+        	this.memberManagementService = memberManagementService;
         }
 
         public ProjectManagementService getProjectManagementService() {
-                return projectManagementService;
+			return projectManagementService;
         }
 
-        public void setProjectManagementService(
-                ProjectManagementService projectManagementService) {
-                this.projectManagementService = projectManagementService;
+        public void setProjectManagementService(ProjectManagementService projectManagementService) {
+        	this.projectManagementService = projectManagementService;
         }
 
         @Override
         public long getLastModified(HttpServletRequest arg0) {
-                logger.debug("###################################################################################");
-                return super.getLastModified(arg0);
+    	if (logger.isDebugEnabled()) {
+			logger.debug("getLastModified(HttpServletRequest) - start");
+			logger.debug("getLastModified(HttpServletRequest) - ###################################################################################");
+		}
+                
+			long returnlong = super.getLastModified(arg0);
+		if (logger.isDebugEnabled()) {
+			logger.debug("getLastModified(HttpServletRequest) - end");
+		}
+                return returnlong;
         }
 
         public ModelAndView assignPrjMemberRole(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 modelAndView = new ModelAndView("project/assignMemberRole");
                 List memberList = new ArrayList();
@@ -106,6 +116,10 @@ public class ProjectController extends BaseMultiActionFormController {
                 }
                 logger.debug("Completed the request");
                 modelAndView.addObject("pagedListHolder", memberPagedListHolder);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
 
         }
@@ -113,14 +127,26 @@ public class ProjectController extends BaseMultiActionFormController {
         @Override
         protected void bind(HttpServletRequest request, Object command)
                 throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("bind(HttpServletRequest, Object) - start");
+		}
+
                 // TODO Auto-generated method stub
 
                 ServletRequestDataBinder binder = createBinder(request, command);
                 binder.bind(request);
                 errors = binder.getBindingResult();
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("bind(HttpServletRequest, Object) - end");
+		}
         }
 
         public void validate(Object command) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("validate(Object) - start");
+		}
+
                 Validator[] validators = getValidators();
                 if (validators != null) {
                         for (int index = 0; index < validators.length; index++) {
@@ -136,50 +162,77 @@ public class ProjectController extends BaseMultiActionFormController {
                                 }
                         }
                 }
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("validate(Object) - end");
+		}
         }
 
         public ModelAndView createProject(HttpServletRequest request,
                 HttpServletResponse response, ProjectVo command) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
+		}
 
                 if (command.getName() == null) {
                         modelAndView = new ModelAndView("project/createProject");
                         // page
-                        modelAndView.addObject("countryList", codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+                        modelAndView.addObject("countryList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
                         ProjectVo projectVo = new ProjectVo();
                         projectVo.setCmdType(VMSConstants.SCREEN_CMD_CREATE);
                         modelAndView.addObject("command", projectVo);
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+			}
                         return modelAndView;
                 } else {
                         validate(command);
                         modelAndView = new ModelAndView("project/createProject");
-                        modelAndView.addObject("countryList", codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+                        modelAndView.addObject("countryList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
                         ProjectVo projectVo = command;
 
                         if (errors.hasErrors()) {
                                 logger.debug("Error Handling : ");
                                 saveError(request, errors.getFieldError().getDefaultMessage());
                                 modelAndView.addObject("command", projectVo);
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+				}
                                 return modelAndView;
                         }
 
                         try {
-                                CodeDto stsNew = codeManagementServices.getCodeDtoByCatVal(
+                                CodeDto stsNew = CodeLookupUtil.getCodeDtoByCatVal(
                                         VMSConstants.PROJECT_STATUS_CATEGORY,
                                         VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
                                 projectVo.setStsCd(stsNew.getCdId() + "");
 
                                 projectManagementService.saveProject(projectVo);
                         } catch (ApplicationException ae) {
+				logger.error(
+						"createProject(HttpServletRequest, HttpServletResponse, ProjectVo)",
+						ae);
+
                                 List list = new ArrayList();
                                 list.add(ae.getMessage());
                                 modelAndView.addObject("errors", list);
                                 modelAndView.addObject("command", projectVo);
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+				}
                                 return modelAndView;
                         }
 
                         modelAndView.addObject("command", projectVo);
                         modelAndView.addObject("msg",
                                 Messages.getString("message.common.save"));
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+			}
                         return modelAndView;
                 }
         }
@@ -203,11 +256,15 @@ public class ProjectController extends BaseMultiActionFormController {
                                 CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
                         project.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
                         modelAndView.addObject("command", project);
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+			}
                         return modelAndView;
                 } else {
                         validate(command);
                         modelAndView = new ModelAndView("project/updateProject");
-                        modelAndView.addObject("countryList", codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+                        modelAndView.addObject("countryList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
                         modelAndView.addObject(
                                 "statusList",
                                 CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
@@ -216,28 +273,47 @@ public class ProjectController extends BaseMultiActionFormController {
                                 logger.debug("Error Handling : ");
                                 saveError(request, errors.getFieldError().getDefaultMessage());
                                 modelAndView.addObject("command", projectVo);
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+				}
                                 return modelAndView;
                         }
 
                         try {
                                 projectManagementService.updateProject(projectVo);
                         } catch (ApplicationException ae) {
+				logger.error(
+						"updateProject(HttpServletRequest, HttpServletResponse, ProjectVo)",
+						ae);
+
                                 List list = new ArrayList();
                                 list.add(ae.getMessage());
                                 modelAndView.addObject("errors", list);
                                 modelAndView.addObject("command", projectVo);
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+				}
                                 return modelAndView;
                         }
 
                         modelAndView.addObject("command", projectVo);
                         modelAndView.addObject("msg",
                                 Messages.getString("message.common.update"));
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+			}
                         return modelAndView;
                 }
         }
 
         public ModelAndView viewProject(HttpServletRequest request,
                 HttpServletResponse response, ProjectVo command) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("viewProject(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
+		}
 
                 // TODO: have to connect to Project List Page , now hard code the
                 // project id....
@@ -249,11 +325,18 @@ public class ProjectController extends BaseMultiActionFormController {
                 projectVo.setCtryCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long.parseLong(projectVo.getCtryCd())));
                 projectVo.setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long.parseLong(projectVo.getStsCd())));
                 modelAndView.addObject("command", projectVo);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("viewProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+		}
                 return modelAndView;
         }
 
         public ModelAndView browseProjectFeedback(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("browseProjectFeedback(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 List<ProjectFeedbackDto> projectFeedbackList = projectManagementService.getAllProjectObjectList(ProjectFeedbackDto.class);
 
@@ -264,6 +347,9 @@ public class ProjectController extends BaseMultiActionFormController {
                 modelAndView.addObject("feedbackVo", new ProjectInfoVo());
                 modelAndView.addObject("fbCodeList", codeDtos);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("browseProjectFeedback(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
 
         }
@@ -271,17 +357,26 @@ public class ProjectController extends BaseMultiActionFormController {
         public ModelAndView searchProjectFeedback(HttpServletRequest request,
                 HttpServletResponse response, ProjectInfoVo projectInfoVo)
                 throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("searchProjectFeedback(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
+		}
 
                 List<ProjectFeedbackDto> projectFeedbackList = projectManagementService.getProjectFeedbackListbyVo(projectInfoVo);
 
                 modelAndView.addObject("feedbackList", projectFeedbackList);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("searchProjectFeedback(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - end");
+		}
                 return modelAndView;
 
         }
 
         public ModelAndView viewProjectFeedbackDetails(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 long prjFbId = Long.parseLong(request.getParameter("prjFbId"));
 
@@ -319,6 +414,9 @@ public class ProjectController extends BaseMultiActionFormController {
 
         public ModelAndView approveFb(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("approveFb(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 ProjectFeedbackDto projectFbDto = (ProjectFeedbackDto) modelAndView.getModel().get("projectFb");
 
@@ -341,11 +439,17 @@ public class ProjectController extends BaseMultiActionFormController {
                 modelAndView.addObject("fbMsg", Messages.getString(
                         "message.common.publish", new String[]{"Feedback"}));
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("approveFb(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
         }
 
         public ModelAndView rejectFb(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("rejectFb(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 ProjectFeedbackDto projectFbDto = (ProjectFeedbackDto) modelAndView.getModel().get("projectFb");
                 CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
@@ -367,11 +471,17 @@ public class ProjectController extends BaseMultiActionFormController {
                 modelAndView.addObject("fbMsg", Messages.getString(
                         "message.common.reject", new String[]{"Feedback"}));
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("rejectFb(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
         }
 
         public ModelAndView proposeNewProject(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("proposeNewProject(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 ModelAndView modelAndView = new ModelAndView(
                         "project/proposeNewProject");
@@ -379,12 +489,18 @@ public class ProjectController extends BaseMultiActionFormController {
 
                 modelAndView.addObject("countryList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("proposeNewProject(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
         }
 
         public ModelAndView submitProjectProposal(HttpServletRequest request,
                 HttpServletResponse response, ProjectProposalVo proposalVo)
                 throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - start");
+		}
 
                 validate(proposalVo);
 
@@ -398,6 +514,9 @@ public class ProjectController extends BaseMultiActionFormController {
                         logger.debug("Error Handling : ");
                         saveError(request, errors.getFieldError().getDefaultMessage());
 
+			if (logger.isDebugEnabled()) {
+				logger.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - end");
+			}
                         return modelAndView;
                 }
 
@@ -436,11 +555,17 @@ public class ProjectController extends BaseMultiActionFormController {
                 projectManagementService.saveOrUpdateProjectObject(projectProposalDto);
                 modelAndView.addObject("msg", Messages.getString("message.common.save"));
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - end");
+		}
                 return modelAndView;
         }
 
         public ModelAndView browseProjectProposal(HttpServletRequest request,
                 HttpServletResponse response) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("browseProjectProposal(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 List<ProjectProposalDto> projectProposalDtos = projectManagementService.getAllProjectObjectList(ProjectProposalDto.class);
 
@@ -451,12 +576,19 @@ public class ProjectController extends BaseMultiActionFormController {
                 modelAndView.addObject("proposalVo", new ProjectVo());
                 modelAndView.addObject("stsCdList", codeDtos);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("browseProjectProposal(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
 
         }
 
         public ModelAndView searchProjectProposal(HttpServletRequest request,
                 HttpServletResponse response, ProjectVo projectVo) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("searchProjectProposal(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
+		}
+
                 List<ProjectProposalDto> projectProposalDtos = projectManagementService.getProjectProposalListbyVo(projectVo);
 
                 List<CodeDto> codeDtos = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
@@ -468,12 +600,18 @@ public class ProjectController extends BaseMultiActionFormController {
 
                 modelAndView.addObject("proposalList", projectProposalDtos);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("searchProjectProposal(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+		}
                 return modelAndView;
 
         }
 
         public ModelAndView viewProjectProposalDetails(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("viewProjectProposalDetails(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 List<CodeDto> codeDtos = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
 
@@ -481,8 +619,8 @@ public class ProjectController extends BaseMultiActionFormController {
 
                 ProjectProposalDto projectPropDto = (ProjectProposalDto) projectManagementService.getProjectObjbyId(prjProId, ProjectProposalDto.class);
 
-                List<CodeDto> projectStatusCodeList = codeManagementServices.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
-                List<CodeDto> countryCodeList = codeManagementServices.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+                List<CodeDto> projectStatusCodeList = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+                List<CodeDto> countryCodeList = CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
                 String projectStatus = "Unknown";
                 String country = "Unknown";
 
@@ -513,6 +651,10 @@ public class ProjectController extends BaseMultiActionFormController {
                 modelAndView.addObject("proposal", projectPropDto);
                 modelAndView.addObject("stsCdList", codeDtos);
                 modelAndView.addObject("proposalVo", projectProposalVo);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("viewProjectProposalDetails(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
 
         }
@@ -520,6 +662,9 @@ public class ProjectController extends BaseMultiActionFormController {
         public ModelAndView reviewProposal(HttpServletRequest request,
                 HttpServletResponse response, ProjectProposalVo proposalVo)
                 throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("reviewProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - start");
+		}
 
                 ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView.getModel().get("proposal");
 
@@ -564,12 +709,19 @@ public class ProjectController extends BaseMultiActionFormController {
                 projectManagementService.saveOrUpdateProjectObject(projectPropDto);
                 modelAndView.addObject("propMsg", propMsg);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("reviewProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - end");
+		}
                 return modelAndView;
 
         }
 
         public ModelAndView listProjects(HttpServletRequest request,
                 HttpServletResponse response, ProjectVo command) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("listProjects(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
+		}
+
                 modelAndView = new ModelAndView("project/listProjects");
                 modelAndView.addObject("projectStatusList",
                         projectManagementService.getProjectStatusList());
@@ -590,11 +742,18 @@ public class ProjectController extends BaseMultiActionFormController {
 
                 modelAndView.addObject("command", command);
                 modelAndView.addObject("pagedListHolder", memberPagedListHolder);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("listProjects(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
+		}
                 return modelAndView;
         }
 
         public ModelAndView manageProjectMember(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("manageProjectMember(HttpServletRequest, HttpServletResponse) - start");
+		}
 
                 ProjectVo projectVo = new ProjectVo();
                 if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
@@ -645,11 +804,18 @@ public class ProjectController extends BaseMultiActionFormController {
                         modelAndView.addObject("prjId", prjId);
                 }
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("manageProjectMember(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
         }
 
         public ModelAndView manageProjectInterest(HttpServletRequest request,
                 HttpServletResponse response) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("manageProjectInterest(HttpServletRequest, HttpServletResponse) - start");
+		}
+
                 ProjectVo projectVo = new ProjectVo();
                 if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
                         Long prjId = Long.parseLong(request.getParameter("prjId"));
@@ -699,19 +865,41 @@ public class ProjectController extends BaseMultiActionFormController {
                         modelAndView.addObject("prjId", prjId);
                 }
 
+		if (logger.isDebugEnabled()) {
+			logger.debug("manageProjectInterest(HttpServletRequest, HttpServletResponse) - end");
+		}
                 return modelAndView;
         }
 
         public BindingResult getErrors() {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getErrors() - start");
+		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("getErrors() - end");
+		}
                 return errors;
         }
 
         public void setErrors(BindingResult errors) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("setErrors(BindingResult) - start");
+		}
+
                 this.errors = errors;
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("setErrors(BindingResult) - end");
+		}
         }
 
         public ModelAndView viewProjectInterest(HttpServletRequest request,
 			HttpServletResponse response, ProjectInterestSearchVo command) throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("viewProjectInterest(HttpServletRequest, HttpServletResponse, ProjectInterestSearchVo) - start");
+		}
+
 		modelAndView = new ModelAndView("project/viewProjectInterest");
 		modelAndView.addObject("projInterestStatusList",
 				projectManagementService.getProjectInterestStatusList2());
@@ -734,6 +922,10 @@ public class ProjectController extends BaseMultiActionFormController {
 
                 modelAndView.addObject("command", command);
                 modelAndView.addObject("pagedListHolder", projInterestPagedListHolder);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("viewProjectInterest(HttpServletRequest, HttpServletResponse, ProjectInterestSearchVo) - end");
+		}
                 return modelAndView;
         }
 }
