@@ -11,7 +11,8 @@
 
 <style> 
                 .error{ color:red;}  
-                .info{ color:blue;}  
+                .info{ color:blue;} 
+                .important{color:red} 
 </style>
 </head>
 <body>
@@ -58,13 +59,15 @@
         </tr>
         <tr>
 	      
-	      <th><fmt:message key="message.common.status.label"/></th>
+	      <th ><fmt:message key="message.common.status.label"/></th>
 	      <td>
-	      <form:select path="status">
+	     
 	      <c:forEach items="${stsCdList}" var="item" varStatus="status">
-				<option value="${item.val}">${item.val}</option>
+				<c:if test="${item.val!='Submitted'}">
+				<form:radiobutton path="status" value="${item.val}" label="${item.val}" />
+				</c:if>
 		      </c:forEach>
-		  </form:select>
+		 
 		 </td>
         </tr>
         <tr>
