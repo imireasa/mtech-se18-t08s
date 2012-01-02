@@ -86,9 +86,7 @@
                                                 <li><a
                                                                 href="<%=request.getContextPath()%>/admin/reports/generateCertificate.html">Generate
                                                                 Cert (PDF)</a></li>
-                                                <li><a
-                                                                href="<%=request.getContextPath()%>/report/volunteer/generateCertificate.html">Generate
-                                                                Cert (View)</a></li>
+                                               
                                         </ul>
                                         <ul id="itinerary">
                                                 <li class="header">Itinerary</</li>
