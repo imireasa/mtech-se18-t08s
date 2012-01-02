@@ -204,7 +204,7 @@ public class ProjectController extends BaseMultiActionFormController {
                         }
 
                         try {
-                                CodeDto stsNew = CodeLookupUtil.getCodeDtoByCatVal(
+                                CodeDto stsNew = codeManagementServices.getCodeDtoByCatVal(
                                         VMSConstants.PROJECT_STATUS_CATEGORY,
                                         VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
                                 projectVo.setStsCd(stsNew.getCdId() + "");
