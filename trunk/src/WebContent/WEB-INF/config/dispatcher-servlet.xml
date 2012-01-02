@@ -42,7 +42,6 @@
 				<prop key="/common/*.html">welcomeController</prop>
                 <prop key="/volunteer/*.html">volunteerController</prop>
                 <prop key="/project/*.html">projectController</prop>
-				<prop key="/member/*.html">memberController</prop>
 				<prop key="/admin/user/*.html">userManagementController</prop>
 				<prop key="/certificate/*.html">certificateController</prop>
 				<prop key="/login.html">loginController</prop>
