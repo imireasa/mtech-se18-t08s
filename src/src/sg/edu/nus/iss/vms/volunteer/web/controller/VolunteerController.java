@@ -54,28 +54,12 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 	public void setCodeManagementServices(
 			CodeManagementServices codeManagementServices) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("setCodeManagementServices(CodeManagementServices) - start");
-		}
-
 		this.codeManagementServices = codeManagementServices;
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("setCodeManagementServices(CodeManagementServices) - end");
-		}
 	}
 
 	public void setVolunteerManagementService(
 			VolunteerManagementService volunteerManagementService) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("setVolunteerManagementService(VolunteerManagementService) - start");
-		}
-
 		this.volunteerManagementService = volunteerManagementService;
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("setVolunteerManagementService(VolunteerManagementService) - end");
-		}
 	}
 
 	@Override
@@ -127,15 +111,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 	public void setProjectManagementService(
 			ProjectManagementService projectManagementService) {
-		if (logger.isDebugEnabled()) {
-			logger.debug("setProjectManagementService(ProjectManagementService) - start");
-		}
-
 		this.projectManagementService = projectManagementService;
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("setProjectManagementService(ProjectManagementService) - end");
-		}
 	}
 
 	@Override
@@ -205,9 +181,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
 		if (command.getLoginId() == null) {
 			// page
-			modelAndView.addObject("titleList", codeManagementServices
+			modelAndView.addObject("titleList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-			modelAndView.addObject("countryList", codeManagementServices
+			modelAndView.addObject("countryList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volVo = new VolunteerVo();
 			// volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
@@ -219,9 +195,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 			return modelAndView;
 		} else {
 			validate(command);
-			modelAndView.addObject("titleList", codeManagementServices
+			modelAndView.addObject("titleList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-			modelAndView.addObject("countryList", codeManagementServices
+			modelAndView.addObject("countryList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volunteerVo = command;
 			if (errors.hasErrors()) {
@@ -290,9 +266,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 		} else {
 			validate(command);
 			modelAndView = new ModelAndView("volunteer/updateVolunteer");
-			modelAndView.addObject("titleList", codeManagementServices
+			modelAndView.addObject("titleList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-			modelAndView.addObject("countryList", codeManagementServices
+			modelAndView.addObject("countryList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volunteerVo = command;
 			if (errors.hasErrors()) {
@@ -485,10 +461,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 		
 
-		CodeDto codeDto = codeManagementServices
+		CodeDto codeDto = CodeLookupUtil
 				.getCodeDescriptionByCodeCategoryAndCodeDesc(
 						VMSConstants.CERTIFIATE_REQUEST_TYPE,
 						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
+		
 
 		ProjectInterestDto projectInterestDto = new ProjectInterestDto();
 		projectInterestDto.setPrjId(projectDto);
@@ -569,7 +546,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
 
-			CodeDto codeDto = codeManagementServices
+			CodeDto codeDto = CodeLookupUtil
 					.getCodeDescriptionByCodeCategoryAndCodeDesc(
 							VMSConstants.FEEDBACK_STATUS,
 							VMSConstants.FEEDBACK_STATUS_SUMBITTED);
@@ -628,12 +605,12 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@requestCertificate@@@@@@@@@: "+ projectDto.getPrjId());
 		}
 
-		CodeDto codeDto = codeManagementServices
+		CodeDto codeDto = CodeLookupUtil
 				.getCodeDescriptionByCodeCategoryAndCodeDesc(
 						VMSConstants.CERTIFIATE_REQUEST_TYPE,
 						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
 
-		CodeDto codeStatusDto = codeManagementServices
+		CodeDto codeStatusDto = CodeLookupUtil
 				.getCodeDescriptionByCodeCategoryAndCodeDesc(
 						VMSConstants.CERTIFICATE_REQUEST_STATUS,
 						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
