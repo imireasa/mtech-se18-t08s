@@ -47,7 +47,6 @@
                                                 <li><h3>
                                                                 Chris Goh<br />Project Manager
                                                         </h3></li>
-                                                <li>Last login : 20/07/2011 15:40</li>
                                         </ul>
                                         <ul id="membership">
                                                 <li class="header">Membership</li>
