@@ -34,7 +34,6 @@ public class VMSConstants {
 	public static final String CERTIFICATE_REQUEST_STATUS_REQUESTED = "Requested";
 	public static final String CERTIFICATE_REQUEST_STATUS_PROCESSED = "Processed";
 	public static final String SCREEN_CMD_CREATE = "CREATE";
-
 	// Thida
 	public static final String USER_TYPE_CATEGORY = "USER_TYPE";
 	public static final String USER_TYPE_CATEGORY_PROJECT_MANAGER = "Project Manager";
@@ -49,4 +48,8 @@ public class VMSConstants {
 	public static final String REPORT_TEMPLATE_PATH_JASPER = "C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jasper";
 	public static final String REPORT_TEMPLATE_PATH_JRXML = "C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jrxml";
 
+        public static final String PROJECT_ROLE_MEMBER = "Project Member"; 
+        public static final String PROJECT_ROLE_MANAGER = "Project Manager"; 
+        public static final String PROJECT_ROLE_LEADER = "Project Leader"; 
+        
 }

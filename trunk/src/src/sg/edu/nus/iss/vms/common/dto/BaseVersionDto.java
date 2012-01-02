@@ -69,4 +69,8 @@ public class BaseVersionDto {
 	public void setVersion(Integer version) {
 		this.version = version;
 	}
+        
+        public void updateVersion(){
+                this.version++;
+        }
 }
