@@ -12,6 +12,7 @@ import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
+import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 
 public class MemberManagementServiceImpl implements MemberManagementService {
 
@@ -53,13 +54,26 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 	}
 
 	@Override
-	public List<ProjectMemberDto> getListOfMembersbyProject(
-			ProjectDto projectDto) {
+	public List<ProjectMemberVo> getListOfMembersbyProject(ProjectDto projectDto) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(ProjectMemberDto.class);
 			criteria.add(Restrictions.eq("prjId", projectDto));
-			return manager.findByDetachedCriteria(criteria);
+			List<ProjectMemberDto> memberList = manager
+					.findByDetachedCriteria(criteria);
+
+			List<ProjectMemberVo> projectMemberVos = new ArrayList<ProjectMemberVo>();
+
+			for (ProjectMemberDto projectMemberDto : memberList) {
+				ProjectMemberVo projectMemberVo = new ProjectMemberVo();
+				projectMemberVo.setRoleCd(String.valueOf(projectMemberDto
+						.getRoleCd().longValue()));
+				projectMemberVo.setUsrLoginId(projectMemberDto.getUsrLoginId());
+				projectMemberVos.add(projectMemberVo);
+
+			}
+
+			return projectMemberVos;
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
 		}

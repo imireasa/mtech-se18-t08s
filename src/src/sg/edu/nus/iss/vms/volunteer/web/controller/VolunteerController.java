@@ -33,6 +33,7 @@ import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
@@ -250,10 +251,18 @@ public class VolunteerController extends BaseMultiActionFormController {
 			HttpServletResponse response) throws Exception {
 
 		long prjId = Long.parseLong(request.getParameter("prjId"));
-		List<CodeDto> projectStatusCodeList = codeManagementServices
-				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+
+		if (prjId <= 0) {
+			return modelAndView;
+		}
 		ProjectDto projectDto = (ProjectDto) projectManagementService
 				.getProjectObjbyId(prjId, ProjectDto.class);
+
+		List<CodeDto> projectStatusCodeList = codeManagementServices
+				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+		List<CodeDto> roleCodeList = codeManagementServices
+				.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE);
+
 		List<CodeDto> countryCodeList = codeManagementServices
 				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
 		String projectStatus = "Unknown";
@@ -272,15 +281,18 @@ public class VolunteerController extends BaseMultiActionFormController {
 			}
 		}
 
+		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
+
 		ProjectVo projectVo = new ProjectVo();
 		projectVo.setName(projectDto.getNme());
+		projectVo.setLoginId(loginId);
 		projectVo.setDesc(projectDto.getDesc());
 		projectVo.setStrDte(DateUtil.formatDate(projectDto.getStrDte()));
 		projectVo.setLoc(projectDto.getLoc());
 		projectVo.setCtryCd(country);
 		projectVo.setStsCd(projectStatus);
 
-		List<ProjectMemberDto> memberList = memberManagementService
+		List<ProjectMemberVo> memberList = memberManagementService
 				.getListOfMembersbyProject(projectDto);
 
 		List<ProjectExperienceDto> experienceList = projectManagementService
@@ -295,6 +307,17 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);
 		modelAndView.addObject("projectInfo", new ProjectInfoVo());
+
+		for (ProjectMemberVo projectMemberVo : memberList) {
+			for (CodeDto codeDto : roleCodeList) {
+				if (codeDto.getCdId().equals(
+						Long.valueOf(projectMemberVo.getRoleCd()))) {
+					projectMemberVo.setRoleCd(codeDto.getVal());
+					break;
+				}
+			}
+
+		}
 
 		logger.debug("!!!!!!!!!!!!!!!!!!!!Total memebr:" + memberList.size());
 		return modelAndView;
@@ -345,11 +368,15 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("@@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
 					+ projectDto.getPrjId());
 
-			modelAndView.addObject("riMsg",
-					"New project interest has been raised!");
+			modelAndView.addObject("riMsg", Messages.getString(
+					"message.common.submit.msg",
+					new String[] { "Project Interest" }));
+
 		} else {
-			modelAndView.addObject("riMsg",
-					"You have already raised project interest!");
+
+			modelAndView.addObject("riMsg", Messages.getString(
+					"message.common.submit.adi.msg",
+					new String[] { "Project Interest" }));
 		}
 
 		return modelAndView;
@@ -362,13 +389,10 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
 				"project");
+		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
+				"projectVo");
 
-		String loginId = "SuperUser";
-		if (UserUtil.getUserSessionInfoVo() != null
-				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
-						.getUserID())) {
-			loginId = UserUtil.getUserSessionInfoVo().getUserID();
-		}
+		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		if (!StringUtil.isNullOrEmpty(projectInfoVo.getExperience())) {
 
@@ -412,11 +436,13 @@ public class VolunteerController extends BaseMultiActionFormController {
 				.getProjectExperienceList(projectDto);
 		List<ProjectFeedbackDto> feedbackList = projectManagementService
 				.getProjectFeedbackList(projectDto);
+
 		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
 		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);
+		modelAndView.addObject("projectVo", projectVo);
 		modelAndView.addObject("projectInfo", new ProjectInfoVo());
 		return modelAndView;
 
@@ -426,6 +452,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 			HttpServletResponse response) throws Exception {
 		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
 				"project");
+		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
+				"projectVo");
 
 		logger.debug("@@@@@@@@@@@@@@requestCertificate@@@@@@@@@:"
 				+ projectDto.getPrjId());
@@ -440,26 +468,37 @@ public class VolunteerController extends BaseMultiActionFormController {
 						VMSConstants.CERTIFICATE_REQUEST_STATUS,
 						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
 
-		String loginId = "SuperUser";
-		if (UserUtil.getUserSessionInfoVo() != null
-				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
-						.getUserID())) {
-			loginId = UserUtil.getUserSessionInfoVo().getUserID();
+		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
+
+		List<CertificateRequestDto> certificateRequestDtos = projectManagementService
+				.getCertificateRequestsbyProject(projectDto.getPrjId(), loginId);
+
+		if (certificateRequestDtos.size() == 0) {
+
+			CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
+			certificateRequestDto.setPrjId(projectDto.getPrjId());
+			certificateRequestDto.setCreatedBy(loginId);
+			certificateRequestDto.setCreatedDte(new Date());
+			certificateRequestDto.setReqBy(loginId);
+			certificateRequestDto.setReqDte(new Date());
+			certificateRequestDto.setReqSts(codeStatusDto.getCdId());
+			certificateRequestDto.setReqTp(codeDto.getCdId());
+			certificateRequestDto.setUpdBy(loginId);
+			certificateRequestDto.setUpdDte(new Date());
+			certificateRequestDto.setVersion(1);
+
+			projectManagementService
+					.saveOrUpdateProjectObject(certificateRequestDto);
+
+			modelAndView.addObject("crMsg", Messages.getString(
+					"message.common.submit.msg",
+					new String[] { "Certificate Request" }));
+		} else {
+			modelAndView.addObject("crMsg", Messages.getString(
+					"message.common.submit.adi.msg",
+					new String[] { "Certificate Request" }));
+
 		}
-
-		CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
-		certificateRequestDto.setPrjId(projectDto.getPrjId());
-		certificateRequestDto.setCreatedBy(loginId);
-		certificateRequestDto.setCreatedDte(new Date());
-		certificateRequestDto.setReqBy(loginId);
-		certificateRequestDto.setReqDte(new Date());
-		certificateRequestDto.setReqSts(codeStatusDto.getCdId());
-		certificateRequestDto.setReqTp(codeDto.getCdId());
-		certificateRequestDto.setUpdBy(loginId);
-		certificateRequestDto.setUpdDte(new Date());
-		certificateRequestDto.setVersion(1);
-
-		projectManagementService.requestCertificate(certificateRequestDto);
 
 		logger.debug("@@@@@@@@@@@@@@successfully reqCertifictae@@@@@@@@@:"
 				+ projectDto.getPrjId());

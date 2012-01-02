@@ -61,14 +61,14 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public ProjectDto getProject(long projectId) {
-		 String hQL = "from ProjectDto where prjId = " + projectId;
-         List<ProjectDto> projectList = manager.find(hQL);
-         ProjectDto project = null;
- 
-         if (projectList != null && !projectList.isEmpty())
-                 project = projectList.get(0);
+		String hQL = "from ProjectDto where prjId = " + projectId;
+		List<ProjectDto> projectList = manager.find(hQL);
+		ProjectDto project = null;
 
-         return project;
+		if (projectList != null && !projectList.isEmpty())
+			project = projectList.get(0);
+
+		return project;
 	}
 
 	@Override
@@ -155,13 +155,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 				.forClass(ProjectExperienceDto.class);
 		criteria.add(Restrictions.eq("prjId", projectDto));
 		return manager.findByDetachedCriteria(criteria);
-
-	}
-
-	@Override
-	public void requestCertificate(CertificateRequestDto certificateRequestDto) {
-
-		manager.save(certificateRequestDto);
 
 	}
 
@@ -364,6 +357,16 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectInterestDto.class);
 		criteria.add(Restrictions.eq("prjId", projectDto)).add(
+				Restrictions.eq("reqBy", userId));
+		return manager.findByDetachedCriteria(criteria);
+	}
+
+	@Override
+	public List<CertificateRequestDto> getCertificateRequestsbyProject(
+			Long prjId, String userId) {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectInterestDto.class);
+		criteria.add(Restrictions.eq("prjId", prjId)).add(
 				Restrictions.eq("reqBy", userId));
 		return manager.findByDetachedCriteria(criteria);
 	}
