@@ -302,7 +302,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 			modelAndView.addObject("command", volunteerVo);
 			modelAndView.addObject("msg",
-					Messages.getString("message.common.update"));
+					Messages.getString("message.common.save"));
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("updateVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
