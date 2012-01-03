@@ -20,9 +20,11 @@
 <br />
 
 <form:form commandName="loginCommand" method="POST" name="login">
-<form:errors path="*" cssClass="errorblock" element="div" />
-
 <table width="296">
+  <tr>
+    <td colspan="2">
+    <form:errors path="*" cssClass="errorblock" element="div" /></td>
+  </tr>
   <tr>
     <td><fmt:message key="message.security.userId.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></td>
     <td>
@@ -39,7 +41,7 @@
     </td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><input type="submit" name="btn_login" id="btn_login" class="button" value="Login"></td><br/>
+    <td colspan="2" align="center"><input type="submit" name="btn_login" id="btn_login" class="button" value="<fmt:message key="message.security.login.button"/>"></td><br/>
   </tr>
   <tr>
     <td colspan="2" align="center"><a href="<%=request.getContextPath()%>/volunteer/registerVolunteer.html"><fmt:message key="message.security.newUserRegister.label"/></a></td>
