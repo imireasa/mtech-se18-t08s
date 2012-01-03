@@ -31,7 +31,6 @@ import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
-
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
