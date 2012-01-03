@@ -721,6 +721,21 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
 				.getModel().get("proposal");
 
+		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
+				"stsCdList");
+
+		long approveCodeId = 0;
+		long rejectCodeId = 0;
+		for (CodeDto codeDto : codeDtos) {
+			if (codeDto.getVal().equals(VMSConstants.PROPOSAL_STATUS_APPROVED)) {
+				approveCodeId = codeDto.getCdId();
+			} else if (codeDto.getVal().equals(
+					VMSConstants.PROPOSAL_STATUS_REJECTED)) {
+				rejectCodeId = codeDto.getCdId();
+			}
+
+		}
+
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		String propMsg = Messages.getString("message.common.update");
@@ -738,9 +753,11 @@ public class ProjectController extends BaseMultiActionFormController {
 
 			if (VMSConstants.PROPOSAL_STATUS_APPROVED.equals(proposalVo
 					.getStatus())) {
+				projectPropDto.setStsCd(approveCodeId);
 				propMsg = Messages.getString("message.common.approve",
 						new String[] { "Project Proposal" });
 			} else {
+				projectPropDto.setStsCd(rejectCodeId);
 				propMsg = Messages.getString("message.common.reject",
 						new String[] { "Project Proposal" });
 
@@ -749,6 +766,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		projectPropDto.setRmk(proposalVo.getRmk());
 		projectManagementService.saveOrUpdateProjectObject(projectPropDto);
 		modelAndView.addObject("propMsg", propMsg);
+		modelAndView.addObject("proposalVo", proposalVo);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("reviewProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - end");
