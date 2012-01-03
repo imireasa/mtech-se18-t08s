@@ -11,6 +11,7 @@ import org.springframework.validation.Validator;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
+import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
@@ -31,6 +32,9 @@ public class ProjectValidator implements Validator {
 
 	@Override
 	public void validate(Object o, Errors errors) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("validate(Object, Errors) - start");
+		}
 
 		if (o instanceof ProjectVo) {
 			ProjectVo obj = (ProjectVo) o;
@@ -65,7 +69,9 @@ public class ProjectValidator implements Validator {
 					Messages.getString("message.common.error.mandatory",
 							new String[] { "Location" }));
 
-			logger.debug("Validation Done.");
+			if (logger.isDebugEnabled()) {
+				logger.debug("validate(Object, Errors) - end");
+			}
 		}
 
 		else if (o instanceof ProjectProposalVo) {
@@ -75,21 +81,32 @@ public class ProjectValidator implements Validator {
 	}
 
 	public void validateProposal(Object o, Errors errors) {
-		ProjectProposalVo obj = (ProjectProposalVo) o;
+		if (logger.isDebugEnabled()) {
+			logger.debug("validateProposal(Object, Errors) - start");
+		}
+		ProjectProposalVo projectProposalVo = (ProjectProposalVo) o;
 
-		errors.rejectValue("name", "name", Messages.getString(
-				"message.common.error.mandatory", new String[] { "Name" }));
+		if (StringUtil.isNullOrEmpty(projectProposalVo.getName())) {
+			errors.rejectValue("name", "name", Messages.getString("message.common.error.mandatory", new String[] { "Name" }));
+		}
 
-		errors.rejectValue("loc", "loc", Messages.getString(
-				"message.common.error.mandatory", new String[] { "Location" }));
-		errors.rejectValue("ctryCd", "ctryCd", Messages.getString(
-				"message.common.error.mandatory", new String[] { "Country" }));
-		if (obj.getEstDuration() <= 0) {
+		if (StringUtil.isNullOrEmpty(projectProposalVo.getLoc())) {
+			errors.rejectValue("loc", "loc", Messages.getString("message.common.error.mandatory", new String[] { "Location" }));
+		}
+		
+		if (StringUtil.isNullOrEmpty(projectProposalVo.getCtryCd())) {
+			errors.rejectValue("ctryCd", "ctryCd", Messages.getString(
+					"message.common.error.mandatory", new String[] { "Country" }));
+		}
+		
+		if (projectProposalVo.getEstDuration() <= 0) {
 			errors.rejectValue(
 					"estDuration", "error.empty.field", Messages.getString("message.common.error.numeric.gt.invalid", new String[] { "Estimated Duration", "0" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 
-		logger.debug("Project Proposal Validation Done.");
+		if (logger.isDebugEnabled()) {
+			logger.debug("validateProposal(Object, Errors) - end");
+		}
 	}
 
 }
