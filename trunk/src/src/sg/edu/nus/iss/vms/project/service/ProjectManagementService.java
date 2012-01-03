@@ -52,6 +52,14 @@ public interface ProjectManagementService {
 
         public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId);
 
+
+	List<ProjectVo> listProjectbyProjectVo(ProjectVo projectVo);
+
+	public List<ProjectInterestDto> getProjectInterestListbyProject(
+			ProjectDto projectDto, String userId);
+
+	public List<CertificateRequestDto> getCertificateRequestsbyProject(
+			Long prjId, String userId);
         public List<ProjectProposalDto> getProjectProposalListbyVo(
                 ProjectVo projectVo);
 
