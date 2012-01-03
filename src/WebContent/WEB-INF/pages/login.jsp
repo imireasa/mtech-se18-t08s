@@ -47,7 +47,7 @@
     <td colspan="2" align="center"><a href="<%=request.getContextPath()%>/volunteer/registerVolunteer.html"><fmt:message key="message.security.newUserRegister.label"/></a></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><a href="forgetPassword.jsp"><fmt:message key="message.security.forgetPassword.label"/></a></td>
+    <td colspan="2" align="center"><a href="<%=request.getContextPath()%>/user/forgetPassword.jsp"><fmt:message key="message.security.forgetPassword.label"/></a></td>
    
   </tr>
 </table>
