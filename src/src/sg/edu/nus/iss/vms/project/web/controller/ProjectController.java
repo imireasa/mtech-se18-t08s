@@ -643,8 +643,9 @@ public class ProjectController extends BaseMultiActionFormController {
 		modelAndView = new ModelAndView("project/browseProjectProposal");
 		modelAndView.addObject("proposalList", projectProposalDtos);
 
-		modelAndView.addObject("proposalVo", new ProjectVo());
+		modelAndView.addObject("proposalVo", projectVo);
 		modelAndView.addObject("stsCdList", codeDtos);
+		modelAndView.addObject("stsCd", projectVo.getStsCd());
 
 		modelAndView.addObject("proposalList", projectProposalDtos);
 

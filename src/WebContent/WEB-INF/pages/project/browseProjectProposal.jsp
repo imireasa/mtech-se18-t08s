@@ -37,9 +37,7 @@
 	      <td>
 	        <form:select path="stsCd">
 	        <form:option value="" label="ALL"/>
-              <c:forEach items="${stsCdList}" var="item" varStatus="status">
-                 <option value="${item.cdId}">${item.val}</option>
-              </c:forEach>
+              <form:options items="${stsCdList}" itemValue="cdId" itemLabel="val" />
            </form:select>       
          </td>
         </tr>
