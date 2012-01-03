@@ -26,27 +26,44 @@
 	<table class="proj-table">
 				<tr>
 					<th><fmt:message key="message.projectManagement.projectName.label"/></th>
-
+<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 					<td><label>${projectFbVo.prjName}</label></td>
 				</tr>
 				<tr>
 					<th><fmt:message key="message.common.title.label"/></th>
+					<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 					<td>${projectFbVo.fbTitle}</td>
 				</tr>
 				<tr>
 					<th><fmt:message key="message.common.content.label"/></th>
+					<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 					<td>${projectFbVo.fbContent}</td>
 				</tr>
 				<tr>
 					<th><fmt:message key="message.common.status.label"/></th>
+					<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 					<td>${projectFbVo.fbStatus}</td>
 				</tr>
 				<tr>
 					<th><fmt:message key="message.common.creator.label"/></th>
+					<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 					<td>${projectFbVo.createdBy}</td>
 				</tr>
 				<tr>
 					<th><fmt:message key="message.common.creatdate.label"/></th>
+					<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 					<td>${projectVo.createdDte}</td>
 					
 				</tr>

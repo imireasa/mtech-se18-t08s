@@ -50,7 +50,7 @@
 	        <form:select path="fbStatus">
 	        <form:option value="" label="ALL"/>
 	            <c:forEach items="${fbCodeList}" var="item" varStatus="status">
-                 <option value="${item.cdId}">${item.val}</option>
+                 <form:option value="${item.cdId}">${item.val}</form:option>
               </c:forEach>
            </form:select>       
          </td>

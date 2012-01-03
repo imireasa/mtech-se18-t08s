@@ -25,19 +25,21 @@
 	     
 	      <td width="157"><label>Proposal Name:</label></td>
 	      <td width="203">
-	      <spring:bind path="proposalVo.proposalName">
-               <form:input path="proposalName"/>
+	      <spring:bind path="proposalVo.name">
+               <form:input path="name"/>
            </spring:bind>
-            <form:errors path="proposalName" cssClass="error"/>  
+            <form:errors path="name" cssClass="error"/>  
 	      </td>
         </tr>
 	    <tr>
 	     
 	      <td><label>Status:</label></td>
 	      <td>
-	        <form:select path="stsCd">
+	        <form:select path="status">
 	        <form:option value="" label="ALL"/>
-              <form:options items="${stsCdList}" itemValue="cdId" itemLabel="val" />
+              <c:forEach items="${stsCdList}" var="item" varStatus="status">
+                 <form:option value="${item.val}">${item.val}</form:option>
+              </c:forEach>
            </form:select>       
          </td>
         </tr>

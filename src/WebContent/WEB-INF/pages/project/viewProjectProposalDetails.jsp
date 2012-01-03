@@ -29,12 +29,17 @@
 	    <tr>
 	    
 	     <th><fmt:message key="message.common.name.label"/></th>
-
+<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td width>${proposalVo.name}</td>
         </tr>
 	    
         <tr>
 	     <th><fmt:message key="message.common.description.label"/></th>
+	     <th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td>
 	      ${proposalVo.desc}
           </td>
@@ -43,23 +48,38 @@
         
          <tr>
 	     <th><fmt:message key="message.common.country.label"/></th>
+	     <th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td> ${proposalVo.ctryCd}</td>
         </tr>
         <tr>
 	       <th><fmt:message key="message.common.location.label"/></th>
+	       <th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td>${proposalVo.loc}</td>
         </tr>
         <tr>
 	      	<th><fmt:message key="message.common.duration.label"/></th>
+	      	<th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	        <td>${proposalVo.estDuration}</td>
         </tr>
 	    <tr>
 	      <th><fmt:message key="message.common.creator.label"/></th>
+	      <th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td>${proposalVo.proposerId}</td>
         </tr>
         <tr>
 	      
 	      <th ><fmt:message key="message.common.status.label"/></th>
+	      <th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td>
 	     
 	      <c:forEach items="${stsCdList}" var="item" varStatus="status">
@@ -72,10 +92,16 @@
         </tr>
         <tr>
 	      <th><label>Supporting Documents</label></th>
+	      <th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td></td>
         </tr>
          <tr>
 	       <th><fmt:message key="message.common.remark.label"/></th>
+	       <th>
+					<fmt:message key="message.common.symbol.afterLabel.label" />
+					</th>
 	      <td> <spring:bind path="proposalVo.rmk">  
 					<form:textarea path="rmk" rows="5" cols="30" /> 
 					 </spring:bind>
