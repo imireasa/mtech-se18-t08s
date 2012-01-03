@@ -22,7 +22,7 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 
 	private Manager manager;
 	private SessionBean sessionBean;
-	private PasswordEncoder passwordEncorder;
+	private PasswordEncoder passwordEncoder;
 
 	public Manager getManager() {
 		return this.manager;
@@ -40,12 +40,12 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		this.sessionBean = sessionBean;
 	}
 	
-	public PasswordEncoder getPasswordEncorder() {
-		return passwordEncorder;
+	public PasswordEncoder getPasswordEncoder() {
+		return passwordEncoder;
 	}
 
-	public void setPasswordEncorder(PasswordEncoder passwordEncorder) {
-		this.passwordEncorder = passwordEncorder;
+	public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	public UserDto login(String username, String password) throws ApplicationException {
@@ -62,11 +62,12 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 			return null;
 		}
 		
-		//String encodedPassword = passwordEncorder.encodePassword(password, null); //TODO: To enable check for encode password.
+		String encodedPassword = passwordEncoder.encodePassword(password, null); 
+		logger.debug("encoded Password is "+ encodedPassword);
 		
 		String query = "select user FROM UserDto user WHERE " +
 				"user.usrLoginId = '" + username +
-				"' AND user.pwd = '" +password + 
+				//"' AND user.pwd = '" +password + 
 				"' AND user.actInd = 1";
 		List<UserDto> result = null;
 		result = manager.find(query);		
@@ -86,9 +87,14 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		else {
 			// XXX: Login Audits will come here. if necessary
 			UserDto returnUserDto = result.get(0);
+			if(!returnUserDto.getPwd().equals(encodedPassword)){
+				//login has failed. return null
+				return null;
+			}
 			if (logger.isDebugEnabled()) {
 				logger.debug("login(String, String) - end"); //$NON-NLS-1$
 			}
+			//login is passed. return the userDto
 			return returnUserDto; // return the first object.
 		}
 	}
