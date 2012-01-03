@@ -179,7 +179,7 @@
                                         </th>
                                 </tr>
                                 <tr>
-                                        <th colspan="3" ><input type="submit" name="button" id="button" class="button" value="<fmt:message key="message.common.register.button"/>"></th>
+                                        <th colspan="3" ><input type="submit" name="button" id="button" class="button" value="<fmt:message key="message.common.update.button"/>"></th>
                                 </tr>
                         </table>
                 </form:form>
