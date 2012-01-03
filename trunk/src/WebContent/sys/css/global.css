@@ -23,7 +23,7 @@ a:hover {
 
 /**************** Global Form ***************/
 input {
-	background: #efefef;
+	background: white;
 	border: 1px solid #ccc;
 	font-size: 11px;
 	color: #262626;
@@ -180,13 +180,13 @@ ul#info li {
 
 .proj-table th {
 	text-align: left;
-	border: 1px solid #ccc;
+	border: 1px solid #f2f2f2;
 	padding: 8px;
 	background: #ddd
 }
 
 .proj-table td {
-	border: 1px solid #ccc;
+	border: 1px solid #f2f2f2;
 	padding: 8px;
 }
 
