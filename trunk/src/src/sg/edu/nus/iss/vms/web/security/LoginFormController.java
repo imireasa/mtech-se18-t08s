@@ -1,6 +1,5 @@
 package sg.edu.nus.iss.vms.web.security;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,8 +56,6 @@ public class LoginFormController extends SimpleFormController {
 
 		if (user == null) {
 			// no such user, forward to form
-			// ModelAndView modelAndView = new ModelAndView(getFormView());
-			ModelAndView returnModelAndView = new ModelAndView("login", null);
 			if (logger.isDebugEnabled()) {
 				logger.debug("onSubmit(Object) - end with no user found or in session"); //$NON-NLS-1$
 			}
