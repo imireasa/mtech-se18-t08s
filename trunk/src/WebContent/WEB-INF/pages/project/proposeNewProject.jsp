@@ -8,16 +8,9 @@
 <link type="text/css"
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
-	
-	 <style> 
-                .error{ color:red;}  
-                .info{ color:blue;}  
-        </style>
-
-
 </head>
 <body>
-   <h2>Propose New Project</h2>
+   <h2><fmt:message key="message.projectManagement.proposeNewProject.title" /></h2>
 	<div id="breadcrumb">
 		<a href="#">Home</a> / <a href="#">Project </a> / <a href="#">Propose
 			New Project</a>
@@ -39,7 +32,7 @@
 			<table class="proj-table">
 
 				<tr>
-					<th align="left"><fmt:message key="message.projectManagement.projectName.label"/>(*):
+					<th align="left"><fmt:message key="message.projectManagement.projectName.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label" />
 					</th>
 					<td>
 					 <spring:bind path="proposalVo.name">  
@@ -51,7 +44,7 @@
 							</td>
 				</tr>
 				<tr>
-					<th align="left"><fmt:message key="message.common.description.label"/>:
+					<th align="left"><fmt:message key="message.common.description.label"/> <fmt:message key="message.common.symbol.afterLabel.label" />
 					</th>
 					<td>
 					
@@ -63,7 +56,7 @@
 				</tr>
 
 				<tr>
-					<th align="left"><fmt:message key="message.common.country.label"/>(*):
+					<th align="left"><fmt:message key="message.common.country.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label" />
 					</th>
 					<td>
 				
@@ -79,7 +72,7 @@
 						</td>
 				</tr>
 				<tr>
-					<th align="left"><fmt:message key="message.common.location.label"/>(*):
+					<th align="left"><fmt:message key="message.common.location.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label" />
 					</th>
 					<td>
 					 <spring:bind path="proposalVo.loc">  
@@ -90,7 +83,7 @@
 				</tr>
 
 				<tr>
-					<th align="left"><fmt:message key="message.common.duration.label"/>(*):
+					<th align="left"><fmt:message key="message.common.duration.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label" />
 					</th>
 					<td>
 					 <spring:bind path="proposalVo.estDuration">  
@@ -100,7 +93,7 @@
 							path="estDuration" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<th align="left"><fmt:message key="message.common.supportingDoc.label"/>:
+					<th align="left"><fmt:message key="message.common.supportingDoc.label"/> <fmt:message key="message.common.symbol.afterLabel.label" />
 					</th>
 					<td><input type="file"
 							name="fileField_supportDocs" id="fileField_supportDocs">
@@ -109,8 +102,8 @@
 				</tr>
 				
 				<tr>
-					<td colspan="2" align="center"><input type="submit" name="btn_Post" id="btn_Post"
-						value="Submit"></td>
+					<td colspan="2" align="right"><input type="submit" name="btn_Post" id="btn_Post"
+						class="button" value="Submit"></td>
 				</tr>
 			</table>
 			</form:form>
