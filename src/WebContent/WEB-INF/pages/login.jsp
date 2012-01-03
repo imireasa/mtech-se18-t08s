@@ -20,29 +20,29 @@
 <br />
 
 <form:form commandName="loginCommand" method="POST" name="login">
+<form:errors path="*" cssClass="errorblock" element="div" />
 
 <table width="296">
   <tr>
-    <td><fmt:message key="message.security.userId.label"/><fmt:message key="message.common.symbolAfterLabel.label"/></td>
+    <td><fmt:message key="message.security.userId.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></td>
     <td>
-    	<form:input path="username" /><br />
+    	<form:input path="username" maxlength="20" /><br />
     	<form:errors path="username" cssClass="error" />
 	</td>
   </tr>
   <tr>
-    <td><fmt:message key="message.security.password.label"/><fmt:message key="message.common.symbolAfterLabel.label"/></td>
+    <td><fmt:message key="message.security.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></td>
     <td>
-    	<form:password path="password" /><br />
+    	<form:password path="password" maxlength="50" /><br />
 		<form:errors path="password" cssClass="error" />
 		<br />
     </td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><input type="submit" name="btn_login" id="btn_login" value="Login"></td>
+    <td colspan="2" align="center"><input type="submit" name="btn_login" id="btn_login" class="button" value="Login"></td><br/>
   </tr>
   <tr>
-    <td colspan="2" align="center"><a href="registerVolunteerAccount.jsp"><fmt:message key="message.security.newUserRegister.label"/></a></td>
-   
+    <td colspan="2" align="center"><a href="<%=request.getContextPath()%>/volunteer/registerVolunteer.html"><fmt:message key="message.security.newUserRegister.label"/></a></td>
   </tr>
   <tr>
     <td colspan="2" align="center"><a href="forgetPassword.jsp"><fmt:message key="message.security.forgetPassword.label"/></a></td>
