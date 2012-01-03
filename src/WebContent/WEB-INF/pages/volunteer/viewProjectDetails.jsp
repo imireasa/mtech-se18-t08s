@@ -85,13 +85,13 @@
 				<tr>
 					<th><fmt:message key="message.common.loginid.label"/></th>
 					<th><fmt:message key="message.common.role.label"/></th>
-					<th>isActive</th>
+					
 				</tr>
 				<c:forEach items="${memberList}" var="item" varStatus="status">
 					<tr>
 						<td>${item.usrLoginId}</td>
 						<td>${item.roleCd}</td>
-						<td>${item.actInd}</td>
+					
 						
 					
 						<c:if test="${item.usrLoginId ==projectVo.loginId}">					
@@ -131,9 +131,9 @@
 				action="postExperienceAndFb.html">
 				<table class="query">
  					<tr> 
-						<td width="122"><fmt:message key="message.common.content.label"/>
+						<td><fmt:message key="message.common.content.label"/>
 						</td> 
-						<td width="197"><spring:bind path="projectInfo.experience">
+						<td><spring:bind path="projectInfo.experience">
 								<form:textarea path="experience" rows="5" cols="30" />
 							</spring:bind> <form:errors path="experience" cssClass="error" />
 						</td> 
@@ -156,12 +156,15 @@
 					<th><fmt:message key="message.common.id.label"/></th>
 					<th><fmt:message key="message.common.creator.label"/></th>
 					<th><fmt:message key="message.common.title.label"/></th>
+					<th><fmt:message key="message.common.content.label"/></th>
+					
 				</tr>
 				<c:forEach items="${feedbackList}" var="item" varStatus="status">
 					<tr>
 						<td>${item.prjFbId}</td>
 						<td>${item.createdBy}</td>
 						<td>${item.title}</td>
+						<td>${item.cont}</td>
 
 					</tr>
 				</c:forEach>
