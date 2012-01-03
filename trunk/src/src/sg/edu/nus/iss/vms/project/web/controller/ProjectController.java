@@ -304,7 +304,9 @@ public class ProjectController extends BaseMultiActionFormController {
 			try {
 				projectManagementService.updateProject(projectVo);
 			} catch (ApplicationException ae) {
-				logger.error("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo)", ae);
+				logger.error(
+						"updateProject(HttpServletRequest, HttpServletResponse, ProjectVo)",
+						ae);
 
 				List list = new ArrayList();
 				list.add(ae.getMessage());
@@ -318,7 +320,8 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 
 			modelAndView.addObject("command", projectVo);
-			modelAndView.addObject("msg", Messages.getString("message.common.update"));
+			modelAndView.addObject("msg",
+					Messages.getString("message.common.update"));
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
@@ -436,11 +439,12 @@ public class ProjectController extends BaseMultiActionFormController {
 		modelAndView.addObject("projectFb", projectFbDto);
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - XXXXXXXXXXXXXXXXXXXXXXcretaed date"
-					+ projectInfoVo.getCreatedDte() + ","
+					+ projectInfoVo.getCreatedDte()
+					+ ","
 					+ projectFbDto.getCreatedDte());
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - end");
 		}
-		
+
 		return modelAndView;
 	}
 
@@ -718,7 +722,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
 				.getModel().get("proposal");
 
-		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get("stsCdList");
+		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
+				"stsCdList");
 
 		long approveCodeId = 0;
 		long rejectCodeId = 0;
@@ -887,71 +892,64 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		ProjectVo projectVo = new ProjectVo();
-		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
-			Long prjId = Long.parseLong(request.getParameter("prjId"));
-			modelAndView = new ModelAndView("project/manageProjectInterest");
-			logger.debug("project/manageProjectMember");
+        if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
+                Long prjId = Long.parseLong(request.getParameter("prjId"));
+                modelAndView = new ModelAndView("project/manageProjectInterest");
+                logger.debug("project/manageProjectMember");
 
-			if (request.getParameter("removeMember") != null) {// REMOVE COMMAND
-				if (request.getParameter("prjMbrId") != null) {
-					String[] prjMbrIdList = request
-							.getParameterValues("prjMbrId");
-					for (int i = 0; i < prjMbrIdList.length; i++) {
-						logger.debug("Removing Project Member "
-								+ prjMbrIdList[i]);
-						String[] val = prjMbrIdList[i].split("[,]");
-						projectManagementService.deleteProjectMember(val[0]);
-					}
-				}
-			} else if (request.getParameter("updateMember") != null) {// UPDATE
-																		// COMMAND
-				if (request.getParameter("prjMbrId") != null) {
-					String[] prjMbrIdList = request
-							.getParameterValues("prjMbrId");
-					for (int i = 0; i < prjMbrIdList.length; i++) {
-						logger.debug("Update Project Member Role"
-								+ prjMbrIdList[i]);
-						String[] val = prjMbrIdList[i].split("[,]");
-						String roleValue = request.getParameter("roleCd_"
-								+ val[0]);
-						if (!StringUtil.isNullOrEmpty(roleValue)) {
-							Long roleCd = Long.parseLong(roleValue);
-							projectManagementService.updateProjectMemberRole(
-									val[0], roleCd);
-						} else {
-							// TODO: Error Control
-						}
-					}
-				}
-			}
-			projectVo = projectManagementService
-					.getProjectVoByLoginUserAccessRight(prjId);
+                if (request.getParameter("removeMember") != null) {// REMOVE COMMAND
+                        if (request.getParameter("prjMbrId") != null) {
+                                String[] prjMbrIdList = request.getParameterValues("prjMbrId");
+                                for (int i = 0; i < prjMbrIdList.length; i++) {
+                                        logger.debug("Removing Project Member "
+                                                + prjMbrIdList[i]);
+                                        String[] val = prjMbrIdList[i].split("[,]");
+                                        projectManagementService.deleteProjectMember(val[0]);
+                                }
+                        }
+                } else if (request.getParameter("updateMember") != null) {// UPDATE
+                        // COMMAND
+                        if (request.getParameter("prjMbrId") != null) {
+                                String[] prjMbrIdList = request.getParameterValues("prjMbrId");
+                                for (int i = 0; i < prjMbrIdList.length; i++) {
+                                        logger.debug("Update Project Member Role"
+                                                + prjMbrIdList[i]);
+                                        String[] val = prjMbrIdList[i].split("[,]");
+                                        String roleValue = request.getParameter("roleCd_"
+                                                + val[0]);
+                                        if (!StringUtil.isNullOrEmpty(roleValue)) {
+                                                Long roleCd = Long.parseLong(roleValue);
+                                                projectManagementService.updateProjectMemberRole(
+                                                        val[0], roleCd);
+                                        } else {
+                                                // TODO: Error Control
+                                        }
+                                }
+                        }
+                }
+                projectVo = projectManagementService.getProjectVoByLoginUserAccessRight(prjId);
 
-			// get list of project intrest
-			List<ProjectInterestVo> projectInterestVoList = projectManagementService
-					.getProjectIntrestVoByLoginUserAccessRight(prjId);
-			PagedListHolder projectInterestPagedListHolder = new PagedListHolder(
-					projectInterestVoList);
-			if (projectInterestVoList != null
-					&& !projectInterestVoList.isEmpty()) {
-				int page = ServletRequestUtils.getIntParameter(request,
-						"p_projectInterest", 0);
-				projectInterestPagedListHolder.setPage(page);
-				projectInterestPagedListHolder
-						.setPageSize(VMSConstants.MAX_PAGE_SIZE);
-			}
+                // get list of project intrest
+                List<ProjectInterestVo> projectInterestVoList = projectManagementService.getProjectIntrestVoByLoginUserAccessRight(prjId);
+                PagedListHolder projectInterestPagedListHolder = new PagedListHolder(
+                        projectInterestVoList);
+                if (projectInterestVoList != null
+                        && !projectInterestVoList.isEmpty()) {
+                        int page = ServletRequestUtils.getIntParameter(request,
+                                "p_projectInterest", 0);
+                        projectInterestPagedListHolder.setPage(page);
+                        projectInterestPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+                }
 
-			modelAndView.addObject("projectVo", projectVo);
-			modelAndView.addObject("projectInterestPagedListHolder",
-					projectInterestPagedListHolder);
-			modelAndView
-					.addObject(
-							"roleList",
-							CodeLookupUtil
-									.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE_CATEGORY));
+                modelAndView.addObject("projectVo", projectVo);
+                modelAndView.addObject("projectInterestPagedListHolder",
+                        projectInterestPagedListHolder);
+                modelAndView.addObject(
+                        "roleList",
+                        CodeLookupUtil.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE_CATEGORY));
 
-			modelAndView.addObject("prjId", prjId);
-		}
+                modelAndView.addObject("prjId", prjId);
+        }
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("manageProjectInterest(HttpServletRequest, HttpServletResponse) - end");
