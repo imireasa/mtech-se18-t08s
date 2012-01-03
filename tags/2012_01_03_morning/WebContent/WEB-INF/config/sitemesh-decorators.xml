@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- @author zaw.htet -->
+<decorators defaultdir="/sys/decorator">
+
+	<excludes>
+		<pattern>/login*</pattern>
+		<pattern>/index.jsp</pattern>
+	</excludes>
+
+	<!-- Default URL. Handled all unhandled previous URL pattern -->
+
+<!-- 
+	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/volunteer/*</pattern>
+	</decorator>
+
+	<decorator name="commonDecorator" page="projectDecorator.jsp">
+		<pattern>/common/*</pattern>
+	</decorator>
+
+	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/admin/*</pattern>
+	</decorator>
+
+	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/reports/*</pattern>
+	</decorator>
+
+	<decorator name="administratorDecorator" page="administratorDecorator.jsp">
+		<pattern>/project/*</pattern>
+	</decorator> -->
+
+	<!-- With ACL decorator -->
+	<!-- Project - start -->
+	<decorator name="projectDecorator" page="projectDecorator.jsp">
+		<pattern>/volunteer/*</pattern>
+	</decorator>
+	
+	<decorator name="projectDecorator" page="projectDecorator.jsp">
+		<pattern>/admin/*</pattern>
+	</decorator>
+	
+	<decorator name="projectDecorator" page="projectDecorator.jsp">
+		<pattern>/project/*</pattern>
+	</decorator>
+	
+	<decorator name="projectDecorator" page="projectDecorator.jsp">
+		<pattern>/common/*</pattern>
+	</decorator>
+	
+	<decorator name="projectDecorator" page="projectDecorator.jsp">
+		<pattern>/member/*</pattern>
+	</decorator>
+	<!-- Project - end -->
+
+</decorators>
