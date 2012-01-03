@@ -70,7 +70,7 @@
                                         <th width="10"><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th width="246" align="left">
                                                 <form:select path="title">
-                                                        <c:forEach items="${titalList}" var="item" varStatus="status">
+                                                        <c:forEach items="${titleList}" var="item" varStatus="status">
                                                                 <form:option value="'${item.cdId}'">${item.val}</form:option>
                                                         </c:forEach>
                                                 </form:select>                        
