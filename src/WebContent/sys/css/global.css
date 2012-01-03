@@ -233,11 +233,23 @@ ul#info li {
 	color: #ff0000;
 }
 
+/************* Informtional Message Start *******************/
 .info {
-	color:blue;
-}  
+	color: #5bc944;
+}
 
-/************* Errors Start *******************/
+.infoblock {
+	color: #5bc944;
+	background-color: #d6f1d0;
+	border: 1px solid #5bc944;
+	border-style: dashed;
+	padding: 8px;
+	margin: 16px;
+}  
+/************* Informtional Message End *******************/
+
+
+/************* Error Message Start *******************/
 .error {
 	font-size: 11px;
 	color: #ff0000;
@@ -247,11 +259,11 @@ ul#info li {
 	color: #ff0000;
 	background-color: #ffEEEE;
 	border: 1px solid #ff0000;
-	border-style:dashed;
+	border-style: dashed;
 	padding: 8px;
 	margin: 16px;
 }
-/************* Errors End *******************/
+/************* Error Message End *******************/
 
 /************* Left Menu Start *******************/
 #menuProject {
