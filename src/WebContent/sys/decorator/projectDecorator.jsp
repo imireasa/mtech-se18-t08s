@@ -1,6 +1,7 @@
 <%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 <%@ taglib uri="http://struts-menu.sf.net/tag" prefix="menu"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo" %> 
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -43,7 +44,8 @@
 		<div id="container">
 			<div id="leftCol">
 				<ul id="info">
-					<li><h3><c:out value="${userName}"/><br /></h3></li>
+				
+					<li><h3><%=((UserSessionInfoVo)(request.getSession().getAttribute("user_session_info"))).getName()%><br /></h3></li>
 				</ul>
 				<menu:useMenuDisplayer name="CSSListMenu" id="menuProject"
 					permissions="menuPermissionAdapter">
