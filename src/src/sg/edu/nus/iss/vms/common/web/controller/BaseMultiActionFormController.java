@@ -17,7 +17,7 @@ public class BaseMultiActionFormController extends MultiActionController impleme
 
         protected Manager manager;
         protected SessionBean sessionBean;
-        private Logger log = Logger.getLogger(BaseFormController.class);
+        private Logger logger = Logger.getLogger(BaseFormController.class);
         protected ModelAndView modelAndView;
 
         public void setSessionBean(SessionBean sessionBean) {
@@ -46,11 +46,20 @@ public class BaseMultiActionFormController extends MultiActionController impleme
         }
 
         public void saveError(HttpServletRequest request, String msg) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("saveError(HttpServletRequest, String) - start");
+			}
+
                 List errorsList = (List) request.getAttribute("errors");
                 if (errorsList == null) {
                         errorsList = new ArrayList();
                 }
                 errorsList.add(msg);
                 request.setAttribute("errors", errorsList);
+
+			if (logger.isDebugEnabled()) {
+				logger.debug("saveError(HttpServletRequest, String) - errorsList size is: " + errorsList.size());
+				logger.debug("saveError(HttpServletRequest, String) - end");
+			}
         }
 }
