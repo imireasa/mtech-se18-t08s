@@ -4,10 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%><body>
 <head>
-
-<link type="text/css"
-	href="<%=request.getContextPath()%>/sys/css/paging.css"
-	rel="stylesheet" />
 </head>
 <body>
    <h2><fmt:message key="message.projectManagement.proposeNewProject.title" /></h2>
@@ -18,10 +14,15 @@
 	</div>
 	
 	<div class="query">
+		<c:if test="${not empty msg}"> 
+                     <div class="infoblock">
+                             <c:out value="${msg}" escapeXml="false"/><br/>
+                     </div>
+         </c:if>
 	     <c:if test="${not empty errors}"> 
-                        <div class="error">
+                        <div class="errorblock">
+                        	<c:out value="Error:"/>
                                 <c:forEach var="error" items="${errors}">
-                                 <c:out value="Error:"/>  
                                         <c:out value="${error}" escapeXml="false"/><br/>
                                 </c:forEach>
                         </div>
@@ -102,17 +103,11 @@
 				</tr>
 				
 				<tr>
-					<td colspan="2" align="right"><input type="submit" name="btn_Post" id="btn_Post"
+					<td colspan="2" align="left"><input type="submit" name="btn_Post" id="btn_Post"
 						class="button" value="Submit"></td>
 				</tr>
 			</table>
 			</form:form>
-			
-			<c:if test="${not empty msg}"> 
-                        <div class="info">
-                                <c:out value="${msg}" escapeXml="false"/><br/>
-                        </div>
-            </c:if>
 	</div>
 
 
