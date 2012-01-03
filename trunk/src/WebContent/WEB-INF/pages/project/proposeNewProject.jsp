@@ -73,7 +73,7 @@
 					<form:select path="ctryCd">
 					<form:option value="" label="--Select--"/>
 							<c:forEach items="${countryList}" var="item" varStatus="status">
-								<option value="${item.val}">${item.val}</option>
+								<form:option value="${item.val}">${item.val}</form:option>
 							</c:forEach>
 						</form:select>
 						
