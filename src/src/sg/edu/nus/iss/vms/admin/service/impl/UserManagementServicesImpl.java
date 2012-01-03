@@ -9,9 +9,9 @@ import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.common.util.RamdomPasswordGeneratorUtil;
 import sg.edu.nus.iss.vms.security.dto.RoleDto;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
-import sg.edu.nus.iss.vms.volunteer.dto.UserDetailDto;
 
 public class UserManagementServicesImpl implements UserManagementServices {
 
@@ -79,5 +79,57 @@ public class UserManagementServicesImpl implements UserManagementServices {
 		if (logger.isDebugEnabled()) {
 			logger.debug("updatePassword(String, String, String, String) - end");
 		}
+	}
+	@Override
+	public boolean isLoginIdExists(String loginId) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("isLoginIdExists(String) - start");
+		}
+
+		String hQL = "from UserDto where usrLoginId='" + loginId + "'";
+		List<UserDto> userList = manager.find(hQL);
+		if (userList != null && !userList.isEmpty()) {
+			if (logger.isDebugEnabled()) {
+				logger.debug("isLoginIdExists(String) - end");
+			}
+			return true;
+		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("isLoginIdExists(String) - end");
+		}
+		return false;
+	}
+
+	@Override
+	public boolean forgetPassword(String userLoginId){
+		/* 1. Get Generated password
+		 * 2. Update the old password with generated password
+		 * 3. Send email to the user
+		 * 4. Send successful message
+		 */
+		String generatedPwd;
+		try {
+			generatedPwd = RamdomPasswordGeneratorUtil.getPassword(8);
+		
+		String hQL = "from UserDto where usrLoginId='" + userLoginId + "'";
+		List<UserDto> userList = manager.find(hQL);
+		if (userList != null && !userList.isEmpty()) {
+			UserDto user=userList.get(0);
+			user.setPwd(generatedPwd);
+			manager.save(user);
+		}
+		//To Do: send email
+		
+		
+		
+		return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+			
+		}
+		
 	}
 }

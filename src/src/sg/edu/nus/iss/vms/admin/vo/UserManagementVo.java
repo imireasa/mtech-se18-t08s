@@ -7,6 +7,7 @@ public class UserManagementVo {
 	private String confirmedPassword;
 	private String currentPassword;
 	private String message;
+	private String userLoginId;
 
 	public String getEmail() {
 		return email;
@@ -47,6 +48,14 @@ public class UserManagementVo {
 
 	public String getMessage() {
 		return message;
+	}
+	
+	public String getUserLoginId() {
+		return userLoginId;
+	}
+
+	public void setUserLoginId(String userLoginId) {
+		this.userLoginId = userLoginId;
 	}
 
 }

@@ -9,6 +9,8 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mysql.jdbc.Messages;
+
 import sg.edu.nus.iss.vms.admin.service.UserManagementServices;
 import sg.edu.nus.iss.vms.admin.vo.UserManagementVo;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
@@ -98,6 +100,42 @@ public class UserManagementController extends BaseMultiActionFormController {
 
 	public void setErrors(BindingResult errors) {
 		this.errors = errors;
+	}
+	
+	public ModelAndView forgetPassword(HttpServletRequest request,
+			HttpServletResponse response, UserManagementVo command){
+		if (logger.isDebugEnabled()) {
+			logger.debug("forgetPassword(HttpServletRequest, HttpServletResponse, UserManagementVo) - start"); //$NON-NLS-1$
+		}
+
+	if(command == null || command.getUserLoginId()==null || command.getUserLoginId()==""){
+		modelAndView = new ModelAndView("user/forgetPassword");	
+		command = new UserManagementVo();
+		modelAndView.addObject("command", command);
+	}else{
+		try {
+			String userLoginId=command.getUserLoginId();
+			command = new UserManagementVo();
+			if(userManagementServices.isLoginIdExists(userLoginId)){
+				if(userManagementServices.forgetPassword(userLoginId))
+					command.setMessage(Messages.getString("message.userManagement.success"));
+				else
+					command.setMessage(Messages.getString("message.userManagement.error.request.failed"));
+			}else
+				command.setMessage(Messages.getString("message.userManagement.error.invalid.user.id"));
+			
+			modelAndView = new ModelAndView("user/forgetPassword");	
+			modelAndView.addObject("command", command);
+		
+		}catch (ApplicationException e) {
+			e.printStackTrace();
+		}
+	}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("forgetPassword(HttpServletRequest, HttpServletResponse, UserManagementVo) - end"); //$NON-NLS-1$
+		}
+		return modelAndView;
 	}
 	
 	
