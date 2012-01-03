@@ -721,21 +721,6 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
 				.getModel().get("proposal");
 
-		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
-				"stsCdList");
-
-		long approveCodeId = 0;
-		long rejectCodeId = 0;
-		for (CodeDto codeDto : codeDtos) {
-			if (codeDto.getVal().equals(VMSConstants.PROPOSAL_STATUS_APPROVED)) {
-				approveCodeId = codeDto.getCdId();
-			} else if (codeDto.getVal().equals(
-					VMSConstants.PROPOSAL_STATUS_REJECTED)) {
-				rejectCodeId = codeDto.getCdId();
-			}
-
-		}
-
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		String propMsg = Messages.getString("message.common.update");

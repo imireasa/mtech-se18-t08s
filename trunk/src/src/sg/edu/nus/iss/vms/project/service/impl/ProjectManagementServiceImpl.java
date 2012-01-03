@@ -31,6 +31,7 @@ import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 
@@ -386,9 +387,13 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
+		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.FEEDBACK_STATUS,
+				VMSConstants.FEEDBACK_STATUS_APPROVED);
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectFeedbackDto.class);
 		criteria.add(Restrictions.eq("prjId", projectDto));
+		criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
 		return manager.findByDetachedCriteria(criteria);
 	}
 
@@ -444,24 +449,23 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public List<ProjectProposalDto> getProjectProposalListbyVo(
-			ProjectVo projectVo) {
+			ProjectProposalVo proposalVo) {
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectProposalDto.class);
-		if (!StringUtil.isNullOrEmpty(projectVo.getProposalName())) {
-			criteria.add(Restrictions.like("nme", projectVo.getProposalName(),
+		if (!StringUtil.isNullOrEmpty(proposalVo.getName())) {
+			criteria.add(Restrictions.like("nme", proposalVo.getName(),
 					MatchMode.ANYWHERE));
 		}
-		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
-			criteria.add(Restrictions.eq("stsCd",
-					Long.parseLong(projectVo.getStsCd())));
+		if (!StringUtil.isNullOrEmpty(proposalVo.getStatus())) {
 
-		}
+			List<CodeDto> codeDtos = CodeLookupUtil
+					.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+			for (CodeDto codeDto : codeDtos) {
 
-		if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
-			criteria.setFetchMode("prjId", FetchMode.JOIN)
-					.createAlias("prjId", "prj")
-					.add(Restrictions.like("prj.nme", projectVo.getName(),
-							MatchMode.ANYWHERE));
+				if (codeDto.getVal().equals(proposalVo.getStatus()))
+					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+			}
+
 		}
 
 		return manager.findByDetachedCriteria(criteria);

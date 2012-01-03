@@ -13,6 +13,7 @@ import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public interface ProjectManagementService {
@@ -53,7 +54,7 @@ public interface ProjectManagementService {
 	public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId);
 
 	public List<ProjectProposalDto> getProjectProposalListbyVo(
-			ProjectVo projectVo);
+			ProjectProposalVo proposalVo);
 
 	public List<CodeDto> getProjectStatusList();
 
