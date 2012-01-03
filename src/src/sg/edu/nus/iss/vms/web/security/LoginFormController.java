@@ -1,14 +1,18 @@
 package sg.edu.nus.iss.vms.web.security;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.navigator.menu.PermissionsAdapter;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.validation.BindException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -35,7 +39,7 @@ public class LoginFormController extends SimpleFormController {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected ModelAndView onSubmit(Object command) throws Exception {
+	protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("onSubmit(Object) - start"); //$NON-NLS-1$
 		}
@@ -58,9 +62,8 @@ public class LoginFormController extends SimpleFormController {
 			if (logger.isDebugEnabled()) {
 				logger.debug("onSubmit(Object) - end with no user found or in session"); //$NON-NLS-1$
 			}
-
-			return new ModelAndView(new RedirectView("login.html"));
-
+			errors.addError(new ObjectError("LoginMessage", (Messages.getString("message.security.error.login"))));
+			return showForm(request, response, errors);
 		}
 		else {
 			// user is found, set session var
@@ -88,34 +91,31 @@ public class LoginFormController extends SimpleFormController {
 
 			}// else if allowedMenus is not null, no need to check.
 
-			
 			userSessionInfoVo.setName(user.getNme());
 			userSessionInfoVo.setSessionID(session.getId());
 			userSessionInfoVo.setUserID(user.getUsrLoginId());
-			 userSessionInfoVo.setRoles(RoleUtil.getRoleStringListByUserLoginId(user.getUsrLoginId()));
+			userSessionInfoVo.setRoles(RoleUtil.getRoleStringListByUserLoginId(user.getUsrLoginId()));
 			userSessionInfoVo.setUserSeqID(user.getUsrId());
 			userSessionInfoVo.setEmail(user.getEmail());
 
 			session.setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), userSessionInfoVo);
 
 			if (logger.isDebugEnabled()) {
-				if (UserUtil.getUserSessionInfoVo() != null) 
-					logger.debug("onSubmit(Object) - User Session Info Object - Session Id: "
+				if (UserUtil.getUserSessionInfoVo() != null) logger.debug("onSubmit(Object) - User Session Info Object - Session Id: "
 						+ UserUtil.getUserSessionInfoVo().getSessionID() + ", Name: " + UserUtil.getUserSessionInfoVo().getName() + ", User Roles: "
 						+ UserUtil.getUserSessionInfoVo().getRoles().toString());
 			}
 		}
 
 		ModelAndView modelAndView;
-		if(requestedUrl!=null || !requestedUrl.equalsIgnoreCase("")){
-			//it was a requested URL
+		if (requestedUrl != null || !requestedUrl.equalsIgnoreCase("")) {
+			// it was a requested URL
 			modelAndView = new ModelAndView(new RedirectView(requestedUrl));
-		}else {
-		//no requested URL
-		modelAndView = new ModelAndView(new RedirectView("/VMS/common/welcome.html"));
 		}
-		
-		
+		else {
+			// no requested URL
+			modelAndView = new ModelAndView(new RedirectView("/VMS/common/welcome.html"));
+		}
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("onSubmit(Object) - end , user found and placed in session"); //$NON-NLS-1$
