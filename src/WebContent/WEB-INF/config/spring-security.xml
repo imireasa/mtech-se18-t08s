@@ -10,6 +10,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		class="sg.edu.nus.iss.vms.security.service.impl.SecurityManagementServiceImpl">
                 <property name="manager" ref="baseManager" />
                 <property name="sessionBean" ref="sessionBean" />
+                <property name="passwordEncoder" ref="passwordEncoder"/>
         </bean>
         
         <bean id="passwordEncoder" class="org.springframework.security.providers.encoding.ShaPasswordEncoder" /> 
