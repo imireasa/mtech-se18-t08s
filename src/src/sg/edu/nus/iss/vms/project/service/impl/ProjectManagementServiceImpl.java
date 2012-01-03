@@ -564,4 +564,42 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
+			hQL += " and prjId.strDte LIKE '"
+					+ DateUtil.parseDate(projectVo.getStrDte()) + "'";
+		}
+		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
+			hQL += " and prjId.stsCd=" + Long.parseLong(projectVo.getStsCd());
+		}
+		logger.debug("Find Project By " + hQL);
+		List<ProjectMemberDto> projectMemberList = manager.find(hQL);
+		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
+		for (ProjectMemberDto projectMember : projectMemberList) {
+			projectList.add(getProjectVo(projectMember.getPrjId()));
+		}
+		return projectList;
+	}
+
+	@Override
+	public List<ProjectInterestDto> getProjectInterestListbyProject(
+			ProjectDto projectDto, String userId) {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectInterestDto.class);
+		criteria.add(Restrictions.eq("prjId", projectDto)).add(
+				Restrictions.eq("reqBy", userId));
+		return manager.findByDetachedCriteria(criteria);
+	}
+
+	@Override
+	public List<CertificateRequestDto> getCertificateRequestsbyProject(
+			Long prjId, String userId) {
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectInterestDto.class);
+		criteria.add(Restrictions.eq("prjId", prjId)).add(
+				Restrictions.eq("reqBy", userId));
+		return manager.findByDetachedCriteria(criteria);
+	}
+
+=======
+>>>>>>> .r1354
 }
