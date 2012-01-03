@@ -6,40 +6,26 @@
 
 <body>
 <head>
-        <script type='text/javascript'
-        src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-        <script type='text/javascript'
-        src='<%=request.getContextPath()%>/dwr/engine.js'></script>
+	<script type="text/javascript">
+		var defProjName = 'Please select...';
 
-        <link type="text/css"
-              href="<%=request.getContextPath()%>/sys/css/paging.css"
-              rel="stylesheet" />
+        window.onload = init;
 
-        <style> 
-                .error{ color:red;}  
-                .info{ color:blue;}  
-        </style>
+        function init() {
 
-        <script type="text/javascript">
-                var defProjName = 'Please select...';
+        }
 
-                window.onload = init;
-
-                function init() {
-		
-                }
-
-                function checkUserLoginId(){
-                        var loginId = document.getElementById("loginId").value;
-                        VmsDwr.isUserLoginIdExist(loginId,function(result){
-                                if(result){
-                                        alert(loginId + " exist");
-                                }else{
-                                        alert(loginId + " doesn't exist");
-                                }                            
-                        });
-                }
-        </script>
+        function checkUserLoginId(){
+                var loginId = document.getElementById("loginId").value;
+                VmsDwr.isUserLoginIdExist(loginId,function(result){
+                        if(result){
+                                alert(loginId + " already exist.");
+                        }else{
+                                alert(loginId + " does not exist.");
+                        }                            
+                });
+        }
+    </script>
 </head>
 <body>
         <h2><fmt:message key="message.volunteerManagement.updateVolunteer.label"/></h2>
