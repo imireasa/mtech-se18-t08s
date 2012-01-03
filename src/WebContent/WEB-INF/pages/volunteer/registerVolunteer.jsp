@@ -6,47 +6,33 @@
 
 <body>
 <head>
-        <script type='text/javascript'
-        src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-        <script type='text/javascript'
-        src='<%=request.getContextPath()%>/dwr/engine.js'></script>
+	<script type="text/javascript">
+         var defProjName = 'Please select...';
 
-        <link type="text/css"
-              href="<%=request.getContextPath()%>/sys/css/paging.css"
-              rel="stylesheet" />
+         window.onload = init;
 
-        <style> 
-                .error{ color:red;}  
-                .info{ color:blue;}  
-        </style>
+         function init() {
 
-        <script type="text/javascript">
-                var defProjName = 'Please select...';
+         }
 
-                window.onload = init;
-
-                function init() {
-		
-                }
-
-                function checkUserLoginId(){
-                        var loginId = document.getElementById("loginId").value;
-                        VmsDwr.isUserLoginIdExist(loginId,function(result){
-                                if(result){
-                                        alert(loginId + " exist");
-                                }else{
-                                        alert(loginId + " doesn't exist");
-                                }                            
-                        });
-                }
-        </script>
+         function checkUserLoginId(){
+                 var loginId = document.getElementById("loginId").value;
+                 VmsDwr.isUserLoginIdExist(loginId,function(result){
+                         if(result){
+                                 alert(loginId + " exist");
+                         }else{
+                                 alert(loginId + " doesn't exist");
+                         }                            
+                 });
+         }
+   </script>
 </head>
 <body>
         <h2><fmt:message key="message.volunteerManagement.registerVolunteer.label"/></h2>
         <div id="breadcrumb">
                 <a href="#"><fmt:message key="message.common.home.label"/></a>
                 / <a href="#"><fmt:message key="message.volunteerManagement.volunteer.label"/></a> / 
-                <fmt:message key="message.volunteerManagement.register.label"/>
+                <fmt:message key="message.volunteerManagement.registerVolunteer.label"/>
         </div>
         <div class="query">
                 <c:if test="${not empty errors}"> 
@@ -75,7 +61,7 @@
                                         <th align="left">       
                                                 <form:input path="loginId"/>
                                                 <form:errors path="loginId" cssClass="error"/> 
-                                                <input type="button" name="check" value="check" onclick="checkUserLoginId()"/>
+                                                <input type="button" name="check" value="Check" onclick="checkUserLoginId()"/>
                                         </th>
                                 </tr>	
                                 <tr>
@@ -192,7 +178,7 @@
                                         </th>
                                 </tr>
                                 <tr>
-                                        <th colspan="3" ><input type="submit" name="button" id="button" value="<fmt:message key="message.common.register.button"/>"></th>
+                                        <th colspan="3" ><input type="submit" name="button" id="button" class="button" value="<fmt:message key="message.common.save.button"/>"></th>
                                 </tr>
                         </table>
                 </form:form>
