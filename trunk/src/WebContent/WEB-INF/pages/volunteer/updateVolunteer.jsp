@@ -66,8 +66,8 @@
                                         </th>
                                 </tr>	
                                 <tr>
-                                        <th width="133" align="left"><fmt:message key="message.common.title.label"/></th>
-                                        <th width="10">:</th>
+                                        <th width="133" align="left"><fmt:message key="message.common.title.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></th>
+                                        <th width="10"><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th width="246" align="left">
                                                 <form:select path="title">
                                                         <c:forEach items="${titalList}" var="item" varStatus="status">
@@ -78,32 +78,32 @@
                                         </th>
                                 </tr>		
                                 <tr>
-                                        <th align="left"><fmt:message key="message.common.name.label"/></th>
-                                        <th>:</th>
+                                        <th align="left"><fmt:message key="message.common.name.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">       
                                                 <form:input path="nme"/>
                                                 <form:errors path="nme" cssClass="error"/>                        
                                         </th>
                                 </tr>		
                                 <tr>
-                                        <th align="left"><fmt:message key="message.common.email.label"/></th>
-                                        <th>:</th>
+                                        <th align="left"><fmt:message key="message.common.email.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:input path="email"/>
                                                 <form:errors path="email" cssClass="error"/>
                                         </th>
                                 </tr>		
                                 <tr>
-                                        <th align="left"><fmt:message key="message.volunteerManagement.password.label"/></th>
-                                        <th>:</th>
+                                        <th align="left"><fmt:message key="message.volunteerManagement.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:password path="pwd"/>
                                                 <form:errors path="pwd" cssClass="error"/>
                                         </th>
                                 </tr>		
                                 <tr>
-                                        <th align="left"><fmt:message key="message.volunteerManagement.cfgpassword.label"/></th>
-                                        <th>:</th>
+                                        <th align="left"><fmt:message key="message.volunteerManagement.cfgpassword.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:password path="cfpwd"/>
                                                 <form:errors path="cfpwd" cssClass="error"/>
@@ -111,7 +111,7 @@
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.address.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left"><label for="textarea"></label>
                                                 <form:textarea path="addr" cols="45" rows="5"></form:textarea>
                                                 <form:errors path="addr" cssClass="error"/>
@@ -119,7 +119,7 @@
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.postCode.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:input path="postCd"/>
                                                 <form:errors path="postCd" cssClass="error"/>
@@ -127,7 +127,7 @@
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.country.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:select path="ctryCd">
                                                         <c:forEach items="${countryList}" var="item" varStatus="status">
@@ -139,7 +139,7 @@
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.mobile.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:input path="mobile"/>
                                                 <form:errors path="mobile" cssClass="error"/>
@@ -147,7 +147,7 @@
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.dateOfBirth.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:input path="dob" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="dob" cssClass="error"/>
@@ -156,7 +156,7 @@
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.volunteerManagement.intrest.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:textarea path="intrst" cols="45" rows="5"></form:textarea>
                                                 <form:errors path="intrst" cssClass="error"/>
@@ -164,7 +164,7 @@
                                 </tr>		
                                 <tr>
                                         <th align="left"><fmt:message key="message.volunteerManagement.skillSet.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:textarea path="skillSet" cols="45" rows="5"></form:textarea>
                                                 <form:errors path="skillSet" cssClass="error"/>
@@ -172,14 +172,14 @@
                                 </tr>	
                                 <tr>
                                         <th align="left"><fmt:message key="message.volunteerManagement.qualifation.label"/></th>
-                                        <th>:</th>
+                                        <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
                                                 <form:textarea path="qualAtt" cols="45" rows="5"></form:textarea>
                                                 <form:errors path="qualAtt" cssClass="error"/>
                                         </th>
                                 </tr>
                                 <tr>
-                                        <th colspan="3" ><input type="submit" name="button" id="button" value="<fmt:message key="message.common.register.button"/>"></th>
+                                        <th colspan="3" ><input type="submit" name="button" id="button" class="button" value="<fmt:message key="message.common.register.button"/>"></th>
                                 </tr>
                         </table>
                 </form:form>
