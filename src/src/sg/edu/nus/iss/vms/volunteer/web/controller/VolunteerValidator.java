@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
@@ -38,27 +39,30 @@ public class VolunteerValidator implements Validator {
 
 	@Override
 	public void validate(Object o, Errors errors) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("validate(Object, Errors) - start");
+		}
 		VolunteerVo obj = (VolunteerVo) o;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "loginId", "loginId",
-				"Required LoginId field");
+				Messages.getString("message.common.error.mandatory", new String[]{"Login ID"}));
 
 		if (!obj.getPwd().equals(obj.getCfpwd())) {
-			errors.reject("pwd", "Required Password not the same");
+			errors.reject("pwd", Messages.getString("message.common.error.notMatch", new String[]{"Password", "Confirm Password"}));
 		}
 
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "title",
-				"Required field");
+				Messages.getString("message.common.error.mandatory", new String[]{"Title"}));
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nme", "nme",
-				"Required Name  field");
+				Messages.getString("message.common.error.mandatory", new String[]{"Name"}));
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email",
-				"Required Email field");
-		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "dob", "dob",
-				"Required Date Of Birth field");
+				Messages.getString("message.common.error.mandatory", new String[]{"Email"}));
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pwd", "pwd",
-				"Required Password field. Can not be a blank.");
+				Messages.getString("message.common.error.mandatory", new String[]{"Password"}));
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cfpwd", "cfpwd",
-				"Required Password field. Can not be a blank.");
+				Messages.getString("message.common.error.mandatory", new String[]{"Confirm Password"}));
 
-		logger.debug("Validation Done.");
+		if (logger.isDebugEnabled()) {
+			logger.debug("validate(Object, Errors) - end");
+		}
 	}
 }
