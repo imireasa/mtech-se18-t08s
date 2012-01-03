@@ -1,28 +1,24 @@
-<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator"
-	prefix="decorator"%>
+<%@ taglib uri="http://www.opensymphony.com/sitemesh/decorator" prefix="decorator"%>
 <%@ taglib uri="http://struts-menu.sf.net/tag" prefix="menu"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><decorator:title default="Volunteer Management System" />
-</title>
+<title><decorator:title default="Volunteer Management System" /></title>
 
 <meta name="description" content="" />
 <meta name="keywords" content="" />
-<link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico"
-	type="image/x-icon" />
-<link rel="shortcut icon"
-	href="<%=request.getContextPath()%>/sys/images/favicon.ico"
-	type="image/x-icon" />
 
-<link href="<%=request.getContextPath()%>/sys/css/global.css"
-	rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath()%>/sys/css/reset.css"
-	rel="stylesheet" type="text/css" />
-<script type='text/javascript' 
-        src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
+<link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/sys/images/favicon.ico" type="image/x-icon" />
+<link href="<%=request.getContextPath()%>/sys/css/global.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="<%=request.getContextPath()%>/sys/css/paging.css" rel="stylesheet" />
+
+<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/engine.js'></script>
         
 <!--[if lte IE 6]>
 <script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/supersleight.js"></script>

@@ -6,20 +6,15 @@
                 <title><decorator:title default="Volunteer Management System" />
                 </title>
 
-                <meta name="description" content="" />
-                <meta name="keywords" content="" />
-                <link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico"
-                      type="image/x-icon" />
-                <link rel="shortcut icon"
-                      href="<%=request.getContextPath()%>/sys/images/favicon.ico"
-                      type="image/x-icon" />
+                <link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="<%=request.getContextPath()%>/sys/images/favicon.ico" type="image/x-icon" />
+<link href="<%=request.getContextPath()%>/sys/css/global.css" rel="stylesheet" type="text/css" />
+<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+<link type="text/css" href="<%=request.getContextPath()%>/sys/css/paging.css" rel="stylesheet" />
 
-                <link href="<%=request.getContextPath()%>/sys/css/global.css"
-                      rel="stylesheet" type="text/css" />
-                <link href="<%=request.getContextPath()%>/sys/css/reset.css"
-                      rel="stylesheet" type="text/css" />
-<script type='text/javascript' 
-        src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/engine.js'></script>
                 <!--[if lte IE 6]>
                 <script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/supersleight.js"></script>
                 <![endif]-->
