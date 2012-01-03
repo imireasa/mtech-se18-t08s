@@ -230,10 +230,26 @@ ul#info li {
 	display: block
 }
 
+.mandatory {
+	color: #ff0000;
+}
+
+.info {
+	color:blue;
+}  
+
 /************* Errors Start *******************/
 .error {
 	font-size: 11px;
 	color: #ff0000;
+}
+
+.errorblock {
+	color: #000;
+	background-color: #ffEEEE;
+	border: 1px solid #ff0000;
+	padding: 8px;
+	margin: 16px;
 }
 /************* Errors End *******************/
 
