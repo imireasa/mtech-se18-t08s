@@ -69,17 +69,37 @@ public class AuthorisationFilter implements Filter {
 		}
 		String URI = ((HttpServletRequest) request).getRequestURI();
 		HttpSession session = ((HttpServletRequest) request).getSession(true);
-		String queryString= ((HttpServletRequest) request).getQueryString();
+		String queryString = ((HttpServletRequest) request).getQueryString();
 		String fullURL;
-		if (queryString!=null){
-			fullURL = URI+"?"+queryString;
-		}else{
+		UserSessionInfoVo currentUser = null;
+		if (session != null) {
+			currentUser = (UserSessionInfoVo) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")); //$NON-NLS-1$
+
+		}
+		if (queryString != null) {
+			fullURL = URI + "?" + queryString;
+		}
+		else {
 			fullURL = URI;
 		}
 
 		if (logger.isDebugEnabled()) {
 			logger
 					.debug("doFilter(ServletRequest, ServletResponse, FilterChain) - Requesting for Access to URI - excludePages=" + excludePages + ", isAuthorisationFilterEnabled=" + isAuthorisationFilterEnabled + ", URI=" + URI); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
+
+		// Error log when /VMS/ is entered, access is denied instead of
+		// forwarding. This solution is no elegant as it hardcodes the
+		// redirection path.
+		if (URI.equals("/VMS/")) {
+			if (currentUser != null) {
+				returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), "/index.jsp"); //$NON-NLS-1$
+			}
+			else {
+				returnError(request, response, Messages.getString("AuthorisationFilter.USER_NOT_IN_SESSION_ERROR"), loginPage); //$NON-NLS-1$
+
+			}
+			return;
 		}
 
 		// check if authorisation is enabled
@@ -116,11 +136,7 @@ public class AuthorisationFilter implements Filter {
 
 		// checks for user information in the session. determines whether the
 		// user is logged in or not.
-		UserSessionInfoVo currentUser = null;
-		if (session != null) {
-			currentUser = (UserSessionInfoVo) session.getAttribute(Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")); //$NON-NLS-1$
 
-		}
 		if (currentUser == null) {
 			// map the requested URL and login parameters
 			request.setAttribute("requestedUrl", fullURL);
