@@ -110,7 +110,7 @@ CREATE TABLE `tb_permission` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL,
   PRIMARY KEY (`PERMI_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project` */
 
@@ -179,7 +179,7 @@ CREATE TABLE `tb_project_feedback` (
   CONSTRAINT `tb_project_feedback_ibfk_2` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `FKTB_PROJECT303640` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_feedback_ibfk_1` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_interest` */
 
@@ -249,7 +249,7 @@ CREATE TABLE `tb_project_proposal` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`PRJ_PROP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_proposal_document` */
 
@@ -330,7 +330,7 @@ CREATE TABLE `tb_role` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ROLE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_role_function` */
 
