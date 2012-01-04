@@ -23,6 +23,11 @@
 	</div>
 
 	<div class="query">
+	<c:if test="${not empty fbMsg}"> 
+                        <div class="infoblock">
+                                <c:out value="${fbMsg}" escapeXml="false"/><br/>
+                        </div>
+            </c:if>
 	<table class="proj-table">
 				<tr>
 					<th><fmt:message key="message.projectManagement.projectName.label"/></th>
@@ -72,14 +77,14 @@
 					<form:form name="viewFbDetails" method="post"
 			 action="approveFb.html">
 					<input type="submit" name="btn_Publish"
-				id="btn_Publish" value="Publish">
+				id="btn_Publish" value="Publish" class="button">
 				</form:form>
 				</td>
                 <td>
                 <form:form name="viewFbDetails" method="post"
 			      action="rejectFb.html">
                 <input type="submit" name="btn_Reject"
-				id="btn_Reject" value="Reject">
+				id="btn_Reject" value="Reject" class="button">
 				</form:form>
 				</td>
 					
@@ -87,13 +92,9 @@
 				</tr>
 				
 				
-				<tr>
-			<c:if test="${not empty fbMsg}"> 
-                        <div class="info">
-                                <c:out value="${fbMsg}" escapeXml="false"/><br/>
-                        </div>
-            </c:if>
-            </tr>
+				
+			
+           
 			</table>
 			
 		

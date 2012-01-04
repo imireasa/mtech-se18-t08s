@@ -68,6 +68,15 @@
                                                 <li><a
                                                                 href="<%=request.getContextPath()%>/admin/project/assignPrjMemberRole.html">Assign
                                                                 Member Role</a></li>
+                                                                  <li><a
+                                                                href="<%=request.getContextPath()%>/project/browseProjectFeedback.html">
+                                                                Search Feedback</a></li>
+                                                                 <li><a
+                                                                href="<%=request.getContextPath()%>/project/proposeNewProject.html">
+                                                                Propose New Project</a></li>
+                                                                <li><a
+                                                                href="<%=request.getContextPath()%>/project/browseProjectProposal.html">
+                                                                Browse Project Proposal</a></li>
                                                 <li><a href="<%=request.getContextPath()%>/admin/project/createProject.html">Create Project</a></li>
                                                 <li><a href="<%=request.getContextPath()%>/admin/project/updateProject.html">Update Project</a></li>
                                                 <li><a href="<%=request.getContextPath()%>/admin/project/viewProject.html">View Project</a></li>

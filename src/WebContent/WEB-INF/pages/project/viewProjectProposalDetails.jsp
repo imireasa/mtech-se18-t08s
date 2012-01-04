@@ -24,6 +24,12 @@
     
 
 	<div class="query">
+	
+	<c:if test="${not empty propMsg}"> 
+                        <div class="infoblock">
+                                <c:out value="${propMsg}" escapeXml="false"/><br/>
+                        </div>
+            </c:if>
    	 <form:form name="reviewproposal" method="post" commandName="proposalVo" action="reviewProposal.html">
 	  <table class="proj-table">
 	    <tr>
@@ -110,17 +116,13 @@
 		</td>
         </tr>
         <tr>
-    	      <td><input name="btn_submit" id="btn_submit" type="submit" value="Submit"></td>
+    	      <td colspan="3" align="center"><input name="btn_submit" id="btn_submit" type="submit" value="Submit" class="button"></td>
 	     
         </tr>
         
-        <tr>
-			<c:if test="${not empty propMsg}"> 
-                        <div class="info">
-                                <c:out value="${propMsg}" escapeXml="false"/><br/>
-                        </div>
-            </c:if>
-            </tr>
+       
+			
+           
         
       </table>
    	 </form:form>
