@@ -12,10 +12,7 @@
 	rel="stylesheet" />
 <tab:tabConfig/>
 
-<style> 
-                .error{ color:red;}  
-                .info{ color:blue;}  
-</style>
+
 
 </head>
 <body>
@@ -26,6 +23,12 @@
 	</div>
 
 	<div class="query">
+		<c:if test="${not empty riMsg}"> 
+                        <div class="infoblock">
+                                <c:out value="${riMsg}" escapeXml="false"/><br/>
+                        </div>
+            </c:if>
+            
 		<form:form name="viewProjectDetails" method="post"
 			commandName="projectInfo" action="raiseInterest.html">
 			<table border="2" width="100%">
@@ -59,15 +62,10 @@
 				<c:if test="${projectVo.stsCd != 'Close'}">
 				<tr>
 					<td><input type="submit" name="btn_RaiseProjectInterest"
-				id="btn_RaiseProjectInterest" value="Raise Project Interest"></td>
+				id="btn_RaiseProjectInterest" value="Raise Project Interest" class="button"></td>
 				</tr>
-				<tr>
-			<c:if test="${not empty riMsg}"> 
-                        <div class="info">
-                                <c:out value="${riMsg}" escapeXml="false"/><br/>
-                        </div>
-            </c:if>
-            </tr>
+			
+		
 				
 					</c:if>
 				
