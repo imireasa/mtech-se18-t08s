@@ -388,6 +388,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		List<ProjectFeedbackDto> projectFeedbackList = projectManagementService
 				.getProjectFeedbackListbyVo(projectInfoVo);
 
+		modelAndView.addObject("feedbackVo", projectInfoVo);
+
 		modelAndView.addObject("feedbackList", projectFeedbackList);
 
 		if (logger.isDebugEnabled()) {

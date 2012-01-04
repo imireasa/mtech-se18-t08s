@@ -407,8 +407,14 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 					MatchMode.ANYWHERE));
 		}
 		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbStatus())) {
-			criteria.add(Restrictions.eq("stsCd",
-					Long.parseLong(projectInfoVo.getFbStatus())));
+
+			List<CodeDto> codeDtos = CodeLookupUtil
+					.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
+			for (CodeDto codeDto : codeDtos) {
+
+				if (codeDto.getVal().equals(projectInfoVo.getFbStatus()))
+					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+			}
 
 		}
 
