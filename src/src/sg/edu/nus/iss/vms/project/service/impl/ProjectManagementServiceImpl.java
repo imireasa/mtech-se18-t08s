@@ -402,6 +402,13 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			ProjectInfoVo projectInfoVo) {
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectFeedbackDto.class);
+
+		if (!StringUtil.isNullOrEmpty(projectInfoVo.getPrjId())) {
+
+			Object projectDto = getProjectObjbyId(
+					Long.parseLong(projectInfoVo.getPrjId()), ProjectDto.class);
+			criteria.add(Restrictions.eq("prjId", projectDto));
+		}
 		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
 			criteria.add(Restrictions.like("title", projectInfoVo.getFbTitle(),
 					MatchMode.ANYWHERE));
