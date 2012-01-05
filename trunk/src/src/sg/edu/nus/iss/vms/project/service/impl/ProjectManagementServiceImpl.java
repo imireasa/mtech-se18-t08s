@@ -455,7 +455,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			project.setUpdDte(DateUtil.getDate());
 			int currentVersion = Integer.parseInt(projectVo.getVersion());
 			project.setVersion(currentVersion + 1);
-			// Todo: have to test save after updating the "DESC" column in DB
 			manager.save(project);
 
 		} catch (Exception ex) {
