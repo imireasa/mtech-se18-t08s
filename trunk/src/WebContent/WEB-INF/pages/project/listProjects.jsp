@@ -49,7 +49,7 @@
 					<td width="123">Start Month</td>
 					<td width="199"><form:input path="strDte" /> <img
 						src="<%=request.getContextPath()%>/sys/images/cal.gif"
-						onClick="javascript:NewCssCal('startMonth')"
+						onClick="javascript:NewCssCal('strDte')"
 						style="cursor: pointer" /></td>
 					<td><input type="submit" name="btn_Search" id="btn_Search"
 						value="Search"></td>
@@ -83,7 +83,7 @@
 				<td>${item.stsCd}</td>
 				<td><a href="manageProjectMember.html?prjId=${item.prjId}">Member</a></td>
 				<td><a href="manageProjectInterest.html?prjId=${item.prjId}">Interest</a></td>
-				<td><a href="#">View</a></td>
+				<td><a href="viewProject.html?prjId=${item.prjId}">View</a></td>
 				<td><a href="updateProject.html?prjId=${item.prjId}">Update</a></td>
 			</tr>
 		</c:forEach>
