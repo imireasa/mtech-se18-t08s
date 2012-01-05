@@ -58,7 +58,8 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(ProjectMemberDto.class);
-			criteria.add(Restrictions.eq("prjId", projectDto));
+			criteria.add(Restrictions.eq("prjId", projectDto)).add(
+					Restrictions.eq("actInd", "true"));
 			List<ProjectMemberDto> memberList = manager
 					.findByDetachedCriteria(criteria);
 
