@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.validation.BindingResult;
@@ -81,7 +80,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			UserManagementServices userManagementServices) {
 		this.userManagementServices = userManagementServices;
 	}
-	
+
 	@Override
 	public long getLastModified(HttpServletRequest arg0) {
 		if (logger.isDebugEnabled()) {
@@ -267,7 +266,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		if (logger.isInfoEnabled()) {
 			logger.info("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - updateProject");
 		}
-		Long projectId=1L;
+		Long projectId = 1L;
 		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
 			projectId = Long.parseLong(request.getParameter("prjId"));
 		}
@@ -301,7 +300,8 @@ public class ProjectController extends BaseMultiActionFormController {
 							"statusList",
 							CodeLookupUtil
 									.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
-			ProjectVo projectVo = projectManagementService.getProjectVoById(projectId);
+			ProjectVo projectVo = projectManagementService
+					.getProjectVoById(projectId);
 			if (errors.hasErrors()) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - Error Handling :");
@@ -350,7 +350,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("viewProject(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
 
-		Long projectId=1L;
+		Long projectId = 1L;
 		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
 			projectId = Long.parseLong(request.getParameter("prjId"));
 		}
@@ -359,31 +359,35 @@ public class ProjectController extends BaseMultiActionFormController {
 				.getProjectVoById(projectId);
 		modelAndView = new ModelAndView("project/viewProject");
 
-
 		projectVo.setCtryCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long
 				.parseLong(projectVo.getCtryCd())));
 		projectVo.setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long
 				.parseLong(projectVo.getStsCd())));
 		modelAndView.addObject("command", projectVo);
-		
-		//Getting Project Member..
-		
-		List projMemberList=projectManagementService.getProjectMember(projectId);
-		List projMemberVoList=new ArrayList();
-		if(projMemberList!=null){
-			for(int i=0;i<projMemberList.size();i++){
-				ProjectMemberDto obj=(ProjectMemberDto) projMemberList.get(i);
-				ProjectMemberVo voObj=new ProjectMemberVo();
-				
-				UserDto member=(UserDto) userManagementServices.getUserByLoginId(obj.getUsrLoginId());
-				String title=codeManagementServices.getCodeDescriptionByCodeId(member.getTitleCd());
-				voObj.setNme(title+" "+member.getNme());
-				voObj.setCtry(codeManagementServices.getCodeDescriptionByCodeId(member.getCtryCd()));
-				voObj.setRole(codeManagementServices.getCodeDescriptionByCodeId(obj.getRoleCd()));
+
+		// Getting Project Member..
+
+		List projMemberList = projectManagementService
+				.getProjectMember(projectId);
+		List projMemberVoList = new ArrayList();
+		if (projMemberList != null) {
+			for (int i = 0; i < projMemberList.size(); i++) {
+				ProjectMemberDto obj = (ProjectMemberDto) projMemberList.get(i);
+				ProjectMemberVo voObj = new ProjectMemberVo();
+
+				UserDto member = userManagementServices.getUserByLoginId(obj
+						.getUsrLoginId());
+				String title = codeManagementServices
+						.getCodeDescriptionByCodeId(member.getTitleCd());
+				voObj.setNme(title + " " + member.getNme());
+				voObj.setCtry(codeManagementServices
+						.getCodeDescriptionByCodeId(member.getCtryCd()));
+				voObj.setRole(codeManagementServices
+						.getCodeDescriptionByCodeId(obj.getRoleCd()));
 				projMemberVoList.add(voObj);
 			}
 		}
-		
+
 		PagedListHolder projMemberPagedListHolder = new PagedListHolder(
 				projMemberVoList);
 		if (!projMemberVoList.isEmpty()) {
@@ -620,12 +624,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 		}
 
-		String loginId = "SuperUser";
-		if (UserUtil.getUserSessionInfoVo() != null
-				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
-						.getUserID())) {
-			loginId = UserUtil.getUserSessionInfoVo().getUserID();
-		}
+		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		ProjectProposalDto projectProposalDto = new ProjectProposalDto();
 		projectProposalDto.setCtryCd(countryCodeId);
