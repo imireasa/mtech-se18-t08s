@@ -1,8 +1,10 @@
 package sg.edu.nus.iss.vms.project.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import java.util.Map;
 import org.apache.log4j.Logger;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
@@ -15,9 +17,12 @@ import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
+import sg.edu.nus.iss.vms.common.mail.BasicMailMessage;
+import sg.edu.nus.iss.vms.common.mail.MailSenderUtil;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
+import sg.edu.nus.iss.vms.common.util.RamdomPasswordGeneratorUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
@@ -41,6 +46,15 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	private SessionBean sessionBean;
 	private static Logger logger = Logger
 			.getLogger(ProjectManagementServiceImpl.class);
+	private MailSenderUtil mailSenderUtil;
+
+	public MailSenderUtil getMailSenderUtil() {
+		return mailSenderUtil;
+	}
+
+	public void setMailSenderUtil(MailSenderUtil mailSenderUtil) {
+		this.mailSenderUtil = mailSenderUtil;
+	}
 
 	public Manager getManager() {
 		return manager;
@@ -148,7 +162,13 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	public List<ProjectInterestVo> getProjectIntrestVoByLoginUserAccessRight(
 			Long projectId) {
 		String userLogInId = UserUtil.getUserSessionInfoVo().getUserID();
-		String hQL = "from ProjectInterestDto where prjId.prjId=" + projectId;
+
+		String hQL = "from ProjectInterestDto where prjId.prjId="
+				+ projectId
+				+ " and stsCd="
+				+ CodeLookupUtil.getCodeByCategoryAndCodeValue(
+						VMSConstants.PROJECT_INTREST_STATUS,
+						VMSConstants.PROJECT_INTEREST_NEW).getCdId();
 		List<ProjectInterestVo> projectInterestVoList = new ArrayList<ProjectInterestVo>();
 		List<ProjectInterestDto> projectInterestList = manager.find(hQL);
 		for (ProjectInterestDto projectInterest : projectInterestList) {
@@ -181,7 +201,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public void deleteProjectMember(String projectMemberId) throws Exception {
+	public void deleteProjectMemberByProjectMemberId(String projectMemberId)
+			throws Exception {
 		try {
 			Long _projectMemberId = Long.parseLong(projectMemberId);
 			ProjectMemberDto dto = (ProjectMemberDto) manager.get(
@@ -197,8 +218,15 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public void updateProjectMemberRole(String projectMemberId, Long roleCd)
+	public void requestProjectCertificateByProjectId(Long projectId)
 			throws Exception {
+		// TODO: Implement requestProjectCertificateByProjectId
+
+	}
+
+	@Override
+	public void updateProjectMemberRoleByProjectMemberIdnRole(
+			String projectMemberId, Long roleCd) throws Exception {
 		try {
 			Long _projectMemberId = Long.parseLong(projectMemberId);
 			ProjectMemberDto dto = (ProjectMemberDto) manager.get(
@@ -210,6 +238,58 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			logger.debug("Delete Project Member Fail.", ex);
 			throw new ApplicationException(
 					Messages.getString("message.common.error.remove"));
+		}
+	}
+
+	@Override
+	public void sendInviteProjectMemberToAllUser(Long projectId, Long userStatus)
+			throws Exception {
+		String hQL = "from UserDto where " + "tpCd='TODO'";
+
+		List<UserDto> userDtos = manager.find(hQL);
+		for (UserDto dto : userDtos) {
+			if (false) {
+				try {
+					String toEmail = "";
+					String toName = "";
+					String subject = "";
+					BasicMailMessage bmm = new BasicMailMessage();
+					bmm.setSubject(subject);
+					bmm.setTo(toEmail);
+
+					Map props = new HashMap();
+					props.put("name", toName);
+					props.put("password",
+							RamdomPasswordGeneratorUtil.getPassword(6));
+					mailSenderUtil.send(bmm, "forgotPasswordMail.vm", props);
+				} catch (Exception ex) {
+					logger.error("send mail error", ex);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void acceptProjectIntrest(Long prjIntrstId) throws Exception {
+		ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
+				.get(ProjectInterestDto.class, prjIntrstId);
+		if (projectInterestDto != null) {
+			throw new ApplicationException(
+					Messages.getString("message.projectManagement.error.invalidProjectInterest"));
+		}
+
+		String hQL = "from ProjectMemberDto where " + "prjId.prjId="
+				+ projectInterestDto + " and usrLoginId='"
+				+ projectInterestDto.getReqBy();
+		List<ProjectMemberDto> projectMemberDtos = manager.find(hQL);
+		if (projectMemberDtos == null || projectMemberDtos.isEmpty()) {
+			ProjectMemberDto projectMemberDto = new ProjectMemberDto();
+			projectMemberDto.setPrjId(projectInterestDto.getPrjId());
+			projectMemberDto.setRoleCd(CodeLookupUtil.getCodeDtoByCatVal(
+					VMSConstants.MEMBER_ROLE, VMSConstants.PROJECT_ROLE_MEMBER)
+					.getCdId());
+			projectMemberDto.setUsrLoginId(projectInterestDto.getReqBy());
+
 		}
 	}
 
@@ -419,8 +499,9 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 					.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
 			for (CodeDto codeDto : codeDtos) {
 
-				if (codeDto.getVal().equals(projectInfoVo.getFbStatus()))
+				if (codeDto.getVal().equals(projectInfoVo.getFbStatus())) {
 					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+				}
 			}
 
 		}
@@ -475,8 +556,9 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 					.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
 			for (CodeDto codeDto : codeDtos) {
 
-				if (codeDto.getVal().equals(proposalVo.getStatus()))
+				if (codeDto.getVal().equals(proposalVo.getStatus())) {
 					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+				}
 			}
 
 		}
@@ -620,5 +702,4 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
