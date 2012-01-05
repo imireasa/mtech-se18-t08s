@@ -74,7 +74,10 @@
                         <tr>
                                 <td colspan="4" align="right">
                                         <input type="submit" name="removeMember" id="removeMember" value="<fmt:message key="message.common.remove.button"/>"/>
-                                        <input type="submit" name="updateMember" id="updateMember" value="<fmt:message key="message.common.update.button"/>"/>                                </td>
+                                        <input type="submit" name="updateMember" id="updateMember" value="<fmt:message key="message.common.update.button"/>"/>
+                                        <input type="submit" name="inviteProjectMember" id="inviteProjectMember" value="<fmt:message key="message.projectManagement.inviteMember.button"/>"/>
+                                        <input type="submit" name="inviteProjectMember" id="inviteProjectMember" value="<fmt:message key="message.projectManagement.inviteMember.button"/>"/>
+                                </td>
                         </tr>
 
                 </table>
