@@ -21,10 +21,9 @@ public class DateUtil {
 	private DateUtil() {
 	}
 
-
 	public static final String DEFAULT_DATE_FORMAT = "dd-MM-yyyy";
+	public static final String DATE_FORMAT_DASH = "MM-dd-yyyy";
 	public static final String DATE_FORMAT_SLASH = "dd/MM/yyyy";
-
 
 	public static final String DATE_FORMAT_YMD = "yyyy/MM/dd";
 
