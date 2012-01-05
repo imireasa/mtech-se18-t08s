@@ -21,7 +21,7 @@
         <h2><fmt:message key="message.projectManagement.manageMember.label"/></h2>
         <div id="breadcrumb">
                 <a href="#"><fmt:message key="message.common.home.label"/></a> / 
-				<a href="#"><fmt:message key="message.projectManagement.projectManagement.label"/></a> /    
+				<a href="listProjects.html"><fmt:message key="message.projectManagement.projectManagement.label"/></a> /  
                 <fmt:message key="message.projectManagement.manageMember.label"/>
         </div>
         <div class="query">

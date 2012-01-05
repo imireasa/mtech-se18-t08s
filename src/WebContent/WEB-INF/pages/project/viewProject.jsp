@@ -130,10 +130,36 @@
                                                 <form:errors path="rmk" cssClass="error"/>
                                         </th>
                                 </tr>
-								
-                                
-								
-                        </table>
+				 </table>
+				
+ 
                 </form:form>
+        </div>
+          <table name="projectMemberList" border="1" class="proj-table">
+
+                        <tr>
+                                <td colspan="4"><fmt:message key="message.projectManagement.projectMember.label"/></td>
+                        </tr>
+                        <tr>
+                                <td width="200" ><label>Name</label></td>
+                                <td width="150" ><label>Country</label></td>
+                                <td width="150" ><label>Role</label></td>
+                        </tr>
+                         <c:forEach items="${pagedListHolder.pageList}" var="item">
+                        <tr>
+                                <td>${item.nme}</td>
+                                <td>${item.ctry}</td>
+                                <td>${item.role}</td>
+                               
+                        </tr>
+                </c:forEach>
+        </table>
+        <div class="pagination">
+                <jsp:useBean id="pagedListHolder" scope="request"
+                             type="org.springframework.beans.support.PagedListHolder" />
+
+                <%-- // load our paging tag, pass pagedListHolder and the link --%>
+                <tg:paging pagedListHolder="${pagedListHolder}"
+                           pagedLink="${pagedLink}" />
         </div>
 </body>
