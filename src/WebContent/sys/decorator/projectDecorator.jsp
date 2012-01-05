@@ -20,10 +20,29 @@
 <script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
 <script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
 <script type='text/javascript' src='<%=request.getContextPath()%>/dwr/engine.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-1.7.1.min.js'></script>
+<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-ui-1.8.16.custom.min.js'></script>
         
 <!--[if lte IE 6]>
 <script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/supersleight.js"></script>
 <![endif]-->
+<script type="text/javascript">
+$(document).ready(function() {
+	$(this).find('ul').each(function(){
+        // cache jquery object
+        var current = $(this);
+        // check for sub levels and value
+        if(current.children().size() == 0 && current.text().trim()== "") {
+           //no child in this UL.
+               alert("up down left right A B A B start.");
+            current.hide();
+            alert("OMG! it works! the empty section is gone!");
+        }
+     
+    });
+
+ });
+</script>
 <decorator:head />
 </head>
 
@@ -55,6 +74,10 @@
 					permissions="menuPermissionAdapter">
 					<menu:displayMenu name="account" />
 				</menu:useMenuDisplayer>
+				<menu:useMenuDisplayer name="CSSListMenu" id="menuCertificate"
+                   permissions="menuPermissionAdapter">
+                   <menu:displayMenu name="certificate" />
+               </menu:useMenuDisplayer>
 			</div>
 			<!-- end of leftCol -->
 			<div id="main">
