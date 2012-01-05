@@ -85,7 +85,7 @@
 				<td><a href="manageProjectMember.html?prjId=${item.prjId}">Member</a></td>
 				<td><a href="manageProjectInterest.html?prjId=${item.prjId}">Interest</a></td>
 				<td><a href="#">View</a></td>
-				<td><a href="../staff/updateProject.jsp">Update</a></td>
+				<td><a href="updateProject.html?prjId=${item.prjId}">Update</a></td>
 			</tr>
 		</c:forEach>
 	</table>
