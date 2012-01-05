@@ -64,7 +64,7 @@
 			<td colspan="8"><b><label>Project List</label></b></td>
 		</tr>
 		<tr>
-			<td colspan="8"><b><a href="createProject.html">Create New Project</a></b></td>
+			<td colspan="8"><b><a href="createProject.html"><fmt:message key="message.projectManagement.createProject.label"/></a></b></td>
 		</tr>
 		<tr>
 			<td><label>Project Name</label></td>
