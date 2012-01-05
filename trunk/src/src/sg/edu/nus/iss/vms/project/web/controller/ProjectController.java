@@ -832,11 +832,12 @@ public class ProjectController extends BaseMultiActionFormController {
 						logger.debug("Removing Project Member "
 								+ prjMbrIdList[i]);
 						String[] val = prjMbrIdList[i].split("[,]");
-						projectManagementService.deleteProjectMember(val[0]);
+						projectManagementService
+								.deleteProjectMemberByProjectMemberId(val[0]);
 					}
 				}
 			} else if (request.getParameter("updateMember") != null) {// UPDATE
-																		// COMMAND
+				// COMMAND
 				if (request.getParameter("prjMbrId") != null) {
 					String[] prjMbrIdList = request
 							.getParameterValues("prjMbrId");
@@ -848,13 +849,29 @@ public class ProjectController extends BaseMultiActionFormController {
 								+ val[0]);
 						if (!StringUtil.isNullOrEmpty(roleValue)) {
 							Long roleCd = Long.parseLong(roleValue);
-							projectManagementService.updateProjectMemberRole(
-									val[0], roleCd);
+							projectManagementService
+									.updateProjectMemberRoleByProjectMemberIdnRole(
+											val[0], roleCd);
 						} else {
 							// TODO: Error Control
 						}
 					}
 				}
+			} else if (request.getParameter("inviteProjectMember") != null) {// UPDATE
+				// COMMAND
+				if (request.getParameter("prjMbrId") != null) {
+					Long userStatus = CodeLookupUtil.getCodeDtoByCatVal(
+							VMSConstants.USER_TYPE_CATEGORY,
+							VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
+							.getCdId();
+					projectManagementService.sendInviteProjectMemberToAllUser(
+							prjId, userStatus);
+				}
+
+			} else if (request.getParameter("requestProjectCertificate") != null) {// UPDATE
+				// COMMAND
+				projectManagementService
+						.requestProjectCertificateByProjectId(prjId);
 			}
 
 			projectVo = projectManagementService
@@ -874,11 +891,8 @@ public class ProjectController extends BaseMultiActionFormController {
 			modelAndView.addObject("projectVo", projectVo);
 			modelAndView.addObject("memberPagedListHolder",
 					memberPagedListHolder);
-			modelAndView
-					.addObject(
-							"roleList",
-							CodeLookupUtil
-									.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE_CATEGORY));
+			modelAndView.addObject("roleList", CodeLookupUtil
+					.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE));
 
 			modelAndView.addObject("prjId", prjId);
 		}
@@ -901,35 +915,30 @@ public class ProjectController extends BaseMultiActionFormController {
 			modelAndView = new ModelAndView("project/manageProjectInterest");
 			logger.debug("project/manageProjectMember");
 
-			if (request.getParameter("removeMember") != null) {// REMOVE COMMAND
-				if (request.getParameter("prjMbrId") != null) {
-					String[] prjMbrIdList = request
-							.getParameterValues("prjMbrId");
-					for (int i = 0; i < prjMbrIdList.length; i++) {
-						logger.debug("Removing Project Member "
-								+ prjMbrIdList[i]);
-						String[] val = prjMbrIdList[i].split("[,]");
-						projectManagementService.deleteProjectMember(val[0]);
+			if (request.getParameter("acceptInterest") != null) {// REMOVE
+																	// COMMAND
+				if (request.getParameter("prjIntrstId") != null) {
+					String[] prjIntrstId = request
+							.getParameterValues("prjIntrstId");
+
+					for (int i = 0; i < prjIntrstId.length; i++) {
+						logger.debug("Accept Project Member " + prjIntrstId[i]);
+						Long _prjIntrstId = Long.parseLong(prjIntrstId[i]);
+						projectManagementService
+								.acceptProjectIntrest(_prjIntrstId);
 					}
 				}
-			} else if (request.getParameter("updateMember") != null) {// UPDATE
+			} else if (request.getParameter("rejectInterest") != null) {// UPDATE
 				// COMMAND
-				if (request.getParameter("prjMbrId") != null) {
-					String[] prjMbrIdList = request
-							.getParameterValues("prjMbrId");
-					for (int i = 0; i < prjMbrIdList.length; i++) {
-						logger.debug("Update Project Member Role"
-								+ prjMbrIdList[i]);
-						String[] val = prjMbrIdList[i].split("[,]");
-						String roleValue = request.getParameter("roleCd_"
-								+ val[0]);
-						if (!StringUtil.isNullOrEmpty(roleValue)) {
-							Long roleCd = Long.parseLong(roleValue);
-							projectManagementService.updateProjectMemberRole(
-									val[0], roleCd);
-						} else {
-							// TODO: Error Control
-						}
+				if (request.getParameter("prjIntrstId") != null) {
+					String[] prjIntrstId = request
+							.getParameterValues("prjIntrstId");
+
+					for (int i = 0; i < prjIntrstId.length; i++) {
+						logger.debug("Accept Project Member " + prjIntrstId[i]);
+						Long _prjIntrstId = Long.parseLong(prjIntrstId[i]);
+						projectManagementService
+								.acceptProjectIntrest(_prjIntrstId);
 					}
 				}
 			}
@@ -957,7 +966,7 @@ public class ProjectController extends BaseMultiActionFormController {
 					.addObject(
 							"roleList",
 							CodeLookupUtil
-									.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE_CATEGORY));
+									.getListOfCodeByCategory(VMSConstants.PROJECT_ROLE_CATEGORY));
 
 			modelAndView.addObject("prjId", prjId);
 		}

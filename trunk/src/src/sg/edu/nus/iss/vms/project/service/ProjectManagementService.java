@@ -67,27 +67,35 @@ public interface ProjectManagementService {
 	public List<ProjectInterestVo> getProjectIntrestVoByLoginUserAccessRight(
 			Long projectId);
 
-	public void deleteProjectMember(String projectMemberId) throws Exception;
+	public void acceptProjectIntrest(Long prjIntrstId) throws Exception;
 
-	public void updateProjectMemberRole(String projectMemberId, Long roleCd)
+	public void sendInviteProjectMemberToAllUser(Long projectId, Long userStatus)
 			throws Exception;
+
+	public void deleteProjectMemberByProjectMemberId(String projectMemberId)
+			throws Exception;
+
+	public void requestProjectCertificateByProjectId(Long projectId)
+			throws Exception;
+
+	public void updateProjectMemberRoleByProjectMemberIdnRole(
+			String projectMemberId, Long roleCd) throws Exception;
 
 	public ProjectVo getProjectVoByLoginUserAccessRight(Long projectId);
 
 	public List getProjectInterestListByUserWithSearch(
 			ProjectInterestSearchVo command);
 
-	List<CertificateRequestDto> getCertificateRequestsbyProject(Long prjId,
-			String userId);
+	public List<CertificateRequestDto> getCertificateRequestsbyProject(
+			Long prjId, String userId);
 
-	List<ProjectInterestDto> getProjectInterestListbyProject(
+	public List<ProjectInterestDto> getProjectInterestListbyProject(
 			ProjectDto projectDto, String userId);
 
-	List<ProjectInterestVo> getProjectInterestListByUser(Long prjId,
+	public List<ProjectInterestVo> getProjectInterestListByUser(Long prjId,
 			String userId);
 
 	public List<CodeDto> getProjectInterestStatusList2();
 
 	public List<ProjectInterestVo> getProjectInterestListByUserLoginId();
-
 }

@@ -10,13 +10,13 @@ public class VMSConstants {
 
 	public static final String TITLE_CATEGORY = "TITLE";
 	public static final String COUNTRY_CATEGORY = "COUNTRY";
-	public static final String MEMBER_ROLE_CATEGORY = "MEMBER_ROLE";
+	public static final String PROJECT_ROLE_CATEGORY = "MEMBER_ROLE";
 	public static final String CERTIFIATE_REQUEST_TYPE = "CERTIFICATE_REQUEST_TYPE";
 	public static final String CERTIFICATE_REQUEST_STATUS = "CERTIFICATE_REQUEST_STATUS";
 	public static final String FEEDBACK_STATUS = "FEEDBACK_STATUS";
 	public static final String PROJECT_STATUS = "PROJECT_STATUS";
 	public static final String PROPOSAL_STATUS = "PROPOSAL_STATUS";
-	public static final String PROJECT_INTREST_STATUS="PROJECT_INTREST_STATUS";
+	public static final String PROJECT_INTREST_STATUS = "PROJECT_INTREST_STATUS";
 	public static final String MEMBER_ROLE = "MEMBER_ROLE";
 
 	public static final String MENU_PERMISSION_ADAPTER_ATTRIBUTE_NAME = "menuPermissionAdapter";
@@ -37,7 +37,7 @@ public class VMSConstants {
 	// Thida
 	public static final String USER_TYPE_CATEGORY = "USER_TYPE";
 	public static final String USER_TYPE_CATEGORY_VOLUNTEER = "Volunteer";
-        public static final String USER_TYPE_CATEGORY_STAFF = "Staff";
+	public static final String USER_TYPE_CATEGORY_STAFF = "Staff";
 
 	public static final String PROJECT_STATUS_CATEGORY = "PROJECT_STATUS";
 	public static final String PROJECT_STATUS_CATEGORY_NEW = "NEW";
@@ -49,8 +49,14 @@ public class VMSConstants {
 	public static final String REPORT_TEMPLATE_PATH_JASPER = "C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jasper";
 	public static final String REPORT_TEMPLATE_PATH_JRXML = "C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jrxml";
 
-        public static final String PROJECT_ROLE_MEMBER = "Project Member"; 
-        public static final String PROJECT_ROLE_MANAGER = "Project Manager"; 
-        public static final String PROJECT_ROLE_LEADER = "Project Leader"; 
-        
+	public static final String PROJECT_ROLE_MEMBER = "Project Member";
+	public static final String PROJECT_ROLE_MANAGER = "Project Manager";
+	public static final String PROJECT_ROLE_LEADER = "Project Leader";
+
+	public static final String PROJECT_INTEREST_CATEGORY = "PROJECT_INTREST_STATUS";
+	public static final String PROJECT_INTEREST_NEW = "New";
+	public static final String PROJECT_INTEREST_APPROVED = "Approved";
+	public static final String PROJECT_INTEREST_REJECTED = "Rejected";
+	public static final String PROJECT_INTEREST_WITHDRAW = "Withdraw";
+
 }

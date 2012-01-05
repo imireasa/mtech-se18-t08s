@@ -48,13 +48,15 @@
                                 <td width="20"><label>#</label></td>
                                 <td width="170"><label>Name</label></td>
                                 <td width="75"><label>Country</label></td>
+                                <td width="75"><label>Status</label></td>
 
                         </tr>
                         <c:forEach  items="${projectInterestPagedListHolder.pageList}" var="item">
                                 <tr>
                                         <td><input type="checkbox" name="prjIntrstId" id="prjIntrstId" value="${item.prjIntrstId}"/></td>
                                         <td>${item.reqByTitle}.${item.reqByNme}</td>
-                                        <td>${item.reqByCtry}</td>                                                        
+                                        <td>${item.reqByCtry}</td>   
+                                        <td>${item.sts}</td>                                                         
                                 </tr>
                         </c:forEach>
                         <tr>
