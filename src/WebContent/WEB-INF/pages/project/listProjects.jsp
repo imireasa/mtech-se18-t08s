@@ -17,14 +17,10 @@
 
 </head>
 <body>
-	<h2>List Project</h2>
+	<h2>Manage Project</h2>
 	<div id="breadcrumb">
-		<a href="#"><fmt:message key="message.common.home.label" /></a> / <a
-			href="#"><fmt:message
-				key="message.projectManagement.projectManagement.label" /></a> / <a
-			href="#"><fmt:message
-				key="message.projectManagement.listProject.label" /></a>/
-		<fmt:message key="message.projectManagement.manageMember.label" />
+		<a href="#"><fmt:message key="message.common.home.label" /></a> /
+				<fmt:message key="message.projectManagement.projectManagement.label" />
 	</div>
 
 	<div class="query">
@@ -65,14 +61,17 @@
 	<!-- end of query -->
 	<table width="700" class="proj-table">
 		<tr>
-			<td colspan="7"><b><label>Project List</label></b></td>
+			<td colspan="8"><b><label>Project List</label></b></td>
+		</tr>
+		<tr>
+			<td colspan="8"><b><a href="createProject.html">Create New Project</a></b></td>
 		</tr>
 		<tr>
 			<td><label>Project Name</label></td>
 			<td><label>Description</label></td>
 			<td><label>StartDate</label></td>
 			<td><label>Status</label></td>
-			<td colspan="4"><label>Status</label></td>
+			<td colspan="4"><label>Actions</label></td>
 
 
 		</tr>
