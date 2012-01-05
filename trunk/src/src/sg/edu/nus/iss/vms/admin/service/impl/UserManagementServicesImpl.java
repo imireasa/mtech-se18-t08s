@@ -132,4 +132,16 @@ public class UserManagementServicesImpl implements UserManagementServices {
 		}
 		
 	}
+	
+	public UserDto getUserByLoginId(String userLoginId){
+		
+		UserDto user=null;
+		String hQL = "from UserDto where usrLoginId='" + userLoginId + "'";
+		List<UserDto> userList = manager.find(hQL);
+		if (userList != null && !userList.isEmpty())
+			user=userList.get(0);
+	
+		return user;
+		
+	}
 }
