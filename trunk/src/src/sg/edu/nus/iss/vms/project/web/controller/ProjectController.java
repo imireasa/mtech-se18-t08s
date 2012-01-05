@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.validation.BindingResult;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
+import sg.edu.nus.iss.vms.admin.service.UserManagementServices;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
@@ -28,13 +30,16 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
+import sg.edu.nus.iss.vms.security.dto.UserDto;
 
 public class ProjectController extends BaseMultiActionFormController {
 
@@ -42,6 +47,7 @@ public class ProjectController extends BaseMultiActionFormController {
 	private CodeManagementServices codeManagementServices;
 	private MemberManagementService memberManagementService;
 	private ProjectManagementService projectManagementService;
+	private UserManagementServices userManagementServices;
 	private BindingResult errors;
 
 	public void setCodeManagementServices(
@@ -67,6 +73,15 @@ public class ProjectController extends BaseMultiActionFormController {
 		this.projectManagementService = projectManagementService;
 	}
 
+	public UserManagementServices getUserManagementServices() {
+		return userManagementServices;
+	}
+
+	public void setUserManagementServices(
+			UserManagementServices userManagementServices) {
+		this.userManagementServices = userManagementServices;
+	}
+	
 	@Override
 	public long getLastModified(HttpServletRequest arg0) {
 		if (logger.isDebugEnabled()) {
@@ -335,19 +350,49 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("viewProject(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
 
-		// TODO: have to connect to Project List Page , now hard code the
-		// project id....
-		Long projectId = 1L;
+		Long projectId=1L;
+		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
+			projectId = Long.parseLong(request.getParameter("prjId"));
+		}
+
 		ProjectVo projectVo = projectManagementService
 				.getProjectVoById(projectId);
 		modelAndView = new ModelAndView("project/viewProject");
-		// page
+
 
 		projectVo.setCtryCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long
 				.parseLong(projectVo.getCtryCd())));
 		projectVo.setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long
 				.parseLong(projectVo.getStsCd())));
 		modelAndView.addObject("command", projectVo);
+		
+		//Getting Project Member..
+		
+		List projMemberList=projectManagementService.getProjectMember(projectId);
+		List projMemberVoList=new ArrayList();
+		if(projMemberList!=null){
+			for(int i=0;i<projMemberList.size();i++){
+				ProjectMemberDto obj=(ProjectMemberDto) projMemberList.get(i);
+				ProjectMemberVo voObj=new ProjectMemberVo();
+				
+				UserDto member=(UserDto) userManagementServices.getUserByLoginId(obj.getUsrLoginId());
+				String title=codeManagementServices.getCodeDescriptionByCodeId(member.getTitleCd());
+				voObj.setNme(title+" "+member.getNme());
+				voObj.setCtry(codeManagementServices.getCodeDescriptionByCodeId(member.getCtryCd()));
+				voObj.setRole(codeManagementServices.getCodeDescriptionByCodeId(obj.getRoleCd()));
+				projMemberVoList.add(voObj);
+			}
+		}
+		
+		PagedListHolder projMemberPagedListHolder = new PagedListHolder(
+				projMemberVoList);
+		if (!projMemberVoList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+			projMemberPagedListHolder.setPage(page);
+			projMemberPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+		}
+
+		modelAndView.addObject("pagedListHolder", projMemberPagedListHolder);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
