@@ -18,9 +18,9 @@
 </head>
 <body>
         <div id="breadcrumb">
-                <a href="#">Home</a> / 
-                <a href="#">View Project Interest</a> 
-        <h2>List Project</h2>
+                <a href="#"><fmt:message key="message.common.home.label"/></a>/
+                <a href="#">My Project Interests</a> 
+        <h2>My Project Interests</h2>
         <div class="query">
                 <form:form name="viewProjectInterest" method="get"
                            commandName="command" action="viewProjectInterest.html">
