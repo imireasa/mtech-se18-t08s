@@ -9,11 +9,7 @@
 	href="<%=request.getContextPath()%>/sys/css/paging.css"
 	rel="stylesheet" />
 
-<style> 
-                .error{ color:red;}  
-                .info{ color:blue;} 
-                .important{color:red} 
-</style>
+
 </head>
 <body>
 	<h2> Review Project Proposal</h2>
