@@ -98,4 +98,6 @@ public interface ProjectManagementService {
 	public List<CodeDto> getProjectInterestStatusList2();
 
 	public List<ProjectInterestVo> getProjectInterestListByUserLoginId();
+	
+	public List<ProjectMemberDto> getProjectMember(long projectId);
 }

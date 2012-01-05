@@ -701,4 +701,13 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<ProjectMemberDto> getProjectMember(long projectId) {
+		String hQL = "from ProjectMemberDto where prjId="+projectId;
+
+		List<ProjectMemberDto> projMemberDtoList = manager.find(hQL);
+
+		return (projMemberDtoList);
+	}
 }
