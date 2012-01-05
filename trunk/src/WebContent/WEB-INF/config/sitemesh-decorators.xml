@@ -32,6 +32,7 @@
 	</decorator> -->
 
 	<!-- With ACL decorator -->
+	
 	<!-- Project - start -->
 	<decorator name="projectDecorator" page="projectDecorator.jsp">
 		<pattern>/volunteer/*</pattern>
@@ -52,6 +53,20 @@
 	<decorator name="projectDecorator" page="projectDecorator.jsp">
 		<pattern>/member/*</pattern>
 	</decorator>
+	
+	<decorator name="projectDecorator" page="projectDecorator.jsp">
+		<pattern>/certificate/*</pattern>
+	</decorator>
 	<!-- Project - end -->
+	
+	<!-- Administrator - start 
+	<decorator name="adminDecorator" page="adminDecorator.jsp">
+		<pattern>/certificate/*</pattern>
+	</decorator>
+	<decorator name="adminDecorator" page="adminDecorator.jsp">
+		<pattern>/common/*</pattern>
+	</decorator>-->
+	<!-- Administrator - end -->
+	
 
 </decorators>
