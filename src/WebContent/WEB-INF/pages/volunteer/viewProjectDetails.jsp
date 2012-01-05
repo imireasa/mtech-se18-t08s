@@ -62,7 +62,7 @@
 				<c:if test="${projectVo.stsCd != 'Close'}">
 				<tr>
 					<td><input type="submit" name="btn_RaiseProjectInterest"
-				id="btn_RaiseProjectInterest" value="Raise Project Interest" class="button"></td>
+				id="btn_RaiseProjectInterest" value="Raise Project Interest"></td>
 				</tr>
 			
 		
@@ -138,7 +138,7 @@
 					</tr> 
 					<tr>
  						<td colspan="2" align="center"><input type="submit" 
-							name="btn_Post" id="btn_Post" value="Publish"></td> 
+							name="btn_Post" id="btn_Post" value="Publish" class="button"></td> 
 					</tr>
 
 				</table>
@@ -191,7 +191,7 @@
 					</tr> 
 					<tr>
  						<td colspan="2" align="center"><input type="submit" 
-							name="btn_Post" id="btn_Post" value="Publish"></td> 
+							name="btn_Post" id="btn_Post" value="Publish" class="button"></td> 
 					</tr>
 
 				</table>
