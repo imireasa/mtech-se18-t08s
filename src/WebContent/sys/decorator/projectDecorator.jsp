@@ -34,9 +34,7 @@ $(document).ready(function() {
         // check for sub levels and value
         if(current.children().size() == 0 && current.text().trim()== "") {
            //no child in this UL.
-               alert("up down left right A B A B start.");
             current.hide();
-            alert("OMG! it works! the empty section is gone!");
         }
      
     });
