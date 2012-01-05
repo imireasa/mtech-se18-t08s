@@ -811,6 +811,35 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 		}
 		projectPropDto.setRmk(proposalVo.getRmk());
+
+		String projectStatus = "Unknown";
+		String country = "Unknown";
+
+		List<CodeDto> countryCodeList = CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+
+		for (CodeDto codeDto : codeDtos) {
+			if (codeDto.getCdId().equals(projectPropDto.getStsCd())) {
+				projectStatus = codeDto.getVal();
+				break;
+			}
+		}
+		for (CodeDto codeDto : countryCodeList) {
+			if (codeDto.getCdId().equals(projectPropDto.getCtryCd())) {
+				country = codeDto.getVal();
+				break;
+			}
+		}
+
+		proposalVo.setName(projectPropDto.getNme());
+		proposalVo.setDesc(projectPropDto.getDesc());
+		proposalVo.setEstDuration(projectPropDto.getEstDur());
+		proposalVo.setLoc(projectPropDto.getLoc());
+		proposalVo.setRmk(projectPropDto.getRmk());
+		proposalVo.setProposerId(projectPropDto.getProposerId());
+		proposalVo.setStatus(projectStatus);
+		proposalVo.setCtryCd(country);
+
 		projectManagementService.saveOrUpdateProjectObject(projectPropDto);
 		modelAndView.addObject("propMsg", propMsg);
 		modelAndView.addObject("proposalVo", proposalVo);
