@@ -252,11 +252,12 @@ public class ProjectController extends BaseMultiActionFormController {
 		if (logger.isInfoEnabled()) {
 			logger.info("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - updateProject");
 		}
+		Long projectId=1L;
+		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
+			projectId = Long.parseLong(request.getParameter("prjId"));
+		}
 
 		if (command.getName() == null) {
-			// TODO: have to connect to Project List Page , now hard code the
-			// project id....
-			Long projectId = 1L;
 			ProjectVo project = projectManagementService
 					.getProjectVoById(projectId);
 			modelAndView = new ModelAndView("project/updateProject");
@@ -285,7 +286,7 @@ public class ProjectController extends BaseMultiActionFormController {
 							"statusList",
 							CodeLookupUtil
 									.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
-			ProjectVo projectVo = command;
+			ProjectVo projectVo = projectManagementService.getProjectVoById(projectId);
 			if (errors.hasErrors()) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - Error Handling :");
