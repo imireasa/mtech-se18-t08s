@@ -25,6 +25,7 @@ import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
+import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
@@ -286,6 +287,12 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 			try {
 				volunteerManagementService.updateVolunteer(volunteerVo);
+				//once updated, update the user session info vo to reflect the changes
+				UserSessionInfoVo userSessionInfoVo = UserUtil.getUserSessionInfoVo();
+				userSessionInfoVo.setEmail(volunteerVo.getEmail());
+				userSessionInfoVo.setName(volunteerVo.getNme());
+				request.getSession().setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), userSessionInfoVo);
+				
 				volunteerVo = volunteerManagementService.getVolunteer(UserUtil
 						.getUserSessionInfoVo().getUserID());
 
