@@ -41,7 +41,7 @@
                            commandName="command" 
                            action="createProject.html">
                         <form:hidden path="cmdType"/>
-                        <table width="400" class="proj-table">
+                        <table width="400" class="query-table">
                           
 								 <!-- Project Name -->
 								  <tr>

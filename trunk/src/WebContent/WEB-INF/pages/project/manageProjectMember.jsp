@@ -40,16 +40,16 @@
 				</c:forEach>
 			</div>
 		</c:if>
-        <table width="550">
+        <table width="550" class="query-table">
 			<tr>
-				<td width="153"><label><fmt:message
-							key="message.projectManagement.projectName.label" />:</label></td>
-				<td width="385"><label>${projectVo.name}</label></td>
+				<td width="153"><fmt:message
+							key="message.projectManagement.projectName.label" /></td>
+				<td width="385">${projectVo.name}</td>
 			</tr>
 			<tr>
-				<td width="153"><label><fmt:message
-							key="message.projectManagement.projectLocation.label" />:</label></td>
-				<td width="385"><label>${projectVo.loc}(${projectVo.ctry})</label></td>
+				<td width="153"><fmt:message
+							key="message.projectManagement.projectLocation.label" /></td>
+				<td width="385">${projectVo.loc}(${projectVo.ctry})</td>
 			</tr>
 		</table>
 	</div>
@@ -59,14 +59,10 @@
 		<table name="projectMemberList" border="1" class="proj-table">
 
 			<tr>
-				<td colspan="4"><fmt:message
-						key="message.projectManagement.projectMember.label" /></td>
-			</tr>
-			<tr>
-				<td width="20"><label>#</label></td>
-				<td width="170"><label>Name</label></td>
-				<td width="75"><label>Country</label></td>
-				<td width="100"><label>Role</label></td>
+				<th width="20"><label>#</label></th>
+				<th width="170"><label>Name</label></th>
+				<th width="75"><label>Country</label></th>
+				<th width="100"><label>Role</label></th>
 			</tr>
 			<c:forEach items="${memberPagedListHolder.pageList}" var="item">
 				<tr>

@@ -46,7 +46,7 @@
                 <form:form name="viewProject" method="get"
                            commandName="command" 
                            action="viewProject.html">
-                        <table width="400" class="proj-table">
+                        <table width="400" class="query-table">
 							
 								<!-- Project Id (Disabled) -->
 								<tr>
@@ -141,9 +141,9 @@
                                 <td colspan="4"><fmt:message key="message.projectManagement.projectMember.label"/></td>
                         </tr>
                         <tr>
-                                <td width="200" ><label>Name</label></td>
-                                <td width="150" ><label>Country</label></td>
-                                <td width="150" ><label>Role</label></td>
+                                <th width="200" ><label>Name</label></th>
+                                <th width="150" ><label>Country</label></th>
+                                <th width="150" ><label>Role</label></th>
                         </tr>
                          <c:forEach items="${pagedListHolder.pageList}" var="item">
                         <tr>

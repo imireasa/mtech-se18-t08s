@@ -15,7 +15,7 @@
 		<pattern>/volunteer/*</pattern>
 	</decorator>
 
-	<decorator name="commonDecorator" page="projectDecorator.jsp">
+	<decorator name="commonDecorator" page="projectDecoratorv02.jsp">
 		<pattern>/common/*</pattern>
 	</decorator>
 
@@ -34,27 +34,27 @@
 	<!-- With ACL decorator -->
 	
 	<!-- Project - start -->
-	<decorator name="projectDecorator" page="projectDecorator.jsp">
+	<decorator name="projectDecorator" page="projectDecoratorv02.jsp">
 		<pattern>/volunteer/*</pattern>
 	</decorator>
 	
-	<decorator name="projectDecorator" page="projectDecorator.jsp">
+	<decorator name="projectDecorator" page="projectDecoratorv02.jsp">
 		<pattern>/admin/*</pattern>
 	</decorator>
 	
-	<decorator name="projectDecorator" page="projectDecorator.jsp">
+	<decorator name="projectDecorator" page="projectDecoratorv02.jsp">
 		<pattern>/project/*</pattern>
 	</decorator>
 	
-	<decorator name="projectDecorator" page="projectDecorator.jsp">
+	<decorator name="projectDecorator" page="projectDecoratorv02.jsp">
 		<pattern>/common/*</pattern>
 	</decorator>
 	
-	<decorator name="projectDecorator" page="projectDecorator.jsp">
+	<decorator name="projectDecorator" page="projectDecoratorv02.jsp">
 		<pattern>/member/*</pattern>
 	</decorator>
 	
-	<decorator name="projectDecorator" page="projectDecorator.jsp">
+	<decorator name="projectDecorator" page="projectDecoratorv02.jsp">
 		<pattern>/certificate/*</pattern>
 	</decorator>
     
