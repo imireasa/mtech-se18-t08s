@@ -18,8 +18,7 @@
 </head>
 <body>
         <div id="breadcrumb">
-                <a href="#"><fmt:message key="message.common.home.label"/></a>/
-                <a href="#">My Project Interests</a> 
+                <a href="#"><fmt:message key="message.common.home.label"/></a>/My Project Interests
         <h2>My Project Interests</h2>
         <div class="query">
                 <form:form name="viewProjectInterest" method="get"
