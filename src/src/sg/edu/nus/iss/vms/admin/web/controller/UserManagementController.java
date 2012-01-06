@@ -13,12 +13,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.vms.admin.service.UserManagementServices;
 import sg.edu.nus.iss.vms.admin.vo.UserManagementVo;
+import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
-
-import com.mysql.jdbc.Messages;
 
 public class UserManagementController extends BaseMultiActionFormController {
 	/**
@@ -77,13 +76,13 @@ public class UserManagementController extends BaseMultiActionFormController {
 				try {
 					userManagementServices.updatePassword(command.getEmail(), command.getCurrentPassword(), command.getPassword(), UserUtil
 							.getUserSessionInfoVo().getUserID());
-					ObjectError error = new ObjectError(getCommandName(command), "Update Completed.");
+					ObjectError error = new ObjectError(getCommandName(command), Messages.getString("message.common.update"));
 					errors.addError(error);
 					modelAndView.addObject("command", command);
 					modelAndView.addAllObjects(errors.getModel());
 				}
 				catch (ApplicationException e) {
-					ObjectError error = new ObjectError(getCommandName(command), "Record cannot be updated. Please check your Current Password.");
+					ObjectError error = new ObjectError(getCommandName(command), Messages.getString("message.userManagement.error.update.password"));
 					errors.addError(error);
 					modelAndView.addObject("command", command);
 					modelAndView.addAllObjects(errors.getModel());
