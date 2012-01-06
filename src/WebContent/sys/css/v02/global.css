@@ -106,7 +106,7 @@ ul#info li { color:#666 !important; list-style:none !important; }
          font-size: 10px !important; 
          font-weight: bold;         
 }
-.proj-table {float:left; margin:20px; border-collapse:collapse; background:#fff;  }
+.proj-table {float:left; width:810px; margin:20px; border-collapse:collapse; background:#fff;  }
 .proj-table th { font-size: 14px !important; text-align:left; border:1px solid #ccc; padding:8px; background:#ccc; color:#fff; }
 .proj-table td { font-size: 13px !important; border:1px solid #ccc; padding:8px; color:#000;}
 .pagination { width:768px; padding-bottom:20px;; margin:0 20px; float:left; }
@@ -121,3 +121,6 @@ ul#info li { color:#666 !important; list-style:none !important; }
 .clearfix{display:inline-block}* html .clearfix{height:1%}.clearfix{display:block}
 
 #logoText {color:#FCD705 !important;font-size:36px !important;}
+
+.error{ color:red;}  
+.info{ color:blue;}  
