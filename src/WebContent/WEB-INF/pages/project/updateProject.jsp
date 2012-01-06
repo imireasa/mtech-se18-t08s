@@ -158,7 +158,8 @@
                                  <form:hidden path="version"/>
 								
                                 <tr>
-                                        <td colspan="3" ><input type="submit" name="button" id="button" value="<fmt:message key="message.common.update.button"/>"></td>
+										<td colspan="2"></td>
+                                        <td><input type="submit" name="button" id="button" value="<fmt:message key="message.common.update.button"/>"></td>
                                 </tr>
 								
 								
