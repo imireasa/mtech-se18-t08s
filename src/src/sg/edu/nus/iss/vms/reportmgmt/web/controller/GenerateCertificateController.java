@@ -226,8 +226,8 @@ public class GenerateCertificateController extends
 				response.setContentLength(bytes.length);
 				ServletOutputStream outStream = response.getOutputStream();
 				outStream.write(bytes, 0, bytes.length);
-				//outStream.flush();
-				//outStream.close();
+				outStream.flush();
+				outStream.close();
 
 				// 3. get the remaining request list...
 				List<CertificateRequestDto> list = certificateManagement.getReqCertList(stsRequested.getCdId());
