@@ -5,9 +5,11 @@
 <html>
 
     <head>
-        <link href="<%=request.getContextPath()%>/sys/css/v02/global.css" rel="stylesheet" type="text/css" />
-<!--        <link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />-->
-
+        <link href="<%=request.getContextPath()%>/sys/css/v02/login.css" rel="stylesheet" type="text/css" />
+		<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+		<!--[if lte IE 6]>
+		<script type="text/javascript" src="js/supersleight.js"></script>
+		<![endif]-->
         <title><fmt:message key="message.security.login.title" /></title>
     </head>
 
@@ -24,13 +26,13 @@
                     </p>
                     <p>
                         <label><fmt:message key="message.security.userId.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></label>
-                        <form:input path="username" maxlength="20" /><br />
+                        <form:input path="username" cssClass="text-input" maxlength="20" /><br />
                         <form:errors path="username" cssClass="error" />
                     </p>
                     <br class="clear" />
                     <p>
                         <label><fmt:message key="message.security.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></label>
-                        <form:password path="password" maxlength="50" /><br />
+                        <form:password path="password" cssClass="text-input" maxlength="50" /><br />
                         <form:errors path="password" cssClass="error" />
                         <br />
                     </p>
