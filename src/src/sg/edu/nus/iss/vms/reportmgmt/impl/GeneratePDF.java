@@ -14,7 +14,7 @@ import org.apache.log4j.Logger;
 public class GeneratePDF {
 	private static Logger logger = LogManager.getLogger(GeneratePDF.class);
 
-	public static byte[] generatePDF(JasperPrint jp) {
+	public byte[] generatePDF(JasperPrint jp) {
 		byte pdfByte[] = (byte[]) null;
 		ByteArrayOutputStream byArrOutputStr = null;
 		try {

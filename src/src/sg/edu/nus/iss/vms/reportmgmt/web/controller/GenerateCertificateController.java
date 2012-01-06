@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vms.reportmgmt.web.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
@@ -157,6 +161,7 @@ public class GenerateCertificateController extends
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	public ModelAndView generateCertificate(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
@@ -171,7 +176,7 @@ public class GenerateCertificateController extends
 		if (request.getParameter("certRequestId") == null) {
 
 			List<CertificateRequestDto> list = certificateManagement.getReqCertList(stsRequested.getCdId());
-			List certReqVoList = new ArrayList();
+			List<?> certReqVoList = new ArrayList<Object>();
 			if (logger.isDebugEnabled()) {
 				logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - certReqVoList:" + certReqVoList.size());
 			}
@@ -187,13 +192,14 @@ public class GenerateCertificateController extends
 
 			// 2. generate certificate
 			CertificateRequestDto certReqDto = certificateManagement.getCertRequest(certReqId);
-			String jrxmlPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jrxml";//VMSConstants.REPORT_TEMPLATE_PATH_JRXML
-			String jasperPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jasper";//VMSConstants.REPORT_TEMPLATE_PATH_JASPER
+			//String jrxmlPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jrxml";//VMSConstants.REPORT_TEMPLATE_PATH_JRXML
+			String jasperPath="/reports/volunteer_certificate_multipages.jasper";//VMSConstants.REPORT_TEMPLATE_PATH_JASPER
 				
 			//report parameters
 			String orgName =VMSConstants.ORGANIZATION_NAME;
-			Map params = new HashMap();
+			Map<String, String> params = new HashMap<String, String>();
 			params.put("org_name", orgName.toUpperCase());
+			params.put("goodJobImagePath", request.getRealPath("/sys/images/good_job.jpg"));
 			
 			//Query String for report
 			String requestType=CodeLookupUtil.getCodeDescriptionByCodeId(certReqDto.getReqTp());
@@ -206,8 +212,13 @@ public class GenerateCertificateController extends
 			
 			if(requestType.equalsIgnoreCase(VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL))
 				queryString = queryString + " AND req.req_by='"+certReqDto.getReqBy()+"'";
+			JasperPrint jasperPrint = null;
+
+			
+			File reportFile = new File(request.getRealPath(jasperPath));
+			
 	
-			byte[] bytes = this.reportManagementServices.generatePDFReport(jrxmlPath, jasperPath, params, queryString);
+			byte[] bytes = this.reportManagementServices.generatePDFReport(reportFile, params, queryString);
 
 			if (bytes != null && bytes.length != 0) {
 				response.setContentType("application/pdf");
@@ -215,11 +226,11 @@ public class GenerateCertificateController extends
 				response.setContentLength(bytes.length);
 				ServletOutputStream outStream = response.getOutputStream();
 				outStream.write(bytes, 0, bytes.length);
-				outStream.flush();
-				outStream.close();
+				//outStream.flush();
+				//outStream.close();
 
 				// 3. get the remaining request list...
-				List list = certificateManagement.getReqCertList(stsRequested.getCdId());
+				List<CertificateRequestDto> list = certificateManagement.getReqCertList(stsRequested.getCdId());
 				modelAndView.addObject("certReqVoList", this.getCertReqVoList(list));
 
 				if (logger.isDebugEnabled()) {
@@ -235,12 +246,12 @@ public class GenerateCertificateController extends
 		return modelAndView;
 	}
 	
-	private List getCertReqVoList(List list){
+	private List<CertificateRequestVo> getCertReqVoList(List<CertificateRequestDto> list){
 		
-		List certReqVoList = new ArrayList();
+		List<CertificateRequestVo> certReqVoList = new ArrayList<CertificateRequestVo>();
 		if (list != null && list.size() != 0) {
 			for (int i = 0; i < list.size(); i++) {
-				CertificateRequestDto obj = (CertificateRequestDto) list
+				CertificateRequestDto obj = list
 						.get(i);
 				CertificateRequestVo voObj = new CertificateRequestVo();
 				voObj.setCertReqId(obj.getCertReqId());
