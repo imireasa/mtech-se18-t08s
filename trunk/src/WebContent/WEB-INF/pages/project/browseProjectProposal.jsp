@@ -70,7 +70,7 @@
             
 			
 		</tr>
-		<c:forEach items="${proposalList}" var="item">
+		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>
 				<td>${item.prjPropId}</td>
 				
@@ -97,5 +97,17 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+	<div class="pagination">
+		<jsp:useBean id="pagedListHolder" scope="request"
+			type="org.springframework.beans.support.PagedListHolder" />
+
+		<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
+		<c:url value="/project/browseProjectProposal.html" var="pagedLink">
+			<c:param name="p" value="~" />
+		</c:url>
+
+		<%-- // load our paging tag, pass pagedListHolder and the link --%>
+		<tg:paging pagedListHolder="${pagedListHolder}"
+			pagedLink="${pagedLink}" />
+	</div>
 </body>
