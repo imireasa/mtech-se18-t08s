@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
@@ -24,7 +25,6 @@ import org.apache.log4j.Logger;
 import java.util.Properties;
 
 import sg.edu.nus.iss.vms.common.SessionBean;
-import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementServices;
 
@@ -76,6 +76,7 @@ public class ReportManagementServicesImpl implements ReportManagementServices {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+/*
 
 	@Override
 	public byte[] generateVolunteerCertificate(Long certRequestId, String reqBy,String RequestType) throws JRException, SQLException {
@@ -122,6 +123,45 @@ public class ReportManagementServicesImpl implements ReportManagementServices {
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 		return new GeneratePDF().generatePDF(jasperPrint);
 
+	}
+*/
+	@Override
+	public byte[] generatePDFReport(String jrxmlPath, String jasperPath,
+			Map params, String queryString) throws JRException, SQLException {
+
+		JasperPrint jasperPrint = null;
+
+		JasperCompileManager.compileReportToFile(jrxmlPath);
+		File reportFile = new File(jasperPath);
+		
+		if (!reportFile.exists())
+			throw new JRRuntimeException("File "+jrxmlPath+" not found. The report design must be compiled first.");
+		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportFile.getPath());
+		
+		String url = this.getUrl();
+		Properties props = new Properties();
+		props.setProperty("user",  this.getUsername());
+		props.setProperty("password",this.getPassword());
+		Connection conn = DriverManager.getConnection(url, props);
+		Statement stmt = conn.createStatement();
+		ResultSet rs;
+
+		rs = stmt.executeQuery(queryString);
+		JRResultSetDataSource dataSource = new JRResultSetDataSource(rs);
+
+		// Report's parameters
+		Map parameters = new HashMap();
+		Iterator iterator=params.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry mapEntry=(Map.Entry)iterator.next();
+            
+            parameters.put(mapEntry.getKey(), mapEntry.getValue());
+
+        }
+        
+        // Filling the reports with data
+		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+		return new GeneratePDF().generatePDF(jasperPrint);
 	}
 
 }
