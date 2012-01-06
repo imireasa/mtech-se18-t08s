@@ -136,4 +136,24 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		}
 		return null;
 	}
+    
+    @Override
+	public CodeDto getCodeByCodeCategoryAndCodeDesc(String Category, String val) {
+		this.logger
+				.debug("@ Service Layer Getting Code DTO by a specific Category Value."
+						+ Category + ", Category Value:" + val);
+		List<CodeDto> codeList = new ArrayList<CodeDto>();
+		try {
+			String hQL = "from CodeDto c where c.catId.nme='" + Category
+					+ "' and c.desc='" + val + "'";
+			codeList = this.manager.find(hQL);
+			if (codeList != null)
+				return codeList.get(0);
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+		} finally {
+			this.logger.debug("@ Service Layer: getCodeDtoByCatVal");
+		}
+		return null;
+	}
 }

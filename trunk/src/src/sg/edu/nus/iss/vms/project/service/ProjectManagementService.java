@@ -68,6 +68,8 @@ public interface ProjectManagementService {
 			Long projectId);
 
 	public void acceptProjectIntrest(Long prjIntrstId) throws Exception;
+    
+    public void rejectProjectIntrest(Long prjIntrstId) throws Exception;
 
 	public void sendInviteProjectMemberToAllUser(Long projectId, Long userStatus)
 			throws Exception;

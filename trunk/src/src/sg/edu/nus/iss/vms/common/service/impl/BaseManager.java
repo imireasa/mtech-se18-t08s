@@ -160,7 +160,7 @@ public class BaseManager implements Manager {
                         if (dto.getCreatedDte() == null) {
                                 dto.setCreatedDte(new java.util.Date());
                         }
-                        if (dto.getUpdBy() != null) {
+                        if(UserUtil.getUserSessionInfoVo() !=null){
                                 dto.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
                         }
                         dto.setUpdDte(new java.util.Date());
