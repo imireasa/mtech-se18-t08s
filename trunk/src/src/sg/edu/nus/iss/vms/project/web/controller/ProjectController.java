@@ -300,8 +300,8 @@ public class ProjectController extends BaseMultiActionFormController {
 							"statusList",
 							CodeLookupUtil
 									.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
-			ProjectVo projectVo = projectManagementService
-					.getProjectVoById(projectId);
+			
+			ProjectVo projectVo=command;
 			if (errors.hasErrors()) {
 				if (logger.isDebugEnabled()) {
 					logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - Error Handling :");
@@ -332,8 +332,9 @@ public class ProjectController extends BaseMultiActionFormController {
 				}
 				return modelAndView;
 			}
-
-			modelAndView.addObject("command", projectVo);
+			ProjectVo projectVo2 = projectManagementService
+				.getProjectVoById(projectId);
+			modelAndView.addObject("command", projectVo2);
 			modelAndView.addObject("msg",
 					Messages.getString("message.common.update"));
 
