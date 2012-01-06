@@ -29,19 +29,16 @@
 		 <a href="#"><fmt:message key="message.common.home.label"/></a>/ 
                 <fmt:message key="message.administration.generateCertificate.label"/>
 	</div>
-	<br />
-
-	<br />
 
 		<form id="form" name="form" method="post" action="generateCertificate.html">
 			<table width="690" class="proj-table">
 				<tr>
-					<td width="80">Certificate Request Id</td>
-					<td width="150"> <fmt:message key="message.projectManagement.projectName.label"/></td>
-                    <td width="150"><fmt:message key="message.administration.requestType.label"/></td>
-                    <td width="150"><fmt:message key="message.administration.requestBy.label"/></td>
-                    <td width="150"><fmt:message key="message.administration.requestDate.label"/></td>
-                    <td width="80" colspan="2"><fmt:message key="message.common.generate.button"/></td>
+					<th width="80">Certificate Request Id</th>
+					<th width="150"> <fmt:message key="message.projectManagement.projectName.label"/></th>
+                    <th width="150"><fmt:message key="message.administration.requestType.label"/></th>
+                    <th width="150"><fmt:message key="message.administration.requestBy.label"/></th>
+                    <th width="150"><fmt:message key="message.administration.requestDate.label"/></th>
+                    <th width="80" colspan="2"><fmt:message key="message.common.generate.button"/></th>
 				</tr>
 					<c:forEach items="${certReqVoList}" var="item" varStatus="status">
 						<tr>            
@@ -50,7 +47,7 @@
                     			<td>${item.reqTpName}</td>
                     			<td>${item.reqByName}</td>
                                 <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.reqDte}" /></td>
-                                <td><input type="button" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/> class="button" onclick="generateCert('${item.certReqId}')"/></td>
+                                <td><input type="button" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/>  onclick="generateCert('${item.certReqId}')"/></td>
 								<td><input type="hidden" name="certRequestId" id="certRequestId" /></td>
 						</tr>
                    </c:forEach>

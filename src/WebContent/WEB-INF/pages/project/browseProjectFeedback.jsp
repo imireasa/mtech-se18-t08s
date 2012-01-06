@@ -12,9 +12,9 @@
 
 </head>
 <body>
-    <h2>Search Project Feedback</h2>
+    <h2>Review Project Feedback</h2>
     <div id="breadcrumb">
-        <a href="#">Home</a> / <a href="#">Manage Project</a> / <a href="#">Search Project Feedback</a></div>
+        <a href="#">Home</a> / Review Project Feedback</div>
 
     <div class="query">  
         <form:form name="browseProjectFeedback" method="post"  commandName="feedbackVo" 

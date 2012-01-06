@@ -13,11 +13,9 @@
 
 </head>
 <body>
-    <h2>Search Project Proposal</h2>
+    <h2>Browse Project Proposal</h2>
     <div id="breadcrumb">
-        <a href="#">Home</a> / 
-        <a href="#">Manage Project</a> / 
-        <a href="#">Search Project Proposal</a></div>
+        <a href="#">Home</a> / Browse Project Proposal</div>
 
     <div class="query">  
         <form:form name="browseProjectProposal" method="post"  commandName="proposalVo" 
@@ -47,7 +45,8 @@
                 </tr>
 
                 <tr>
-                    <td colspan="4" align="center">    
+				<td></td>
+                    <td  align="left">    
                         <input type="submit" name="btn_Search" id="btn_Search" value="Search">
                     </td>
                 </tr>

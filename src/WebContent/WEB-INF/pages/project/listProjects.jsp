@@ -17,7 +17,7 @@
 
 </head>
 <body>
-	<h2>Manage Project</h2>
+	<h2><fmt:message key="message.projectManagement.projectManagement.label" /></h2>
 	<div id="breadcrumb">
 		<a href="#"><fmt:message key="message.common.home.label" /></a> /
 				<fmt:message key="message.projectManagement.projectManagement.label" />

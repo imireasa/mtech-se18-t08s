@@ -13,9 +13,9 @@
           rel="stylesheet" />
 </head>
 <body>
-    <h2>Browse Project</h2>
+    <h2>Browse Projects</h2>
     <div id="breadcrumb">
-        <a href="#">Home</a> / <a href="#">Volunteer</a> / <a href="#">Browse Project</a>
+        <a href="#">Home</a> / Browse Projects
     </div>
 
     <div class="query">
@@ -23,14 +23,14 @@
                    action="searchProjects.html" >
             <table width="707" height="105" class="query-table" >
                 <tr>
-                    <td><fmt:message key="message.projectManagement.projectName.label"/></td>
+                    <td><fmt:message key="message.projectManagement.projectName.label"/>:</td>
                     <td>
                         <spring:bind path="command.name">  
                             <form:input path="name"/>
                         </spring:bind>
                         <form:errors path="name" cssClass="error"/>  
                     </td>
-                    <td><fmt:message key="message.common.startDate.label"/></td>
+                    <td><fmt:message key="message.common.startDate.label"/>:</td>
                     <td>
                         <spring:bind path="command.strDte">
                             <form:input path="strDte"/><img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
@@ -39,7 +39,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><fmt:message key="message.common.status.label"/></td>
+                    <td><fmt:message key="message.common.status.label"/>:</td>
                     <td>
                         <form:select path="stsCd">
                             <form:option value="" label="ALL"/>
