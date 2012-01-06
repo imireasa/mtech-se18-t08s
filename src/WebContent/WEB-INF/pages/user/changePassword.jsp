@@ -21,10 +21,12 @@
 		<a href="#">Home</a> / <a href="#">Change Password</a> 
 	</div>
 	<div>
-		${command.message} 
+		
 		</div>
 	<div class="query">
+
    	  <form:form name="changePassword" method="post" action="changePassword.html" commandName="command">
+   	  	<form:errors path="*" cssClass="errorblock" element="div" />
 	  <table width="1013" height="105" >
 	  
 	    <tr>
