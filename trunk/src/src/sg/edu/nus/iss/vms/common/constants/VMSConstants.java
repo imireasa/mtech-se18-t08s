@@ -65,4 +65,10 @@ public class VMSConstants {
 	public static final String PROJECT_INTEREST_APPROVED = "Approved";
 	public static final String PROJECT_INTEREST_REJECTED = "Rejected";
 	public static final String PROJECT_INTEREST_WITHDRAW = "Withdraw";
+    
+    public static final String USER_ROLE = "ROLE";    
+    public static final String USER_ROLE_VOLUNTEER = "Volunteer";    
+	public static final String USER_ROLE_PROJECT_MANAGER = "Project Manager";
+	public static final String USER_ROLE_PROJECT_LEADER = "Project Leader";
+    
 }
