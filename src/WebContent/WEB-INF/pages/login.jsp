@@ -4,59 +4,51 @@
 
 <html>
 
-<head>
-<link href="<%=request.getContextPath()%>/sys/css/global.css" rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+    <head>
+        <link href="<%=request.getContextPath()%>/sys/css/v02/global.css" rel="stylesheet" type="text/css" />
+<!--        <link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />-->
 
-<title><fmt:message key="message.security.login.title" /></title>
-</head>
+        <title><fmt:message key="message.security.login.title" /></title>
+    </head>
 
-<body>
-
-<center>
-
-<h3><fmt:message key="message.security.pageHeader.label" /></h3>
-
-<br />
-
-<form:form commandName="loginCommand" method="POST" name="login">
-<table width="296">
-  <tr>
-    <td colspan="2">
-    <form:errors path="*" cssClass="errorblock" element="div" /></td>
-  </tr>
-  <tr>
-    <td><fmt:message key="message.security.userId.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></td>
-    <td>
-    	<form:input path="username" maxlength="20" /><br />
-    	<form:errors path="username" cssClass="error" />
-	</td>
-  </tr>
-  <tr>
-    <td><fmt:message key="message.security.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></td>
-    <td>
-    	<form:password path="password" maxlength="50" /><br />
-		<form:errors path="password" cssClass="error" />
-		<br />
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><input type="submit" name="btn_login" id="btn_login" class="button" value="<fmt:message key="message.security.login.button"/>"></td><br/>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><a href="<%=request.getContextPath()%>/public/registerVolunteer.html"><fmt:message key="message.security.newUserRegister.label"/></a></td>
-  </tr>
-  <tr>
-    <td colspan="2" align="center"><a href="<%=request.getContextPath()%>/public/forgetPassword.html"><fmt:message key="message.security.forgetPassword.label"/></a></td>
-   
-  </tr>
-</table>
-
-<input id="requestedUrl" name="requestedUrl" type="hidden" value="${requestedUrl}"/>
-
-</form:form>
-</center>
-
+    <body>
+        <div id="wrapper">
+            <div id="loginheader">
+                <img src="<%=request.getContextPath()%>/sys/images/v02/logo-hand.png" width="153" height="207" />
+                <h1>Welcome to VMS</h1>
+            </div><!-- end of loginheader-->
+            <div id="login-wrapper">
+                <form:form commandName="loginCommand" method="POST" name="login">
+                    <p>
+                        <form:errors path="*" cssClass="errorblock" element="div" />
+                    </p>
+                    <p>
+                        <label><fmt:message key="message.security.userId.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></label>
+                        <form:input path="username" maxlength="20" /><br />
+                        <form:errors path="username" cssClass="error" />
+                    </p>
+                    <br class="clear" />
+                    <p>
+                        <label><fmt:message key="message.security.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></label>
+                        <form:password path="password" maxlength="50" /><br />
+                        <form:errors path="password" cssClass="error" />
+                        <br />
+                    </p>
+                    <br class="clear" />
+                    <p>
+                        <input id="requestedUrl" name="requestedUrl" type="hidden" value="${requestedUrl}"/>
+                        <input type="submit" name="btn_login" id="btn_login" class="button2" value="<fmt:message key="message.security.login.button"/>"/>                        
+                    </p>
+                </form:form>
+                <br class="clear" />
+                <p>&nbsp;</p>
+                <hr />
+                <p><a href="<%=request.getContextPath()%>/public/registerVolunteer.html"><fmt:message key="message.security.newUserRegister.label"/></a></p>
+                <p><a href="<%=request.getContextPath()%>/public/forgetPassword.html"><fmt:message key="message.security.forgetPassword.label"/></a></p>
+            </div><!-- end of login-content -->
+            <div id="footer">Copyright &copy; 2012 Volunteer Management System (VMS). All rights reserved.</div><!-- end of footer -->
+        </div>
+                <!-- end of wrapper -->
 </body>
 
 </html>
