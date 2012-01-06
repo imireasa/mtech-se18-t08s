@@ -122,7 +122,8 @@
                                 </tr>
 								
                                 <tr>
-                                        <td colspan="3" ><input type="submit" name="button" id="button" value="<fmt:message key="message.common.create.button"/>"></td>
+										<td colspan="2"></td>
+                                        <td><input type="submit" name="button" id="button" value="<fmt:message key="message.common.create.button"/>"></td>
                                 </tr>
                         </table>
                 </form:form>
