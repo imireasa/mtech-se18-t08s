@@ -1,7 +1,9 @@
 package sg.edu.nus.iss.vms.reportmgmt.web.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -185,9 +187,27 @@ public class GenerateCertificateController extends
 
 			// 2. generate certificate
 			CertificateRequestDto certReqDto = certificateManagement.getCertRequest(certReqId);
-			byte[] bytes = this.reportManagementServices.generateVolunteerCertificate(certReqId, certReqDto
-							.getReqBy(), CodeLookupUtil
-							.getCodeDescriptionByCodeId(certReqDto.getReqTp()));
+			String jrxmlPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jrxml";//VMSConstants.REPORT_TEMPLATE_PATH_JRXML
+			String jasperPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jasper";//VMSConstants.REPORT_TEMPLATE_PATH_JASPER
+				
+			//report parameters
+			String orgName =VMSConstants.ORGANIZATION_NAME;
+			Map params = new HashMap();
+			params.put("org_name", orgName.toUpperCase());
+			
+			//Query String for report
+			String requestType=CodeLookupUtil.getCodeDescriptionByCodeId(certReqDto.getReqTp());
+			String queryString = "SELECT prj.nme AS ProjectName, prj.str_dte as ProjectStartDate, prj.end_dte As ProjectEndDate,usr.nme As VolunteerName";
+			queryString = queryString + " FROM tb_project prj, tb_project_member prjMem, tb_certificate_request req,tb_user usr";
+			queryString = queryString + " WHERE req.prj_id=prj.prj_id";
+			queryString = queryString + " AND prjMem.prj_id=prj.prj_id";
+			queryString = queryString + " AND prjMem.usr_login_id=usr.usr_login_id";
+			queryString = queryString + " AND req.cert_req_id=" + certReqId;
+			
+			if(requestType.equalsIgnoreCase(VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL))
+				queryString = queryString + " AND req.req_by='"+certReqDto.getReqBy()+"'";
+	
+			byte[] bytes = this.reportManagementServices.generatePDFReport(jrxmlPath, jasperPath, params, queryString);
 
 			if (bytes != null && bytes.length != 0) {
 				response.setContentType("application/pdf");
@@ -214,6 +234,7 @@ public class GenerateCertificateController extends
 		}
 		return modelAndView;
 	}
+	
 	private List getCertReqVoList(List list){
 		
 		List certReqVoList = new ArrayList();
