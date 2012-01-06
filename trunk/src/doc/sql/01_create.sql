@@ -33,7 +33,7 @@ CREATE TABLE `tb_certificate_request` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`CERT_REQ_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_code` */
 
@@ -138,7 +138,7 @@ CREATE TABLE `tb_project` (
   CONSTRAINT `FKTB_PROJECT334276` FOREIGN KEY (`PRJ_PROP_ID`) REFERENCES `tb_project_proposal` (`PRJ_PROP_ID`),
   CONSTRAINT `tb_project_ibfk_1` FOREIGN KEY (`PRJ_PROP_ID`) REFERENCES `tb_project_proposal` (`PRJ_PROP_ID`),
   CONSTRAINT `tb_project_ibfk_2` FOREIGN KEY (`PRJ_PROP_ID`) REFERENCES `tb_project_proposal` (`PRJ_PROP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_experience` */
 
@@ -155,7 +155,7 @@ CREATE TABLE `tb_project_experience` (
   CONSTRAINT `FKTB_PROJECT154073` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_experience_ibfk_1` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_experience_ibfk_2` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_feedback` */
 
@@ -179,7 +179,7 @@ CREATE TABLE `tb_project_feedback` (
   CONSTRAINT `FKTB_PROJECT303640` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_feedback_ibfk_1` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_feedback_ibfk_2` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_interest` */
 
@@ -203,7 +203,7 @@ CREATE TABLE `tb_project_interest` (
   CONSTRAINT `FKTB_PROJECT169016` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_interest_ibfk_1` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_interest_ibfk_2` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_member` */
 
@@ -225,7 +225,7 @@ CREATE TABLE `tb_project_member` (
   CONSTRAINT `FKTB_PROJECT662350` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_member_ibfk_1` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`),
   CONSTRAINT `tb_project_member_ibfk_2` FOREIGN KEY (`PRJ_ID`) REFERENCES `tb_project` (`PRJ_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_proposal` */
 
@@ -249,7 +249,7 @@ CREATE TABLE `tb_project_proposal` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`PRJ_PROP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_proposal_document` */
 
@@ -330,7 +330,7 @@ CREATE TABLE `tb_role` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`ROLE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_role_function` */
 
@@ -378,7 +378,7 @@ CREATE TABLE `tb_user` (
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`USR_ID`),
   UNIQUE KEY `USR_LOGIN_ID` (`USR_LOGIN_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_user_detail` */
 
@@ -397,7 +397,7 @@ CREATE TABLE `tb_user_detail` (
   KEY `FKTB_USER_DE115797` (`USR_ID`),
   CONSTRAINT `FKTB_USER_DE115797` FOREIGN KEY (`USR_ID`) REFERENCES `tb_user` (`USR_ID`),
   CONSTRAINT `tb_user_detail_ibfk_1` FOREIGN KEY (`USR_ID`) REFERENCES `tb_user` (`USR_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_user_role` */
 
@@ -416,7 +416,7 @@ CREATE TABLE `tb_user_role` (
   KEY `FKTB_USER_RO554008` (`ROLE_ID`),
   CONSTRAINT `FKTB_USER_RO554008` FOREIGN KEY (`ROLE_ID`) REFERENCES `tb_role` (`ROLE_ID`),
   CONSTRAINT `tb_user_role_ibfk_1` FOREIGN KEY (`ROLE_ID`) REFERENCES `tb_role` (`ROLE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
