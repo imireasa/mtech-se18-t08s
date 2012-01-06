@@ -85,7 +85,7 @@
 		</tr>
 		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>
-				<td>${item.prjPropId}</td>
+				<td>${item.prjFbId}</td>
 				<td>${item.prjId.nme}</td>
 				<td>${item.title}</td>
 				<td>${item.createdBy}</td>
