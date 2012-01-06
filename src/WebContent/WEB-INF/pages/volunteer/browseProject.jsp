@@ -70,7 +70,7 @@
 			<th><fmt:message key="message.common.startDate.label"/></th>
 				
 		</tr>
-		<c:forEach items="${projectList}" var="item" varStatus="status">
+		<c:forEach items="${pagedListHolder.pageList}" var="item" varStatus="status">
 			<tr>
 				<td>${item.nme}</td>
 				<td>${item.desc}</td>
@@ -88,5 +88,17 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+		<div class="pagination">
+		<jsp:useBean id="pagedListHolder" scope="request"
+			type="org.springframework.beans.support.PagedListHolder" />
+
+		<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
+		<c:url value="/volunteer/browseProject.html" var="pagedLink">
+			<c:param name="p" value="~" />
+		</c:url>
+
+		<%-- // load our paging tag, pass pagedListHolder and the link --%>
+		<tg:paging pagedListHolder="${pagedListHolder}"
+			pagedLink="${pagedLink}" />
+	</div>
 </body>
