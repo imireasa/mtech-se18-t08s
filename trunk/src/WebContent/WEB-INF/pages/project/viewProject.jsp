@@ -108,7 +108,7 @@
                                         <td align="left"><fmt:message key="message.common.location.label"/></td>
                                         <td>:</td>
                                         <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="loc" cols="45" rows="4"></form:textarea>
+                                                <form:textarea path="loc" cols="45" rows="4" disabled="true"></form:textarea>
                                                 <form:errors path="loc" cssClass="error"/>
                                         </td>
                                 </tr>	
@@ -126,7 +126,7 @@
                                         <td align="left"><fmt:message key="message.common.remark.label"/></td>
                                         <td>:</td>
                                         <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="rmk" cols="45" rows="4"></form:textarea>
+                                                <form:textarea path="rmk" cols="45" rows="4" disabled="true"></form:textarea>
                                                 <form:errors path="rmk" cssClass="error"/>
                                         </td>
                                 </tr>
