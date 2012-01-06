@@ -643,7 +643,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List getAllProjectObjectList(Class type, String orderProperty) {
+	public List getAllProjectObjectList(Class type) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(type);
 		return manager.findByDetachedCriteria(criteria);
 	}
