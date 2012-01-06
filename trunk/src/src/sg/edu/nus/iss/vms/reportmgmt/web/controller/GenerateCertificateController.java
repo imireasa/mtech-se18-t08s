@@ -165,7 +165,7 @@ public class GenerateCertificateController extends
 		CodeDto stsRequested = CodeLookupUtil.getCodeDtoByCatVal(
 				VMSConstants.CERTIFICATE_REQUEST_STATUS,
 				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
-
+		
 		if (request.getParameter("certRequestId") == null) {
 
 			List<CertificateRequestDto> list = certificateManagement.getReqCertList(stsRequested.getCdId());
@@ -173,6 +173,7 @@ public class GenerateCertificateController extends
 			if (logger.isDebugEnabled()) {
 				logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - certReqVoList:" + certReqVoList.size());
 			}
+			
 			modelAndView.addObject("certReqVoList", this.getCertReqVoList(list));
 		} else {
 			// 1. change the status
@@ -240,7 +241,7 @@ public class GenerateCertificateController extends
 				certReqVoList.add(voObj);
 			}
 		}
-		return null;
+		return certReqVoList;
 	}
 
 }
