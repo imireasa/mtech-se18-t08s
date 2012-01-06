@@ -2,7 +2,7 @@ html, body, h1, h2, h3, h4, h5, ul, li, ol, blockquote, p {
 	margin: 0;
 	padding: 0;
 }
-body { font-size:11px; background:#000 url(/VMS/sys/images/bg-map.png) center bottom; color:#fff; }
+body { font-size:11px; background:#000 url(/VMS/sys/images/v02/bg-map.png) center bottom; color:#fff; }
 a { text-decoration:none; color:#FC0; }
 a:hover { text-decoration:underline; }
 
