@@ -93,9 +93,9 @@
 			type="org.springframework.beans.support.PagedListHolder" />
 
 		<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-		<c:url value="/admin/project/listProjects.html" var="pagedLink">
+		<c:url value="/project/listProjects.html" var="pagedLink">
 			<c:param name="p" value="~" />
-			<c:param name="projectName" value="${projectName}" />
+			
 		</c:url>
 
 		<%-- // load our paging tag, pass pagedListHolder and the link --%>
