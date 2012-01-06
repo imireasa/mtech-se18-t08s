@@ -29,6 +29,12 @@
                 <fmt:message key="message.projectManagement.createProject.label"/>
         </div>
         <div class="query">
+        	 <c:if test="${not empty msg}"> 
+                        <div class="info">
+                                <c:out value="${msg}" escapeXml="false"/><br/>
+                        </div>
+                </c:if>
+
                 <c:if test="${not empty errors}"> 
                         <div class="error">
                                 <c:forEach var="error" items="${errors}">  
@@ -36,6 +42,8 @@
                                 </c:forEach>
                         </div>
                 </c:if>
+
+               
 
                 <form:form name="createProject" method="post"
                            commandName="command" 
