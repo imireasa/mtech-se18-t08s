@@ -373,13 +373,10 @@ public class ProjectController extends BaseMultiActionFormController {
 
 				UserDto member = userManagementServices.getUserByLoginId(obj
 						.getUsrLoginId());
-				String title = codeManagementServices
-						.getCodeDescriptionByCodeId(member.getTitleCd());
+				String title = CodeLookupUtil.getCodeDescriptionByCodeId(member.getTitleCd());
 				voObj.setNme(title + " " + member.getNme());
-				voObj.setCtry(codeManagementServices
-						.getCodeDescriptionByCodeId(member.getCtryCd()));
-				voObj.setRole(codeManagementServices
-						.getCodeDescriptionByCodeId(obj.getRoleCd()));
+				voObj.setCtry(CodeLookupUtil.getCodeDescriptionByCodeId(member.getCtryCd()));
+				voObj.setRole(CodeLookupUtil.getCodeDescriptionByCodeId(obj.getRoleCd()));
 				projMemberVoList.add(voObj);
 			}
 		}
