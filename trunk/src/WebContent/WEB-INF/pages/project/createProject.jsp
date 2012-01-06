@@ -68,7 +68,7 @@
                                         <td align="left">
                                                 <form:input path="strDte" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="strDte" cssClass="error"/>
-                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte')" style="cursor:pointer"/>
+                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
                   
                                         </td>
                                 </tr>	 
@@ -79,7 +79,7 @@
                                         <td align="left">
                                                 <form:input path="endDte" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="endDte" cssClass="error"/>
-                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('endDte')" style="cursor:pointer"/>
+                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('endDte','ddMMyyyy')" style="cursor:pointer"/>
                                         </td>
                                 </tr>
 							 <!-- Conuntry -->

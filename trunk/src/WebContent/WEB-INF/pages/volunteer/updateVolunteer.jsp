@@ -157,7 +157,7 @@
                                         <td align="left">
                                                 <form:input path="dob" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="dob" cssClass="error"/>
-                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('dob')" style="cursor:pointer"/>
+                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('dob','ddMMyyyy')" style="cursor:pointer"/>
                                         </td>
                                 </tr>		
                                 <tr>
