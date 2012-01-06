@@ -35,13 +35,13 @@
         </div>
         <div class="query">
                 <c:if test="${not empty msg}"> 
-                        <div class="infoblock">
+                        <div class="error">
                                 <c:out value="${msg}" escapeXml="false"/><br/>
                         </div>
                 </c:if>
 
                 <c:if test="${not empty errors}"> 
-                        <div class="errorblock">
+                        <div class="error">
                                 <c:forEach var="error" items="${errors}">  
                                         <c:out value="${error}" escapeXml="false"/><br/>
                                 </c:forEach>
@@ -52,7 +52,7 @@
                            commandName="command" 
                            action="updateVolunteer.html">
                         <form:hidden path="cmdType"/>
-                        <table width="400" class="proj-table">
+                        <table width="400" class="query-table">
                                 <tr>
                                         <td align="left"><fmt:message key="message.common.loginid.label"/> </td>
                                         <td>:</td>
@@ -118,7 +118,7 @@
                                 <tr>
                                         <td align="left"><fmt:message key="message.common.address.label"/></td>
                                         <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left"><label for="textarea"></label>
+                                        <td align="left"><label for="textarea">
                                                 <form:textarea path="addr" cols="45" rows="5"></form:textarea>
                                                 <form:errors path="addr" cssClass="error"/>
                                         </td>
@@ -185,7 +185,9 @@
                                         </td>
                                 </tr>
                                 <tr>
-                                        <td colspan="3" ><input type="submit" name="button" id="button" class="button" value="<fmt:message key="message.common.update.button"/>"></td>
+										<td></td>
+										<td></td>
+                                        <td><input type="submit" name="button" id="button" value="<fmt:message key="message.common.update.button"/>"></td>
                                 </tr>
                         </table>
                 </form:form>
