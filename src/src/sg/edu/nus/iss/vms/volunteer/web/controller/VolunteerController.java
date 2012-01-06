@@ -8,11 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.security.providers.encoding.PasswordEncoder;
+import org.springframework.beans.support.PagedListHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.vms.common.Messages;
@@ -172,72 +173,72 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 	}
 
-//	public ModelAndView registerVolunteer(HttpServletRequest request,
-//			HttpServletResponse response, VolunteerVo command) throws Exception {
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - start");
-//		}
-//
-//		modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
-//		if (command.getLoginId() == null) {
-//			// page
-//			modelAndView.addObject("titleList", CodeLookupUtil
-//					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-//			modelAndView.addObject("countryList", CodeLookupUtil
-//					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
-//			VolunteerVo volVo = new VolunteerVo();
-//			 volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
-//			modelAndView.addObject("command", volVo);
-//
-//			if (logger.isDebugEnabled()) {
-//				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-//			}
-//			return modelAndView;
-//		} else {
-//			validate(command);
-//			modelAndView.addObject("titleList", CodeLookupUtil
-//					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-//			modelAndView.addObject("countryList", CodeLookupUtil
-//					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
-//			VolunteerVo volunteerVo = command;
-//			if (errors.hasErrors()) {
-//				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - Error Handling : ");
-//				saveError(request, errors.getFieldError().getDefaultMessage());
-//				modelAndView.addObject("command", volunteerVo);
-//
-//				if (logger.isDebugEnabled()) {
-//					logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-//				}
-//				return modelAndView;
-//			}
-//			try {
-//				volunteerManagementService.saveNewVolunteer(volunteerVo);
-//			} catch (ApplicationException ae) {
-//				logger.error(
-//						"registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo)",
-//						ae);
-//
-//				List list = new ArrayList();
-//				list.add(ae.getMessage());
-//				modelAndView.addObject("errors", list);
-//				modelAndView.addObject("command", volunteerVo);
-//
-//				if (logger.isDebugEnabled()) {
-//					logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-//				}
-//				return modelAndView;
-//			}
-//			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
-//			modelAndView.addObject("command", volunteerVo);
-//			modelAndView.addObject("msg",
-//					Messages.getString("message.common.save"));
-//
-//			if (logger.isDebugEnabled()) {
-//				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-//			}
-//			return modelAndView;
-//		}
-//	}
+	// public ModelAndView registerVolunteer(HttpServletRequest request,
+	// HttpServletResponse response, VolunteerVo command) throws Exception {
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - start");
+	// }
+	//
+	// modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
+	// if (command.getLoginId() == null) {
+	// // page
+	// modelAndView.addObject("titleList", CodeLookupUtil
+	// .getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
+	// modelAndView.addObject("countryList", CodeLookupUtil
+	// .getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+	// VolunteerVo volVo = new VolunteerVo();
+	// volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
+	// modelAndView.addObject("command", volVo);
+	//
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+	// }
+	// return modelAndView;
+	// } else {
+	// validate(command);
+	// modelAndView.addObject("titleList", CodeLookupUtil
+	// .getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
+	// modelAndView.addObject("countryList", CodeLookupUtil
+	// .getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+	// VolunteerVo volunteerVo = command;
+	// if (errors.hasErrors()) {
+	// logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - Error Handling : ");
+	// saveError(request, errors.getFieldError().getDefaultMessage());
+	// modelAndView.addObject("command", volunteerVo);
+	//
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+	// }
+	// return modelAndView;
+	// }
+	// try {
+	// volunteerManagementService.saveNewVolunteer(volunteerVo);
+	// } catch (ApplicationException ae) {
+	// logger.error(
+	// "registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo)",
+	// ae);
+	//
+	// List list = new ArrayList();
+	// list.add(ae.getMessage());
+	// modelAndView.addObject("errors", list);
+	// modelAndView.addObject("command", volunteerVo);
+	//
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+	// }
+	// return modelAndView;
+	// }
+	// volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
+	// modelAndView.addObject("command", volunteerVo);
+	// modelAndView.addObject("msg",
+	// Messages.getString("message.common.save"));
+	//
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+	// }
+	// return modelAndView;
+	// }
+	// }
 
 	public ModelAndView updateVolunteer(HttpServletRequest request,
 			HttpServletResponse response, VolunteerVo command) throws Exception {
@@ -285,9 +286,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 			try {
 				volunteerManagementService.updateVolunteer(volunteerVo);
-				 volunteerVo = volunteerManagementService
-				.getVolunteer(UserUtil.getUserSessionInfoVo().getUserID());
-				 
+				volunteerVo = volunteerManagementService.getVolunteer(UserUtil
+						.getUserSessionInfoVo().getUserID());
+
 			} catch (ApplicationException ae) {
 				logger.error(
 						"updateVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo)",
@@ -330,6 +331,15 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("projectList", projectList);
 		modelAndView.addObject("command", new ProjectVo());
 		modelAndView.addObject("projectCodeList", projectCodeList);
+
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectList);
+		if (!projectList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+			projectPagedListHolder.setPage(page);
+			projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+		}
+		modelAndView.addObject("pagedListHolder", projectPagedListHolder);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("browseProject(HttpServletRequest, HttpServletResponse) - end");
@@ -442,10 +452,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("viewProjectDetails(HttpServletRequest, HttpServletResponse) - Total memebr:" + memberList.size());
+			logger.debug("viewProjectDetails(HttpServletRequest, HttpServletResponse) - Total memebr:"
+					+ memberList.size());
 			logger.debug("viewProjectDetails(HttpServletRequest, HttpServletResponse) - end");
 		}
-		
+
 		return modelAndView;
 
 	}
@@ -463,13 +474,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("raiseInterest(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@raiseInterest@@@@@@@@@:"
 					+ projectDto.getPrjId());
 		}
-		
 
 		CodeDto codeDto = CodeLookupUtil
 				.getCodeDescriptionByCodeCategoryAndCodeDesc(
 						VMSConstants.CERTIFIATE_REQUEST_TYPE,
 						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
-		
 
 		ProjectInterestDto projectInterestDto = new ProjectInterestDto();
 		projectInterestDto.setPrjId(projectDto);
@@ -606,7 +615,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 				"projectVo");
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@requestCertificate@@@@@@@@@: "+ projectDto.getPrjId());
+			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@requestCertificate@@@@@@@@@: "
+					+ projectDto.getPrjId());
 		}
 
 		CodeDto codeDto = CodeLookupUtil
@@ -651,7 +661,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		}
 
-		
 		if (logger.isDebugEnabled()) {
 			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@successfully reqCertifictae@@@@@@@@@:"
 					+ projectDto.getPrjId());
