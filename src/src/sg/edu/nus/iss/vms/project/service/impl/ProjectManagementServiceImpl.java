@@ -3,12 +3,13 @@ package sg.edu.nus.iss.vms.project.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.Messages;
@@ -23,7 +24,6 @@ import sg.edu.nus.iss.vms.common.mail.MailSenderUtil;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
-import sg.edu.nus.iss.vms.common.util.RamdomPasswordGeneratorUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
@@ -515,7 +515,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			ProjectDto project = new ProjectDto();
 			project.setNme(projectVo.getName());
 			project.setDesc(projectVo.getDesc());
-			project.setPrjMgr(Long.toString(UserUtil.getUserSessionInfoVo().getUserSeqID()));
+			project.setPrjMgr(Long.toString(UserUtil.getUserSessionInfoVo()
+					.getUserSeqID()));
 			project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
 			project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
 			project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
@@ -641,8 +642,9 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List getAllProjectObjectList(Class type) {
+	public List getAllProjectObjectList(Class type, String orderProperty) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(type);
+		criteria.addOrder(Order.asc(orderProperty));
 		return manager.findByDetachedCriteria(criteria);
 	}
 
@@ -810,7 +812,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public List<ProjectMemberDto> getProjectMember(long projectId) {
-		String hQL = "from ProjectMemberDto where prjId="+projectId;
+		String hQL = "from ProjectMemberDto where prjId=" + projectId;
 		List<ProjectMemberDto> projMemList = manager.find(hQL);
 		return projMemList;
 	}

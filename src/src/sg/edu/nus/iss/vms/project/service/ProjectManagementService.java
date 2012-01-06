@@ -38,7 +38,7 @@ public interface ProjectManagementService {
 
 	public void requestCertificate(CertificateRequestDto certificateRequestDto);
 
-	public List getAllProjectObjectList(Class type);
+	public List getAllProjectObjectList(Class type, String orderProperty);
 
 	public ProjectVo getProjectVoById(Long projectId);
 
@@ -68,8 +68,8 @@ public interface ProjectManagementService {
 			Long projectId);
 
 	public void acceptProjectIntrest(Long prjIntrstId) throws Exception;
-    
-    public void rejectProjectIntrest(Long prjIntrstId) throws Exception;
+
+	public void rejectProjectIntrest(Long prjIntrstId) throws Exception;
 
 	public void sendInviteProjectMemberToAllUser(Long projectId, Long userStatus)
 			throws Exception;
@@ -100,6 +100,6 @@ public interface ProjectManagementService {
 	public List<CodeDto> getProjectInterestStatusList2();
 
 	public List<ProjectInterestVo> getProjectInterestListByUserLoginId();
-	
+
 	public List<ProjectMemberDto> getProjectMember(long projectId);
 }
