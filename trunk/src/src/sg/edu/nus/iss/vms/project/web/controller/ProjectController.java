@@ -1111,8 +1111,8 @@ public class ProjectController extends BaseMultiActionFormController {
 						}
 						modelAndView
 								.addObject(
-										"errors",
-										Messages.getString("message.projectManagement.error.noSelectdMember"));
+										"msg",
+										Messages.getString("message.common.update"));
 					} else {
 						modelAndView
 								.addObject(
@@ -1135,8 +1135,8 @@ public class ProjectController extends BaseMultiActionFormController {
 					} else {
 						modelAndView
 								.addObject(
-										"errors",
-										Messages.getString("message.projectManagement.error.noSelectdMember"));
+										"msg",
+										Messages.getString("message.common.update"));
 					}
 				}
 			} catch (ApplicationException ex) {
