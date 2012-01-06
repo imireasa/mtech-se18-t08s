@@ -202,9 +202,10 @@ public class VolunteerManagementServiceImpl implements
 			}
 			//
 			user.setNme(volunteerVo.getNme());
+			user.setTitleCd(Long.parseLong(volunteerVo.getTitle()));
 			user.setEmail(volunteerVo.getEmail());
 			user.setMobile(volunteerVo.getMobile());
-			user.setPwd(volunteerVo.getPwd());
+			//user.setPwd(volunteerVo.getPwd());
 			user.setAddr(volunteerVo.getAddr());
 			user.setPostCd(Integer.parseInt(volunteerVo.getPostCd()));
 			user.setCtryCd(Long.parseLong(volunteerVo.getCtryCd()));
@@ -216,7 +217,6 @@ public class VolunteerManagementServiceImpl implements
 			user.setUpdBy(volunteerVo.getLoginId());// TODO: Should be login
 													// user
 			user.setUpdDte(new Date());
-			user.setVersion(1);
 			//
 			userDetail.setIntrst(volunteerVo.getIntrst());
 			userDetail.setQualAtt(volunteerVo.getQualAtt());
@@ -259,6 +259,7 @@ public class VolunteerManagementServiceImpl implements
 		VolunteerVo volunteerVo = new VolunteerVo();
 		if (user != null) {
 			volunteerVo.setLoginId(user.getUsrLoginId());
+			volunteerVo.setTitle(Long.toString(user.getTitleCd()));
 			volunteerVo.setNme(user.getNme());
 			volunteerVo.setEmail(user.getEmail());
 			volunteerVo.setAddr(user.getAddr());
