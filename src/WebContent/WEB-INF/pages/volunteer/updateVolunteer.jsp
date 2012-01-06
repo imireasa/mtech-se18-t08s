@@ -30,8 +30,7 @@
 <body>
         <h2><fmt:message key="message.volunteerManagement.updateVolunteer.label"/></h2>
         <div id="breadcrumb">
-                <a href="#"><fmt:message key="message.common.home.label"/></a>
-                / <a href="#"><fmt:message key="message.volunteerManagement.volunteer.label"/></a> / 
+                <a href="#"><fmt:message key="message.common.home.label"/></a> / 
                 <fmt:message key="message.volunteerManagement.updateVolunteer.label"/>
         </div>
         <div class="query">
@@ -49,7 +48,7 @@
                         </div>
                 </c:if>
             
-                <form:form name="registerVolunteer" method="post"
+                <form:form name="updateVolunteer" method="post"
                            commandName="command" 
                            action="updateVolunteer.html">
                         <form:hidden path="cmdType"/>
@@ -93,7 +92,7 @@
                                                 <form:errors path="email" cssClass="error"/>
                                         </th>
                                 </tr>		
-                                <tr>
+                               <!--  <tr>
                                         <th align="left"><fmt:message key="message.volunteerManagement.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></th>
                                         <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
                                         <th align="left">
@@ -109,6 +108,7 @@
                                                 <form:errors path="cfpwd" cssClass="error"/>
                                         </th>
                                 </tr>		
+                                -->
                                 <tr>
                                         <th align="left"><fmt:message key="message.common.address.label"/></th>
                                         <th><fmt:message key="message.common.symbol.afterLabel.label" /></th>
