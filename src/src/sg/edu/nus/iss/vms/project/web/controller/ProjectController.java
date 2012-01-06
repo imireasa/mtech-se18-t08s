@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.vms.project.web.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +29,7 @@ import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
+import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
@@ -450,6 +452,15 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		modelAndView.addObject("feedbackList", projectFeedbackList);
 
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectFeedbackList);
+		if (!projectFeedbackList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+			projectPagedListHolder.setPage(page);
+			projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+		}
+		modelAndView.addObject("pagedListHolder", projectPagedListHolder);
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("searchProjectFeedback(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - end");
 		}
@@ -713,6 +724,15 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		modelAndView.addObject("proposalList", projectProposalDtos);
 
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectProposalDtos);
+		if (!projectProposalDtos.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+			projectPagedListHolder.setPage(page);
+			projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+		}
+		modelAndView.addObject("pagedListHolder", projectPagedListHolder);
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("searchProjectProposal(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
 		}
@@ -821,6 +841,30 @@ public class ProjectController extends BaseMultiActionFormController {
 				projectPropDto.setStsCd(approveCodeId);
 				propMsg = Messages.getString("message.common.approve",
 						new String[] { "Project Proposal" });
+
+				ProjectDto projectDto = new ProjectDto();
+				projectDto.setNme(projectPropDto.getNme());
+				projectDto.setDesc(projectPropDto.getDesc());
+				projectDto.setCtryCd(projectPropDto.getCtryCd());
+				projectDto.setLoc(projectPropDto.getLoc());
+				projectDto.setStrDte(new Date());
+				projectDto.setEndDte(DateUtil.add(projectDto.getStrDte(),
+						Calendar.DAY_OF_YEAR, projectPropDto.getEstDur()));
+				projectDto.setPrjMgr(loginId);
+
+				CodeDto projectStsCodeDto = CodeLookupUtil
+						.getCodeByCategoryAndCodeValue(
+								VMSConstants.PROJECT_STATUS,
+								VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
+				projectDto.setStsCd(projectStsCodeDto.getCdId());
+				projectDto.setPrjPropId(projectPropDto);
+				projectDto.setCreatedBy(loginId);
+				projectDto.setCreatedDte(new Date());
+				projectDto.setUpdBy(loginId);
+				projectDto.setUpdDte(new Date());
+
+				projectManagementService.saveOrUpdateProjectObject(projectDto);
+
 			} else {
 				projectPropDto.setStsCd(rejectCodeId);
 				propMsg = Messages.getString("message.common.reject",

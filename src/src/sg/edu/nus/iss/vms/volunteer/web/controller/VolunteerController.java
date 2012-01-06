@@ -366,6 +366,15 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("projectList", projectList);
 		modelAndView.addObject("command", command);
 
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectList);
+		if (!projectList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+			projectPagedListHolder.setPage(page);
+			projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+		}
+		modelAndView.addObject("pagedListHolder", projectPagedListHolder);
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("searchProjects(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
 		}
