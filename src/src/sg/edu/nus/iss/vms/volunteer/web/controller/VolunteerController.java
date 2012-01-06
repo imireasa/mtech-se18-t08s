@@ -331,7 +331,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
 		List<ProjectDto> projectList = projectManagementService
-				.getAllProjectObjectList(ProjectDto.class, "prjId");
+				.getAllProjectObjectList(ProjectDto.class);
 		List<CodeDto> projectCodeList = CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
 		logger.debug("The project size is" + projectList.size());

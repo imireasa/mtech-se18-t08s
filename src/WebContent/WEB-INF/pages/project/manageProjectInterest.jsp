@@ -18,13 +18,12 @@
 
 </head>
 <body>
-    <h2><fmt:message key="message.projectManagement.manageMember.label"/></h2>
+    <h2><fmt:message key="message.projectManagement.projectInterest.label"/></h2>
     <div id="breadcrumb">
-        <a href="#"><fmt:message key="message.common.home.label"/></a> / 
-
-        <a href="#"><fmt:message key="message.projectManagement.projectManagement.label"/></a> /   
-        <fmt:message key="message.projectManagement.listProject.label"/>/ 
-        <a href="#"><fmt:message key="message.projectManagement.manageMember.label"/></a>
+        <a href="#"><fmt:message key="message.common.home.label" /></a> / 
+        <a href="listProjects.html"><fmt:message
+                key="message.projectManagement.projectManagement.label" /></a> /
+            <fmt:message key="message.projectManagement.projectInterest.label" /> 
     </div>
     <div class="query">
         <c:if test="${not empty msg}">
@@ -42,14 +41,14 @@
                 </c:forEach>
             </div>
         </c:if>
-        <table width="550" >
+        <table width="550" class="query-table">
             <tr>
-                <td width="153"><label><fmt:message key="message.projectManagement.projectName.label"/>:</label></td>
-                <td width="385"><label>${projectVo.name}</label></td>
+                <td width="153"><fmt:message key="message.projectManagement.projectName.label"/></td>
+                <td width="385">${projectVo.name}</td>
             </tr>
             <tr>
-                <td width="153"><label><fmt:message key="message.projectManagement.projectLocation.label"/>:</label></td>
-                <td width="385"><label>${projectVo.loc}(${projectVo.ctry})</label></td>
+                <td width="153"><fmt:message key="message.projectManagement.projectLocation.label"/></td>
+                <td width="385">${projectVo.loc}(${projectVo.ctry})</td>
             </tr>
         </table>
     </div>
@@ -57,13 +56,10 @@
         <input type="hidden" id="prjId" name="prjId" value="${prjId}"/>
         <table border="1" class="proj-table">
             <tr>
-                <td colspan="3">Review Project Interest</td>
-            </tr>
-            <tr>
-                <td width="20"><label>#</label></td>
-                <td width="170"><label>Name</label></td>
-                <td width="75"><label>Country</label></td>
-                <td width="75"><label>Status</label></td>
+                <th width="20">#</th>
+                <th width="170"><label>Name</label></th>
+                <th width="75"><label>Country</label></th>
+                <th width="75"><label>Status</label></th>
 
             </tr>
             <c:forEach  items="${projectInterestPagedListHolder.pageList}" var="item">
@@ -75,7 +71,7 @@
                 </tr>
             </c:forEach>
             <tr>
-                <td colspan="3" align="right">
+                <td colspan="4" align="right">
                     <input type="submit" name="acceptInterest" id="acceptInterest" value="<fmt:message key="message.common.accept.button"/>"/>
                     <input type="submit" name="rejectInterest" id="rejectInterest" value="<fmt:message key="message.common.reject.button"/>"/> 
                 </td>

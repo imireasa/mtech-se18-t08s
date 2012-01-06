@@ -27,7 +27,7 @@
 		<form:form name="listProjects" method="get" commandName="command"
 			action="listProjects.html">
 
-			<table width="660" height="105">
+			<table width="660" height="105" border="0" class="query-table">
 				<tr>
 					<td width="123">Project Name</td>
 					<td width="199"><form:input path="name" /></td>
@@ -59,22 +59,17 @@
 		</form:form>
 	</div>
 	<!-- end of query -->
-	<table width="700" class="proj-table">
-		<tr>
-			<td colspan="8"><b><label>Project List</label></b></td>
-		</tr>
+	<table width="800" class="proj-table">
 		<tr>
 			<td colspan="8"><b><a href="createProject.html"><fmt:message key="message.projectManagement.createProject.label"/></a></b></td>
 		</tr>
 		<tr>
-			<td><label>Project Name</label></td>
-			<td><label>Description</label></td>
-			<td><label>StartDate</label></td>
-			<td><label>Status</label></td>
-			<td colspan="4"><label>Actions</label></td>
-
-
-		</tr>
+			<th>Project Name</th>
+			<th>Description</th>
+			<th>StartDate</th>
+			<th>Status</th>
+			<th colspan="4">Actions</th>
+        </tr>
 		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>
 				<td>${item.name}</td>

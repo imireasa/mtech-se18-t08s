@@ -47,7 +47,7 @@
                            commandName="command" 
                            action="updateProject.html">
                         <form:hidden path="cmdType"/>
-                        <table width="400" class="proj-table">
+                        <table width="400" class="query-table">
 								 <form:hidden path="prjId"/>
 								<!-- Project Id (Disabled) -->
 								<tr>
