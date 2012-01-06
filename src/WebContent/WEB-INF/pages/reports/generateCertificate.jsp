@@ -53,22 +53,14 @@
 	<br />
 	<div class="query">
 		<form id="form" name="form" method="post" action="generateCertificate.html">
-			<table width="545" >
+			<table width="690" >
 				<tr>
-				<!-- 		private Long certReqId;
-	private Long prjId;
-	private String prjName;
-	private Long reqTp;
-	private String reqTpName;
-	private Date reqDte;
-	private String reqBy;
-	private String reqByName;; -->
-					<td width="200"><label>Certificate Request Id</label></td>
-					<td width="200"><label> <fmt:message key="message.projectManagement.projectName.label"/></label></td>
+					<td width="80"><label>Certificate Request Id</label></td>
+					<td width="150"><label> <fmt:message key="message.projectManagement.projectName.label"/></label></td>
                     <td width="150"><label><fmt:message key="message.administration.requestType.label"/></label></td>
-                    <td width="200"><label><fmt:message key="message.administration.requestBy.label"/></label></td>
-                    <td width="150"><label><fmt:message key="message.administration.requestDate.label"/></label></td>
-                    <td width="100"><label><fmt:message key="message.common.generate.button"/></label></td>
+                    <td width="150"><label><fmt:message key="message.administration.requestBy.label"/></label></td>
+                    <td width="80"><label><fmt:message key="message.administration.requestDate.label"/></label></td>
+                    <td width="80"><label><fmt:message key="message.common.generate.button"/></label></td>
 				</tr>
 					<c:forEach items="${certReqVoList}" var="item" varStatus="status">
 						<tr>
