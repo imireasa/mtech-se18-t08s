@@ -82,19 +82,26 @@
                                                 <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('endDte')" style="cursor:pointer"/>
                                         </td>
                                 </tr>
-								 <!-- Conuntry -->
-								<tr>
-										<td align="left"><fmt:message key="message.common.country.label"/></td>
-										<td>:</td>
-                                        <td align="left">
+							 <!-- Conuntry -->
+								 <tr>
+								 	<td align="left"><fmt:message key="message.common.country.label"/></td>
+									<td>:</td>
+								 	<td>
                                                 <form:select path="ctryCd">
                                                         <c:forEach items="${countryList}" var="item" varStatus="status">
-															<option value="${item.cdId}">${item.val}</option>
-														</c:forEach>
-												</form:select>
+                                                                <c:choose>
+                                                                        <c:when test="${item.cdId==command.ctryCd}">
+                                                                                <option value="${item.cdId}" selected="true">${item.val}</option>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                                <option value="${item.cdId}">${item.val}</option>
+                                                                        </c:otherwise>
+                                                                </c:choose>
+                                                        </c:forEach>
+                                                </form:select>
 												<form:errors path="ctryCd" cssClass="error"/>
-										</td>
-                                </tr>		
+                                       </td>
+                                 </tr>       
 								<!-- Location -->
 								<tr>
                                         <td align="left"><fmt:message key="message.common.location.label"/></td>
