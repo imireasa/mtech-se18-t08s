@@ -643,4 +643,30 @@ public class DateUtil {
 		}
 		return null;
 	}
+	
+	private static String fixlength(int data){
+		String fixedData=data+"";
+		if(fixedData.length()==1){
+			fixedData="0"+fixedData;
+		}
+		return fixedData;
+	}
+	
+	public static String getMonthStartDate(Date d){
+		int year=d.getYear()+1900;
+		return year+"-"+fixlength(d.getMonth()+1)+"-01";
+	}
+	
+	public static String getMonthEndDate(Date d){
+		Calendar calendar = Calendar.getInstance();
+		  int year = d.getYear()+1900;
+		  int month = d.getMonth()+1;
+		  int date = 1;
+		  calendar.set(year, month, date);
+		  int days = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+
+		 return year+"-"+fixlength(month)+"-"+fixlength(days);
+	}
+	
+	
 }
