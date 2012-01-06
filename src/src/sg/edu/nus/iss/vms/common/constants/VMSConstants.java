@@ -3,11 +3,16 @@ package sg.edu.nus.iss.vms.common.constants;
 public class VMSConstants {
 
 	public static final int MAX_PAGE_SIZE = 7;
+    
+    
 
 	public static final String ORGANIZATION_NAME = "National University of Singapore(NUS)";
 	public static final boolean ACTIVE = true;
 	public static final boolean INACTIVE = false;
-
+    
+    public static final String URL_CATEGORY = "URL";
+    public static final String URL_VIEW_PROJECT_DESC="View Project URL";
+    
 	public static final String TITLE_CATEGORY = "TITLE";
 	public static final String COUNTRY_CATEGORY = "COUNTRY";
 	public static final String PROJECT_ROLE_CATEGORY = "MEMBER_ROLE";
@@ -40,8 +45,10 @@ public class VMSConstants {
 	public static final String USER_TYPE_CATEGORY_STAFF = "Staff";
 
 	public static final String PROJECT_STATUS_CATEGORY = "PROJECT_STATUS";
-	public static final String PROJECT_STATUS_CATEGORY_NEW = "NEW";
-
+	public static final String PROJECT_STATUS_CATEGORY_NEW = "New";
+    public static final String PROJECT_STATUS_CATEGORY_IN_PROGRESS = "In Progress";
+    public static final String PROJECT_STATUS_CATEGORY_CLOSE = "Close";
+    
 	public static final String CERTIFICATE_REQUEST_TYPE_PROJECT = "PROJECT";
 	public static final String CERTIFICATE_REQUEST_TYPE_INDIVIDUAL = "INDIVIDUAL";
 
@@ -58,5 +65,4 @@ public class VMSConstants {
 	public static final String PROJECT_INTEREST_APPROVED = "Approved";
 	public static final String PROJECT_INTEREST_REJECTED = "Rejected";
 	public static final String PROJECT_INTEREST_WITHDRAW = "Withdraw";
-
 }

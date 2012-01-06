@@ -3,8 +3,8 @@ package sg.edu.nus.iss.vms.project.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import java.util.Map;
 import org.apache.log4j.Logger;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.SessionBean;
+import sg.edu.nus.iss.vms.common.SysConfig;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
@@ -163,12 +164,15 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			Long projectId) {
 		String userLogInId = UserUtil.getUserSessionInfoVo().getUserID();
 
-		String hQL = "from ProjectInterestDto where prjId.prjId="
-				+ projectId
-				+ " and stsCd="
-				+ CodeLookupUtil.getCodeByCategoryAndCodeValue(
-						VMSConstants.PROJECT_INTREST_STATUS,
-						VMSConstants.PROJECT_INTEREST_NEW).getCdId();
+		// String hQL = "from ProjectInterestDto where prjId.prjId="
+		// + projectId
+		// + " and stsCd="
+		// + CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		// VMSConstants.PROJECT_INTREST_STATUS,
+		// VMSConstants.PROJECT_INTEREST_NEW).getCdId();
+
+		String hQL = "from ProjectInterestDto where prjId.prjId=" + projectId;
+
 		List<ProjectInterestVo> projectInterestVoList = new ArrayList<ProjectInterestVo>();
 		List<ProjectInterestDto> projectInterestList = manager.find(hQL);
 		for (ProjectInterestDto projectInterest : projectInterestList) {
@@ -221,7 +225,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	public void requestProjectCertificateByProjectId(Long projectId)
 			throws Exception {
 		// TODO: Implement requestProjectCertificateByProjectId
-
+		ProjectDto projectDto = (ProjectDto) manager.get(ProjectDto.class,
+				projectId);
 		Long newRequest = CodeLookupUtil.getCodeDtoByCatVal(
 				VMSConstants.CERTIFIATE_REQUEST_TYPE,
 				VMSConstants.CERTIFICATE_REQUEST_TYPE_PROJECT).getCdId();
@@ -229,16 +234,33 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 				VMSConstants.CERTIFICATE_REQUEST_STATUS,
 				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED).getCdId();
 
+		Long closeProject = CodeLookupUtil.getCodeDtoByCatVal(
+				VMSConstants.PROJECT_STATUS_CATEGORY,
+				VMSConstants.PROJECT_STATUS_CATEGORY_CLOSE).getCdId();
+
+		if (projectDto.getStsCd().intValue() != closeProject) {
+			throw new ApplicationException(
+					Messages.getString("message.projectManagement.error.projStatus.notYetClose"));
+		}
+
 		String hQL = "from CertificateRequestDto where prjId=" + projectId
 				+ " and reqTp=" + newRequest + " and reqSts=" + requestd;
 
 		List<CertificateRequestDto> certificateRequestDtos = manager.find(hQL);
 		if (certificateRequestDtos != null && !certificateRequestDtos.isEmpty()) {
-			throw new ApplicationException(Messages.getString(hQL));
-		}
+			throw new ApplicationException(
+					Messages.getString("message.projectManagement.error.certificate.requested"));
+		} else {
+			CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
+			certificateRequestDto.setReqBy(UserUtil.getUserSessionInfoVo()
+					.getUserID());
+			certificateRequestDto.setReqDte(new java.util.Date());
+			certificateRequestDto.setReqSts(requestd);
+			certificateRequestDto.setReqTp(newRequest);
+			certificateRequestDto.setPrjId(projectId);
+			manager.save(certificateRequestDto);
 
-		ProjectDto projectDto = (ProjectDto) manager.get(ProjectDto.class,
-				projectId);
+		}
 
 	}
 
@@ -262,43 +284,76 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	@Override
 	public void sendInviteProjectMemberToAllUser(Long projectId, Long userStatus)
 			throws Exception {
-		String hQL = "from UserDto where " + "tpCd='TODO'";
 
+		ProjectDto projectDto = (ProjectDto) manager.get(ProjectDto.class,
+				projectId);
+		String memberList = "";
+
+		String hQL = "from ProjectMemberDto where prjId.prjId=" + projectId;
+		List<ProjectMemberDto> projectMemberDtos = manager.find(hQL);
+		for (ProjectMemberDto memberDto : projectMemberDtos) {
+			if (!memberList.isEmpty()) {
+				memberList += ",";
+			}
+			ProjectMemberDto projectMemberDto = (ProjectMemberDto) manager.get(
+					ProjectMemberDto.class, memberDto.getPrjMbrId());
+			memberList += "'" + projectMemberDto.getUsrLoginId() + "'";
+		}
+		hQL = "from UserDto where tpCd=" + userStatus
+				+ " and usrLoginId not in(" + memberList + ")";
 		List<UserDto> userDtos = manager.find(hQL);
-		for (UserDto dto : userDtos) {
-			if (false) {
-				try {
-					String toEmail = "";
-					String toName = "";
-					String subject = "";
-					BasicMailMessage bmm = new BasicMailMessage();
-					bmm.setSubject(subject);
-					bmm.setTo(toEmail);
+		for (UserDto userDto : userDtos) {
+			try {
+				BasicMailMessage bmm = new BasicMailMessage();
+				bmm.setSubject(Messages
+						.getString("message.projectManagement.inviteVolunteer.email.subject"));
+				bmm.setTo(userDto.getEmail());
 
-					Map props = new HashMap();
-					props.put("name", toName);
-					props.put("password",
-							RamdomPasswordGeneratorUtil.getPassword(6));
-					mailSenderUtil.send(bmm, "forgotPasswordMail.vm", props);
-				} catch (Exception ex) {
-					logger.error("send mail error", ex);
-				}
+				Map props = new HashMap();
+				props.put("FullName", userDto.getNme());
+				props.put("ProjectName", projectDto.getNme());
+
+				String country = CodeLookupUtil.getCodeValueByCodeId(projectDto
+						.getCtryCd());
+
+				props.put("ProjectLocation", projectDto.getLoc() + ", "
+						+ country);
+
+				String url = SysConfig
+						.getString("url.projectManagement.inviteProject.viewProject");
+				props.put("ProjectUrl", url + projectDto.getPrjId());
+
+				mailSenderUtil.send(bmm, "memberInvitationMail.vm", props);
+			} catch (Exception ex) {
+				logger.error("send mail error", ex);
 			}
 		}
 	}
 
 	@Override
 	public void acceptProjectIntrest(Long prjIntrstId) throws Exception {
+
+		Long approveSts = CodeLookupUtil.getCodeDtoByCatVal(
+				VMSConstants.PROJECT_INTREST_STATUS,
+				VMSConstants.PROJECT_INTEREST_APPROVED).getCdId();
+		Long newSts = CodeLookupUtil.getCodeDtoByCatVal(
+				VMSConstants.PROJECT_INTREST_STATUS,
+				VMSConstants.PROJECT_INTEREST_NEW).getCdId();
+
 		ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
 				.get(ProjectInterestDto.class, prjIntrstId);
-		if (projectInterestDto != null) {
+		if (projectInterestDto == null) {
 			throw new ApplicationException(
 					Messages.getString("message.projectManagement.error.invalidProjectInterest"));
 		}
+		if (projectInterestDto.getStsCd().intValue() != newSts) {
+			throw new ApplicationException(
+					Messages.getString("message.common.error.update"));
+		}
 
-		String hQL = "from ProjectMemberDto where " + "prjId.prjId="
-				+ projectInterestDto + " and usrLoginId='"
-				+ projectInterestDto.getReqBy();
+		String hQL = "from ProjectMemberDto where prjId.prjId="
+				+ projectInterestDto.getPrjId().getPrjId()
+				+ " and usrLoginId='" + projectInterestDto.getReqBy() + "'";
 		List<ProjectMemberDto> projectMemberDtos = manager.find(hQL);
 		if (projectMemberDtos == null || projectMemberDtos.isEmpty()) {
 			ProjectMemberDto projectMemberDto = new ProjectMemberDto();
@@ -307,8 +362,43 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 					VMSConstants.MEMBER_ROLE, VMSConstants.PROJECT_ROLE_MEMBER)
 					.getCdId());
 			projectMemberDto.setUsrLoginId(projectInterestDto.getReqBy());
-
+			projectMemberDto.setActInd(true);
+			manager.save(projectMemberDto);
 		}
+
+		projectInterestDto.setStsCd(approveSts);
+		projectInterestDto.setApprBy(UserUtil.getUserSessionInfoVo()
+				.getUserID());
+
+		manager.save(projectInterestDto);
+	}
+
+	@Override
+	public void rejectProjectIntrest(Long prjIntrstId) throws Exception {
+
+		Long rejectSts = CodeLookupUtil.getCodeDtoByCatVal(
+				VMSConstants.PROJECT_INTREST_STATUS,
+				VMSConstants.PROJECT_INTEREST_REJECTED).getCdId();
+		Long newSts = CodeLookupUtil.getCodeDtoByCatVal(
+				VMSConstants.PROJECT_INTREST_STATUS,
+				VMSConstants.PROJECT_INTEREST_NEW).getCdId();
+
+		ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
+				.get(ProjectInterestDto.class, prjIntrstId);
+		if (projectInterestDto == null) {
+			throw new ApplicationException(
+					Messages.getString("message.projectManagement.error.invalidProjectInterest"));
+		}
+		if (projectInterestDto.getStsCd().intValue() != newSts) {
+			throw new ApplicationException(
+					Messages.getString("message.common.error.update"));
+		}
+
+		projectInterestDto.setStsCd(rejectSts);
+		projectInterestDto.setApprBy(UserUtil.getUserSessionInfoVo()
+				.getUserID());
+
+		manager.save(projectInterestDto);
 	}
 
 	private ProjectVo getProjectVo(ProjectDto _projectVo) {
@@ -341,8 +431,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 					MatchMode.ANYWHERE));
 		}
 		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
-			criteria.add(Restrictions.gt("strDte", DateUtil.parseDate(
-					projectVo.getStrDte(), DateUtil.DATE_FORMAT_DASH)));
+			criteria.add(Restrictions.gt("strDte",
+					DateUtil.parseDate(projectVo.getStrDte())));
 
 			logger.debug("sssssssssssssss"
 					+ DateUtil.parseDate(projectVo.getStrDte()));

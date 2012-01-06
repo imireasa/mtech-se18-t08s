@@ -15,6 +15,7 @@ import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
@@ -148,6 +149,7 @@ public class VolunteerManagementServiceImpl implements
 			user.setPostCd(Integer.parseInt(volunteerVo.getPostCd()));
 			user.setCtryCd(Long.parseLong(volunteerVo.getCtryCd()));
 			user.setJoinDte(new Date());
+            user.setDob(DateUtil.parseDate(volunteerVo.getDob()));
 			user.setUpdBy(volunteerVo.getLoginId());
 			user.setCreatedBy(volunteerVo.getLoginId());
 			UserDetailDto userDetail = new UserDetailDto();
@@ -207,6 +209,7 @@ public class VolunteerManagementServiceImpl implements
 			user.setPostCd(Integer.parseInt(volunteerVo.getPostCd()));
 			user.setCtryCd(Long.parseLong(volunteerVo.getCtryCd()));
 			user.setJoinDte(new Date());
+            user.setDob(DateUtil.parseDate(volunteerVo.getDob()));
 			user.setCreatedBy(volunteerVo.getLoginId());// TODO: Should be login
 														// user
 			user.setCreatedDte(new Date());

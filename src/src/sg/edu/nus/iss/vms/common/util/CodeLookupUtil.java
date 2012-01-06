@@ -118,7 +118,23 @@ public class CodeLookupUtil {
 		}
 		return returnCodeDto;
 	}
+    
+    public static CodeDto getCodeDtoByCatDesc(String category, String desc) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeDtoByCatVal(String, String) - start");
+		}
 
+		CodeManagementServices codeMgr = getCodeManagementServices();
+		CodeDto returnCodeDto = codeMgr
+				.getCodeByCodeCategoryAndCodeDesc(category, desc);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeDtoByCatVal(String, String) - end");
+		}
+		return returnCodeDto;
+	}
+    
+    
 	/**
 	 * @return the reference to Code management Services
 	 */
