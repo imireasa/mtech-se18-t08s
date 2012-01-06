@@ -45,77 +45,77 @@
                           
 								 <!-- Project Name -->
 								  <tr>
-                                        <th align="left"><fmt:message key="message.projectManagement.projectName.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.projectManagement.projectName.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="name" cols="45" rows="2"></form:textarea>
                                                 <form:errors path="name" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>		
 								 <!-- Description -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.projectManagement.projectDescription.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.projectManagement.projectDescription.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="desc" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="desc" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>	
 								 <!-- Start Date -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.common.startDate.label"/></th>
-                                        <th>:</th>
-                                        <th align="left">
+                                        <td align="left"><fmt:message key="message.common.startDate.label"/></td>
+                                        <td>:</td>
+                                        <td align="left">
                                                 <form:input path="strDte" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="strDte" cssClass="error"/>
                                                 <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte')" style="cursor:pointer"/>
                   
-                                        </th>
+                                        </td>
                                 </tr>	 
 								<!-- End Date -->
 								 <tr>
-                                        <th align="left"><fmt:message key="message.common.endDate.label"/></th>
-                                        <th>:</th>
-                                        <th align="left">
+                                        <td align="left"><fmt:message key="message.common.endDate.label"/></td>
+                                        <td>:</td>
+                                        <td align="left">
                                                 <form:input path="endDte" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="endDte" cssClass="error"/>
                                                 <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('endDte')" style="cursor:pointer"/>
-                                        </th>
+                                        </td>
                                 </tr>
 								 <!-- Conuntry -->
 								<tr>
-										<th align="left"><fmt:message key="message.common.country.label"/></th>
-										<th>:</th>
-                                        <th align="left">
+										<td align="left"><fmt:message key="message.common.country.label"/></td>
+										<td>:</td>
+                                        <td align="left">
                                                 <form:select path="ctryCd">
                                                         <c:forEach items="${countryList}" var="item" varStatus="status">
 															<option value="${item.cdId}">${item.val}</option>
 														</c:forEach>
 												</form:select>
 												<form:errors path="ctryCd" cssClass="error"/>
-										</th>
+										</td>
                                 </tr>		
 								<!-- Location -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.common.location.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.common.location.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="loc" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="loc" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>	
 								<!-- Remark -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.common.remark.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.common.remark.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="rmk" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="rmk" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>
 								
                                 <tr>
-                                        <th colspan="3" ><input type="submit" name="button" id="button" value="<fmt:message key="message.common.create.button"/>"></th>
+                                        <td colspan="3" ><input type="submit" name="button" id="button" value="<fmt:message key="message.common.create.button"/>"></td>
                                 </tr>
                         </table>
                 </form:form>
