@@ -186,7 +186,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			modelAndView.addObject("countryList", CodeLookupUtil
 					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volVo = new VolunteerVo();
-			// volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
+			 volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
 			modelAndView.addObject("command", volVo);
 
 			if (logger.isDebugEnabled()) {
@@ -227,7 +227,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 				}
 				return modelAndView;
 			}
-
+			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
 			modelAndView.addObject("command", volunteerVo);
 			modelAndView.addObject("msg",
 					Messages.getString("message.common.save"));
@@ -249,6 +249,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (command.getLoginId() == null) {
 			VolunteerVo volunteer = volunteerManagementService
 					.getVolunteer(UserUtil.getUserSessionInfoVo().getUserID());
+			volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			// TODO: Update Session User
 			modelAndView = new ModelAndView("volunteer/updateVolunteer");// jsp
 			// page
@@ -284,6 +285,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 			try {
 				volunteerManagementService.updateVolunteer(volunteerVo);
+				 volunteerVo = volunteerManagementService
+				.getVolunteer(UserUtil.getUserSessionInfoVo().getUserID());
+				 
 			} catch (ApplicationException ae) {
 				logger.error(
 						"updateVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo)",
@@ -299,7 +303,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 				}
 				return modelAndView;
 			}
-
+			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			modelAndView.addObject("command", volunteerVo);
 			modelAndView.addObject("msg",
 					Messages.getString("message.common.save"));
