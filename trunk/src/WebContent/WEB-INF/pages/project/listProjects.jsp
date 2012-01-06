@@ -49,7 +49,7 @@
 					<td width="123">Start Month</td>
 					<td width="199"><form:input path="strDte" /> <img
 						src="<%=request.getContextPath()%>/sys/images/cal.gif"
-						onClick="javascript:NewCssCal('strDte')"
+						onClick="javascript:NewCssCal('strDte','ddMMyyyy')"
 						style="cursor: pointer" /></td>
 					<td><input type="submit" name="btn_Search" id="btn_Search"
 						value="Search"></td>
