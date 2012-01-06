@@ -162,7 +162,6 @@ public class GenerateCertificateController extends
 		}
 
 		modelAndView = new ModelAndView("reports/generateCertificate");
-
 		CodeDto stsRequested = CodeLookupUtil.getCodeDtoByCatVal(
 				VMSConstants.CERTIFICATE_REQUEST_STATUS,
 				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
@@ -171,34 +170,10 @@ public class GenerateCertificateController extends
 
 			List<CertificateRequestDto> list = certificateManagement.getReqCertList(stsRequested.getCdId());
 			List certReqVoList = new ArrayList();
-			
-			if (list != null && list.size() != 0) {
-				for (int i = 0; i < list.size(); i++) {
-					CertificateRequestDto obj = (CertificateRequestDto) list.get(i);
-					CertificateRequestVo voObj = new CertificateRequestVo();
-					voObj.setCertReqId(obj.getCertReqId());
-					voObj.setPrjId(obj.getPrjId());
-					ProjectDto project = projectManagementService.getProject(obj.getPrjId());
-					
-					if (project != null)
-						voObj.setPrjName(project.getNme());
-					
-					voObj.setReqTp(obj.getReqTp());
-					voObj.setReqTpName(CodeLookupUtil.getCodeValueByCodeId(obj.getReqTp()));
-					voObj.setReqBy(obj.getReqBy());
-					voObj.setReqDte(obj.getReqDte());
-					VolunteerVo volunteer = volunteerManagementService.getVolunteer((obj.getReqBy()));
-					
-					if (volunteer != null)
-						voObj.setReqByName(volunteer.getNme());
-					
-					certReqVoList.add(voObj);
-				}
-			}
 			if (logger.isDebugEnabled()) {
 				logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - certReqVoList:" + certReqVoList.size());
 			}
-			modelAndView.addObject("certReqVoList", certReqVoList);
+			modelAndView.addObject("certReqVoList", this.getCertReqVoList(list));
 		} else {
 			// 1. change the status
 			Long certReqId = Long.parseLong(request.getParameter("certRequestId"));
@@ -224,33 +199,7 @@ public class GenerateCertificateController extends
 
 				// 3. get the remaining request list...
 				List list = certificateManagement.getReqCertList(stsRequested.getCdId());
-				List certReqVoList = new ArrayList();
-
-				if (list != null && list.size() != 0) {
-					for (int i = 0; i < list.size(); i++) {
-						CertificateRequestDto obj = (CertificateRequestDto) list
-								.get(i);
-						CertificateRequestVo voObj = new CertificateRequestVo();
-						voObj.setCertReqId(obj.getCertReqId());
-						voObj.setPrjId(obj.getPrjId());
-						ProjectDto project = projectManagementService.getProject(obj.getPrjId());
-						
-						if (project != null)
-							voObj.setPrjName(project.getNme());
-						
-						voObj.setReqTp(obj.getReqTp());
-						voObj.setReqTpName(CodeLookupUtil.getCodeValueByCodeId(obj.getReqTp()));
-						voObj.setReqBy(obj.getReqBy());
-						voObj.setReqDte(obj.getReqDte());
-						VolunteerVo volunteer = volunteerManagementService.getVolunteer((obj.getReqBy()));
-						
-						if (volunteer != null)
-							voObj.setReqByName(volunteer.getNme());
-						
-						certReqVoList.add(voObj);
-					}
-				}
-				modelAndView.addObject("certReqVoList", certReqVoList);
+				modelAndView.addObject("certReqVoList", this.getCertReqVoList(list));
 
 				if (logger.isDebugEnabled()) {
 					logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - end");
@@ -263,6 +212,35 @@ public class GenerateCertificateController extends
 			logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - end");
 		}
 		return modelAndView;
+	}
+	private List getCertReqVoList(List list){
+		
+		List certReqVoList = new ArrayList();
+		if (list != null && list.size() != 0) {
+			for (int i = 0; i < list.size(); i++) {
+				CertificateRequestDto obj = (CertificateRequestDto) list
+						.get(i);
+				CertificateRequestVo voObj = new CertificateRequestVo();
+				voObj.setCertReqId(obj.getCertReqId());
+				voObj.setPrjId(obj.getPrjId());
+				ProjectDto project = projectManagementService.getProject(obj.getPrjId());
+				
+				if (project != null)
+					voObj.setPrjName(project.getNme());
+				
+				voObj.setReqTp(obj.getReqTp());
+				voObj.setReqTpName(CodeLookupUtil.getCodeValueByCodeId(obj.getReqTp()));
+				voObj.setReqBy(obj.getReqBy());
+				voObj.setReqDte(obj.getReqDte());
+				VolunteerVo volunteer = volunteerManagementService.getVolunteer((obj.getReqBy()));
+				
+				if (volunteer != null)
+					voObj.setReqByName(volunteer.getNme());
+				
+				certReqVoList.add(voObj);
+			}
+		}
+		return null;
 	}
 
 }
