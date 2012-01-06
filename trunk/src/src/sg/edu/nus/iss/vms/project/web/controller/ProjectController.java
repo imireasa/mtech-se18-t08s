@@ -410,7 +410,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		List<ProjectFeedbackDto> projectFeedbackList = projectManagementService
-				.getAllProjectObjectList(ProjectFeedbackDto.class);
+				.getAllProjectObjectList(ProjectFeedbackDto.class, "prjFbId");
 
 		List<CodeDto> codeDtos = CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
@@ -667,7 +667,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		List<ProjectProposalDto> projectProposalDtos = projectManagementService
-				.getAllProjectObjectList(ProjectProposalDto.class);
+				.getAllProjectObjectList(ProjectProposalDto.class, "prjPropId");
 
 		List<CodeDto> codeDtos = CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
