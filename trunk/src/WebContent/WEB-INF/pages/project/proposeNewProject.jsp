@@ -30,14 +30,14 @@
 	     
 		<form:form name="proposeProject" method="post" commandName="proposalVo"
 			action="submitProjectProposal.html">
-			<table class="proj-table">
+			<table class="query-table">
 
 				<tr>
-					<th align="left"><fmt:message key="message.projectManagement.projectName.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
-					</th>
-					<th>
+					<td align="left"><fmt:message key="message.projectManagement.projectName.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
+					</td>
+					<td>
 					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
+					</td>
 					<td>
 					 <spring:bind path="proposalVo.name">  
 					<form:input path="name" />
@@ -48,11 +48,11 @@
 							</td>
 				</tr>
 				<tr>
-					<th align="left"><fmt:message key="message.common.description.label"/> 
-					</th>
-					<th>
+					<td align="left"><fmt:message key="message.common.description.label"/> 
+					</td>
+					<td>
 					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
+					</td>
 					<td>
 					
 					 <spring:bind path="proposalVo.desc">  
@@ -63,11 +63,11 @@
 				</tr>
 
 				<tr>
-					<th align="left"><fmt:message key="message.common.country.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
-					</th>
-					<th>
+					<td align="left"><fmt:message key="message.common.country.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
+					</td>
+					<td>
 					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
+					</td>
 					<td>
 				
 					<form:select path="ctryCd">
@@ -82,11 +82,11 @@
 						
 				</tr>
 				<tr>
-					<th align="left"><fmt:message key="message.common.location.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
-					</th>
-					<th>
+					<td align="left"><fmt:message key="message.common.location.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
+					</td>
+					<td>
 					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
+					</td>
 					<td>
 					 <spring:bind path="proposalVo.loc">  
 					<form:textarea path="loc" rows="5" cols="30" /> 
@@ -96,11 +96,11 @@
 				</tr>
 
 				<tr>
-					<th align="left"><fmt:message key="message.common.duration.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
-					</th>
-					<th>
+					<td align="left"><fmt:message key="message.common.duration.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> 
+					</td>
+					<td>
 					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
+					</td>
 					<td>
 					 <spring:bind path="proposalVo.estDuration">  
 					<form:input path="estDuration" /> (days) 
@@ -109,11 +109,11 @@
 							path="estDuration" cssClass="error" /></td>
 				</tr>
 				<tr>
-					<th align="left"><fmt:message key="message.common.supportingDoc.label"/> 
-					</th>
-					<th>
+					<td align="left"><fmt:message key="message.common.supportingDoc.label"/> 
+					</td>
+					<td>
 					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
+					</td>
 					<td><input type="file"
 							name="fileField_supportDocs" id="fileField_supportDocs">
 					

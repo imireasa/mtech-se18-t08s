@@ -59,7 +59,7 @@
 		</form:form>
 	</div>
 	<!-- end of query -->
-	<table width="800" class="proj-table">
+	<table class="proj-table">
 		<tr>
 			<td colspan="8"><b><a href="createProject.html"><fmt:message key="message.projectManagement.createProject.label"/></a></b></td>
 		</tr>
