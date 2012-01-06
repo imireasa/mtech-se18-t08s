@@ -471,8 +471,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			project.setStsCd(Long.parseLong(projectVo.getStsCd()));
 			project.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
 			project.setUpdDte(DateUtil.getDate());
-			int currentVersion = Integer.parseInt(projectVo.getVersion());
-			project.setVersion(currentVersion + 1);
 			manager.save(project);
 
 		} catch (Exception ex) {
