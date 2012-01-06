@@ -60,7 +60,7 @@
             <div id="header">
                 <h1>
                     <a href="<%=request.getContextPath()%>/common/welcome.html" >
-                        <img src="/VMS/sys/images/v02/logo-hand-mini.png" width="50" height="68" />
+                        <img src="/VMS/sys/images/v02/logo-hand-mini.png" width="50" height="68" border="0" />
 
                     </a><span id="logoText">Volunteer Management System<span>
                             </h1>
