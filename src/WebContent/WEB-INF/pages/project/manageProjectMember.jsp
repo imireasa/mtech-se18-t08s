@@ -54,7 +54,7 @@
 		</table>
 	</div>
 	<form:form method="GET">
-	<!--  	<input type="text" id="prjId" name="prjId" value="${prjId}" /> -->
+		<input type="hidden" id="prjId" name="prjId" value="${prjId}" />
 
 		<table name="projectMemberList" border="1" class="proj-table">
 

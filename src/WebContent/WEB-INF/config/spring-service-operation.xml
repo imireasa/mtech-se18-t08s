@@ -61,5 +61,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 		<property name="passwordEncoder" ref="passwordEncoder"/> 
+        <property name="mailSenderUtil" ref="mailSenderUtilImpl"/> 
 	</bean>	
 </beans>

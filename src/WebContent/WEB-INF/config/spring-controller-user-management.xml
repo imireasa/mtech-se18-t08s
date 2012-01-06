@@ -13,15 +13,23 @@
 	<!-- BEAN : Page -->
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
-	<bean id="userManagementValidator" class="sg.edu.nus.iss.vms.admin.web.controller.UserManagementValidator"/>
+    <bean id="userManagementValidator" class="sg.edu.nus.iss.vms.admin.web.controller.UserManagementValidator"/>
 	
-		<bean id="userManagementController"
+    <bean id="userManagementController"
 		class="sg.edu.nus.iss.vms.admin.web.controller.UserManagementController">		
-		 <property name="userManagementServices" ref="userManagementServiceImpl" />
-		 <property name="validators" ref="userManagementValidator" /> 
-		   
-	</bean>
-
+        <property name="userManagementServices" ref="userManagementServiceImpl" />
+        <property name="validators" ref="userManagementValidator" /> 		   
+    </bean>
+    
+    <bean id="publicUserManagementValidator" 
+        class="sg.edu.nus.iss.vms.admin.web.controller.PublicUserManagementValidator"/>
+    
+    <bean id="publicUserManagementController"
+		class="sg.edu.nus.iss.vms.admin.web.controller.PublicUserManagementControler">		
+        <property name="userManagementServices" ref="userManagementServiceImpl" />
+        <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
+        <property name="validators" ref="publicUserManagementValidator" /> 		   
+    </bean>
 	
 
 </beans>

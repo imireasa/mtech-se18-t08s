@@ -57,6 +57,10 @@
 	<decorator name="projectDecorator" page="projectDecorator.jsp">
 		<pattern>/certificate/*</pattern>
 	</decorator>
+    
+    <decorator name="publicDecorator" page="publicDecorator.jsp">
+		<pattern>/public/*</pattern>
+	</decorator>
 	<!-- Project - end -->
 	
 	<!-- Administrator - start 

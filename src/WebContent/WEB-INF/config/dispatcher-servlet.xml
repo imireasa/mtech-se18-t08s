@@ -39,8 +39,11 @@
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 		<property name="mappings">
 			<props>
+                <prop key="/public/*.html">publicUserManagementController</prop>
+                
 				<prop key="/common/*.html">welcomeController</prop>
                 <prop key="/volunteer/*.html">volunteerController</prop>
+                
                 <prop key="/project/*.html">projectController</prop>
 				<prop key="/admin/user/*.html">userManagementController</prop>
 				<prop key="/certificate/*.html">certificateController</prop>

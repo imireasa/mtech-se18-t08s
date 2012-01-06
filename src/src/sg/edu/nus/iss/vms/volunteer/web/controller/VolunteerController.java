@@ -172,72 +172,72 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 	}
 
-	public ModelAndView registerVolunteer(HttpServletRequest request,
-			HttpServletResponse response, VolunteerVo command) throws Exception {
-		if (logger.isDebugEnabled()) {
-			logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - start");
-		}
-
-		modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
-		if (command.getLoginId() == null) {
-			// page
-			modelAndView.addObject("titleList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
-			VolunteerVo volVo = new VolunteerVo();
-			 volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
-			modelAndView.addObject("command", volVo);
-
-			if (logger.isDebugEnabled()) {
-				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-			}
-			return modelAndView;
-		} else {
-			validate(command);
-			modelAndView.addObject("titleList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
-			VolunteerVo volunteerVo = command;
-			if (errors.hasErrors()) {
-				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - Error Handling : ");
-				saveError(request, errors.getFieldError().getDefaultMessage());
-				modelAndView.addObject("command", volunteerVo);
-
-				if (logger.isDebugEnabled()) {
-					logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-				}
-				return modelAndView;
-			}
-			try {
-				volunteerManagementService.saveNewVolunteer(volunteerVo);
-			} catch (ApplicationException ae) {
-				logger.error(
-						"registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo)",
-						ae);
-
-				List list = new ArrayList();
-				list.add(ae.getMessage());
-				modelAndView.addObject("errors", list);
-				modelAndView.addObject("command", volunteerVo);
-
-				if (logger.isDebugEnabled()) {
-					logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-				}
-				return modelAndView;
-			}
-			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
-			modelAndView.addObject("command", volunteerVo);
-			modelAndView.addObject("msg",
-					Messages.getString("message.common.save"));
-
-			if (logger.isDebugEnabled()) {
-				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
-			}
-			return modelAndView;
-		}
-	}
+//	public ModelAndView registerVolunteer(HttpServletRequest request,
+//			HttpServletResponse response, VolunteerVo command) throws Exception {
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - start");
+//		}
+//
+//		modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
+//		if (command.getLoginId() == null) {
+//			// page
+//			modelAndView.addObject("titleList", CodeLookupUtil
+//					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
+//			modelAndView.addObject("countryList", CodeLookupUtil
+//					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+//			VolunteerVo volVo = new VolunteerVo();
+//			 volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
+//			modelAndView.addObject("command", volVo);
+//
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+//			}
+//			return modelAndView;
+//		} else {
+//			validate(command);
+//			modelAndView.addObject("titleList", CodeLookupUtil
+//					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
+//			modelAndView.addObject("countryList", CodeLookupUtil
+//					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+//			VolunteerVo volunteerVo = command;
+//			if (errors.hasErrors()) {
+//				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - Error Handling : ");
+//				saveError(request, errors.getFieldError().getDefaultMessage());
+//				modelAndView.addObject("command", volunteerVo);
+//
+//				if (logger.isDebugEnabled()) {
+//					logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+//				}
+//				return modelAndView;
+//			}
+//			try {
+//				volunteerManagementService.saveNewVolunteer(volunteerVo);
+//			} catch (ApplicationException ae) {
+//				logger.error(
+//						"registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo)",
+//						ae);
+//
+//				List list = new ArrayList();
+//				list.add(ae.getMessage());
+//				modelAndView.addObject("errors", list);
+//				modelAndView.addObject("command", volunteerVo);
+//
+//				if (logger.isDebugEnabled()) {
+//					logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+//				}
+//				return modelAndView;
+//			}
+//			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
+//			modelAndView.addObject("command", volunteerVo);
+//			modelAndView.addObject("msg",
+//					Messages.getString("message.common.save"));
+//
+//			if (logger.isDebugEnabled()) {
+//				logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
+//			}
+//			return modelAndView;
+//		}
+//	}
 
 	public ModelAndView updateVolunteer(HttpServletRequest request,
 			HttpServletResponse response, VolunteerVo command) throws Exception {
