@@ -38,7 +38,7 @@ public interface ProjectManagementService {
 
 	public void requestCertificate(CertificateRequestDto certificateRequestDto);
 
-	public List getAllProjectObjectList(Class type);
+	public List getAllProjectObjectList(Class type, String orderProperty);
 
 	public ProjectVo getProjectVoById(Long projectId);
 
