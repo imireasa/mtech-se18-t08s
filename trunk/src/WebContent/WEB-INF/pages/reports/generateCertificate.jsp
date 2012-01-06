@@ -14,29 +14,10 @@
 	rel="stylesheet" />
 <script type="text/javascript">
         var genList="";
-        function generateCert(control,reqId)
-        {
-            //alert("control "+control);
-            //alert("reqid " + reqId);
-            if(document.getElementById(control).checked == true)
-            {
-                    if(genList == ""){
-                           genList = reqId;
-                    }
-                    else{
-                           genList = genList + ',' + reqId;
-                    }
-                    //alert("+genList " + genList);
-            }
-            //need to check for replace string function
-            else if(document.getElementById(control).checked == false)
-            {
-                   genList.replace(reqId, "");
-                   genList.replace(",,", ",");
-                   //alert("-genList " + genList);
-            }
-            document.getElementById("generateList").value=genList;
-            //alert("fgenList " + genList);
+        function generateCert(reqId) {
+            
+            document.getElementById("certRequestId").value=reqId;
+            document.forms["form"].submit();
 
         }
 </script>
@@ -71,8 +52,8 @@
                     			<td>${item.reqTpName}</td>
                     			<td>${item.reqByName}</td>
                                 <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.reqDte}" /></td>
-                                <td><input type="hidden" name="certRequestId" value="${item.certReqId}"/></td>
-                                <td><input type="submit" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/> class="button"/></td>
+                                <td><input type="hidden" name="certRequestId" id="certRequestId" /></td>
+                                <td><input type="button" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/> class="button" onclick="generateCert('${item.certReqId}')"/></td>
 						</tr>
                    </c:forEach>
 				
