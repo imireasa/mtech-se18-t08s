@@ -6,10 +6,9 @@
 <head>
 </head>
 <body>
-   <h2><fmt:message key="message.projectManagement.proposeNewProject.title" /></h2>
+   <h2>Propose Project</h2>
 	<div id="breadcrumb">
-		<a href="#">Home</a> / <a href="#">Project </a> / <a href="#">Propose
-			New Project</a>
+		<a href="#">Home</a> / Propose Project
 
 	</div>
 	
@@ -121,8 +120,9 @@
 				</tr>
 				
 				<tr>
-					<td colspan="3" align="center"><input type="submit" name="btn_Post" id="btn_Post"
-						class="button" value="Submit"></td>
+					<td colspan="2"></td>
+					<td align="left"><input type="submit" name="btn_Post" id="btn_Post"
+						 value="Submit"></td>
 				</tr>
 			</table>
 			</form:form>
