@@ -234,6 +234,7 @@ public class ProjectController extends BaseMultiActionFormController {
 				projectVo.setStsCd(stsNew.getCdId() + "");
 
 				projectManagementService.saveProject(projectVo);
+				modelAndView.addObject("command", new ProjectVo());
 			} catch (ApplicationException ae) {
 				logger.error(
 						"createProject(HttpServletRequest, HttpServletResponse, ProjectVo)",
@@ -249,11 +250,8 @@ public class ProjectController extends BaseMultiActionFormController {
 				}
 				return modelAndView;
 			}
-
-			modelAndView.addObject("command", projectVo);
-			modelAndView.addObject("msg",
-					Messages.getString("message.common.save"));
-
+			
+			modelAndView.addObject("msg",Messages.getString("message.common.save"));
 			if (logger.isDebugEnabled()) {
 				logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
 			}
@@ -396,7 +394,6 @@ public class ProjectController extends BaseMultiActionFormController {
 			projMemberPagedListHolder.setPage(page);
 			projMemberPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
 		}
-
 		modelAndView.addObject("pagedListHolder", projMemberPagedListHolder);
 
 		if (logger.isDebugEnabled()) {
