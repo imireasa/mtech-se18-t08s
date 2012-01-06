@@ -74,7 +74,7 @@
 			<label>Search Results</label></th>
 		</tr>
 		<tr>
-        <th><label>Project Code</label></th>
+        <th><label>Feedback Code</label></th>
 			<th><label>Project Name</label></th>
 			
 			<th><label>Feedback Title</label></th>
