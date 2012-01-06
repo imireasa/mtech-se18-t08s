@@ -50,85 +50,85 @@
 							
 								<!-- Project Id (Disabled) -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.projectManagement.projectId.label"/></th>
-                                        <th>:</th>
-                                        <th align="left">
+                                        <td align="left"><fmt:message key="message.projectManagement.projectId.label"/></td>
+                                        <td>:</td>
+                                        <td align="left">
                                                 <form:input path="prjIdDisplayed" disabled="true"/>
                                                 <form:errors path="prjIdDisplayed" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>	
 																	
 								<!-- Project Name -->
 								  <tr>
-                                        <th align="left"><fmt:message key="message.projectManagement.projectName.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.projectManagement.projectName.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="name" cols="45" rows="2" disabled="true"></form:textarea>
                                                 <form:errors path="name" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>		
 								 <!-- Description -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.projectManagement.projectDescription.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.projectManagement.projectDescription.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="desc" cols="45" rows="4" disabled="true"></form:textarea>
                                                 <form:errors path="desc" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>	
 								 <!-- Start Date -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.common.startDate.label"/></th>
-                                        <th>:</th>
-                                        <th align="left">
+                                        <td align="left"><fmt:message key="message.common.startDate.label"/></td>
+                                        <td>:</td>
+                                        <td align="left">
                                                 <form:input path="strDte" disabled="true"/>
                                                 <form:errors path="strDte" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>	 
 								<!-- End Date -->
 								 <tr>
-                                        <th align="left"><fmt:message key="message.common.endDate.label"/></th>
-                                        <th>:</th>
-                                        <th align="left">
+                                        <td align="left"><fmt:message key="message.common.endDate.label"/></td>
+                                        <td>:</td>
+                                        <td align="left">
                                                 <form:input path="endDte" disabled="true"/>
                                                 <form:errors path="endDte" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>
 								 <!-- Conuntry -->
 								<tr>
-										<th align="left"><fmt:message key="message.common.country.label"/></th>
-										<th>:</th>
-										<th align="left">
+										<td align="left"><fmt:message key="message.common.country.label"/></td>
+										<td>:</td>
+										<td align="left">
                                                 <form:input path="ctryCd" disabled="true"/>
                                                 <form:errors path="ctryCd" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>		
 								<!-- Location -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.common.location.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.common.location.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="loc" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="loc" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>	
 								 <!-- Project Status -->
 								<tr>
-										<th align="left"><fmt:message key="message.projectManagement.projectStatus.label"/></th>
-										<th>:</th>
-										<th align="left">
+										<td align="left"><fmt:message key="message.projectManagement.projectStatus.label"/></td>
+										<td>:</td>
+										<td align="left">
                                                 <form:input path="stsCd" disabled="true"/>
                                                 <form:errors path="stsCd" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>	
 								<!-- Remark -->
 								<tr>
-                                        <th align="left"><fmt:message key="message.common.remark.label"/></th>
-                                        <th>:</th>
-                                        <th align="left"><label for="textarea"></label>
+                                        <td align="left"><fmt:message key="message.common.remark.label"/></td>
+                                        <td>:</td>
+                                        <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="rmk" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="rmk" cssClass="error"/>
-                                        </th>
+                                        </td>
                                 </tr>
 				 </table>
 				
