@@ -78,8 +78,8 @@
 		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>
 				<td>${item.name}</td>
+				<td>${item.desc}</td>
 				<td>${item.strDte}</td>
-				<td>${item.endDte}</td>
 				<td>${item.stsCd}</td>
 				<td><a href="manageProjectMember.html?prjId=${item.prjId}">Member</a></td>
 				<td><a href="manageProjectInterest.html?prjId=${item.prjId}">Interest</a></td>
@@ -93,9 +93,9 @@
 			type="org.springframework.beans.support.PagedListHolder" />
 
 		<%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-		<c:url value="/project/listProjects.html" var="pagedLink">
+		<c:url value="listProjects.html" var="pagedLink">
 			<c:param name="p" value="~" />
-			
+			<c:param name="projectName" value="${projectName}" />
 		</c:url>
 
 		<%-- // load our paging tag, pass pagedListHolder and the link --%>
