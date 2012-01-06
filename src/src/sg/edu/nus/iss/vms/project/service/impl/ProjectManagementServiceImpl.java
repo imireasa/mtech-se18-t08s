@@ -1,6 +1,8 @@
 package sg.edu.nus.iss.vms.project.service.impl;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,7 @@ import sg.edu.nus.iss.vms.common.mail.MailSenderUtil;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
+import sg.edu.nus.iss.vms.common.util.RamdomPasswordGeneratorUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
@@ -101,12 +104,11 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	@Override
 	public List<ProjectVo> getListAllProject() {
 		String userLogInId = UserUtil.getUserSessionInfoVo().getUserID();
-		String hQL = "from ProjectMemberDto where usrLoginId='" + userLogInId
-				+ "' and actInd=1";
-		List<ProjectMemberDto> projectMemberList = manager.find(hQL);
+		String hQL = "from ProjectDto where prjMgr='"+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
+		List<ProjectDto> projectDtoList = manager.find(hQL);
 		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
-		for (ProjectMemberDto projectMemberDto : projectMemberList) {
-			projectList.add(getProjectVo(projectMemberDto.getPrjId()));
+		for (ProjectDto projectDto : projectDtoList) {
+			projectList.add(getProjectVo(projectDto));
 		}
 		return projectList;
 	}
@@ -515,8 +517,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			ProjectDto project = new ProjectDto();
 			project.setNme(projectVo.getName());
 			project.setDesc(projectVo.getDesc());
-			project.setPrjMgr(Long.toString(UserUtil.getUserSessionInfoVo()
-					.getUserSeqID()));
+			project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
 			project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
 			project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
 			project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
@@ -642,9 +643,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List getAllProjectObjectList(Class type, String orderProperty) {
+	public List getAllProjectObjectList(Class type) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(type);
-		criteria.addOrder(Order.asc(orderProperty));
 		return manager.findByDetachedCriteria(criteria);
 	}
 
@@ -681,27 +681,31 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public List<ProjectVo> listProjectbyProjectVo(ProjectVo projectVo) {
-		String hQL = "from ProjectMemberDto where usrLoginId=' and actInd=1"
-				+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
+			
+		Date startDate=DateUtil.parseDate(projectVo.getStrDte());
+		String hQL = "from ProjectDto where prjMgr='"+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
+
 		if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
 			hQL += " and prjId.nme LIKE '%" + projectVo.getName() + "%'";
-		}
-		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
-			hQL += " and prjId.strDte LIKE '"
-					+ DateUtil.parseDate(projectVo.getStrDte()) + "'";
 		}
 		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
 			hQL += " and prjId.stsCd=" + Long.parseLong(projectVo.getStsCd());
 		}
+		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
+			hQL += " and strDte BETWEEN '"
+					+ DateUtil.getMonthStartDate(startDate) + "' AND '"+
+					DateUtil.getMonthEndDate(startDate)+"'";
+		}
 		logger.debug("Find Project By " + hQL);
-		List<ProjectMemberDto> projectMemberList = manager.find(hQL);
+		
+		List<ProjectDto> projectDtoList = manager.find(hQL);
 		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
-		for (ProjectMemberDto projectMember : projectMemberList) {
-			projectList.add(getProjectVo(projectMember.getPrjId()));
+		for (ProjectDto projectDto : projectDtoList) {
+			projectList.add(getProjectVo(projectDto));
 		}
 		return projectList;
 	}
-
+	
 	@Override
 	public List<ProjectInterestDto> getProjectInterestListbyProject(
 			ProjectDto projectDto, String userId) {
