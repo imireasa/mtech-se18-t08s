@@ -122,5 +122,37 @@ ul#info li { color:#666 !important; list-style:none !important; }
 
 #logoText {color:#FCD705 !important;font-size:36px !important;}
 
-.error{ color:red;}  
-.info{ color:blue;}  
+.mandatory {
+	color: #ff0000;
+}
+
+/************* Informational Message Start *******************/
+.info {
+	color: #4aa337;
+}
+
+.infoblock {
+	color: #4aa337;
+	background-color: #d6f1d0;
+	border: 1px solid #5bc944;
+	border-style: dashed;
+	padding: 8px;
+	margin: 16px;
+}  
+/************* Informational Message End *******************/
+
+
+/************* Error Message Start *******************/
+.error {
+	font-size: 11px;
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #ff0000;
+	background-color: #ffEEEE;
+	border: 1px solid #ff0000;
+	border-style: dashed;
+	padding: 8px;
+	margin: 16px;
+}
