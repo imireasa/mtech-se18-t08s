@@ -125,17 +125,14 @@ public class ReportManagementServicesImpl implements ReportManagementServices {
 
 	}
 */
+	@SuppressWarnings("deprecation")
 	@Override
-	public byte[] generatePDFReport(String jrxmlPath, String jasperPath,
+	public byte[] generatePDFReport(File reportFile,
 			Map params, String queryString) throws JRException, SQLException {
 
-		JasperPrint jasperPrint = null;
-
-		JasperCompileManager.compileReportToFile(jrxmlPath);
-		File reportFile = new File(jasperPath);
-		
+		JasperPrint jasperPrint;
 		if (!reportFile.exists())
-			throw new JRRuntimeException("File "+jrxmlPath+" not found. The report design must be compiled first.");
+			throw new JRRuntimeException("File "+reportFile.getAbsolutePath()+" not found. The report design must be compiled first.");
 		JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportFile.getPath());
 		
 		String url = this.getUrl();
