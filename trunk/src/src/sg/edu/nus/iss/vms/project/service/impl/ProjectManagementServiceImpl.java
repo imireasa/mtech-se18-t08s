@@ -425,7 +425,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			ProjectDto project = new ProjectDto();
 			project.setNme(projectVo.getName());
 			project.setDesc(projectVo.getDesc());
-			project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+			project.setPrjMgr(Long.toString(UserUtil.getUserSessionInfoVo().getUserSeqID()));
 			project.setStrDte(DateUtil.parseDate(projectVo.getStrDte()));
 			project.setEndDte(DateUtil.parseDate(projectVo.getEndDte()));
 			project.setCtryCd(Long.parseLong(projectVo.getCtryCd()));
@@ -473,7 +473,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			project.setUpdDte(DateUtil.getDate());
 			int currentVersion = Integer.parseInt(projectVo.getVersion());
 			project.setVersion(currentVersion + 1);
-			// Todo: have to test save after updating the "DESC" column in DB
 			manager.save(project);
 
 		} catch (Exception ex) {
@@ -723,7 +722,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	@Override
 	public List<ProjectMemberDto> getProjectMember(long projectId) {
-		// TODO Auto-generated method stub
-		return null;
+		String hQL = "from ProjectMemberDto where prjId="+projectId;
+		List<ProjectMemberDto> projMemList = manager.find(hQL);
+		return projMemList;
 	}
 }
