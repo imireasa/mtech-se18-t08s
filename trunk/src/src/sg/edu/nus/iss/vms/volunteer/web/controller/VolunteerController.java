@@ -287,12 +287,18 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 			try {
 				volunteerManagementService.updateVolunteer(volunteerVo);
-				//once updated, update the user session info vo to reflect the changes
-				UserSessionInfoVo userSessionInfoVo = UserUtil.getUserSessionInfoVo();
+				// once updated, update the user session info vo to reflect the
+				// changes
+				UserSessionInfoVo userSessionInfoVo = UserUtil
+						.getUserSessionInfoVo();
 				userSessionInfoVo.setEmail(volunteerVo.getEmail());
 				userSessionInfoVo.setName(volunteerVo.getNme());
-				request.getSession().setAttribute((Messages.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")), userSessionInfoVo);
-				
+				request.getSession()
+						.setAttribute(
+								(Messages
+										.getString("AuthorisationFilter.SESSION_USER_SESSION_INFO_VO_ATTR_NME")),
+								userSessionInfoVo);
+
 				volunteerVo = volunteerManagementService.getVolunteer(UserUtil
 						.getUserSessionInfoVo().getUserID());
 
@@ -449,11 +455,29 @@ public class VolunteerController extends BaseMultiActionFormController {
 				.getProjectFeedbackList(projectDto);
 		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
 
+		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
+				feedbackList);
+		if (!feedbackList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p1", 0);
+			feedbackPagedListHolder.setPage(page);
+			feedbackPagedListHolder.setPageSize(4);
+		}
+
+		PagedListHolder exPagedListHolder = new PagedListHolder(experienceList);
+		if (!experienceList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p2", 0);
+			exPagedListHolder.setPage(page);
+			exPagedListHolder.setPageSize(4);
+		}
+
+		modelAndView.addObject("fbPagedListHolder", feedbackPagedListHolder);
+
+		modelAndView.addObject("exPagedListHolder", exPagedListHolder);
+
 		modelAndView.addObject("projectVo", projectVo);
 		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
-		modelAndView.addObject("experienceList", experienceList);
-		modelAndView.addObject("feedbackList", feedbackList);
+
 		modelAndView.addObject("projectInfo", new ProjectInfoVo());
 
 		for (ProjectMemberVo projectMemberVo : memberList) {
@@ -561,6 +585,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
+		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+
 		if (!StringUtil.isNullOrEmpty(projectInfoVo.getExperience())) {
 
 			ProjectExperienceDto projectExperienceDto = new ProjectExperienceDto();
@@ -570,6 +596,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 			projectExperienceDto.setCreatedDte(DateUtil.formatDate(new Date()));
 			projectManagementService
 					.saveOrUpdateProjectObject(projectExperienceDto);
+			modelAndView.addObject("riMsg", Messages.getString(
+					"message.common.submit.msg",
+					new String[] { "Project Experience" }));
 
 		}
 
@@ -594,6 +623,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 			projectManagementService
 					.saveOrUpdateProjectObject(projectFeedbackDto);
+			modelAndView.addObject("riMsg", Messages.getString(
+					"message.common.submitreview.msg",
+					new String[] { "Project Feedback" }));
 
 		}
 
@@ -604,7 +636,26 @@ public class VolunteerController extends BaseMultiActionFormController {
 		List<ProjectFeedbackDto> feedbackList = projectManagementService
 				.getProjectFeedbackList(projectDto);
 
-		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
+				feedbackList);
+
+		if (!feedbackList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p1", 0);
+			feedbackPagedListHolder.setPage(page);
+			feedbackPagedListHolder.setPageSize(4);
+		}
+
+		PagedListHolder exPagedListHolder = new PagedListHolder(experienceList);
+		if (!experienceList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p2", 0);
+			exPagedListHolder.setPage(page);
+			exPagedListHolder.setPageSize(4);
+		}
+
+		modelAndView.addObject("fbPagedListHolder", feedbackPagedListHolder);
+
+		modelAndView.addObject("exPagedListHolder", exPagedListHolder);
+
 		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
 		modelAndView.addObject("experienceList", experienceList);
