@@ -460,14 +460,14 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (!feedbackList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p1", 0);
 			feedbackPagedListHolder.setPage(page);
-			feedbackPagedListHolder.setPageSize(4);
+			feedbackPagedListHolder.setPageSize(6);
 		}
 
 		PagedListHolder exPagedListHolder = new PagedListHolder(experienceList);
 		if (!experienceList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p2", 0);
 			exPagedListHolder.setPage(page);
-			exPagedListHolder.setPageSize(4);
+			exPagedListHolder.setPageSize(6);
 		}
 
 		modelAndView.addObject("fbPagedListHolder", feedbackPagedListHolder);
@@ -718,11 +718,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 			projectManagementService
 					.saveOrUpdateProjectObject(certificateRequestDto);
 
-			modelAndView.addObject("crMsg", Messages.getString(
+			modelAndView.addObject("riMsg", Messages.getString(
 					"message.common.submit.msg",
 					new String[] { "Certificate Request" }));
 		} else {
-			modelAndView.addObject("crMsg", Messages.getString(
+			modelAndView.addObject("riMsg", Messages.getString(
 					"message.common.submit.adi.msg",
 					new String[] { "Certificate Request" }));
 
