@@ -460,14 +460,14 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (!feedbackList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p1", 0);
 			feedbackPagedListHolder.setPage(page);
-			feedbackPagedListHolder.setPageSize(6);
+			feedbackPagedListHolder.setPageSize(4);
 		}
 
 		PagedListHolder exPagedListHolder = new PagedListHolder(experienceList);
 		if (!experienceList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p2", 0);
 			exPagedListHolder.setPage(page);
-			exPagedListHolder.setPageSize(6);
+			exPagedListHolder.setPageSize(4);
 		}
 
 		modelAndView.addObject("fbPagedListHolder", feedbackPagedListHolder);
