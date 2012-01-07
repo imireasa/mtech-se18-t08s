@@ -40,7 +40,7 @@
                     <th width="150"><fmt:message key="message.administration.requestDate.label"/></th>
                     <th width="80" colspan="2"><fmt:message key="message.common.generate.button"/></th>
 				</tr>
-					<c:forEach items="${certReqVoList}" var="item" varStatus="status">
+					<c:forEach items="${pagedListHolder.pageList}" var="item" varStatus="status">
 						<tr>            
 								<td>${item.certReqId}</td>
                     			<td>${item.prjName}</td>
@@ -54,5 +54,17 @@
 				
 			</table>
 		</form>
+<div class="pagination">
+        <jsp:useBean id="pagedListHolder" scope="request"
+                     type="org.springframework.beans.support.PagedListHolder" />
 
+        <%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
+        <c:url value="generateCertificate.html" var="pagedLink">
+            <c:param name="p" value="~" />
+        </c:url>
+
+        <%-- // load our paging tag, pass pagedListHolder and the link --%>
+        <tg:paging pagedListHolder="${pagedListHolder}"
+                   pagedLink="${pagedLink}" />
+    </div>
 </body>
