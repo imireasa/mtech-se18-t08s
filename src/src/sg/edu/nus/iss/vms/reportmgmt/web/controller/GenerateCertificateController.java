@@ -10,10 +10,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
@@ -32,7 +33,7 @@ import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
 public class GenerateCertificateController extends
 		BaseMultiActionFormController {
-	private Logger logger = Logger
+	private final Logger logger = Logger
 			.getLogger(GenerateCertificateController.class);
 
 	private CodeManagementServices codeManagementServices;
@@ -172,57 +173,79 @@ public class GenerateCertificateController extends
 		CodeDto stsRequested = CodeLookupUtil.getCodeDtoByCatVal(
 				VMSConstants.CERTIFICATE_REQUEST_STATUS,
 				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
-		
+
 		if (request.getParameter("certRequestId") == null) {
 
-			List<CertificateRequestDto> list = certificateManagement.getReqCertList(stsRequested.getCdId());
+			List<CertificateRequestDto> list = certificateManagement
+					.getReqCertList(stsRequested.getCdId());
 			List<?> certReqVoList = new ArrayList<Object>();
 			if (logger.isDebugEnabled()) {
-				logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - certReqVoList:" + certReqVoList.size());
+				logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - certReqVoList:"
+						+ certReqVoList.size());
 			}
-			
-			modelAndView.addObject("certReqVoList", this.getCertReqVoList(list));
+
+			PagedListHolder projectPagedListHolder = new PagedListHolder(
+					this.getCertReqVoList(list));
+			if (!list.isEmpty()) {
+				int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+				projectPagedListHolder.setPage(page);
+				projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+			}
+			modelAndView.addObject("pagedListHolder", projectPagedListHolder);
+
+			modelAndView
+					.addObject("certReqVoList", this.getCertReqVoList(list));
 		} else {
 			// 1. change the status
-			Long certReqId = Long.parseLong(request.getParameter("certRequestId"));
+			Long certReqId = Long.parseLong(request
+					.getParameter("certRequestId"));
 			CodeDto processedSts = CodeLookupUtil.getCodeDtoByCatVal(
 					VMSConstants.CERTIFICATE_REQUEST_STATUS,
 					VMSConstants.CERTIFICATE_REQUEST_STATUS_PROCESSED);
-			certificateManagement.updateCertRequestStatus(certReqId, processedSts.getCdId());
+			certificateManagement.updateCertRequestStatus(certReqId,
+					processedSts.getCdId());
 
 			// 2. generate certificate
-			CertificateRequestDto certReqDto = certificateManagement.getCertRequest(certReqId);
-			//String jrxmlPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jrxml";//VMSConstants.REPORT_TEMPLATE_PATH_JRXML
-			String jasperPath="/reports/volunteer_certificate_multipages.jasper";//VMSConstants.REPORT_TEMPLATE_PATH_JASPER
-				
-			//report parameters
-			String orgName =VMSConstants.ORGANIZATION_NAME;
+			CertificateRequestDto certReqDto = certificateManagement
+					.getCertRequest(certReqId);
+			// String
+			// jrxmlPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jrxml";//VMSConstants.REPORT_TEMPLATE_PATH_JRXML
+			String jasperPath = "/reports/volunteer_certificate_multipages.jasper";// VMSConstants.REPORT_TEMPLATE_PATH_JASPER
+
+			// report parameters
+			String orgName = VMSConstants.ORGANIZATION_NAME;
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("org_name", orgName.toUpperCase());
-			params.put("goodJobImagePath", request.getRealPath("/sys/images/good_job.jpg"));
-			
-			//Query String for report
-			String requestType=CodeLookupUtil.getCodeDescriptionByCodeId(certReqDto.getReqTp());
+			params.put("goodJobImagePath",
+					request.getRealPath("/sys/images/good_job.jpg"));
+
+			// Query String for report
+			String requestType = CodeLookupUtil
+					.getCodeDescriptionByCodeId(certReqDto.getReqTp());
 			String queryString = "SELECT prj.nme AS ProjectName, prj.str_dte as ProjectStartDate, prj.end_dte As ProjectEndDate,usr.nme As VolunteerName";
-			queryString = queryString + " FROM tb_project prj, tb_project_member prjMem, tb_certificate_request req,tb_user usr";
+			queryString = queryString
+					+ " FROM tb_project prj, tb_project_member prjMem, tb_certificate_request req,tb_user usr";
 			queryString = queryString + " WHERE req.prj_id=prj.prj_id";
 			queryString = queryString + " AND prjMem.prj_id=prj.prj_id";
-			queryString = queryString + " AND prjMem.usr_login_id=usr.usr_login_id";
+			queryString = queryString
+					+ " AND prjMem.usr_login_id=usr.usr_login_id";
 			queryString = queryString + " AND req.cert_req_id=" + certReqId;
-			
-			if(requestType.equalsIgnoreCase(VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL))
-				queryString = queryString + " AND req.req_by='"+certReqDto.getReqBy()+"'";
+
+			if (requestType
+					.equalsIgnoreCase(VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL))
+				queryString = queryString + " AND req.req_by='"
+						+ certReqDto.getReqBy() + "'";
 			JasperPrint jasperPrint = null;
 
-			
 			File reportFile = new File(request.getRealPath(jasperPath));
-			
-	
-			byte[] bytes = this.reportManagementServices.generatePDFReport(reportFile, params, queryString);
+
+			byte[] bytes = this.reportManagementServices.generatePDFReport(
+					reportFile, params, queryString);
 
 			if (bytes != null && bytes.length != 0) {
 				response.setContentType("application/pdf");
-				response.addHeader("Content-Disposition", "attachment;filename= volunteer_certificate.pdf");
+				response.addHeader("Content-Disposition",
+						"attachment;filename= volunteer_certificate.pdf");
 				response.setContentLength(bytes.length);
 				ServletOutputStream outStream = response.getOutputStream();
 				outStream.write(bytes, 0, bytes.length);
@@ -230,8 +253,10 @@ public class GenerateCertificateController extends
 				outStream.close();
 
 				// 3. get the remaining request list...
-				List<CertificateRequestDto> list = certificateManagement.getReqCertList(stsRequested.getCdId());
-				modelAndView.addObject("certReqVoList", this.getCertReqVoList(list));
+				List<CertificateRequestDto> list = certificateManagement
+						.getReqCertList(stsRequested.getCdId());
+				modelAndView.addObject("certReqVoList",
+						this.getCertReqVoList(list));
 
 				if (logger.isDebugEnabled()) {
 					logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - end");
@@ -245,31 +270,34 @@ public class GenerateCertificateController extends
 		}
 		return modelAndView;
 	}
-	
-	private List<CertificateRequestVo> getCertReqVoList(List<CertificateRequestDto> list){
-		
+
+	private List<CertificateRequestVo> getCertReqVoList(
+			List<CertificateRequestDto> list) {
+
 		List<CertificateRequestVo> certReqVoList = new ArrayList<CertificateRequestVo>();
 		if (list != null && list.size() != 0) {
 			for (int i = 0; i < list.size(); i++) {
-				CertificateRequestDto obj = list
-						.get(i);
+				CertificateRequestDto obj = list.get(i);
 				CertificateRequestVo voObj = new CertificateRequestVo();
 				voObj.setCertReqId(obj.getCertReqId());
 				voObj.setPrjId(obj.getPrjId());
-				ProjectDto project = projectManagementService.getProject(obj.getPrjId());
-				
+				ProjectDto project = projectManagementService.getProject(obj
+						.getPrjId());
+
 				if (project != null)
 					voObj.setPrjName(project.getNme());
-				
+
 				voObj.setReqTp(obj.getReqTp());
-				voObj.setReqTpName(CodeLookupUtil.getCodeValueByCodeId(obj.getReqTp()));
+				voObj.setReqTpName(CodeLookupUtil.getCodeValueByCodeId(obj
+						.getReqTp()));
 				voObj.setReqBy(obj.getReqBy());
 				voObj.setReqDte(obj.getReqDte());
-				VolunteerVo volunteer = volunteerManagementService.getVolunteer((obj.getReqBy()));
-				
+				VolunteerVo volunteer = volunteerManagementService
+						.getVolunteer((obj.getReqBy()));
+
 				if (volunteer != null)
 					voObj.setReqByName(volunteer.getNme());
-				
+
 				certReqVoList.add(voObj);
 			}
 		}
