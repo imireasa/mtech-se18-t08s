@@ -88,7 +88,7 @@
 				<c:if test="${item.val!='Submitted'}">
 				<form:radiobutton path="status" value="${item.val}" label="${item.val}" />
 				</c:if>
-		      </c:forEach>
+		   </c:forEach>
 		 
 		 </td>
         </tr>

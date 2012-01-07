@@ -107,7 +107,7 @@
         </tab:tabPane>
 
         <tab:tabPane id="experience" tabTitle="Experience">
-
+          <span>
             <table class="proj-table">
                 <tr>
                     <th><fmt:message key="message.common.id.label"/></th>
@@ -143,16 +143,16 @@
 
 
             </form:form>
-
+		</span>
         </tab:tabPane>
 
         <tab:tabPane id="feedback" tabTitle="Feedback">
             <table class="query-table">
                 <tr>
-                    <td><fmt:message key="message.common.id.label"/></td>
-                    <td><fmt:message key="message.common.creator.label"/></td>
-                    <td><fmt:message key="message.common.title.label"/></td>
-                    <td><fmt:message key="message.common.content.label"/></td>
+                    <th><fmt:message key="message.common.id.label"/></th>
+                    <th><fmt:message key="message.common.creator.label"/></th>
+                    <th><fmt:message key="message.common.title.label"/></th>
+                    <th><fmt:message key="message.common.content.label"/></th>
                 </tr>
                 <c:forEach items="${feedbackList}" var="item" varStatus="status">
                     <tr>
@@ -169,7 +169,7 @@
                        action="postExperienceAndFb.html">
                 <table class="query-table">
                     <tr> 
-                        <th width="122"><label>Title</label> 
+                        <th width="122"><label><fmt:message key="message.common.title.label"/></label> 
                         </th> 
                         <td width="197"><spring:bind path="projectInfo.fbTitle">
                                 <form:input path="fbTitle" />
@@ -177,7 +177,7 @@
                         </td> 
                     </tr> 
                     <tr> 
-                        <th><label>Feedback</label> 
+                        <th><label><fmt:message key="message.common.content.label"/></label> 
                         </th> 
                         <td><spring:bind path="projectInfo.fbContent">
                                 <form:textarea path="fbContent" rows="5" cols="30" />
