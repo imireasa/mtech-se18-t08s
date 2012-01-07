@@ -86,7 +86,7 @@
 	     
 	      <c:forEach items="${stsCdList}" var="item" varStatus="status">
 				<c:if test="${item.val!='Submitted'}">
-				<form:radiobutton path="status" value="${item.val}" label="${item.val}" />
+				${item.val}<form:radiobutton path="status" value="${item.val}"/>
 				</c:if>
 		   </c:forEach>
 		 

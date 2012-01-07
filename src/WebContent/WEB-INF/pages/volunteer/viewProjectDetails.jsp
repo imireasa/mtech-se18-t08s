@@ -37,8 +37,7 @@
 			<table class="query-table">
 				<tr>
 					<td><fmt:message
-							key="message.projectManagement.projectName.label" />
-					</td>
+							key="message.projectManagement.projectName.label" /></td>
 
 					<td>${projectVo.name}</td>
 				</tr>
@@ -47,23 +46,19 @@
 					<td>${projectVo.desc}</td>
 				</tr>
 				<tr>
-					<td><fmt:message key="message.common.startDate.label" />
-					</td>
+					<td><fmt:message key="message.common.startDate.label" /></td>
 					<td>${projectVo.strDte}</td>
 				</tr>
 				<tr>
-					<td><fmt:message key="message.common.status.label" />
-					</td>
+					<td><fmt:message key="message.common.status.label" /></td>
 					<td>${projectVo.stsCd}</td>
 				</tr>
 				<tr>
-					<td><fmt:message key="message.common.location.label" />
-					</td>
+					<td><fmt:message key="message.common.location.label" /></td>
 					<td>${projectVo.loc}</td>
 				</tr>
 				<tr>
-					<td><fmt:message key="message.common.country.label" />
-					</td>
+					<td><fmt:message key="message.common.country.label" /></td>
 					<td>${projectVo.ctryCd}</td>
 				</tr>
 
@@ -90,10 +85,8 @@
 				commandName="projectInfo" action="requestCertificate.html">
 				<table class="proj-table">
 					<tr>
-						<th><fmt:message key="message.common.loginid.label" />
-						</th>
-						<th><fmt:message key="message.common.role.label" />
-						</th>
+						<th><fmt:message key="message.common.loginid.label" /></th>
+						<th><fmt:message key="message.common.role.label" /></th>
 
 					</tr>
 					<c:forEach items="${memberList}" var="item" varStatus="status">
@@ -122,14 +115,12 @@
 			<div>
 				<table class="proj-table">
 					<tr>
-						<th><fmt:message key="message.common.id.label" />
-						</th>
-						<th><fmt:message key="message.common.creator.label" />
-						</th>
-						<th><fmt:message key="message.common.content.label" />
-						</th>
+						<th><fmt:message key="message.common.id.label" /></th>
+						<th><fmt:message key="message.common.creator.label" /></th>
+						<th><fmt:message key="message.common.content.label" /></th>
 					</tr>
-					<c:forEach items="${exPagedListHolder.pageList}" var="item" varStatus="status">
+					<c:forEach items="${exPagedListHolder.pageList}" var="item"
+						varStatus="status">
 						<tr>
 							<td>${item.prjExpId}</td>
 							<td>${item.createdBy}</td>
@@ -139,16 +130,27 @@
 					</c:forEach>
 				</table>
 			</div>
+
+			<div class="pagination2">
+				<jsp:useBean id="exPagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+				<c:url value="viewProjectDetails.html" var="pagedLink2">
+					<c:param name="p2" value="~" />
+				</c:url>
+				<tg:paging pagedListHolder="${exPagedListHolder}"
+					pagedLink="${pagedLink2}" />
+			</div>
+
 			<div>
 				<form:form name="postExperience" method="post"
 					commandName="projectInfo" action="postExperienceAndFb.html">
 					<table class="proj-table">
 						<tr>
-							<th><fmt:message key="message.common.content.label" />
-							</th>
+							<th><fmt:message key="message.common.content.label" /></th>
 							<th><spring:bind path="projectInfo.experience">
 									<form:textarea path="experience" rows="5" cols="30" />
-								</spring:bind> <form:errors path="experience" cssClass="error" /></th>
+								</spring:bind> <form:errors path="experience" cssClass="error" />
+							</th>
 						</tr>
 						<tr>
 							<td colspan="2" align="center"><input type="submit"
@@ -167,98 +169,81 @@
 		<tab:tabPane id="feedback" tabTitle="Feedback">
 			<table class="proj-table">
 				<tr>
-					<th><fmt:message key="message.common.id.label" />
+					<th><fmt:message key="message.common.id.label" /></th>
+					<th><fmt:message key="message.common.creator.label" />
 					</th>
-					<th><fmt:message key="message.common.creator.label" /></th>
-					<th><fmt:message key="message.common.title.label" /></th>
-					
-                    <th><fmt:message key="message.common.content.label" /></th>
-				
-                </tr>
-                <c:forEach items="${fbPagedListHolder.pageList}" var="item"
+					<th><fmt:message key="message.common.title.label" />
+					</th>
+
+					<th><fmt:message key="message.common.content.label" />
+					</th>
+
+				</tr>
+				<c:forEach items="${fbPagedListHolder.pageList}" var="item"
 					varStatus="status">
-                    <tr>
-                        <td>${item.prjFbId}</td>
-                        <td>${item.createdBy}</td>
-                        <td>${item.title}</td>
-                        <td>${item.cont}</td>
+					<tr>
+						<td>${item.prjFbId}</td>
+						<td>${item.createdBy}</td>
+						<td>${item.title}</td>
+						<td>${item.cont}</td>
 
-                    </tr>
-                </c:forEach>
-            </table>
-            <br />
-            <form:form name="posetFeedback" method="post"
+					</tr>
+				</c:forEach>
+			</table>
+			<table>
+			<tr>
+			<td>
+			<div class="pagination">
+				<jsp:useBean id="fbPagedListHolder" scope="request"
+					type="org.springframework.beans.support.PagedListHolder" />
+
+				<c:url value="viewProjectDetails.html" var="pagedLink1">
+					<c:param name="p1" value="~" />
+				</c:url>
+
+				<%-- // load our paging tag, pass pagedListHolder and the link --%>
+				<tg:paging pagedListHolder="${fbPagedListHolder}"
+					pagedLink="${pagedLink1}" />
+			</div>
+			</td>
+			</tr>
+			</table>
+			<br />
+			<form:form name="posetFeedback" method="post"
 				commandName="projectInfo" action="postExperienceAndFb.html">
-                <table class="proj-table">
-                    <tr> 
-                        <th width="122"><label><fmt:message
-									key="message.common.title.label" />
-						</label> 
-                        </th> 
-                        <td width="197"><spring:bind
-								path="projectInfo.fbTitle">
-                                <form:input path="fbTitle" />
-                            </spring:bind> <form:errors path="fbTitle"
-								cssClass="error" />
-                        </td> 
-                    </tr> 
-                    <tr> 
-                        <th><label><fmt:message
-									key="message.common.content.label" />
-						</label> 
-                        </th> 
-                        <td><spring:bind
-								path="projectInfo.fbContent">
-                                <form:textarea path="fbContent" rows="5"
-									cols="30" />
-                            </spring:bind> <form:errors path="fbContent"
-								cssClass="error" />
-                        </td> 
-                    </tr> 
-                    <tr>
-                        <td colspan="2" align="center"><input
-							type="submit" name="btn_Post" id="btn_Post" value="Publish"
-							class="button">
-						</td> 
-                    </tr>
+				<table class="proj-table">
+					<tr>
+						<th width="122"><label><fmt:message
+									key="message.common.title.label" /> </label></th>
+						<td width="197"><spring:bind path="projectInfo.fbTitle">
+								<form:input path="fbTitle" />
+							</spring:bind> <form:errors path="fbTitle" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<th><label><fmt:message
+									key="message.common.content.label" /> </label></th>
+						<td><spring:bind path="projectInfo.fbContent">
+								<form:textarea path="fbContent" rows="5" cols="30" />
+							</spring:bind> <form:errors path="fbContent" cssClass="error" /></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center"><input type="submit"
+							name="btn_Post" id="btn_Post" value="Publish" class="button">
+						</td>
+					</tr>
 
-                </table>
+				</table>
 
 
-            </form:form>
-            
-              <div class="pagination">
-        <jsp:useBean id="fbPagedListHolder" scope="request"
-                     type="org.springframework.beans.support.PagedListHolder" />
+			</form:form>
 
-        <%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-        <c:url value="viewProjectDetails.html" var="pagedLink">
-            <c:param name="p1" value="~" />
-        </c:url>
 
-        <%-- // load our paging tag, pass pagedListHolder and the link --%>
-        <tg:paging pagedListHolder="${fbPagedListHolder}"
-                   pagedLink="${pagedLink}" />
-    </div>
+		</tab:tabPane>
 
-        </tab:tabPane>
+	</tab:tabContainer>
 
-    </tab:tabContainer>
-    
-    
-   
-    
-     <div class="pagination">
-        <jsp:useBean id="exPagedListHolder" scope="request"
-                     type="org.springframework.beans.support.PagedListHolder" />
 
-        <%-- // create link for pages, "~" will be replaced later on with the proper page number --%>
-        <c:url value="viewProjectDetails.html" var="pagedLink">
-            <c:param name="p2" value="~" />
-        </c:url>
 
-        <%-- // load our paging tag, pass pagedListHolder and the link --%>
-        <tg:paging pagedListHolder="${exPagedListHolder}"
-                   pagedLink="${pagedLink}" />
-    </div>
+
+
 </body>
