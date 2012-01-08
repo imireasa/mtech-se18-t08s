@@ -129,14 +129,14 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		// TODO: Implement requestProjectCertificateByProjectId
 		ProjectDto projectDto = (ProjectDto) manager.get(ProjectDto.class,
 				projectId);
-		Long newRequest = CodeLookupUtil.getCodeByCatAndVal(
+		Long newRequest = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.CERTIFIATE_REQUEST_TYPE,
 				VMSConstants.CERTIFICATE_REQUEST_TYPE_PROJECT).getCdId();
-		Long requestd = CodeLookupUtil.getCodeByCatAndVal(
+		Long requestd = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.CERTIFICATE_REQUEST_STATUS,
 				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED).getCdId();
 
-		Long closeProject = CodeLookupUtil.getCodeByCatAndVal(
+		Long closeProject = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.PROJECT_STATUS_CATEGORY,
 				VMSConstants.PROJECT_STATUS_CATEGORY_CLOSE).getCdId();
 

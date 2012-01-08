@@ -6,7 +6,7 @@ import sg.edu.nus.iss.vms.common.dto.CodeDto;
 
 public interface CodeManagementServices {
 
-	public List<CodeDto> getListOfCodeByCategory(String category);
+	public List<CodeDto> getCodeListByCategory(String category);
 
 	public String getCodeDescriptionByCodeId(Long codeId);
 
@@ -14,9 +14,9 @@ public interface CodeManagementServices {
 
 	//public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category, String codeDesc);
 
-	public CodeDto getCodeByCatAndVal(String Category, String catVal);
+	public CodeDto getCodeByCategoryAndCodeValue(String Category, String catVal);
 
-	public CodeDto getCodeByCodeCategoryAndCodeDesc(String category, String codeValue);
+	//public CodeDto getCodeByCodeCategoryAndCodeDesc(String category, String codeValue);
 
-	public CodeDto getCodeDtobyId(Long id);
+	public CodeDto getCodeById(Long id);
 }

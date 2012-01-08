@@ -278,9 +278,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 			modelAndView = new ModelAndView("volunteer/updateVolunteer");// jsp
 			// page
 			modelAndView.addObject("titleList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
+					.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
 			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			// volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			modelAndView.addObject("command", volunteer);
 
@@ -292,9 +292,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 			validate(command);
 			modelAndView = new ModelAndView("volunteer/updateVolunteer");
 			modelAndView.addObject("titleList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
+					.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
 			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			VolunteerVo volunteerVo = command;
 			if (errors.hasErrors()) {
 				logger.debug("updateVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - Error Handling : ");
@@ -361,7 +361,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		List<ProjectDto> projectList = projectManagementService
 				.getAllProjectObjectList(ProjectDto.class);
 		List<CodeDto> projectCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 		logger.debug("The project size is" + projectList.size());
 		modelAndView.addObject("projectList", projectList);
 		modelAndView.addObject("command", new ProjectVo());
@@ -391,7 +391,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
 		List<CodeDto> projectCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 
 		modelAndView.addObject("projectCodeList", projectCodeList);
 
@@ -435,11 +435,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 				.getProjectObjbyId(prjId, ProjectDto.class);
 
 		List<CodeDto> projectStatusCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
+				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 		List<CodeDto> roleCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE);
+				.getCodeListByCategory(VMSConstants.MEMBER_ROLE);
 		List<CodeDto> countryCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+				.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY);
 
 		String projectStatus = "Unknown";
 		String country = "Unknown";
@@ -671,12 +671,12 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		CodeDto codeDto = CodeLookupUtil
-				.getCodeByCatAndVal(
+				.getCodeByCategoryAndCodeValue(
 						VMSConstants.CERTIFIATE_REQUEST_TYPE,
 						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
 
 		CodeDto codeStatusDto = CodeLookupUtil
-				.getCodeByCatAndVal(
+				.getCodeByCategoryAndCodeValue(
 						VMSConstants.CERTIFICATE_REQUEST_STATUS,
 						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
 

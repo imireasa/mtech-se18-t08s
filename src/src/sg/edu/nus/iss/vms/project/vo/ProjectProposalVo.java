@@ -34,7 +34,7 @@ public class ProjectProposalVo {
 		this.nme = dto.getNme();
 		this.desc = dto.getDesc();
 		CodeDto country_codeDto = CodeLookupUtil
-				.getCodeDtoById(dto.getCtryCd());
+				.getCodeById(dto.getCtryCd());
 		this.ctryCd = dto.getCtryCd();
 		this.ctryVal = country_codeDto.getVal();
 		this.loc = dto.getLoc();
@@ -42,7 +42,7 @@ public class ProjectProposalVo {
 		this.proposerId = dto.getProposerId();
 		this.apprBy = dto.getApprBy();
 		this.apprDte = dto.getApprDte();
-		CodeDto codeDto = CodeLookupUtil.getCodeDtoById(dto.getStsCd());
+		CodeDto codeDto = CodeLookupUtil.getCodeById(dto.getStsCd());
 		this.stsCd = codeDto.getCdId();
 		this.stsVal = codeDto.getVal();
 		this.rmk = dto.getRmk();
