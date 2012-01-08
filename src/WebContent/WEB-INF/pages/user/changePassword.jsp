@@ -4,57 +4,51 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
-<head>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/engine.js'></script>
-
-<link type="text/css"
-	href="<%=request.getContextPath()%>/sys/css/paging.css"
-	rel="stylesheet" />
-
-</head>
 <body>
-	<h2>Change Password</h2>
+	<h2><fmt:message key="message.userManagement.changePassword.title" /></h2>
 	<div id="breadcrumb">
-		<a href="#">Home</a> / Change Password 
+		<a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label" /></a> / <fmt:message key="message.userManagement.changePassword.title" />
 	</div>
 
 	<div class="query">
 
    	  <form:form name="changePassword" method="post" action="changePassword.html" commandName="command">
    	  	<form:errors path="*" cssClass="errorblock" element="div" />
-	  <table width="1013" height="105" class="query-table">
+	  <table class="query-table">
 	  
 	    <tr>
-	      <td width="209"> Email:</td>
-	      <td width="788"> <form:label path="email">${command.email}</form:label> <form:hidden path="email"/> </td>
+	      
+              <td><fmt:message key="message.common.email.label" /></td>
+	      <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+	      <td> <form:label path="email">${command.email}</form:label> <form:hidden path="email"/> </td>
         </tr>
         <tr>
-	      <td width="209">Old Password:</td>
-	      <td width="788"><form:password path="currentPassword"/><font color="red"><form:errors path="currentPassword" /></font></td>
-	     
-	     
-        </tr>
-        <tr>
-	      <td width="209"> New Password:</td>
-	      <td width="788"><form:password path="password"/><font color="red"><form:errors path="password" /></font></td>
+              <td><fmt:message key="message.userManagement.oldPassword.label" /></td>
+              <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+	      <td><form:password path="currentPassword"/><font color="red"><form:errors path="currentPassword" /></font></td>
 	     
 	     
         </tr>
         <tr>
-	      <td width="209"> Confirm New Password:</td>
-	      <td width="788"><form:password path="confirmedPassword"/><font color="red"><form:errors path="confirmedPassword" /></font></td>
+	      <td><fmt:message key="message.userManagement.newPassword.label" /></td>
+              <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+	      <td><form:password path="password"/><font color="red"><form:errors path="password" /></font></td>
+	     
+	     
+        </tr>
+        <tr>
+	      <td><fmt:message key="message.userManagement.confirmNewPassword.label" /></td>
+              <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+	      <td><form:password path="confirmedPassword"/><font color="red"><form:errors path="confirmedPassword" /></font></td>
 	     
 	     
         </tr>
             <tr>
-				<td>    
+				<td colspan="2">
 					
 				</td>
-				<td>    
-					<input type="submit" name="btn_change" id="btn_change" value="Update"> <input type="submit" name="btn_clear" id="btn_clear" value="Clear">
+				<td align="left">
+					<input type="submit" name="changeButton" id="changeButton" value="Update"> <input type="submit" name="clearButton" id="clearButton" value="Clear">
 				</td>
            </tr>
 	   
