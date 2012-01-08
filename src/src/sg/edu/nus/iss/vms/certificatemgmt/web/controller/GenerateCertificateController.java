@@ -17,7 +17,7 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
-import sg.edu.nus.iss.vms.certificatemgmt.service.CertificateManagement;
+import sg.edu.nus.iss.vms.certificatemgmt.service.CertificateManagementService;
 import sg.edu.nus.iss.vms.certificatemgmt.vo.CertificateRequestVo;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
@@ -39,7 +39,7 @@ public class GenerateCertificateController extends
 	private CodeManagementServices codeManagementServices;
 	private VolunteerManagementService volunteerManagementService;
 	private ReportManagementService reportManagementService;
-	private CertificateManagement certificateManagement;
+	private CertificateManagementService certificateManagementService;
 	private ProjectManagementService projectManagementService;
 
 	public CodeManagementServices getCodeManagementServices() {
@@ -114,27 +114,27 @@ public class GenerateCertificateController extends
 		}
 	}
 
-	public CertificateManagement getCertificateManagement() {
+	public CertificateManagementService getCertificateManagementService() {
 		if (logger.isDebugEnabled()) {
-			logger.debug("getCertificateManagement() - start");
+			logger.debug("getCertificateManagementService() - start");
 		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("getCertificateManagement() - end");
+			logger.debug("getCertificateManagementService() - end");
 		}
-		return certificateManagement;
+		return certificateManagementService;
 	}
 
-	public void setCertificateManagement(
-			CertificateManagement certificateManagement) {
+	public void setCertificateManagementService(
+			CertificateManagementService certificateManagementService) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("setCertificateManagement(CertificateManagement) - start");
+			logger.debug("setCertificateManagementService(CertificateManagementService) - start");
 		}
 
-		this.certificateManagement = certificateManagement;
+		this.certificateManagementService = certificateManagementService;
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("setCertificateManagement(CertificateManagement) - end");
+			logger.debug("setCertificateManagementService(CertificateManagementService) - end");
 		}
 	}
 
@@ -176,7 +176,7 @@ public class GenerateCertificateController extends
 
 		if (request.getParameter("certRequestId") == null) {
 
-			List<CertificateRequestDto> list = certificateManagement
+			List<CertificateRequestDto> list = certificateManagementService
 					.getReqCertList(stsRequested.getCdId());
 			List<?> certReqVoList = new ArrayList<Object>();
 			if (logger.isDebugEnabled()) {
@@ -202,11 +202,11 @@ public class GenerateCertificateController extends
 			CodeDto processedSts = CodeLookupUtil.getCodeDtoByCatVal(
 					VMSConstants.CERTIFICATE_REQUEST_STATUS,
 					VMSConstants.CERTIFICATE_REQUEST_STATUS_PROCESSED);
-			certificateManagement.updateCertRequestStatus(certReqId,
+			certificateManagementService.updateCertRequestStatus(certReqId,
 					processedSts.getCdId());
 
 			// 2. generate certificate
-			CertificateRequestDto certReqDto = certificateManagement
+			CertificateRequestDto certReqDto = certificateManagementService
 					.getCertRequest(certReqId);
 			// String
 			// jrxmlPath="C:/Mtech 7/WebContent/reports/volunteer_certificate_multipages.jrxml";//VMSConstants.REPORT_TEMPLATE_PATH_JRXML
@@ -253,7 +253,7 @@ public class GenerateCertificateController extends
 				outStream.close();
 
 				// 3. get the remaining request list...
-				List<CertificateRequestDto> list = certificateManagement
+				List<CertificateRequestDto> list = certificateManagementService
 						.getReqCertList(stsRequested.getCdId());
 				modelAndView.addObject("certReqVoList",
 						this.getCertReqVoList(list));
