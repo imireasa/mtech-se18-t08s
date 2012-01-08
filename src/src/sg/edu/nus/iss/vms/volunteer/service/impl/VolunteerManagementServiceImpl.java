@@ -79,6 +79,7 @@ public class VolunteerManagementServiceImpl implements
         }
         return memberList;
     }
+    
 
     @Override
     public List<ProjectMemberDto> getListOfMembers() {
@@ -124,7 +125,7 @@ public class VolunteerManagementServiceImpl implements
     }
 
     @Override
-    public void saveNewVolunteer(VolunteerVo volunteerVo) throws Exception {
+    public void saveVolunteer(VolunteerVo volunteerVo) throws Exception {
         if (logger.isDebugEnabled()) {
             logger.debug("saveNewVolunteer(VolunteerVo) - start");
         }
@@ -192,7 +193,7 @@ public class VolunteerManagementServiceImpl implements
         }
 
         if (logger.isDebugEnabled()) {
-            logger.debug("saveNewVolunteer(VolunteerVo) - end");
+            logger.debug("saveVolunteer(VolunteerVo) - end");
         }
     }
 
