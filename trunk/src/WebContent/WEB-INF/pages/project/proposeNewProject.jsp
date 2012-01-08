@@ -115,7 +115,7 @@
 <body>
 	<h2><fmt:message key="message.projectManagement.proposeProject.title" /></h2>
 	<div id="breadcrumb">
-		<a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label"/></a> / <fmt:message key="message.projectManagement.proposeProject.title" />
+		<a href="<%=request.getContextPath()%>/common/welcome.html"> <fmt:message key="message.common.home.label"/></a> / <fmt:message key="message.projectManagement.proposeProject.title" />
 
 	</div>
 

@@ -6,7 +6,7 @@
 <body>
     <h2><fmt:message key="message.projectManagement.projectFeedbackDetails.title" /></h2>
     <div id="breadcrumb">
-        <a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label" /></a> / <a href="browseProjectFeedback.html"><fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></a> / <fmt:message key="message.projectManagement.projectFeedbackDetails.title" />
+        <a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label" /></a> / <a href="browseProjectFeedback.html"><fmt:message key="message.projectManagement.reviewProjectFeedback.title" /></a> / <fmt:message key="message.projectManagement.projectFeedbackDetails.title" />
     </div>
 
     <div class="query">
