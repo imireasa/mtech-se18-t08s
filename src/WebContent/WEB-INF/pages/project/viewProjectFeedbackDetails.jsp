@@ -3,16 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<head>
-
-    <link type="text/css"
-          href="<%=request.getContextPath()%>/sys/css/paging.css"
-          rel="stylesheet" />
-</head>
 <body>
-    <h2>Project Feedback Details</h2>
+    <h2><fmt:message key="message.projectManagement.projectFeedbackDetails.title" /></h2>
     <div id="breadcrumb">
-        <a href="#">Home</a> / <a href="#">Project</a> / <a href="#">Project Feedback Details</a>
+        <a href="#"><fmt:message key="message.common.home.label" /></a> / <a href="#"><fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></a> / <fmt:message key="message.projectManagement.projectFeedbackDetails.title" />
     </div>
 
     <div class="query">
@@ -23,7 +17,7 @@
         </c:if>
         <table class="query-table">
             <tr>
-                <td><fmt:message key="message.projectManagement.projectName.label"/></td>
+                <td width="100"><fmt:message key="message.projectManagement.projectName.label"/></td>
                 <td>
                     <fmt:message key="message.common.symbol.afterLabel.label" />
                 </td>
@@ -66,20 +60,22 @@
 
             </tr>
             <tr>
-                <td colspan="2">
+                <td>&nbsp;</td>
+                <td align="left">
                     <form:form name="viewFbDetails" method="post"
                                action="approveFb.html">
-                        <input type="submit" name="btn_Publish"
-                               id="btn_Publish" value="Publish" class="button">
+                        <input type="submit" name="publishButton"
+                               id="publishButton" value="Publish">
                     </form:form>
                 </td>
-                <td>
+                <td align="left">
                     <form:form name="viewFbDetails" method="post"
                                action="rejectFb.html">
-                        <input type="submit" name="btn_Reject"
-                               id="btn_Reject" value="Reject" class="button">
+                        <input type="submit" name="rejectButton"
+                               id="rejectButton" value="Reject">
                     </form:form>
                 </td>
+           
             </tr>
         </table>
     </div>
