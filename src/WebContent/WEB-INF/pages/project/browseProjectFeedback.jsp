@@ -8,7 +8,7 @@
 <body>
     <h2><fmt:message key="message.projectManagement.reviewProjectFeedback.title" /></h2>
     <div id="breadcrumb">
-        <a href="#"><fmt:message key="message.common.home.label" /></a> / <fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></div>
+        <a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label" /></a> / <fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></div>
 
     <div class="query">  
         <form:form name="browseProjectFeedback" method="post"  commandName="feedbackVo" 

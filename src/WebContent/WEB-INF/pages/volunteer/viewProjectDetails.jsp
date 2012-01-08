@@ -11,8 +11,8 @@
 <body>
 	<h2><fmt:message key="message.projectManagement.projectDetails.title" /></h2>
 	<div id="breadcrumb">
-		<a href="#"><fmt:message key="message.common.home.label"/></a> / 
-		<a href="#"><fmt:message key="message.projectManagement.browseProjects.title" /></a> / 
+		<a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label"/></a> / 
+		<a href="browseProject.html"><fmt:message key="message.projectManagement.browseProjects.title" /></a> / 
 		<fmt:message key="message.projectManagement.projectDetails.title" />
 	</div>
 

@@ -7,8 +7,8 @@
 <body>
 	<h2> <fmt:message key="message.projectManagement.reviewProjectProposals.label" /></h2>
 	<div id="breadcrumb">
-		<a href="#"><fmt:message key="message.common.home.label"/></a> / 
-		<a href="#"><fmt:message key="message.projectManagement.reviewProjectProposals.label" /></a></div>
+		<a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label"/></a> / 
+		<fmt:message key="message.projectManagement.reviewProjectProposals.label" />
     </div>
 	<div class="query">
 	
