@@ -28,27 +28,27 @@
                     <td><fmt:message key="message.projectManagement.feedbackTitle.label" /></td>
 		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
                     <td>
-                        <spring:bind path="feedbackVo.fbTitle">
-                            <form:input path="fbTitle"/>
+                        <spring:bind path="feedbackVo.title">
+                            <form:input path="title"/>
                         </spring:bind>
-                        <form:errors path="fbTitle" cssClass="error"/>  
+                        <form:errors path="title" cssClass="error"/>  
                     </td>
                 </tr>
                 <tr>
                     <td><fmt:message key="message.projectManagement.projectName.label" /></td>
 		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
                     <td>
-                        <spring:bind path="feedbackVo.prjName">  
-                            <form:input path="prjName"/>
+                        <spring:bind path="feedbackVo.prjNme">  
+                            <form:input path="prjNme"/>
                         </spring:bind>
-                        <form:errors path="prjName" cssClass="error"/>  
+                        <form:errors path="prjNme" cssClass="error"/>  
                     </td>
                 </tr>
                 <tr>
                     <td><fmt:message key="message.common.status.label" /></td>
 		    <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <form:select path="fbStatus">
+                        <form:select path="stsVal">
                             <form:option value="" label="ALL"/>
                             <c:forEach items="${fbCodeList}" var="item" varStatus="status">
                                 <form:option value="${item.val}">${item.val}</form:option>
@@ -83,7 +83,7 @@
         <c:forEach items="${pagedListHolder.pageList}" var="item">
             <tr>
                 <td>${item.prjFbId}</td>
-                <td>${item.prjId.nme}</td>
+                <td>${item.prjNme}</td>
                 <td>${item.title}</td>
                 <td>${item.createdBy}</td>
                 <td>

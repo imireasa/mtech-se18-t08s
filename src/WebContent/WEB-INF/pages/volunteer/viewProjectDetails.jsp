@@ -143,13 +143,13 @@
 
 			<div>
 				<form:form name="postExperience" method="post"
-					commandName="projectInfo" action="postExperienceAndFb.html">
+					commandName="experienceVo" action="postExperienceAndFb.html">
 					<table class="proj-table">
 						<tr>
 							<th><fmt:message key="message.common.content.label" /></th>
-							<th><spring:bind path="projectInfo.experience">
-									<form:textarea path="experience" rows="5" cols="30" />
-								</spring:bind> <form:errors path="experience" cssClass="error" />
+							<th><spring:bind path="experienceVo.cont">
+									<form:textarea path="cont" rows="5" cols="30" />
+								</spring:bind> <form:errors path="cont" cssClass="error" />
 							</th>
 						</tr>
 						<tr>
@@ -210,21 +210,21 @@
 			</table>
 			<br />
 			<form:form name="posetFeedback" method="post"
-				commandName="projectInfo" action="postExperienceAndFb.html">
+				commandName="feedbackVo" action="postExperienceAndFb.html">
 				<table class="proj-table">
 					<tr>
 						<th width="122"><label><fmt:message
 									key="message.common.title.label" /> </label></th>
-						<td width="197"><spring:bind path="projectInfo.fbTitle">
-								<form:input path="fbTitle" />
-							</spring:bind> <form:errors path="fbTitle" cssClass="error" /></td>
+						<td width="197"><spring:bind path="feedbackVo.title">
+								<form:input path="title" />
+							</spring:bind> <form:errors path="title" cssClass="error" /></td>
 					</tr>
 					<tr>
 						<th><label><fmt:message
 									key="message.common.content.label" /> </label></th>
-						<td><spring:bind path="projectInfo.fbContent">
-								<form:textarea path="fbContent" rows="5" cols="30" />
-							</spring:bind> <form:errors path="fbContent" cssClass="error" /></td>
+						<td><spring:bind path="feedbackVo.cont">
+								<form:textarea path="cont" rows="5" cols="30" />
+							</spring:bind> <form:errors path="cont" cssClass="error" /></td>
 					</tr>
 					<tr>
 						<td colspan="2" align="center"><input type="submit"
