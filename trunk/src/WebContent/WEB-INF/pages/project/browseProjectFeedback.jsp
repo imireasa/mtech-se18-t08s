@@ -6,7 +6,7 @@
 
 
 <body>
-    <h2><fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></h2>
+    <h2><fmt:message key="message.projectManagement.reviewProjectFeedback.title" /></h2>
     <div id="breadcrumb">
         <a href="#"><fmt:message key="message.common.home.label" /></a> / <fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></div>
 
@@ -58,7 +58,8 @@
                 </tr>
 
                 <tr>
-                    <td colspan="4" align="center">    
+                    <td colspan="2"></td>
+                    <td align="left">
                         <input type="submit" name="searchButton" id="searchButton" value="Search">
                     </td>
                 </tr>
@@ -70,7 +71,7 @@
     <table class="proj-table">
         <tr>
             <td colspan="6" align="left">
-                Search Results</td>
+                <fmt:message key="message.common.searchResults.title" /></td>
         </tr>
         <tr>
             <th><fmt:message key="message.projectManagement.feedbackCode.label" /></th>
@@ -100,7 +101,7 @@
                        <c:url value="viewProjectFeedbackDetails.html">
                            <c:param name="prjFbId" value="${item.prjFbId}"/> 
                        </c:url>
-                       ">Details</a></td>
+                       "><fmt:message key="message.common.details.button" /></a></td>
 
             </tr>
         </c:forEach>
