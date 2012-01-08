@@ -26,7 +26,7 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.reportmgmt.service.CertificateManagement;
-import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementServices;
+import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementService;
 import sg.edu.nus.iss.vms.reportmgmt.vo.CertificateRequestVo;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
@@ -38,7 +38,7 @@ public class GenerateCertificateController extends
 
 	private CodeManagementServices codeManagementServices;
 	private VolunteerManagementService volunteerManagementService;
-	private ReportManagementServices reportManagementServices;
+	private ReportManagementService reportManagementService;
 	private CertificateManagement certificateManagement;
 	private ProjectManagementService projectManagementService;
 
@@ -138,27 +138,27 @@ public class GenerateCertificateController extends
 		}
 	}
 
-	public ReportManagementServices getReportManagementServices() {
+	public ReportManagementService getReportManagementService() {
 		if (logger.isDebugEnabled()) {
-			logger.debug("getReportManagementServices() - start");
+			logger.debug("getReportManagementService() - start");
 		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("getReportManagementServices() - end");
+			logger.debug("getReportManagementService() - end");
 		}
-		return this.reportManagementServices;
+		return this.reportManagementService;
 	}
 
-	public void setReportManagementServices(
-			ReportManagementServices reportManagementServicesImpl) {
+	public void setReportManagementService(
+			ReportManagementService reportManagementServiceImpl) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("setReportManagementServices(ReportManagementServices) - start");
+			logger.debug("setReportManagementService(ReportManagementService) - start");
 		}
 
-		this.reportManagementServices = reportManagementServicesImpl;
+		this.reportManagementService = reportManagementServiceImpl;
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("setReportManagementServices(ReportManagementServices) - end");
+			logger.debug("setReportManagementService(ReportManagementService) - end");
 		}
 	}
 
@@ -239,7 +239,7 @@ public class GenerateCertificateController extends
 
 			File reportFile = new File(request.getRealPath(jasperPath));
 
-			byte[] bytes = this.reportManagementServices.generatePDFReport(
+			byte[] bytes = this.reportManagementService.generatePDFReport(
 					reportFile, params, queryString);
 
 			if (bytes != null && bytes.length != 0) {

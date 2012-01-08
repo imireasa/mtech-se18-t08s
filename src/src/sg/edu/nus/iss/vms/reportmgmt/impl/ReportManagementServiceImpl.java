@@ -26,10 +26,10 @@ import java.util.Properties;
 
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.orm.Manager;
-import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementServices;
+import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementService;
 
-public class ReportManagementServicesImpl implements ReportManagementServices {
-	private Logger logger = Logger.getLogger(ReportManagementServicesImpl.class);
+public class ReportManagementServiceImpl implements ReportManagementService {
+	private Logger logger = Logger.getLogger(ReportManagementServiceImpl.class);
 	private Manager manager;
 	private SessionBean sessionBean;
 	private String url;

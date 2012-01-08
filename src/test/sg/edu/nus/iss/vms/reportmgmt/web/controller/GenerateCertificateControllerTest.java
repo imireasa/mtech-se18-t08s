@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.reportmgmt.service.CertificateManagement;
-import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementServices;
+import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementService;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 
 /**
@@ -156,11 +156,11 @@ public class GenerateCertificateControllerTest {
      * Test of getReportManagementServices method, of class GenerateCertificateController.
      */
     @Test
-    public void testGetReportManagementServices() {
-        System.out.println("getReportManagementServices");
+    public void testGetReportManagementService() {
+        System.out.println("getReportManagementService");
         GenerateCertificateController instance = new GenerateCertificateController();
-        ReportManagementServices expResult = null;
-        ReportManagementServices result = instance.getReportManagementServices();
+        ReportManagementService expResult = null;
+        ReportManagementService result = instance.getReportManagementService();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -170,11 +170,11 @@ public class GenerateCertificateControllerTest {
      * Test of setReportManagementServices method, of class GenerateCertificateController.
      */
     @Test
-    public void testSetReportManagementServices() {
-        System.out.println("setReportManagementServices");
-        ReportManagementServices reportManagementServicesImpl = null;
+    public void testSetReportManagementService() {
+        System.out.println("setReportManagementService");
+        ReportManagementService reportManagementServiceImpl = null;
         GenerateCertificateController instance = new GenerateCertificateController();
-        instance.setReportManagementServices(reportManagementServicesImpl);
+        instance.setReportManagementService(reportManagementServiceImpl);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
