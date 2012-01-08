@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 import org.springframework.web.servlet.ModelAndView;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
-import sg.edu.nus.iss.vms.certificatemgmt.service.CertificateManagement;
+import sg.edu.nus.iss.vms.certificat.service.CertificateManagementService;
 import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementService;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 
@@ -133,7 +133,7 @@ public class GenerateCertificateControllerTest {
         System.out.println("getCertificateManagement");
         GenerateCertificateController instance = new GenerateCertificateController();
         CertificateManagement expResult = null;
-        CertificateManagement result = instance.getCertificateManagement();
+        CertificateManagement result = instance.getCertificateManagementService();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -145,9 +145,9 @@ public class GenerateCertificateControllerTest {
     @Test
     public void testSetCertificateManagement() {
         System.out.println("setCertificateManagement");
-        CertificateManagement certificateManagement = null;
+        CertificateManagementService certificateManagement = null;
         GenerateCertificateController instance = new GenerateCertificateController();
-        instance.setCertificateManagement(certificateManagement);
+        instance.setCertificateManagementService(certificateManagement);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
