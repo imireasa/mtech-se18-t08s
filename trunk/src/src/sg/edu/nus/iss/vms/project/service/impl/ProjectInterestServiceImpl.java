@@ -190,7 +190,7 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 	public void createProjectInterest(ProjectInterestVo projectInterestVo)
 			throws Exception {
 
-		CodeDto codeDto = CodeLookupUtil.getCodeByCatAndVal(
+		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.PROJECT_INTREST_STATUS,
 				VMSConstants.PROJECT_INTEREST_NEW);
 
@@ -235,7 +235,7 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 		if (!StringUtil.isNullOrEmpty(projectInterestVo.getStsVal())) {
 
 			List<CodeDto> codeDtos = CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
+					.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
 			for (CodeDto codeDto : codeDtos) {
 
 				if (codeDto.getVal().equals(projectInterestVo.getStsVal())) {

@@ -170,7 +170,7 @@ public class GenerateCertificateController extends
 		}
 
 		modelAndView = new ModelAndView("reports/generateCertificate");
-		CodeDto stsRequested = CodeLookupUtil.getCodeByCatAndVal(
+		CodeDto stsRequested = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.CERTIFICATE_REQUEST_STATUS,
 				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
 
@@ -199,7 +199,7 @@ public class GenerateCertificateController extends
 			// 1. change the status
 			Long certReqId = Long.parseLong(request
 					.getParameter("certRequestId"));
-			CodeDto processedSts = CodeLookupUtil.getCodeByCatAndVal(
+			CodeDto processedSts = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 					VMSConstants.CERTIFICATE_REQUEST_STATUS,
 					VMSConstants.CERTIFICATE_REQUEST_STATUS_PROCESSED);
 			certificateManagementService.updateCertRequestStatus(certReqId,

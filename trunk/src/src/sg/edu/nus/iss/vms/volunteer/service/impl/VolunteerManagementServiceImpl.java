@@ -115,7 +115,7 @@ public class VolunteerManagementServiceImpl implements
 
             UserRoleDto userRoleDto = new UserRoleDto();
             userRoleDto.setUsrId(user.getUsrId());
-            Long volunteerRole = CodeLookupUtil.getCodeByCatAndVal(VMSConstants.USER_ROLE, VMSConstants.USER_ROLE_VOLUNTEER).getCdId();
+            Long volunteerRole = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.USER_ROLE, VMSConstants.USER_ROLE_VOLUNTEER).getCdId();
 
             String hQL = "from RoleDto where roleCd=" + volunteerRole;
             List<RoleDto> roleDtos = manager.find(hQL);

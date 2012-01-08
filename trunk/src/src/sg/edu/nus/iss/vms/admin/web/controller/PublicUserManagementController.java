@@ -110,8 +110,8 @@ public class PublicUserManagementController extends BaseMultiActionFormControlle
         modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
         if (command.getLoginId() == null) {
             // page
-            modelAndView.addObject("titleList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-            modelAndView.addObject("countryList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+            modelAndView.addObject("titleList", CodeLookupUtil.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
+            modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
             VolunteerVo volVo = new VolunteerVo();
             volVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
             modelAndView.addObject("command", volVo);
@@ -122,8 +122,8 @@ public class PublicUserManagementController extends BaseMultiActionFormControlle
             return modelAndView;
         } else {
             validate(command);
-            modelAndView.addObject("titleList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.TITLE_CATEGORY));
-            modelAndView.addObject("countryList", CodeLookupUtil.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+            modelAndView.addObject("titleList", CodeLookupUtil.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
+            modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
             VolunteerVo volunteerVo = command;
             if (errors.hasErrors()) {
                 logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - Error Handling : ");

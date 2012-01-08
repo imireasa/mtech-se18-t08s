@@ -43,8 +43,9 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	 * getListOfUser()
 	 */
 	@Override
-	public List<CodeDto> getListOfCodeByCategory(String Category) {
-		this.logger.debug("@ Service Layer getting CodeList By Code Category :"
+	public List<CodeDto> getCodeListByCategory(String Category) {
+		logger.debug("getCodeListByCategory(String) - start");
+		logger.debug("getCodeListByCategory(String) @ Service Layer getting CodeList By Code Category :"
 				+ Category);
 		List<CodeDto> codeList = new ArrayList<CodeDto>();
 		try {
@@ -53,7 +54,7 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
 		} finally {
-			this.logger.debug("@ Service Layer getting user 2");
+			this.logger.debug("getCodeListByCategory(String) - end");
 		}
 		return codeList;
 	}
@@ -117,7 +118,7 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}*/
 
 	@Override
-	public CodeDto getCodeDtobyId(Long id) {
+	public CodeDto getCodeById(Long id) {
 
 		try {
 			manager.get(CodeDto.class, id);
@@ -132,7 +133,7 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}
 
 	@Override
-	public CodeDto getCodeByCatAndVal(String Category, String val) {
+	public CodeDto getCodeByCategoryAndCodeValue(String Category, String val) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeByCatAndVal(String, String) - start");
 			logger.debug("getCodeByCatAndVal(String, String) - @ Getting Code DTO by a specific Category Value."
@@ -160,8 +161,7 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		return null;
 	}
 
-	@Override
-	public CodeDto getCodeByCodeCategoryAndCodeDesc(String category, String codeValue) {
+	/*public CodeDto getCodeByCodeCategoryAndCodeDesc(String category, String codeValue) {
 		this.logger
 				.debug("@ Service Layer Getting Code DTO by a specific Category Value."
 						+ category + ", Category Value:" + codeValue);
@@ -178,5 +178,5 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 			this.logger.debug("@ Service Layer: getCodeDtoByCatVal");
 		}
 		return null;
-	}
+	}*/
 }

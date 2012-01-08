@@ -89,7 +89,7 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 		if (!StringUtil.isNullOrEmpty(prjFeedbackVo.getStsVal())) {
 
 			List<CodeDto> codeDtos = CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
+					.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
 			for (CodeDto codeDto : codeDtos) {
 
 				if (codeDto.getVal().equals(prjFeedbackVo.getStsVal())) {
@@ -121,7 +121,7 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 	public void createProjectFeedback(ProjectFeedbackVo projectFeedbackVo) {
 
 		CodeDto codeDto = CodeLookupUtil
-				.getCodeByCatAndVal(
+				.getCodeByCategoryAndCodeValue(
 						VMSConstants.FEEDBACK_STATUS,
 						VMSConstants.FEEDBACK_STATUS_SUMBITTED);
 

@@ -34,7 +34,7 @@ public class ProjectFeedbackVo {
 		this.cont = dto.getCont();
 		this.apprBy = dto.getApprBy();
 		this.apprDte = dto.getApprDte();
-		CodeDto codeDto = CodeLookupUtil.getCodeDtoById(dto.getStsCd());
+		CodeDto codeDto = CodeLookupUtil.getCodeById(dto.getStsCd());
 		this.stsCd = codeDto.getCdId();
 		this.stsVal = codeDto.getVal();
 		this.prjId = dto.getPrjId().getPrjId();

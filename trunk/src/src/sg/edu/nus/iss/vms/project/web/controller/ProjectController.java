@@ -207,7 +207,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			modelAndView = new ModelAndView("project/createProject");
 			// page
 			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			ProjectVo projectVo = new ProjectVo();
 			projectVo.setCmdType(VMSConstants.SCREEN_CMD_CREATE);
 			modelAndView.addObject("command", projectVo);
@@ -220,7 +220,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			validate(command);
 			modelAndView = new ModelAndView("project/createProject");
 			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			ProjectVo projectVo = command;
 
 			if (errors.hasErrors()) {
@@ -235,7 +235,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 
 			try {
-				CodeDto stsNew = CodeLookupUtil.getCodeByCatAndVal(
+				CodeDto stsNew = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 						VMSConstants.PROJECT_STATUS_CATEGORY,
 						VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
 				projectVo.setStsCd(stsNew.getCdId() + "");
@@ -283,12 +283,12 @@ public class ProjectController extends BaseMultiActionFormController {
 			modelAndView = new ModelAndView("project/updateProject");
 			// page
 			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			modelAndView
 					.addObject(
 							"statusList",
 							CodeLookupUtil
-									.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
+									.getCodeListByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
 			project.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			modelAndView.addObject("command", project);
 
@@ -300,12 +300,12 @@ public class ProjectController extends BaseMultiActionFormController {
 			validate(command);
 			modelAndView = new ModelAndView("project/updateProject");
 			modelAndView.addObject("countryList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			modelAndView
 					.addObject(
 							"statusList",
 							CodeLookupUtil
-									.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
+									.getCodeListByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
 
 			ProjectVo projectVo = command;
 			if (errors.hasErrors()) {
@@ -420,7 +420,7 @@ public class ProjectController extends BaseMultiActionFormController {
 				.getProjectFeedbackList();
 
 		List<CodeDto> codeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
+				.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
 
 		modelAndView = new ModelAndView("project/browseProjectFeedback");
 		modelAndView.addObject("feedbackList", projectFeedbackList);
@@ -558,7 +558,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		modelAndView.addObject("proposalVo", new ProjectProposalVo());
 
 		modelAndView.addObject("countryList", CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY));
+				.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("proposeNewProject(HttpServletRequest, HttpServletResponse) - end");
@@ -600,7 +600,7 @@ public class ProjectController extends BaseMultiActionFormController {
 				.getProjectProposalList();
 
 		List<CodeDto> codeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 
 		modelAndView = new ModelAndView("project/browseProjectProposal");
 		modelAndView.addObject("proposalList", projectProposalVos);
@@ -634,7 +634,7 @@ public class ProjectController extends BaseMultiActionFormController {
 				.getProjectProposalListbySearchCriteria(proposalVo);
 
 		List<CodeDto> codeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 		modelAndView = new ModelAndView("project/browseProjectProposal");
 		modelAndView.addObject("proposalList", projectProposalVos);
 
@@ -664,7 +664,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		List<CodeDto> codeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 
 		long prjProId = Long.parseLong(request.getParameter("prjPropId"));
 
@@ -726,7 +726,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		modelAndView = new ModelAndView("project/listProjects");
 		modelAndView.addObject("projectStatusList", CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS));
+				.getCodeListByCategory(VMSConstants.PROJECT_STATUS));
 		List projectList = null;
 		if (command != null
 				&& (command.getName() != null || command.getStrDte() != null || command
@@ -823,7 +823,7 @@ public class ProjectController extends BaseMultiActionFormController {
 				} else if (request.getParameter("inviteProjectMember") != null) {// invite
 					// COMMAND
 					try {
-						Long userStatus = CodeLookupUtil.getCodeByCatAndVal(
+						Long userStatus = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 								VMSConstants.USER_TYPE_CATEGORY,
 								VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
 								.getCdId();
@@ -879,7 +879,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			modelAndView.addObject("memberPagedListHolder",
 					memberPagedListHolder);
 			modelAndView.addObject("roleList", CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.MEMBER_ROLE));
+					.getCodeListByCategory(VMSConstants.MEMBER_ROLE));
 
 			modelAndView.addObject("prjId", prjId);
 		}
@@ -915,7 +915,7 @@ public class ProjectController extends BaseMultiActionFormController {
 						String[] prjIntrstId = request
 								.getParameterValues("prjIntrstId");
 
-						CodeDto codeDto = CodeLookupUtil.getCodeByCatAndVal(
+						CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 								VMSConstants.PROJECT_INTREST_STATUS, newStatus);
 
 						for (int i = 0; i < prjIntrstId.length; i++) {
@@ -967,7 +967,7 @@ public class ProjectController extends BaseMultiActionFormController {
 					.addObject(
 							"roleList",
 							CodeLookupUtil
-									.getListOfCodeByCategory(VMSConstants.PROJECT_ROLE_CATEGORY));
+									.getCodeListByCategory(VMSConstants.PROJECT_ROLE_CATEGORY));
 
 			modelAndView.addObject("prjId", prjId);
 		}
@@ -1010,7 +1010,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		modelAndView = new ModelAndView("project/viewProjectInterest");
 		modelAndView.addObject("projInterestStatusList", CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_INTREST_STATUS));
+				.getCodeListByCategory(VMSConstants.PROJECT_INTREST_STATUS));
 		List projectInterestVoList = null;
 		if (command != null && (command.getPrjId() != null)
 				|| !StringUtil.isNullOrEmpty(command.getPrjName())

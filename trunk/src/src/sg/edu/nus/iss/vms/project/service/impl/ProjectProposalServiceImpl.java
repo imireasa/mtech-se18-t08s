@@ -62,7 +62,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 		if (!StringUtil.isNullOrEmpty(proposalVo.getStsVal())) {
 
 			List<CodeDto> codeDtos = CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
+					.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 			for (CodeDto codeDto : codeDtos) {
 
 				if (codeDto.getVal().equals(proposalVo.getStsVal())) {
@@ -93,7 +93,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 
 		long countryCodeId = 0;
 		List<CodeDto> countryCodeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
+				.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY);
 		for (CodeDto countryCodeDto : countryCodeDtos) {
 			if (countryCodeDto.getVal().equals(projectProposalVo.getCtryVal())) {
 				countryCodeId = countryCodeDto.getCdId();
@@ -136,7 +136,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 		ProjectProposalDto projectProposalDto = (ProjectProposalDto) manager
 				.get(ProjectProposalDto.class, projectProposalVo.getPrjPropId());
 
-		CodeDto codeDto = CodeLookupUtil.getCodeByCatAndVal(
+		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.PROPOSAL_STATUS, projectProposalVo.getStsVal());
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
