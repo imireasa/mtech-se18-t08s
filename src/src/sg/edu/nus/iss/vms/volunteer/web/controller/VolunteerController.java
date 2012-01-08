@@ -30,13 +30,14 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectExperienceService;
 import sg.edu.nus.iss.vms.project.service.ProjectFeedbackService;
+import sg.edu.nus.iss.vms.project.service.ProjectInterestService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectExperienceVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectFeedbackVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
@@ -51,6 +52,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 	private ProjectFeedbackService projectFeedbackService;
 	private ProjectExperienceService projectExperienceService;
+
+	private ProjectInterestService projectInterestService;
 	// local
 	private final Logger logger = Logger.getLogger(VolunteerController.class);
 	BindingResult errors;
@@ -76,6 +79,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 	public void setVolunteerManagementService(
 			VolunteerManagementService volunteerManagementService) {
 		this.volunteerManagementService = volunteerManagementService;
+	}
+
+	public void setProjectInterestService(
+			ProjectInterestService projectInterestService) {
+		this.projectInterestService = projectInterestService;
 	}
 
 	@Override
@@ -531,38 +539,18 @@ public class VolunteerController extends BaseMultiActionFormController {
 					+ projectDto.getPrjId());
 		}
 
-		CodeDto codeDto = CodeLookupUtil
-				.getCodeByCatAndVal(
-						VMSConstants.CERTIFIATE_REQUEST_TYPE,
-						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
+		ProjectInterestVo projectInterestVo = new ProjectInterestVo();
+		projectInterestVo.setPrjId(projectDto.getPrjId());
 
-		ProjectInterestDto projectInterestDto = new ProjectInterestDto();
-		projectInterestDto.setPrjId(projectDto);
-		projectInterestDto.setCreatedDte(new Date());
+		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
-		projectInterestDto.setVersion(1);
+		List<ProjectInterestVo> projectInterestVos = projectInterestService
+				.getProjectInterestListbyProjectIdAndUserId(
+						projectDto.getPrjId(), loginId);
 
-		projectInterestDto.setUpdDte(new Date());
-		projectInterestDto.setStsCd(codeDto.getCdId());
+		if (projectInterestVos.size() == 0) {
 
-		String loginId = "SuperUser";
-		if (UserUtil.getUserSessionInfoVo() != null
-				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
-						.getUserID())) {
-			loginId = UserUtil.getUserSessionInfoVo().getUserID();
-		}
-
-		List<ProjectInterestDto> projectInterestDtos = projectManagementService
-				.getProjectInterestListbyProject(projectDto, loginId);
-
-		if (projectInterestDtos.size() == 0) {
-
-			projectInterestDto.setCreatedBy(loginId);
-			projectInterestDto.setReqBy(loginId);
-			projectInterestDto.setUpdBy(loginId);
-
-			projectManagementService
-					.saveOrUpdateProjectObject(projectInterestDto);
+			projectInterestService.createProjectInterest(projectInterestVo);
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("raiseInterest(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
