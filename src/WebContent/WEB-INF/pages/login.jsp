@@ -7,6 +7,11 @@
     <head>
         <link href="<%=request.getContextPath()%>/sys/css/login.css" rel="stylesheet" type="text/css" />
 		<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+		 
+		<!-- ICO -->
+		<link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+
 		
 		<!--[if lte IE 6]>
 		<script type="text/javascript" src="js/supersleight.js"></script>
