@@ -136,7 +136,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 		ProjectProposalDto projectProposalDto = (ProjectProposalDto) manager
 				.get(ProjectProposalDto.class, projectProposalVo.getPrjPropId());
 
-		CodeDto codeDto = CodeLookupUtil.getCodeDtoByCatVal(
+		CodeDto codeDto = CodeLookupUtil.getCodeByCatAndVal(
 				VMSConstants.PROPOSAL_STATUS, projectProposalVo.getStsVal());
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
