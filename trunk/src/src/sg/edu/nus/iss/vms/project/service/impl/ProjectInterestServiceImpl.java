@@ -182,10 +182,9 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 	public void createProjectInterest(ProjectInterestVo projectInterestVo)
 			throws Exception {
 
-		CodeDto codeDto = CodeLookupUtil
-				.getCodeDescriptionByCodeCategoryAndCodeDesc(
-						VMSConstants.PROJECT_INTREST_STATUS,
-						VMSConstants.PROJECT_INTEREST_NEW);
+		CodeDto codeDto = CodeLookupUtil.getCodeByCatAndVal(
+				VMSConstants.PROJECT_INTREST_STATUS,
+				VMSConstants.PROJECT_INTEREST_NEW);
 
 		ProjectInterestDto projectInterestDto = new ProjectInterestDto();
 		projectInterestDto.setStsCd(codeDto.getCdId());
