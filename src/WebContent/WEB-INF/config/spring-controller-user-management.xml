@@ -25,7 +25,7 @@
         class="sg.edu.nus.iss.vms.admin.web.controller.PublicUserManagementValidator"/>
     
     <bean id="publicUserManagementController"
-		class="sg.edu.nus.iss.vms.admin.web.controller.PublicUserManagementControler">		
+		class="sg.edu.nus.iss.vms.admin.web.controller.PublicUserManagementController">		
         <property name="userManagementServices" ref="userManagementServiceImpl" />
         <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
         <property name="validators" ref="publicUserManagementValidator" /> 		   

@@ -22,9 +22,9 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
-public class PublicUserManagementControler extends BaseMultiActionFormController {
+public class PublicUserManagementController extends BaseMultiActionFormController {
 
-    private static final Logger logger = Logger.getLogger(PublicUserManagementControler.class);
+    private static final Logger logger = Logger.getLogger(PublicUserManagementController.class);
     private UserManagementServices userManagementServices;
     private VolunteerManagementService volunteerManagementService;
     private BindingResult errors;
@@ -92,6 +92,15 @@ public class PublicUserManagementControler extends BaseMultiActionFormController
         this.errors = errors;
     }
 
+    /**
+     * Registers a volunteer.
+     * 
+     * @param request takes in the 
+     * @param response
+     * @param command
+     * @return
+     * @throws Exception
+     */
     public ModelAndView registerVolunteer(HttpServletRequest request,
             HttpServletResponse response, VolunteerVo command) throws Exception {
         if (logger.isDebugEnabled()) {
