@@ -13,7 +13,7 @@
 	<div class="query">
 	
 			 <c:if test="${not empty msg}"> 
-                        <div class="info">
+                        <div class="infoblock">
                                 <c:out value="${msg}" escapeXml="false"/><br/>
                         </div>
                 </c:if>
@@ -30,7 +30,7 @@
 	    <tr>
 			<td><fmt:message key="message.common.name.label"/></td>
 			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-			<td>${proposalVo.name}</td>
+			<td>${proposalVo.nme}</td>
         </tr>
 	    
         <tr>
@@ -42,7 +42,7 @@
         <tr>
 			<td><fmt:message key="message.common.country.label"/></td>
 			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-			<td> ${proposalVo.ctryCd}</td>
+			<td> ${proposalVo.ctryVal}</td>
         </tr>
         <tr>
 	       <td><fmt:message key="message.common.location.label"/></td>
@@ -52,7 +52,7 @@
         <tr>
 	      	<td><fmt:message key="message.common.duration.label"/></td>
 			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-	        <td>${proposalVo.estDuration}</td>
+	        <td>${proposalVo.estDur}</td>
         </tr>
 	    <tr>
 			<td><fmt:message key="message.common.creator.label"/></td>
@@ -63,9 +63,9 @@
 			<td><fmt:message key="message.common.status.label"/></td>
 			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
 			<td>
-				<c:forEach items="${stsCdList}" var="item" varStatus="status">
+				<c:forEach items="${stsCdList}" var="item" varStatus="stsVal">
 					<c:if test="${item.val!='Submitted'}">
-					${item.val}<form:radiobutton path="status" value="${item.val}"/>
+					${item.val}<form:radiobutton path="stsVal" value="${item.val}"/>
 					</c:if>
 				</c:forEach>
 			 </td>
