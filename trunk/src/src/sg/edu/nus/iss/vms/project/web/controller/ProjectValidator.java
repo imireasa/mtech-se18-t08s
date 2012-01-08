@@ -86,20 +86,24 @@ public class ProjectValidator implements Validator {
 		}
 		ProjectProposalVo projectProposalVo = (ProjectProposalVo) o;
 
-		if (StringUtil.isNullOrEmpty(projectProposalVo.getName())) {
-			errors.rejectValue("name", "name", Messages.getString("message.common.error.mandatory", new String[] { "Name" }));
+		if (StringUtil.isNullOrEmpty(projectProposalVo.getNme())) {
+			errors.rejectValue("name", "name", Messages.getString(
+					"message.common.error.mandatory", new String[] { "Name" }));
 		}
 
 		if (StringUtil.isNullOrEmpty(projectProposalVo.getLoc())) {
-			errors.rejectValue("loc", "loc", Messages.getString("message.common.error.mandatory", new String[] { "Location" }));
+			errors.rejectValue("loc", "loc", Messages.getString(
+					"message.common.error.mandatory",
+					new String[] { "Location" }));
 		}
-		
-		if (StringUtil.isNullOrEmpty(projectProposalVo.getCtryCd())) {
+
+		if (StringUtil.isNullOrEmpty(projectProposalVo.getCtryVal())) {
 			errors.rejectValue("ctryCd", "ctryCd", Messages.getString(
-					"message.common.error.mandatory", new String[] { "Country" }));
+					"message.common.error.mandatory",
+					new String[] { "Country" }));
 		}
-		
-		if (projectProposalVo.getEstDuration() <= 0) {
+
+		if (projectProposalVo.getEstDur() <= 0) {
 			errors.rejectValue(
 					"estDuration", "error.empty.field", Messages.getString("message.common.error.numeric.gt.invalid", new String[] { "Estimated Duration", "0" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}

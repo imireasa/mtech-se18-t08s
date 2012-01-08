@@ -6,10 +6,8 @@ import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
-import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public interface ProjectManagementService {
@@ -29,9 +27,6 @@ public interface ProjectManagementService {
 	public void updateProject(ProjectVo projectVo) throws Exception;
 
 	public void saveOrUpdateProjectObject(Object obj);
-
-	public List<ProjectProposalDto> getProjectProposalListbyVo(
-			ProjectProposalVo proposalVo);
 
 	public List<ProjectVo> getProjectListbyProjectVo(ProjectVo projectVo);
 
