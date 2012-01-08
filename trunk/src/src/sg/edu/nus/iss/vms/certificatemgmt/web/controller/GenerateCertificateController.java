@@ -17,6 +17,7 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
+import sg.edu.nus.iss.vms.certificatemgmt.service.CertificateManagement;
 import sg.edu.nus.iss.vms.certificatemgmt.vo.CertificateRequestVo;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
@@ -26,7 +27,6 @@ import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
-import sg.edu.nus.iss.vms.reportmgmt.service.CertificateManagement;
 import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementService;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
