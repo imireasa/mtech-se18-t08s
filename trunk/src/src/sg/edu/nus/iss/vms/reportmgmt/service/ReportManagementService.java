@@ -8,7 +8,7 @@ import net.sf.jasperreports.engine.JRException;
 
 
 
-public interface ReportManagementServices {
+public interface ReportManagementService {
 
 //	public byte[] generateVolunteerCertificate(Long certRequestId,String reqBy,String requestType) throws JRException,SQLException;
 

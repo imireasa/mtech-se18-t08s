@@ -14,7 +14,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class CertificateManagementImpl implements CertificateManagement {
 
-    private Logger logger = Logger.getLogger(ReportManagementServicesImpl.class);
+    private Logger logger = Logger.getLogger(ReportManagementServiceImpl.class);
     private Manager manager;
     private SessionBean sessionBean;
 

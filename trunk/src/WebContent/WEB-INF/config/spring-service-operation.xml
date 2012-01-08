@@ -37,8 +37,8 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
         <property name="mailSenderUtil" ref="mailSenderUtilImpl"/> 
 	</bean>
 
-	<bean id="reportManagementServicesImpl"
-		class="sg.edu.nus.iss.vms.reportmgmt.impl.ReportManagementServicesImpl">
+	<bean id="reportManagementServiceImpl"
+		class="sg.edu.nus.iss.vms.reportmgmt.impl.ReportManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
 	<!--	<property name="driverClassName" value="com.mysql.jdbc.Driver" /> -->
 		<property name="url" value="${sys.server.database.default.url}" />
