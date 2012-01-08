@@ -10,7 +10,7 @@ public interface VolunteerManagementService {
 
         public List<ProjectMemberDto> getListOfMembers();
 
-        public void saveNewVolunteer(VolunteerVo volunteerVo) throws Exception;
+        public void saveVolunteer(VolunteerVo volunteerVo) throws Exception;
 
         boolean isLoginIdExists(String loginId);
 
