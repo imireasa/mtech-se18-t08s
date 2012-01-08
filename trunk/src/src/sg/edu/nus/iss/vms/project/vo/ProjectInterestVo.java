@@ -15,18 +15,12 @@ public class ProjectInterestVo {
 	private String apprBy;
 	private Date apprDte;
 	private String apprRmk;
-	private Long stsCD;
+
 	private String stsVal;
 	private String reqByTitle;
 	private String reqByNme;
 	private String reqByCtry;
 	private Long stsCd;
-	private String sts;
-	private String createdBy;
-	private Date createdDate;
-	private String updBy;
-	private Date updDate;
-	private int version;
 
 	public ProjectInterestVo() {
 
@@ -42,13 +36,8 @@ public class ProjectInterestVo {
 		setApprBy(obj.getApprBy());
 		setApprDte(obj.getApprDte());
 		setApprRmk(obj.getApprRmk());
-		setStsCD(obj.getStsCd());
+		stsCd = obj.getStsCd();
 		setStsVal(CodeLookupUtil.getCodeValueByCodeId(obj.getStsCd()));
-		setCreatedBy(obj.getCreatedBy());
-		setCreatedDate(obj.getCreatedDte());
-		setUpdBy(obj.getUpdBy());
-		setUpdDate(obj.getUpdDte());
-		setVersion(obj.getVersion());
 
 	}
 
@@ -74,14 +63,6 @@ public class ProjectInterestVo {
 
 	public void setReqByTitle(String reqByTitle) {
 		this.reqByTitle = reqByTitle;
-	}
-
-	public String getSts() {
-		return sts;
-	}
-
-	public void setSts(String sts) {
-		this.sts = sts;
 	}
 
 	public Long getStsCd() {
@@ -156,14 +137,6 @@ public class ProjectInterestVo {
 		this.apprRmk = apprRmk;
 	}
 
-	public Long getStsCD() {
-		return stsCD;
-	}
-
-	public void setStsCD(Long stsCD) {
-		this.stsCD = stsCD;
-	}
-
 	public String getStsVal() {
 		return stsVal;
 	}
@@ -172,43 +145,4 @@ public class ProjectInterestVo {
 		this.stsVal = stsVal;
 	}
 
-	public String getCreatedBy() {
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy) {
-		this.createdBy = createdBy;
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	public String getUpdBy() {
-		return updBy;
-	}
-
-	public void setUpdBy(String updBy) {
-		this.updBy = updBy;
-	}
-
-	public Date getUpdDate() {
-		return updDate;
-	}
-
-	public void setUpdDate(Date updDate) {
-		this.updDate = updDate;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
 }

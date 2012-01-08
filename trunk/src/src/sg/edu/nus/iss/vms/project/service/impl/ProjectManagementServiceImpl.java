@@ -27,8 +27,6 @@ import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
-import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
-import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
@@ -106,43 +104,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 		projectVo.setProjectMemberVo(memberVoList);
 		return projectVo;
-	}
-
-	@Override
-	public List<ProjectInterestVo> getProjectIntrestByLoginUserAccessRight(
-			Long projectId) {
-
-		String hQL = "from ProjectInterestDto where prjId.prjId=" + projectId;
-
-		List<ProjectInterestVo> projectInterestVoList = new ArrayList<ProjectInterestVo>();
-		List<ProjectInterestDto> projectInterestList = manager.find(hQL);
-		for (ProjectInterestDto projectInterest : projectInterestList) {
-			ProjectInterestVo projectInterestVo = new ProjectInterestVo();
-			projectInterestVo.setPrjIntrstId(projectInterest.getPrjIntrstId());
-			projectInterestVo.setReqBy(projectInterest.getReqBy());
-
-			List<UserDto> userList = manager
-					.find("from UserDto where usrLoginId='"
-							+ projectInterest.getReqBy() + "'");
-			if (userList != null && !userList.isEmpty()) {
-				projectInterestVo.setReqByNme(userList.get(0).getNme());
-				projectInterestVo.setReqByTitle(CodeLookupUtil
-						.getCodeDescriptionByCodeId(userList.get(0)
-								.getTitleCd()));
-				projectInterestVo
-						.setReqByCtry(CodeLookupUtil
-								.getCodeDescriptionByCodeId(userList.get(0)
-										.getCtryCd()));
-			}
-
-			projectInterestVo.setApprBy(projectInterest.getApprBy());
-			projectInterestVo.setApprDte(projectInterest.getApprDte());
-			projectInterestVo.setSts(CodeLookupUtil
-					.getCodeDescriptionByCodeId(projectInterest.getStsCd()));
-			projectInterestVo.setStsCd(projectInterest.getStsCd());
-			projectInterestVoList.add(projectInterestVo);
-		}
-		return projectInterestVoList;
 	}
 
 	@Override
@@ -269,25 +230,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 				logger.error("send mail error", ex);
 			}
 		}
-	}
-
-	@Override
-	public void updateProjectIntrest(ProjectInterestVo projectInterestVo)
-			throws Exception {
-
-		ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
-				.get(ProjectInterestDto.class,
-						projectInterestVo.getPrjIntrstId());
-		if (projectInterestDto == null) {
-			throw new ApplicationException(
-					Messages.getString("message.projectManagement.error.invalidProjectInterest"));
-		}
-
-		projectInterestDto.setStsCd(projectInterestVo.getStsCd());
-		projectInterestDto.setApprBy(UserUtil.getUserSessionInfoVo()
-				.getUserID());
-
-		manager.save(projectInterestDto);
 	}
 
 	@Override
@@ -458,16 +400,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<ProjectInterestDto> getProjectInterestListbyProject(
-			ProjectDto projectDto, String userId) {
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectInterestDto.class);
-		criteria.add(Restrictions.eq("prjId", projectDto)).add(
-				Restrictions.eq("reqBy", userId));
-		return manager.findByDetachedCriteria(criteria);
-	}
-
-	@Override
 	public List<CertificateRequestDto> getCertificateRequestsbyProject(
 			Long prjId, String userId) {
 		DetachedCriteria criteria = DetachedCriteria
@@ -478,80 +410,10 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<ProjectInterestVo> getProjectInterestListByUser() {
-		String hQL = "from ProjectInterestDto";
-		logger.debug("Find Project Interest By User" + hQL);
-		List<ProjectInterestDto> projInterestList = manager.find(hQL);
-		List<ProjectInterestVo> projIntrestVoList = new ArrayList<ProjectInterestVo>();
-		return projIntrestVoList;
-	}
-
-	@Override
-	public List<ProjectInterestVo> getProjectInterestListByUserWithSearch(
-			ProjectInterestSearchVo searchVo) {
-		String hQL = "from ProjectInterestDto where reqBy='"
-				+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
-		if (!StringUtil.isNullOrEmpty(searchVo.getProjNme())) {
-			hQL += " and prjId.nme LIKE '%" + searchVo.getProjNme() + "%'";
-		}
-		if (searchVo.getPrjId() != null) {
-			hQL += " and prjId.prjId =" + searchVo.getPrjId();
-		}
-		if (!StringUtil.isNullOrEmpty(searchVo.getPrjIntStatus())) {
-			hQL += " and stsCd=" + Long.parseLong(searchVo.getPrjIntStatus());
-		}
-		logger.debug("Find Project By " + hQL);
-		List<ProjectInterestDto> projIntDtoList = manager.find(hQL);
-
-		return changeProjectInterestDtoToVo(projIntDtoList);
-	}
-
-	@Override
-	public List<ProjectInterestVo> getProjectInterestListByUserLoginId() {
-		String hQL = "from ProjectInterestDto where reqBy='"
-				+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
-
-		List<ProjectInterestDto> projIntDtoList = manager.find(hQL);
-
-		return changeProjectInterestDtoToVo(projIntDtoList);
-	}
-
-	private List<ProjectInterestVo> changeProjectInterestDtoToVo(List dtoList) {
-
-		List<ProjectInterestVo> projIntVoList = new ArrayList<ProjectInterestVo>();
-		if (dtoList != null) {
-			for (int i = 0; i < dtoList.size(); i++) {
-				ProjectInterestDto obj = (ProjectInterestDto) dtoList.get(i);
-				ProjectInterestVo objVo = new ProjectInterestVo(obj);
-
-				projIntVoList.add(objVo);
-
-			}
-		}
-		return projIntVoList;
-	}
-
-	@Override
 	public List<ProjectMemberDto> getProjectMember(long projectId) {
 		String hQL = "from ProjectMemberDto where prjId=" + projectId;
 		List<ProjectMemberDto> projMemList = manager.find(hQL);
 		return projMemList;
-	}
-
-	@Override
-	public ProjectInterestVo getProjectInterestbyId(long id) {
-		try {
-			ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
-					.get(ProjectInterestDto.class, id);
-
-			return new ProjectInterestVo(projectInterestDto);
-		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
-			return null;
-		} finally {
-			this.logger.debug("@ Service Layer getting user 2");
-		}
-
 	}
 
 }
