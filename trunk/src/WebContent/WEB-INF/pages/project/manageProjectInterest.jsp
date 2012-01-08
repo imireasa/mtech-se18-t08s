@@ -8,9 +8,8 @@
     <h2><fmt:message key="message.projectManagement.projectInterest.label"/></h2>
     <div id="breadcrumb">
         <a href="#"><fmt:message key="message.common.home.label" /></a> / 
-        <a href="listProjects.html"><fmt:message
-                key="message.projectManagement.projectManagement.label" /></a> /
-            <fmt:message key="message.projectManagement.projectInterest.label" /> 
+        <a href="listProjects.html"><fmt:message key="message.projectManagement.projectManagement.label" /></a> / 
+        <fmt:message key="message.projectManagement.projectInterest.label" /> 
     </div>
     <div class="query">
         <c:if test="${not empty msg}">
@@ -61,8 +60,8 @@
             </c:forEach>
             <tr>
                 <td colspan="4" align="right">
-                    <input type="submit" name="acceptInterest" id="acceptInterest" value="<fmt:message key="message.common.accept.button"/>"/>
-                    <input type="submit" name="rejectInterest" id="rejectInterest" value="<fmt:message key="message.common.reject.button"/>"/> 
+                    <input type="submit" name="acceptButton" id="acceptButton" value="<fmt:message key="message.common.accept.button"/>"/>
+                    <input type="submit" name="rejectButton" id="rejectButton" value="<fmt:message key="message.common.reject.button"/>"/> 
                 </td>
             </tr>
         </table>

@@ -7,9 +7,7 @@
 <body>
         <h2><fmt:message key="message.projectManagement.updateProject.label"/></h2>
         <div id="breadcrumb">
-                <a href="#"><fmt:message key="message.common.home.label"/></a>/
-                <a href="listProjects.html"><fmt:message key="message.projectManagement.projectManagement.label"/></a> / 
-                <fmt:message key="message.projectManagement.updateProject.label"/>
+                <a href="#"><fmt:message key="message.common.home.label"/></a> / <a href="listProjects.html"><fmt:message key="message.projectManagement.projectManagement.label"/></a> / <fmt:message key="message.projectManagement.updateProject.label"/>
         </div>
         <div class="query">
                 <c:if test="${not empty msg}"> 
@@ -146,7 +144,7 @@
 								
                                 <tr>
 										<td colspan="2"></td>
-                                        <td><input type="submit" name="button" id="button" value="<fmt:message key="message.common.update.button"/>"></td>
+                                        <td><input type="submit" name="updateButton" id="updateButton" value="<fmt:message key="message.common.update.button"/>"></td>
                                 </tr>
 								
 								
