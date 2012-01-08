@@ -40,4 +40,12 @@ public class WelcomeController extends BaseMultiActionFormController {
 
 		return modelAndView;
 	}
+	
+	public ModelAndView error(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		modelAndView = new ModelAndView("error");
+		//XXX nothing to do atm.
+	
+		return modelAndView;
+	}
 }
