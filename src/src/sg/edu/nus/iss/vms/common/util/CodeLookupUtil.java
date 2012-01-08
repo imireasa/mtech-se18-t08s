@@ -81,14 +81,14 @@ public class CodeLookupUtil {
 
 		CodeManagementServices codeMgr = getCodeManagementServices();
 		CodeDto returnCodeDto = codeMgr
-				.getCodeDescriptionByCodeCategoryAndCodeDesc(category, value);
+				.getCodeByCatAndVal(category, value);
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeByCategoryAndCodeValue(String, String) - end");
 		}
 		return returnCodeDto;
 	}
 
-	public static CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(
+	/*public static CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(
 			String category, String codeDesc) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDescriptionByCodeCategoryAndCodeDesc(String, String) - start");
@@ -101,7 +101,7 @@ public class CodeLookupUtil {
 			logger.debug("getCodeDescriptionByCodeCategoryAndCodeDesc(String, String) - end");
 		}
 		return returnCodeDto;
-	}
+	}*/
 
 	public static CodeDto getCodeByCatAndVal(String category, String val) {
 		if (logger.isDebugEnabled()) {
