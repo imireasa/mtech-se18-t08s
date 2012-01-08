@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
@@ -361,7 +360,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
 		List<ProjectDto> projectList = projectManagementService
 				.getAllProjectObjectList(ProjectDto.class);
-		List<CodeDto> projectCodeList = CodeLookupUtil
+		List<CodeLookupVo> projectCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 		logger.debug("The project size is" + projectList.size());
 		modelAndView.addObject("projectList", projectList);
@@ -391,7 +390,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
-		List<CodeDto> projectCodeList = CodeLookupUtil
+		List<CodeLookupVo> projectCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 
 		modelAndView.addObject("projectCodeList", projectCodeList);
@@ -435,25 +434,25 @@ public class VolunteerController extends BaseMultiActionFormController {
 		ProjectDto projectDto = (ProjectDto) projectManagementService
 				.getProjectObjbyId(prjId, ProjectDto.class);
 
-		List<CodeDto> projectStatusCodeList = CodeLookupUtil
+		List<CodeLookupVo> projectStatusCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
-		List<CodeDto> roleCodeList = CodeLookupUtil
+		List<CodeLookupVo> roleCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.MEMBER_ROLE);
-		List<CodeDto> countryCodeList = CodeLookupUtil
+		List<CodeLookupVo> countryCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY);
 
 		String projectStatus = "Unknown";
 		String country = "Unknown";
 
-		for (CodeDto codeDto : projectStatusCodeList) {
-			if (codeDto.getCdId().equals(projectDto.getStsCd())) {
-				projectStatus = codeDto.getVal();
+		for (CodeLookupVo codeLookupVo : projectStatusCodeList) {
+			if (codeLookupVo.getCdId().equals(projectDto.getStsCd())) {
+				projectStatus = codeLookupVo.getVal();
 				break;
 			}
 		}
-		for (CodeDto codeDto : countryCodeList) {
-			if (codeDto.getCdId().equals(projectDto.getCtryCd())) {
-				country = codeDto.getVal();
+		for (CodeLookupVo codeLookupVo : countryCodeList) {
+			if (codeLookupVo.getCdId().equals(projectDto.getCtryCd())) {
+				country = codeLookupVo.getVal();
 				break;
 			}
 		}
@@ -506,10 +505,10 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("experienceVo", new ProjectExperienceVo());
 
 		for (ProjectMemberVo projectMemberVo : memberList) {
-			for (CodeDto codeDto : roleCodeList) {
-				if (codeDto.getCdId().equals(
+			for (CodeLookupVo codeLookupVo : roleCodeList) {
+				if (codeLookupVo.getCdId().equals(
 						Long.valueOf(projectMemberVo.getRoleCd()))) {
-					projectMemberVo.setRoleCd(codeDto.getVal());
+					projectMemberVo.setRoleCd(codeLookupVo.getVal());
 					break;
 				}
 			}

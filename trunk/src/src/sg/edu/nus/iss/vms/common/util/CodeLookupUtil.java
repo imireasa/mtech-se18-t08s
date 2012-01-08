@@ -69,13 +69,13 @@ public class CodeLookupUtil {
 	 * @param category - the category name to retrieve the list of corresponding code value.
 	 * @return a list of CodeLookupVo
 	 */
-	public static List<CodeDto> getCodeListByCategory(String category) {
+	public static List<CodeLookupVo> getCodeListByCategory(String category) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeListByCategory(String) - start");
 		}
 
 		CodeManagementServices codeMgr = getCodeManagementServices();
-		List<CodeDto> returnList = codeMgr.getCodeListByCategory(category);
+		List<CodeLookupVo> returnList = codeMgr.getCodeListByCategory(category);
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeListByCategory(String) - end");
 		}

@@ -62,12 +62,12 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 		}
 		if (!StringUtil.isNullOrEmpty(proposalVo.getStsVal())) {
 
-			List<CodeDto> codeDtos = CodeLookupUtil
+			List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 					.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
-			for (CodeDto codeDto : codeDtos) {
+			for (CodeLookupVo codeLookupVo : codeLookupVos) {
 
-				if (codeDto.getVal().equals(proposalVo.getStsVal())) {
-					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+				if (codeLookupVo.getVal().equals(proposalVo.getStsVal())) {
+					criteria.add(Restrictions.eq("stsCd", codeLookupVo.getCdId()));
 				}
 			}
 
@@ -93,11 +93,11 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		long countryCodeId = 0;
-		List<CodeDto> countryCodeDtos = CodeLookupUtil
+		List<CodeLookupVo> countryCodeVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY);
-		for (CodeDto countryCodeDto : countryCodeDtos) {
-			if (countryCodeDto.getVal().equals(projectProposalVo.getCtryVal())) {
-				countryCodeId = countryCodeDto.getCdId();
+		for (CodeLookupVo countryCodeVo : countryCodeVos) {
+			if (countryCodeVo.getVal().equals(projectProposalVo.getCtryVal())) {
+				countryCodeId = countryCodeVo.getCdId();
 				break;
 			}
 		}

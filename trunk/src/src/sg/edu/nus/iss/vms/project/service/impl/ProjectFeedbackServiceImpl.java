@@ -11,7 +11,6 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
@@ -89,12 +88,12 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 		}
 		if (!StringUtil.isNullOrEmpty(prjFeedbackVo.getStsVal())) {
 
-			List<CodeDto> codeDtos = CodeLookupUtil
+			List<CodeLookupVo> codeVos = CodeLookupUtil
 					.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
-			for (CodeDto codeDto : codeDtos) {
+			for (CodeLookupVo codeLookupVo : codeVos) {
 
-				if (codeDto.getVal().equals(prjFeedbackVo.getStsVal())) {
-					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+				if (codeLookupVo.getVal().equals(prjFeedbackVo.getStsVal())) {
+					criteria.add(Restrictions.eq("stsCd", codeLookupVo.getCdId()));
 				}
 			}
 

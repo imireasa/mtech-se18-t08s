@@ -37,31 +37,38 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		this.sessionBean = sessionBean;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see sg.edu.nus.iss.vms.staffmgmt.service.impl.StaffManagementServices#
-	 * getListOfUser()
-	 */
 	@Override
-	public List<CodeDto> getCodeListByCategory(String category) {
+	public List<CodeLookupVo> getCodeListByCategory(String category) {
 		logger.debug("getCodeListByCategory(String) - start");
 		logger.debug("getCodeListByCategory(String) @ Service Layer getting CodeList By Code Category :"
 				+ category);
 		List<CodeDto> codeList = new ArrayList<CodeDto>();
+		List<CodeLookupVo> codeLookupVoList = null;
 		try {
 			String hQL = "from CodeDto c where c.catId.nme='" + category + "'";
 			codeList = this.manager.find(hQL);
+			
+			if (codeList != null && codeList.size() != 0) {
+				codeLookupVoList = new ArrayList<CodeLookupVo>(); 
+				for (CodeDto codeDto: codeList) {
+					CodeLookupVo codeLookupVo = new CodeLookupVo(codeDto);
+					codeLookupVoList.add(codeLookupVo);
+				}
+			}
 		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
+			this.logger.error("getCodeListByCategory(String)", ex);
 		} finally {
 			this.logger.debug("getCodeListByCategory(String) - end");
 		}
-		return codeList;
+		return codeLookupVoList;
 	}
 
 	@Override
 	public String getCodeDescriptionByCodeId(Long codeId) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeDescriptionByCodeId(Long) - start");
+		}
+
 		String codeDescription = "";
 		try {
 			String hQL = "from CodeDto c where c.cdId=" + codeId.toString();
@@ -72,8 +79,11 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 			}
 
 		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
+			this.logger.error("getCodeDescriptionByCodeId(Long)", ex);
 		} finally {
+			if (logger.isDebugEnabled()) {
+				logger.debug("getCodeDescriptionByCodeId(Long) - end");
+			}
 			return codeDescription;
 		}
 
@@ -81,6 +91,10 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 
 	@Override
 	public String getCodeValueByCodeId(Long codeId) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeValueByCodeId(Long) - start");
+		}
+
 		String codeValue = "";
 		try {
 			String hQL = "from CodeDto c where c.cdId=" + codeId.toString();
@@ -91,8 +105,11 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 			}
 
 		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
+			this.logger.error("getCodeValueByCodeId(Long)", ex);
 		} finally {
+			if (logger.isDebugEnabled()) {
+				logger.debug("getCodeValueByCodeId(Long) - end");
+			}
 			return codeValue;
 		}
 
@@ -137,13 +154,11 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 			if (logger.isDebugEnabled()) {
 				logger.debug("getCodeById(Long) - end");
 			}
-			return codeLookupVo;
-
 		} catch (Exception ex) {
 			logger.error("getCodeById(Long)", ex);
 			return codeLookupVo;
 		}
-
+		return codeLookupVo;
 	}
 
 	@Override
@@ -162,10 +177,9 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 			codeList = this.manager.find(hQL);
 			if (codeList != null) {
 				codeLookupVo = new CodeLookupVo(codeList.get(0));
-				return codeLookupVo;
 			}
 		} catch (Exception ex) {
-			this.logger.error("getCodeByCategoryAndCodeValue(String, String) - error", ex);
+			this.logger.error("getCodeByCategoryAndCodeValue(String, String)", ex);
 		} finally {
 			if (logger.isDebugEnabled()) {
 				logger.debug("getCodeByCategoryAndCodeValue(String, String) - end");
