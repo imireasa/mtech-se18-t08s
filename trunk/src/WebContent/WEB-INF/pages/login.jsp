@@ -5,8 +5,9 @@
 <html>
 
     <head>
-        <link href="<%=request.getContextPath()%>/sys/css/v02/login.css" rel="stylesheet" type="text/css" />
+        <link href="<%=request.getContextPath()%>/sys/css/login.css" rel="stylesheet" type="text/css" />
 		<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+		
 		<!--[if lte IE 6]>
 		<script type="text/javascript" src="js/supersleight.js"></script>
 		<![endif]-->

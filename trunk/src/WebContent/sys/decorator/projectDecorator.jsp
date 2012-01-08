@@ -5,42 +5,54 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><decorator:title default="Volunteer Management System" /></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<title><decorator:title default="Volunteer Management System" /></title>
 
-<meta name="description" content="" />
-<meta name="keywords" content="" />
+	<meta name="description" content="VMS" />
+	<meta name="keywords" content="VMS" />
 
-<link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="<%=request.getContextPath()%>/sys/images/favicon.ico" type="image/x-icon" />
-<link href="<%=request.getContextPath()%>/sys/css/global.css" rel="stylesheet" type="text/css" />
-<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
-<link type="text/css" href="<%=request.getContextPath()%>/sys/css/paging.css" rel="stylesheet" />
+	<!-- ICO -->
+	<link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+	
+	<!-- CSS -->
+	<link href="<%=request.getContextPath()%>/sys/css/v02/global_v2.css" rel="stylesheet" type="text/css" />
+	<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="<%=request.getContextPath()%>/sys/css/paging.css" rel="stylesheet" />
+	<link type="text/css" href="<%=request.getContextPath()%>/sys/css/jquery-ui-min.css" rel="stylesheet" />
+	<link type="text/css" href="<%=request.getContextPath()%>/sys/css/validationEngine.template.css" rel="stylesheet" />
+	<link type="text/css" href="<%=request.getContextPath()%>/sys/css/validationEngine.jquery.css" rel="stylesheet" />
+	
+	<!-- JS -->
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/engine.js'></script>
 
-<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/engine.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-1.7.1.min.js'></script>
-<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-ui-1.8.16.custom.min.js'></script>
-        
-<!--[if lte IE 6]>
-<script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/supersleight.js"></script>
-<![endif]-->
-<script type="text/javascript">
-$(document).ready(function() {
-	$(this).find('ul').each(function(){
-        // cache jquery object
-        var current = $(this);
-        // check for sub levels and value
-        if(current.children().size() == 0 && current.text().trim()== "") {
-           //no child in this UL.
-            current.hide();
-        }
-     
-    });
+	<!-- jQuery -->
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-1.6.min.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-ui-1.8.16.custom.min.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery.validationEngine.js'></script>	
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/languages/jquery.validationEngine-en.js'></script>
+			
+	<!--[if lte IE 6]>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/supersleight.js"></script>
+	<![endif]-->
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$(this).find('ul').each(function(){
+			// cache jquery object
+			var current = $(this);
+			// check for sub levels and value
+			if(current.children().size() == 0 && current.text().trim()== "") {
+			   //no child in this UL.
+				current.hide();
+			}
+		 
+		});
 
- });
-</script>
+	 });
+	</script>
 <decorator:head />
 </head>
 
