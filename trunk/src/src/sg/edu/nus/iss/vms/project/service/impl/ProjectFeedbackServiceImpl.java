@@ -121,7 +121,7 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 	public void createProjectFeedback(ProjectFeedbackVo projectFeedbackVo) {
 
 		CodeDto codeDto = CodeLookupUtil
-				.getCodeDescriptionByCodeCategoryAndCodeDesc(
+				.getCodeByCatAndVal(
 						VMSConstants.FEEDBACK_STATUS,
 						VMSConstants.FEEDBACK_STATUS_SUMBITTED);
 

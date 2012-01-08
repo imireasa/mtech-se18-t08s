@@ -532,7 +532,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		CodeDto codeDto = CodeLookupUtil
-				.getCodeDescriptionByCodeCategoryAndCodeDesc(
+				.getCodeByCatAndVal(
 						VMSConstants.CERTIFIATE_REQUEST_TYPE,
 						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
 
@@ -683,12 +683,12 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		CodeDto codeDto = CodeLookupUtil
-				.getCodeDescriptionByCodeCategoryAndCodeDesc(
+				.getCodeByCatAndVal(
 						VMSConstants.CERTIFIATE_REQUEST_TYPE,
 						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
 
 		CodeDto codeStatusDto = CodeLookupUtil
-				.getCodeDescriptionByCodeCategoryAndCodeDesc(
+				.getCodeByCatAndVal(
 						VMSConstants.CERTIFICATE_REQUEST_STATUS,
 						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
 
