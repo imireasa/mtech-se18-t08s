@@ -4,14 +4,37 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
+<head>
+	<script type="text/javascript">
+		var defProjName = 'Please select...';
+
+        window.onload = init;
+
+        function init() {
+
+        }
+
+        function checkUserLoginId(){
+                var loginId = document.getElementById("loginId").value;
+                VmsDwr.isUserLoginIdExist(loginId,function(result){
+                        if(result){
+                                alert(loginId + " already exist.");
+                        }else{
+                                alert(loginId + " does not exist.");
+                        }                            
+                });
+        }
+    </script>
+</head>
 <body>
-        <h2><fmt:message key="message.projectManagement.updateProject.label"/></h2>
+        <h2><fmt:message key="message.volunteerManagement.updateVolunteer.label"/></h2>
         <div id="breadcrumb">
-                <a href="#"><fmt:message key="message.common.home.label"/></a> / <a href="listProjects.html"><fmt:message key="message.projectManagement.projectManagement.label"/></a> / <fmt:message key="message.projectManagement.updateProject.label"/>
+                <a href="#"><fmt:message key="message.common.home.label"/></a> / 
+                <fmt:message key="message.volunteerManagement.updateVolunteer.label"/>
         </div>
         <div class="query">
                 <c:if test="${not empty msg}"> 
-                        <div class="info">
+                        <div class="error">
                                 <c:out value="${msg}" escapeXml="false"/><br/>
                         </div>
                 </c:if>
@@ -23,131 +46,147 @@
                                 </c:forEach>
                         </div>
                 </c:if>
-
-                <form:form name="updateProject" method="post"
+            
+                <form:form name="updateVolunteer" method="post"
                            commandName="command" 
-                           action="updateProject.html">
+                           action="updateVolunteer.html">
                         <form:hidden path="cmdType"/>
-                        <table class="query-table">
-								 <form:hidden path="prjId"/>
-								<!-- Project Id (Disabled) -->
-								<tr>
-                                        <td align="left"><fmt:message key="message.projectManagement.projectId.label"/></td>
+                        <table width="400" class="query-table">
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.loginid.label"/> </td>
                                         <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left">
-                                                <form:input path="prjIdDisplayed" disabled="true"/>
-                                                <form:errors path="prjIdDisplayed" cssClass="error"/>
+                                        <td align="left">  
+                                                ${command.loginId}
+                                                <form:hidden path="loginId"/>
+                                                <form:errors path="loginId" cssClass="error"/> 
                                         </td>
-                                </tr>	
-																	
-								<!-- Project Name -->
-								  <tr>
-                                        <td align="left"><fmt:message key="message.projectManagement.projectName.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
-                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="name" cols="45" rows="2"></form:textarea>
-                                                <form:errors path="name" cssClass="error"/>
-                                        </th>
-                                </tr>		
-								 <!-- Description -->
-								<tr>
-                                        <td align="left"><fmt:message key="message.projectManagement.projectDescription.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
-                                       <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="desc" cols="45" rows="4"></form:textarea>
-                                                <form:errors path="desc" cssClass="error"/>
-                                        </td>
-                                </tr>	
-								 <!-- Start Date -->
-								<tr>
-                                        <td align="left"><fmt:message key="message.common.startDate.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
-                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left">
-                                                <form:input path="strDte" cssClass="Date" maxlength="25" size="25"/>
-                                                <form:errors path="strDte" cssClass="error"/>
-                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
-												<fmt:message key="message.common.date.format.label" />
-                                        </td>
-                                </tr>	 
-								<!-- End Date -->
-								 <tr>
-                                        <td align="left"><fmt:message key="message.common.endDate.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
-                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left">
-                                                <form:input path="endDte" cssClass="Date" maxlength="25" size="25"/>
-                                                <form:errors path="endDte" cssClass="error"/>
-                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('endDte','ddMMyyyy')" style="cursor:pointer"/>
-												<fmt:message key="message.common.date.format.label" />
-										</td>
-										
-
                                 </tr>
-								 <!-- Conuntry -->
-								 <tr>
-								 	<td align="left"><fmt:message key="message.common.country.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
-									<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-								 	<td>
+                   
+       				           <tr>
+                                        <td width="133" align="left"><fmt:message key="message.common.title.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></td>
+                                        <td width="10"><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td width="246" align="left">
+                                                <form:select path="title">
+                                                        <c:forEach items="${titleList}" var="item" varStatus="status">
+                                                                <c:choose>
+                                                                        <c:when test="${item.cdId==command.title}">
+                                                                                <option value="${item.cdId}" selected="true">${item.val}</option>
+                                                                        </c:when>
+                                                                        <c:otherwise>
+                                                                                <option value="${item.cdId}">${item.val}</option>
+                                                                        </c:otherwise>
+                                                                </c:choose>
+                                                        </c:forEach>
+                                                </form:select>
+												<form:errors path="title" cssClass="error"/>
+                                       </td>
+                                </tr>	
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.name.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">       
+                                                <form:input path="nme"/>
+                                                <form:errors path="nme" cssClass="error"/>                        
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.email.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:input path="email"/>
+                                                <form:errors path="email" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                               <!--  <tr>
+                                        <td align="left"><fmt:message key="message.volunteerManagement.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:password path="pwd"/>
+                                                <form:errors path="pwd" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.volunteerManagement.cfgpassword.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:password path="cfpwd"/>
+                                                <form:errors path="cfpwd" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                                -->
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.address.label"/></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left"><label for="textarea">
+                                                <form:textarea path="addr" cols="45" rows="5"></form:textarea>
+                                                <form:errors path="addr" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.postCode.label"/></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:input path="postCd"/>
+                                                <form:errors path="postCd" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.country.label"/></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
                                                 <form:select path="ctryCd">
                                                         <c:forEach items="${countryList}" var="item" varStatus="status">
-                                                                <c:choose>
-                                                                        <c:when test="${item.cdId==command.ctryCd}">
-                                                                                <option value="${item.cdId}" selected="true">${item.val}</option>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                                <option value="${item.cdId}">${item.val}</option>
-                                                                        </c:otherwise>
-                                                                </c:choose>
+                                                                <form:option value="${item.cdId}">${item.val}</form:option>
                                                         </c:forEach>
                                                 </form:select>
-												<form:errors path="ctryCd" cssClass="error"/>
-                                       </td>
-                                 </tr>       
-								<!-- Location -->
-								<tr>
-                                        <td align="left"><fmt:message key="message.common.location.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+                                                <form:errors path="ctryCd" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.mobile.label"/></td>
                                         <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="loc" cols="45" rows="4"></form:textarea>
-                                                <form:errors path="loc" cssClass="error"/>
+                                        <td align="left">
+                                                <form:input path="mobile"/>
+                                                <form:errors path="mobile" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.common.dateOfBirth.label"/></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:input path="dob" cssClass="Date" maxlength="25" size="25"/>
+                                                <form:errors path="dob" cssClass="error"/>
+                                                <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('dob','ddMMyyyy')" style="cursor:pointer"/>
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.volunteerManagement.intrest.label"/></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:textarea path="intrst" cols="45" rows="5"></form:textarea>
+                                                <form:errors path="intrst" cssClass="error"/>
+                                        </td>
+                                </tr>		
+                                <tr>
+                                        <td align="left"><fmt:message key="message.volunteerManagement.skillSet.label"/></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:textarea path="skillSet" cols="45" rows="5"></form:textarea>
+                                                <form:errors path="skillSet" cssClass="error"/>
                                         </td>
                                 </tr>	
-								 <!-- Project Status -->
-								  <tr>
-								 	<td align="left"><fmt:message key="message.projectManagement.projectStatus.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
-									<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-								 	<td>
-                                                <form:select path="stsCd">
-                                                        <c:forEach items="${statusList}" var="item" varStatus="status">
-                                                                <c:choose>
-                                                                        <c:when test="${item.cdId==command.stsCd}">
-                                                                                <option value="${item.cdId}" selected="true">${item.val}</option>
-                                                                        </c:when>
-                                                                        <c:otherwise>
-                                                                                <option value="${item.cdId}">${item.val}</option>
-                                                                        </c:otherwise>
-                                                                </c:choose>
-                                                        </c:forEach>
-                                                </form:select>
-												<form:errors path="stsCd" cssClass="error"/>
-                                       </td>
-                                 </tr>     
-								<!-- Remark -->
-								<tr>
-                                        <td align="left"><fmt:message key="message.common.remark.label"/></td>
-                                       <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-                                        <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="rmk" cols="45" rows="4"></form:textarea>
-                                                <form:errors path="rmk" cssClass="error"/>
+                                <tr>
+                                        <td align="left"><fmt:message key="message.volunteerManagement.qualifation.label"/></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                                        <td align="left">
+                                                <form:textarea path="qualAtt" cols="45" rows="5"></form:textarea>
+                                                <form:errors path="qualAtt" cssClass="error"/>
                                         </td>
                                 </tr>
-                                 <form:hidden path="version"/>
-								
                                 <tr>
 										<td colspan="2"></td>
                                         <td><input type="submit" name="updateButton" id="updateButton" value="<fmt:message key="message.common.update.button"/>"></td>
                                 </tr>
-								
-								
                         </table>
                 </form:form>
         </div>

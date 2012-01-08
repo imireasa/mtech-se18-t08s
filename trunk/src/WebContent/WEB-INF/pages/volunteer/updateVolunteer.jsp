@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
-<body>
 <head>
 	<script type="text/javascript">
 		var defProjName = 'Please select...';
@@ -55,7 +54,7 @@
                         <table width="400" class="query-table">
                                 <tr>
                                         <td align="left"><fmt:message key="message.common.loginid.label"/> </td>
-                                        <td>:</td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left">  
                                                 ${command.loginId}
                                                 <form:hidden path="loginId"/>
@@ -185,9 +184,8 @@
                                         </td>
                                 </tr>
                                 <tr>
-										<td></td>
-										<td></td>
-                                        <td><input type="submit" name="button" id="button" value="<fmt:message key="message.common.update.button"/>"></td>
+										<td colspan="2"></td>
+                                        <td><input type="submit" name="updateButton" id="updateButton" value="<fmt:message key="message.common.update.button"/>"></td>
                                 </tr>
                         </table>
                 </form:form>

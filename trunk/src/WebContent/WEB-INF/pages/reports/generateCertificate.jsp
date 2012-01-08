@@ -26,14 +26,14 @@
 	<h2><fmt:message key="message.administration.generateCertificate.label"/></h2>
 	
 	<div id="breadcrumb">
-		 <a href="#"><fmt:message key="message.common.home.label"/></a>/ 
+		 <a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label"/></a> / 
                 <fmt:message key="message.administration.generateCertificate.label"/>
 	</div>
 
 		<form id="form" name="form" method="post" action="generateCertificate.html">
 			<table width="690" class="proj-table">
 				<tr>
-					<th width="80">Certificate Request Id</th>
+					<th width="80"><fmt:message key="message.administration.requestId.label"/></th>
 					<th width="150"> <fmt:message key="message.projectManagement.projectName.label"/></th>
                     <th width="150"><fmt:message key="message.administration.requestType.label"/></th>
                     <th width="150"><fmt:message key="message.administration.requestBy.label"/></th>
@@ -47,8 +47,9 @@
                     			<td>${item.reqTpName}</td>
                     			<td>${item.reqByName}</td>
                                 <td><fmt:formatDate pattern="dd-MM-yyyy" value="${item.reqDte}" /></td>
-                                <td><input type="button" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/>  onclick="generateCert('${item.certReqId}')"/></td>
-								<td><input type="hidden" name="certRequestId" id="certRequestId" /></td>
+                                <td colspan="2">
+									<input type="button" name="generate" id="generate" value=<fmt:message key="message.common.generate.button"/>  onclick="generateCert('${item.certReqId}')"/>
+								<input type="hidden" name="certRequestId" id="certRequestId" /></td>
 						</tr>
                    </c:forEach>
 				
