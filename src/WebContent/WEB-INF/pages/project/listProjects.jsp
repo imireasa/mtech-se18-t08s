@@ -39,10 +39,12 @@
 
 						</form:select>
 					</td>
+				</tr>
+				<tr>
+					<td colspan="2"></td>
 					<td><input type="submit" name="searchButton" id="searchButton"
 						value=<fmt:message key="message.common.search.button"/> >
 					</td>
-
 				</tr>
 			
 
