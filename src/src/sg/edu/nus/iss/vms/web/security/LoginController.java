@@ -28,11 +28,11 @@ import sg.edu.nus.iss.vms.security.dto.UserDto;
 import sg.edu.nus.iss.vms.security.service.SecurityManagementService;
 
 @SuppressWarnings("deprecation")
-public class LoginFormController extends SimpleFormController {
+public class LoginController extends SimpleFormController {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(LoginFormController.class);
+	private static final Logger logger = Logger.getLogger(LoginController.class);
 
 	private SecurityManagementService securityManager;
 

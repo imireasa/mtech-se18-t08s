@@ -45,7 +45,7 @@
 		
 		
     <bean id="loginValidator" class="sg.edu.nus.iss.vms.web.security.LoginValidator"/>
-    <bean id="loginController" class="sg.edu.nus.iss.vms.web.security.LoginFormController">
+    <bean id="loginController" class="sg.edu.nus.iss.vms.web.security.LoginController">
         <property name="securityManager" ref="SecurityManagementServiceImpl" />
         <property name="sessionForm">
             <value>false</value>
