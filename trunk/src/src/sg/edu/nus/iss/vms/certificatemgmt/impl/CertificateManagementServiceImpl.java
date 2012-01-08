@@ -3,19 +3,17 @@ package sg.edu.nus.iss.vms.certificatemgmt.service.impl;
 import java.util.List;
 import org.apache.log4j.Logger;
 
-import sg.edu.nus.iss.vms.certificatemgmt.service.CertificateManagement;
+import sg.edu.nus.iss.vms.certificatemgmt.service.CertificateManagementService;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
-import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.reportmgmt.impl.ReportManagementServiceImpl;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-public class CertificateManagementImpl implements CertificateManagement {
+public class CertificateManagementServiceImpl implements CertificateManagementService {
 
-    private Logger logger = Logger.getLogger(ReportManagementServiceImpl.class);
+    private Logger logger = Logger.getLogger(CertificateManagementServiceImpl.class);
     private Manager manager;
     private SessionBean sessionBean;
 

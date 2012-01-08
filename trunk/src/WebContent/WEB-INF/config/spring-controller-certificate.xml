@@ -17,7 +17,7 @@
 		class="sg.edu.nus.iss.vms.certificatemgmt.web.controller.GenerateCertificateController">
 		<property name="reportManagementService" ref="reportManagementServiceImpl" />
 		<property name="projectManagementService" ref="projectManagementServiceImpl" />
-        <property name="certificateManagement" ref="certificateManagementImpl" />
+        <property name="certificateManagementService" ref="certificateManagementServiceImpl" />
         <property name="codeManagementServices" ref="codeManagementServiceImpl" />
         <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
         

@@ -5,7 +5,7 @@ import java.util.List;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 
-public interface CertificateManagement {
+public interface CertificateManagementService {
 
 	// engine
 	public abstract JRBeanCollectionDataSource volunteerCertificate(
