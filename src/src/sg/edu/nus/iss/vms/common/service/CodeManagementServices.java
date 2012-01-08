@@ -12,8 +12,7 @@ public interface CodeManagementServices {
 
 	public String getCodeValueByCodeId(Long codeId);
 
-	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
-			String codeDesc);
+	//public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category, String codeDesc);
 
 	public CodeDto getCodeByCatAndVal(String Category, String catVal);
 

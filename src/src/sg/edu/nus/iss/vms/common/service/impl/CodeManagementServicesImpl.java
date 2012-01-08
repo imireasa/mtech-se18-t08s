@@ -96,8 +96,7 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 
 	}
 
-	@Override
-	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
+	/*public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
 			String codeDesc) {
 
 		try {
@@ -115,7 +114,7 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 			return null;
 		}
 
-	}
+	}*/
 
 	@Override
 	public CodeDto getCodeDtobyId(Long id) {
