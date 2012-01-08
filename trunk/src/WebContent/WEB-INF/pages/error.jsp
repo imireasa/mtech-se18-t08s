@@ -10,6 +10,6 @@
 </head>
 <body>
 	<h2>Oops, an error has been encountered. </h2>
-	<div id="breadcrumb"> Please contact the administrator. You may click <a href="/common/welcome.html">Home</a> to continue.</div>
+	<div id="breadcrumb"> Please contact the administrator. You may click <a href="/VMS/common/welcome.html">Home</a> to continue.</div>
 </body>
 </html>
