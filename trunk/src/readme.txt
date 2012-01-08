@@ -1,3 +1,6 @@
+========================================================================
+I. How to build & deploy in Tomcat 
+========================================================================
 1. Configure your properties in the build.xml the following will need to be replaced
 	- <property name="tomcat_home" value="/Users/angdao/PS/application/apache-tomcat-6.0.32" />
 	- <property name="url" value="http://localhost:8080/manager" />
@@ -22,7 +25,7 @@ This setting is required for 6.0.30 and above.
 4. Setup your ANT env by putting your ANT_HOME/bin into your PATH. for example : 
 set PATH=%PATH%;D:\ant\bin
 
-========================================================================
+====================
 How to use:
 
 For initial deployment (no deployments done before), exec
@@ -31,3 +34,9 @@ at the command prompt at the place where the build.xml is
 
 for subsequent deployment exec
 ant reload
+
+========================================================================
+II. How to do UI validation 
+========================================================================
+1. Check out API for Form Validation from:
+http://www.position-absolute.com/articles/jquery-form-validator-because-form-validation-is-a-mess/
