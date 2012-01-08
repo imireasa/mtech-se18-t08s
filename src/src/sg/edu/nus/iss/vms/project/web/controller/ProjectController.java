@@ -1,8 +1,6 @@
 package sg.edu.nus.iss.vms.project.web.controller;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,16 +21,13 @@ import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
-import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
-import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
-import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectFeedbackService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
+import sg.edu.nus.iss.vms.project.service.ProjectProposalService;
 import sg.edu.nus.iss.vms.project.vo.ProjectFeedbackVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
@@ -47,6 +42,7 @@ public class ProjectController extends BaseMultiActionFormController {
 	private MemberManagementService memberManagementService;
 	private ProjectManagementService projectManagementService;
 	private ProjectFeedbackService projectFeedbackService;
+	private ProjectProposalService projectProposalService;
 	private UserManagementServices userManagementServices;
 	private BindingResult errors;
 
@@ -80,6 +76,11 @@ public class ProjectController extends BaseMultiActionFormController {
 	public void setUserManagementServices(
 			UserManagementServices userManagementServices) {
 		this.userManagementServices = userManagementServices;
+	}
+
+	public void setProjectProposalService(
+			ProjectProposalService projectProposalService) {
+		this.projectProposalService = projectProposalService;
 	}
 
 	@Override
@@ -572,50 +573,8 @@ public class ProjectController extends BaseMultiActionFormController {
 				"project/proposeNewProject");
 		modelAndView.addObject("proposalVo", proposalVo);
 
-		List<CodeDto> countryCodeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
-		modelAndView.addObject("countryList", countryCodeDtos);
+		projectProposalService.createProjectProposal(proposalVo);
 
-		if (errors.hasErrors()) {
-			logger.debug("Error Handling : ");
-			saveError(request, errors.getFieldError().getDefaultMessage());
-
-			if (logger.isDebugEnabled()) {
-				logger.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - end");
-			}
-			return modelAndView;
-		}
-
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
-				VMSConstants.PROPOSAL_STATUS,
-				VMSConstants.PROPOSAL_STATUS_SUMBITTED);
-
-		long countryCodeId = 0;
-		for (CodeDto countryCodeDto : countryCodeDtos) {
-			if (countryCodeDto.getVal().equals(proposalVo.getCtryCd())) {
-				countryCodeId = codeDto.getCdId();
-				break;
-			}
-		}
-
-		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
-
-		ProjectProposalDto projectProposalDto = new ProjectProposalDto();
-		projectProposalDto.setCtryCd(countryCodeId);
-		projectProposalDto.setEstDur(Integer.valueOf(proposalVo
-				.getEstDuration()));
-		projectProposalDto.setLoc(proposalVo.getLoc());
-		projectProposalDto.setNme(proposalVo.getName());
-		projectProposalDto.setDesc(proposalVo.getDesc());
-		projectProposalDto.setCreatedDte(new Date());
-		projectProposalDto.setUpdDte(new Date());
-		projectProposalDto.setStsCd(codeDto.getCdId());
-		projectProposalDto.setProposerId(loginId);
-		projectProposalDto.setCreatedBy(loginId);
-		projectProposalDto.setUpdBy(loginId);
-		projectProposalDto.setVersion(1);
-
-		projectManagementService.saveOrUpdateProjectObject(projectProposalDto);
 		modelAndView
 				.addObject("msg", Messages.getString("message.common.save"));
 
@@ -631,20 +590,20 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("browseProjectProposal(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		List<ProjectProposalDto> projectProposalDtos = projectManagementService
-				.getAllProjectObjectList(ProjectProposalDto.class);
+		List<ProjectProposalVo> projectProposalVos = projectProposalService
+				.getProjectProposalList();
 
 		List<CodeDto> codeDtos = CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
 
 		modelAndView = new ModelAndView("project/browseProjectProposal");
-		modelAndView.addObject("proposalList", projectProposalDtos);
+		modelAndView.addObject("proposalList", projectProposalVos);
 		modelAndView.addObject("proposalVo", new ProjectProposalVo());
 		modelAndView.addObject("stsCdList", codeDtos);
 
 		PagedListHolder projectPagedListHolder = new PagedListHolder(
-				projectProposalDtos);
-		if (!projectProposalDtos.isEmpty()) {
+				projectProposalVos);
+		if (!projectProposalVos.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projectPagedListHolder.setPage(page);
 			projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
@@ -665,22 +624,20 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("searchProjectProposal(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
 
-		List<ProjectProposalDto> projectProposalDtos = projectManagementService
-				.getProjectProposalListbyVo(proposalVo);
+		List<ProjectProposalVo> projectProposalVos = projectProposalService
+				.getProjectProposalListbySearchCriteria(proposalVo);
 
 		List<CodeDto> codeDtos = CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
 		modelAndView = new ModelAndView("project/browseProjectProposal");
-		modelAndView.addObject("proposalList", projectProposalDtos);
+		modelAndView.addObject("proposalList", projectProposalVos);
 
 		modelAndView.addObject("proposalVo", proposalVo);
 		modelAndView.addObject("stsCdList", codeDtos);
 
-		modelAndView.addObject("proposalList", projectProposalDtos);
-
 		PagedListHolder projectPagedListHolder = new PagedListHolder(
-				projectProposalDtos);
-		if (!projectProposalDtos.isEmpty()) {
+				projectProposalVos);
+		if (!projectProposalVos.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projectPagedListHolder.setPage(page);
 			projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
@@ -705,41 +662,10 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		long prjProId = Long.parseLong(request.getParameter("prjPropId"));
 
-		ProjectProposalDto projectPropDto = (ProjectProposalDto) projectManagementService
-				.getProjectObjbyId(prjProId, ProjectProposalDto.class);
-
-		List<CodeDto> projectStatusCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
-		List<CodeDto> countryCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
-		String projectStatus = "Unknown";
-		String country = "Unknown";
-
-		for (CodeDto codeDto : projectStatusCodeList) {
-			if (codeDto.getCdId().equals(projectPropDto.getStsCd())) {
-				projectStatus = codeDto.getVal();
-				break;
-			}
-		}
-		for (CodeDto codeDto : countryCodeList) {
-			if (codeDto.getCdId().equals(projectPropDto.getCtryCd())) {
-				country = codeDto.getVal();
-				break;
-			}
-		}
-
-		ProjectProposalVo projectProposalVo = new ProjectProposalVo();
-		projectProposalVo.setName(projectPropDto.getNme());
-		projectProposalVo.setDesc(projectPropDto.getDesc());
-		projectProposalVo.setEstDuration(projectPropDto.getEstDur());
-		projectProposalVo.setLoc(projectPropDto.getLoc());
-		projectProposalVo.setRmk(projectPropDto.getRmk());
-		projectProposalVo.setCtryCd(country);
-		projectProposalVo.setStatus(projectStatus);
-		projectProposalVo.setProposerId(projectPropDto.getProposerId());
+		ProjectProposalVo projectProposalVo = projectProposalService
+				.getProjectProposalbyId(prjProId);
 
 		modelAndView = new ModelAndView("project/viewProjectProposalDetails");
-		modelAndView.addObject("proposal", projectPropDto);
 		modelAndView.addObject("stsCdList", codeDtos);
 		modelAndView.addObject("proposalVo", projectProposalVo);
 
@@ -751,113 +677,32 @@ public class ProjectController extends BaseMultiActionFormController {
 	}
 
 	public ModelAndView reviewProposal(HttpServletRequest request,
-			HttpServletResponse response, ProjectProposalVo proposalVo)
-			throws Exception {
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("reviewProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - start");
 		}
 
-		ProjectProposalDto projectPropDto = (ProjectProposalDto) modelAndView
-				.getModel().get("proposal");
-
-		List<CodeDto> codeDtos = (List<CodeDto>) modelAndView.getModel().get(
-				"stsCdList");
-
-		long approveCodeId = 0;
-		long rejectCodeId = 0;
-		for (CodeDto codeDto : codeDtos) {
-			if (codeDto.getVal().equals(VMSConstants.PROPOSAL_STATUS_APPROVED)) {
-				approveCodeId = codeDto.getCdId();
-			} else if (codeDto.getVal().equals(
-					VMSConstants.PROPOSAL_STATUS_REJECTED)) {
-				rejectCodeId = codeDto.getCdId();
-			}
-
-		}
-
-		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
+		ProjectProposalVo proposalVo = (ProjectProposalVo) modelAndView
+				.getModel().get("proposalVo");
 
 		String propMsg = Messages.getString("message.common.update");
 
+		projectProposalService.updateProjectProposal(proposalVo);
+
 		if (VMSConstants.PROPOSAL_STATUS_APPROVED
-				.equals(proposalVo.getStatus())
-				|| VMSConstants.PROPOSAL_STATUS_REJECTED.equals(proposalVo
-						.getStatus())) {
+				.equals(proposalVo.getStsVal())) {
+			propMsg = Messages.getString("message.common.approve",
+					new String[] { "Project Proposal" });
 
-			projectPropDto.setApprDte(new Date());
-			projectPropDto.setUpdDte(new Date());
-			projectPropDto.setApprBy(loginId);
-			projectPropDto.setUpdBy(loginId);
-			projectPropDto.setUpdBy(loginId);
+			projectProposalService.convertProposalToProject(proposalVo);
 
-			if (VMSConstants.PROPOSAL_STATUS_APPROVED.equals(proposalVo
-					.getStatus())) {
-				projectPropDto.setStsCd(approveCodeId);
-				propMsg = Messages.getString("message.common.approve",
-						new String[] { "Project Proposal" });
+		} else if (VMSConstants.PROPOSAL_STATUS_REJECTED.equals(proposalVo
+				.getStsVal())) {
+			propMsg = Messages.getString("message.common.reject",
+					new String[] { "Project Proposal" });
 
-				ProjectDto projectDto = new ProjectDto();
-				projectDto.setNme(projectPropDto.getNme());
-				projectDto.setDesc(projectPropDto.getDesc());
-				projectDto.setCtryCd(projectPropDto.getCtryCd());
-				projectDto.setLoc(projectPropDto.getLoc());
-				projectDto.setStrDte(new Date());
-				projectDto.setEndDte(DateUtil.add(projectDto.getStrDte(),
-						Calendar.DAY_OF_YEAR, projectPropDto.getEstDur()));
-				projectDto.setPrjMgr(loginId);
-
-				CodeDto projectStsCodeDto = CodeLookupUtil
-						.getCodeByCategoryAndCodeValue(
-								VMSConstants.PROJECT_STATUS,
-								VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
-				projectDto.setStsCd(projectStsCodeDto.getCdId());
-				projectDto.setPrjPropId(projectPropDto);
-				projectDto.setCreatedBy(loginId);
-				projectDto.setCreatedDte(new Date());
-				projectDto.setUpdBy(loginId);
-				projectDto.setUpdDte(new Date());
-
-				projectManagementService.saveOrUpdateProjectObject(projectDto);
-
-			} else {
-				projectPropDto.setStsCd(rejectCodeId);
-				propMsg = Messages.getString("message.common.reject",
-						new String[] { "Project Proposal" });
-
-			}
 		}
-		projectPropDto.setRmk(proposalVo.getRmk());
-
-		String projectStatus = "Unknown";
-		String country = "Unknown";
-
-		List<CodeDto> countryCodeList = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.COUNTRY_CATEGORY);
-
-		for (CodeDto codeDto : codeDtos) {
-			if (codeDto.getCdId().equals(projectPropDto.getStsCd())) {
-				projectStatus = codeDto.getVal();
-				break;
-			}
-		}
-		for (CodeDto codeDto : countryCodeList) {
-			if (codeDto.getCdId().equals(projectPropDto.getCtryCd())) {
-				country = codeDto.getVal();
-				break;
-			}
-		}
-
-		proposalVo.setName(projectPropDto.getNme());
-		proposalVo.setDesc(projectPropDto.getDesc());
-		proposalVo.setEstDuration(projectPropDto.getEstDur());
-		proposalVo.setLoc(projectPropDto.getLoc());
-		proposalVo.setRmk(projectPropDto.getRmk());
-		proposalVo.setProposerId(projectPropDto.getProposerId());
-		proposalVo.setStatus(projectStatus);
-		proposalVo.setCtryCd(country);
-
-		projectManagementService.saveOrUpdateProjectObject(projectPropDto);
-		modelAndView.addObject("propMsg", propMsg);
+		modelAndView.addObject("msg", propMsg);
 		modelAndView.addObject("proposalVo", proposalVo);
 
 		if (logger.isDebugEnabled()) {

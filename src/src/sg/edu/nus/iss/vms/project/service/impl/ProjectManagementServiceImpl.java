@@ -15,7 +15,6 @@ import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.SysConfig;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.mail.BasicMailMessage;
 import sg.edu.nus.iss.vms.common.mail.MailSenderUtil;
@@ -27,12 +26,10 @@ import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
-import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.security.dto.UserDto;
 
@@ -429,31 +426,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	@Override
 	public List getAllProjectObjectList(Class type) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(type);
-		return manager.findByDetachedCriteria(criteria);
-	}
-
-	@Override
-	public List<ProjectProposalDto> getProjectProposalListbyVo(
-			ProjectProposalVo proposalVo) {
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectProposalDto.class);
-		if (!StringUtil.isNullOrEmpty(proposalVo.getName())) {
-			criteria.add(Restrictions.like("nme", proposalVo.getName(),
-					MatchMode.ANYWHERE));
-		}
-		if (!StringUtil.isNullOrEmpty(proposalVo.getStatus())) {
-
-			List<CodeDto> codeDtos = CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.PROPOSAL_STATUS);
-			for (CodeDto codeDto : codeDtos) {
-
-				if (codeDto.getVal().equals(proposalVo.getStatus())) {
-					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
-				}
-			}
-
-		}
-
 		return manager.findByDetachedCriteria(criteria);
 	}
 
