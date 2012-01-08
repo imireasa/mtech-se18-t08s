@@ -2,133 +2,99 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%><body>
-<head>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
-<link type="text/css"
-	href="<%=request.getContextPath()%>/sys/css/paging.css"
-	rel="stylesheet" />
-
-
-</head>
 <body>
-	<h2> Review Project Proposal</h2>
+	<h2> <fmt:message key="message.projectManagement.reviewProjectProposals.label" /></h2>
 	<div id="breadcrumb">
-	<a href="#">Home</a> / <a href="#">Review Project proposal</a></div>
-    
-
-    
-
+		<a href="#"><fmt:message key="message.common.home.label"/></a> / 
+		<a href="#"><fmt:message key="message.projectManagement.reviewProjectProposals.label" /></a></div>
+    </div>
 	<div class="query">
 	
-	<c:if test="${not empty propMsg}"> 
-                        <div class="infoblock">
-                                <c:out value="${propMsg}" escapeXml="false"/><br/>
+			 <c:if test="${not empty msg}"> 
+                        <div class="info">
+                                <c:out value="${msg}" escapeXml="false"/><br/>
                         </div>
-            </c:if>
+                </c:if>
+
+                <c:if test="${not empty errors}"> 
+                        <div class="error">
+                                <c:forEach var="error" items="${errors}">  
+                                        <c:out value="${error}" escapeXml="false"/><br/>
+                                </c:forEach>
+                        </div>
+                </c:if>
    	 <form:form name="reviewproposal" method="post" commandName="proposalVo" action="reviewProposal.html">
-	  <table class="proj-table">
+	  <table class="query-table">
 	    <tr>
-	    
-	     <th><fmt:message key="message.common.name.label"/></th>
-<th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td width>${proposalVo.name}</td>
+			<td><fmt:message key="message.common.name.label"/></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td>${proposalVo.name}</td>
         </tr>
 	    
         <tr>
-	     <th><fmt:message key="message.common.description.label"/></th>
-	     <th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td>
-	      ${proposalVo.desc}
-          </td>
+			<td><fmt:message key="message.common.description.label"/></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td>${proposalVo.desc}</td>
         </tr>
-        
-        
-         <tr>
-	     <th><fmt:message key="message.common.country.label"/></th>
-	     <th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td> ${proposalVo.ctryCd}</td>
+
+        <tr>
+			<td><fmt:message key="message.common.country.label"/></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td> ${proposalVo.ctryCd}</td>
         </tr>
         <tr>
-	       <th><fmt:message key="message.common.location.label"/></th>
-	       <th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td>${proposalVo.loc}</td>
+	       <td><fmt:message key="message.common.location.label"/></td>
+	       <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td>${proposalVo.loc}</td>
         </tr>
         <tr>
-	      	<th><fmt:message key="message.common.duration.label"/></th>
-	      	<th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
+	      	<td><fmt:message key="message.common.duration.label"/></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
 	        <td>${proposalVo.estDuration}</td>
         </tr>
 	    <tr>
-	      <th><fmt:message key="message.common.creator.label"/></th>
-	      <th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td>${proposalVo.proposerId}</td>
+			<td><fmt:message key="message.common.creator.label"/></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td>${proposalVo.proposerId}</td>
         </tr>
         <tr>
-	      
-	      <th ><fmt:message key="message.common.status.label"/></th>
-	      <th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td>
-	     
-	      <c:forEach items="${stsCdList}" var="item" varStatus="status">
-				<c:if test="${item.val!='Submitted'}">
-				${item.val}<form:radiobutton path="status" value="${item.val}"/>
-				</c:if>
-		   </c:forEach>
-		 
-		 </td>
+			<td><fmt:message key="message.common.status.label"/></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td>
+				<c:forEach items="${stsCdList}" var="item" varStatus="status">
+					<c:if test="${item.val!='Submitted'}">
+					${item.val}<form:radiobutton path="status" value="${item.val}"/>
+					</c:if>
+				</c:forEach>
+			 </td>
         </tr>
         <tr>
-	      <th><label>Supporting Documents</label></th>
-	      <th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td></td>
+			<td>Supporting Documents</td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td></td>
         </tr>
          <tr>
-	       <th><fmt:message key="message.common.remark.label"/></th>
-	       <th>
-					<fmt:message key="message.common.symbol.afterLabel.label" />
-					</th>
-	      <td> <spring:bind path="proposalVo.rmk">  
+			<td><fmt:message key="message.common.remark.label"/></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+			<td> <spring:bind path="proposalVo.rmk">  
 					<form:textarea path="rmk" rows="5" cols="30" /> 
 					 </spring:bind>
 					<form:errors
 							path="rmk" cssClass="error" />
-		</td>
+			</td>
         </tr>
         <tr>
-    	      <td colspan="3" align="center"><input name="btn_submit" id="btn_submit" type="submit" value="Submit" class="button"></td>
+			<td colspan="2"></td>
+    	    <td><input name="submitButton" id="submitButton" type="submit" value="<fmt:message key="message.common.submit.button" />"></td>
 	     
         </tr>
         
        
 			
            
-        
       </table>
-   	 </form:form>
-   	 
-    </div>
-    
-
-
-
-
-	
-
+                </form:form>
+        </div>
 </body>
