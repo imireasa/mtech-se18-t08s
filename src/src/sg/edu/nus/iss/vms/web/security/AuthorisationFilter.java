@@ -38,6 +38,9 @@ public class AuthorisationFilter implements Filter {
 	private Boolean isAuthorisationFilterEnabled;
 
 	/** Filter should be configured with an system error page. */
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+	 */
 	public void init(FilterConfig FilterConfig) throws ServletException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("init(FilterConfig) - start"); //$NON-NLS-1$
@@ -62,6 +65,9 @@ public class AuthorisationFilter implements Filter {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+	 */
 	@SuppressWarnings("unchecked")
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
 		if (logger.isDebugEnabled()) {
