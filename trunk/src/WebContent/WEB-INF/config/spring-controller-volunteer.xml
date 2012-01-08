@@ -21,6 +21,8 @@
         <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
         <property name="projectManagementService" ref="projectManagementServiceImpl" />
         <property name="memberManagementService" ref="memberManagementServiceImpl" />
+         <property name="projectFeedbackService" ref="projectFeedbackServiceImpl" />
+      <property name="projectExperienceService" ref="projectExperienceServiceImpl" />
         <property name="validators" ref="volunteerValidator" />        
     </bean>
     

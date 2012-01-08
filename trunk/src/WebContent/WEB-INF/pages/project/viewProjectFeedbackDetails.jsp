@@ -27,28 +27,28 @@
                 <td>
                     <fmt:message key="message.common.symbol.afterLabel.label" />
                 </td>
-                <td>${projectFbVo.prjName}</td>
+                <td>${projectFbVo.prjNme}</td>
             </tr>
             <tr>
                 <td><fmt:message key="message.common.title.label"/></td>
                 <td>
                     <fmt:message key="message.common.symbol.afterLabel.label" />
                 </td>
-                <td>${projectFbVo.fbTitle}</td>
+                <td>${projectFbVo.title}</td>
             </tr>
             <tr>
                 <td><fmt:message key="message.common.content.label"/></td>
                 <td>
                     <fmt:message key="message.common.symbol.afterLabel.label" />
                 </td>
-                <td>${projectFbVo.fbContent}</td>
+                <td>${projectFbVo.cont}</td>
             </tr>
             <tr>
                 <td><fmt:message key="message.common.status.label"/></td>
                 <td>
                     <fmt:message key="message.common.symbol.afterLabel.label" />
                 </td>
-                <td>${projectFbVo.fbStatus}</td>
+                <td>${projectFbVo.stsVal}</td>
             </tr>
             <tr>
                 <td><fmt:message key="message.common.creator.label"/></td>

@@ -19,10 +19,11 @@
         
 	<bean id="projectController"
 		class="sg.edu.nus.iss.vms.project.web.controller.ProjectController">
-		 <property name="codeManagementServices" ref="codeManagementServiceImpl" />
 		<property name="memberManagementService" ref="memberManagementServiceImpl" />
 		<property name="projectManagementService" ref="projectManagementServiceImpl" />
 		<property name="userManagementServices" ref="userManagementServiceImpl" />
+		 <property name="projectFeedbackService" ref="projectFeedbackServiceImpl" />
+		
 		<property name="validators" ref="projectValidator" />
 	</bean>
 	
