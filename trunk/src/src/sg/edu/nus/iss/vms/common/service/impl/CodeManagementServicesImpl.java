@@ -12,6 +12,7 @@ import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 
 public class CodeManagementServicesImpl implements CodeManagementServices {
 
@@ -133,32 +134,35 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}
 
 	@Override
-	public CodeDto getCodeByCategoryAndCodeValue(String category, String val) {
+	public CodeLookupVo getCodeByCategoryAndCodeValue(String category, String val) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("getCodeByCatAndVal(String, String) - start");
-			logger.debug("getCodeByCatAndVal(String, String) - @ Getting Code DTO by a specific Category Value."
+			logger.debug("getCodeByCategoryAndCodeValue(String, String) - start");
+			logger.debug("getCodeByCategoryAndCodeValue(String, String) - @ Getting Code DTO by a specific Category Value."
 					+ category + ", Category Value:" + val);
 		}
 		
 		List<CodeDto> codeList = new ArrayList<CodeDto>();
+		CodeLookupVo codeLookupVo = null;
 		try {
 			String hQL = "from CodeDto c where c.catId.nme='" + category
 					+ "' and c.val='" + val + "'";
 			codeList = this.manager.find(hQL);
-			if (codeList != null)
-				return codeList.get(0);
+			if (codeList != null) {
+				codeLookupVo = new CodeLookupVo(codeList.get(0));
+				return codeLookupVo;
+			}
 		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
+			this.logger.error("getCodeByCategoryAndCodeValue(String, String) - error", ex);
 		} finally {
 			if (logger.isDebugEnabled()) {
-				logger.debug("getCodeByCatAndVal(String, String) - end");
+				logger.debug("getCodeByCategoryAndCodeValue(String, String) - end");
 			}
 		}
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("getCodeByCatAndVal(String, String) - end");
+			logger.debug("getCodeByCategoryAndCodeValue(String, String) - end");
 		}
-		return null;
+		return codeLookupVo;
 	}
 
 	/*public CodeDto getCodeByCodeCategoryAndCodeDesc(String category, String codeValue) {

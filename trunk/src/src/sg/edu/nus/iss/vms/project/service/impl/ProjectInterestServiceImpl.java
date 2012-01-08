@@ -15,6 +15,7 @@ import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
@@ -190,12 +191,12 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 	public void createProjectInterest(ProjectInterestVo projectInterestVo)
 			throws Exception {
 
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.PROJECT_INTREST_STATUS,
 				VMSConstants.PROJECT_INTEREST_NEW);
 
 		ProjectInterestDto projectInterestDto = new ProjectInterestDto();
-		projectInterestDto.setStsCd(codeDto.getCdId());
+		projectInterestDto.setStsCd(codeVo.getCdId());
 		projectInterestDto.setPrjId((ProjectDto) getProjectObjbyId(
 				projectInterestVo.getPrjId(), ProjectDto.class));
 

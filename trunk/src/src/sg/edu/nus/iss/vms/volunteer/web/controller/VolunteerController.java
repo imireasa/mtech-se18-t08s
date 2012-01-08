@@ -25,6 +25,7 @@ import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
@@ -670,12 +671,12 @@ public class VolunteerController extends BaseMultiActionFormController {
 					+ projectDto.getPrjId());
 		}
 
-		CodeDto codeDto = CodeLookupUtil
+		CodeLookupVo codeVo = CodeLookupUtil
 				.getCodeByCategoryAndCodeValue(
 						VMSConstants.CERTIFIATE_REQUEST_TYPE,
 						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
 
-		CodeDto codeStatusDto = CodeLookupUtil
+		CodeLookupVo codeStatusVo = CodeLookupUtil
 				.getCodeByCategoryAndCodeValue(
 						VMSConstants.CERTIFICATE_REQUEST_STATUS,
 						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
@@ -693,8 +694,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 			certificateRequestDto.setCreatedDte(new Date());
 			certificateRequestDto.setReqBy(loginId);
 			certificateRequestDto.setReqDte(new Date());
-			certificateRequestDto.setReqSts(codeStatusDto.getCdId());
-			certificateRequestDto.setReqTp(codeDto.getCdId());
+			certificateRequestDto.setReqSts(codeStatusVo.getCdId());
+			certificateRequestDto.setReqTp(codeVo.getCdId());
 			certificateRequestDto.setUpdBy(loginId);
 			certificateRequestDto.setUpdDte(new Date());
 			certificateRequestDto.setVersion(1);

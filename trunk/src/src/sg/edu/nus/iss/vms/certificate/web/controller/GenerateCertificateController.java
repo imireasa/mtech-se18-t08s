@@ -24,6 +24,7 @@ import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
@@ -170,7 +171,7 @@ public class GenerateCertificateController extends
 		}
 
 		modelAndView = new ModelAndView("reports/generateCertificate");
-		CodeDto stsRequested = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		CodeLookupVo stsRequested = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.CERTIFICATE_REQUEST_STATUS,
 				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
 
@@ -199,7 +200,7 @@ public class GenerateCertificateController extends
 			// 1. change the status
 			Long certReqId = Long.parseLong(request
 					.getParameter("certRequestId"));
-			CodeDto processedSts = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+			CodeLookupVo processedSts = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 					VMSConstants.CERTIFICATE_REQUEST_STATUS,
 					VMSConstants.CERTIFICATE_REQUEST_STATUS_PROCESSED);
 			certificateManagementService.updateCertRequestStatus(certReqId,

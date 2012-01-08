@@ -13,6 +13,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 
 public class CodeLookupUtil {
 	/**
@@ -88,19 +89,19 @@ public class CodeLookupUtil {
 	 * @param value - the value to retrieve the code object.
 	 * @return a CodeDto object
 	 */
-	public static CodeDto getCodeByCategoryAndCodeValue(String category,
+	public static CodeLookupVo getCodeByCategoryAndCodeValue(String category,
 			String value) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeByCategoryAndCodeValue(String, String) - start");
 		}
 
 		CodeManagementServices codeMgr = getCodeManagementServices();
-		CodeDto returnCodeDto = codeMgr
+		CodeLookupVo codeLookupVo = codeMgr
 				.getCodeByCategoryAndCodeValue(category, value);
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeByCategoryAndCodeValue(String, String) - end");
 		}
-		return returnCodeDto;
+		return codeLookupVo;
 	}
 
 	/*public static CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(
@@ -169,6 +170,12 @@ public class CodeLookupUtil {
 		return codeMgr;
 	}
 
+	/**
+	 * Returns a code object based on the code Id.
+	 * 
+	 * @param id - the code id.
+	 * @return a CodeDto object
+	 */
 	public static CodeDto getCodeById(Long id) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeById(Long) - start");
