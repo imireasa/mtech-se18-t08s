@@ -2,8 +2,8 @@ package sg.edu.nus.iss.vms.project.vo;
 
 import java.util.Date;
 
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 
 public class ProjectProposalVo {
@@ -33,18 +33,18 @@ public class ProjectProposalVo {
 		this.prjPropId = dto.getPrjPropId();
 		this.nme = dto.getNme();
 		this.desc = dto.getDesc();
-		CodeDto country_codeDto = CodeLookupUtil
+		CodeLookupVo countryCodeVo = CodeLookupUtil
 				.getCodeById(dto.getCtryCd());
 		this.ctryCd = dto.getCtryCd();
-		this.ctryVal = country_codeDto.getVal();
+		this.ctryVal = countryCodeVo.getVal();
 		this.loc = dto.getLoc();
 		this.estDur = dto.getEstDur();
 		this.proposerId = dto.getProposerId();
 		this.apprBy = dto.getApprBy();
 		this.apprDte = dto.getApprDte();
-		CodeDto codeDto = CodeLookupUtil.getCodeById(dto.getStsCd());
-		this.stsCd = codeDto.getCdId();
-		this.stsVal = codeDto.getVal();
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeById(dto.getStsCd());
+		this.stsCd = codeVo.getCdId();
+		this.stsVal = codeVo.getVal();
 		this.rmk = dto.getRmk();
 		this.createdBy = dto.getCreatedBy();
 	}

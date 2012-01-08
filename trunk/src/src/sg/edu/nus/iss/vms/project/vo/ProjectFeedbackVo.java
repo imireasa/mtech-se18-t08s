@@ -2,8 +2,8 @@ package sg.edu.nus.iss.vms.project.vo;
 
 import java.util.Date;
 
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 
 public class ProjectFeedbackVo {
@@ -34,9 +34,9 @@ public class ProjectFeedbackVo {
 		this.cont = dto.getCont();
 		this.apprBy = dto.getApprBy();
 		this.apprDte = dto.getApprDte();
-		CodeDto codeDto = CodeLookupUtil.getCodeById(dto.getStsCd());
-		this.stsCd = codeDto.getCdId();
-		this.stsVal = codeDto.getVal();
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeById(dto.getStsCd());
+		this.stsCd = codeVo.getCdId();
+		this.stsVal = codeVo.getVal();
 		this.prjId = dto.getPrjId().getPrjId();
 		this.prjNme = dto.getPrjId().getNme();
 		this.createdBy = dto.getCreatedBy();

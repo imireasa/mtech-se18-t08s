@@ -11,7 +11,7 @@ public interface CodeManagementServices {
 	 * Returns a list of codes based on the category name.
 	 * 
 	 * @param category - the category name to retrieve the list of corresponding code value.
-	 * @return a list of CodeDto
+	 * @return a list of CodeLookupVo
 	 */
 	public List<CodeDto> getCodeListByCategory(String category);
 
@@ -36,7 +36,7 @@ public interface CodeManagementServices {
 	 * 
 	 * @param category - the category name to retrieve the code object.
 	 * @param value - the value to retrieve the code object.
-	 * @return a CodeDto object
+	 * @return a CodeLookupVo object
 	 */
 	public CodeLookupVo getCodeByCategoryAndCodeValue(String category, String catVal);
 	
@@ -46,7 +46,7 @@ public interface CodeManagementServices {
 	 * @param id - the code id.
 	 * @return a CodeDto object
 	 */
-	public CodeDto getCodeById(Long id);
+	public CodeLookupVo getCodeById(Long id);
 
 	//public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category, String codeDesc);
 

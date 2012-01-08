@@ -119,16 +119,29 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}*/
 
 	@Override
-	public CodeDto getCodeById(Long id) {
+	public CodeLookupVo getCodeById(Long id) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeById(Long) - start");
+		}
+
+		CodeLookupVo codeLookupVo = null;
 
 		try {
 			manager.get(CodeDto.class, id);
+			
+			CodeDto codeDto = (CodeDto)manager.get(CodeDto.class, id); 
+			if (codeDto != null) {
+				codeLookupVo = new CodeLookupVo(codeDto);
+			}
 
-			return (CodeDto) manager.get(CodeDto.class, id);
+			if (logger.isDebugEnabled()) {
+				logger.debug("getCodeById(Long) - end");
+			}
+			return codeLookupVo;
 
 		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
-			return null;
+			logger.error("getCodeById(Long)", ex);
+			return codeLookupVo;
 		}
 
 	}
