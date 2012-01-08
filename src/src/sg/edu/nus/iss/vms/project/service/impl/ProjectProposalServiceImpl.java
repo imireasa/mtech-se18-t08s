@@ -16,6 +16,7 @@ import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
@@ -108,11 +109,11 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 		projectProposalDto.setNme(projectProposalVo.getNme());
 		projectProposalDto.setDesc(projectProposalVo.getDesc());
 
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.PROPOSAL_STATUS,
 				VMSConstants.PROPOSAL_STATUS_SUMBITTED);
 
-		projectProposalDto.setStsCd(codeDto.getCdId());
+		projectProposalDto.setStsCd(codeVo.getCdId());
 		projectProposalDto.setProposerId(loginId);
 
 		manager.save(projectProposalDto);
@@ -136,7 +137,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 		ProjectProposalDto projectProposalDto = (ProjectProposalDto) manager
 				.get(ProjectProposalDto.class, projectProposalVo.getPrjPropId());
 
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.PROPOSAL_STATUS, projectProposalVo.getStsVal());
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
@@ -149,7 +150,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 			projectProposalDto.setApprDte(new Date());
 		}
 		projectProposalDto.setRmk(projectProposalVo.getRmk());
-		projectProposalDto.setStsCd(codeDto.getCdId());
+		projectProposalDto.setStsCd(codeVo.getCdId());
 
 		manager.save(projectProposalDto);
 
@@ -171,10 +172,10 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 				Calendar.DAY_OF_YEAR, projectProposalDto.getEstDur()));
 		projectDto.setPrjMgr(loginId);
 
-		CodeDto projectStsCodeDto = CodeLookupUtil
+		CodeLookupVo projectStsCodeVo = CodeLookupUtil
 				.getCodeByCategoryAndCodeValue(VMSConstants.PROJECT_STATUS,
 						VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
-		projectDto.setStsCd(projectStsCodeDto.getCdId());
+		projectDto.setStsCd(projectStsCodeVo.getCdId());
 		projectDto.setPrjPropId(projectProposalDto);
 		projectDto.setCreatedBy(loginId);
 		projectDto.setCreatedDte(new Date());

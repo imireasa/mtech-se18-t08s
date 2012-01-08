@@ -15,6 +15,7 @@ import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
@@ -50,7 +51,7 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 
 	@Override
 	public List<ProjectFeedbackVo> getProjectFeedbackListbyProjectId(Long prjId) {
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.FEEDBACK_STATUS,
 				VMSConstants.FEEDBACK_STATUS_APPROVED);
 		DetachedCriteria criteria = DetachedCriteria
@@ -58,7 +59,7 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 		criteria.setFetchMode("prjId", FetchMode.JOIN)
 				.createAlias("prjId", "prj")
 				.add(Restrictions.eq("prj.prjId", prjId))
-				.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+				.add(Restrictions.eq("stsCd", codeVo.getCdId()));
 		List<ProjectFeedbackDto> prjFeedbackDtos = manager
 				.findByDetachedCriteria(criteria);
 		List<ProjectFeedbackVo> projectFeedbackVos = new ArrayList<ProjectFeedbackVo>();
@@ -120,7 +121,7 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 	@Override
 	public void createProjectFeedback(ProjectFeedbackVo projectFeedbackVo) {
 
-		CodeDto codeDto = CodeLookupUtil
+		CodeLookupVo codeVo = CodeLookupUtil
 				.getCodeByCategoryAndCodeValue(
 						VMSConstants.FEEDBACK_STATUS,
 						VMSConstants.FEEDBACK_STATUS_SUMBITTED);
@@ -132,7 +133,7 @@ public class ProjectFeedbackServiceImpl implements ProjectFeedbackService {
 		projectFeedbackDto.setTitle(projectFeedbackVo.getTitle());
 
 		projectFeedbackDto.setUpdDte(new Date());
-		projectFeedbackDto.setStsCd(codeDto.getCdId());
+		projectFeedbackDto.setStsCd(codeVo.getCdId());
 		manager.save(projectFeedbackDto);
 
 	}

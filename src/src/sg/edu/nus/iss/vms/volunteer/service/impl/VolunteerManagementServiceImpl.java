@@ -16,6 +16,7 @@ import sg.edu.nus.iss.vms.common.orm.Manager;
 
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.security.dto.RoleDto;
@@ -79,10 +80,10 @@ public class VolunteerManagementServiceImpl implements
             user.setUsrLoginId(volunteerVo.getLoginId());
             user.setNme(volunteerVo.getNme());
             user.setTitleCd(Long.parseLong(volunteerVo.getTitle()));
-            CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+            CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
                     VMSConstants.USER_TYPE_CATEGORY,
                     VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER);
-            user.setTpCd(codeDto.getCdId());
+            user.setTpCd(codeVo.getCdId());
             user.setEmail(volunteerVo.getEmail());
             user.setMobile(volunteerVo.getMobile());
             user.setPwd(passwordEncoder.encodePassword(volunteerVo.getPwd(),

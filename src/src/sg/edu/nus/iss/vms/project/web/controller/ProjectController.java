@@ -22,6 +22,7 @@ import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
+import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
@@ -235,7 +236,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 
 			try {
-				CodeDto stsNew = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				CodeLookupVo stsNew = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 						VMSConstants.PROJECT_STATUS_CATEGORY,
 						VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
 				projectVo.setStsCd(stsNew.getCdId() + "");
@@ -506,11 +507,11 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView
 				.getModel().get("projectFbVo");
 
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.FEEDBACK_STATUS,
 				VMSConstants.FEEDBACK_STATUS_APPROVED);
 
-		projectFbVo.setStsCd(codeDto.getCdId());
+		projectFbVo.setStsCd(codeVo.getCdId());
 
 		projectFeedbackService.updateProjectFeedback(projectFbVo);
 		modelAndView.addObject("fbMsg", Messages.getString(
@@ -531,11 +532,11 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView
 				.getModel().get("projectFbVo");
 
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.FEEDBACK_STATUS,
 				VMSConstants.FEEDBACK_STATUS_REJECTED);
 
-		projectFbVo.setStsCd(codeDto.getCdId());
+		projectFbVo.setStsCd(codeVo.getCdId());
 
 		projectFeedbackService.updateProjectFeedback(projectFbVo);
 		modelAndView.addObject("fbMsg", Messages.getString(
@@ -915,7 +916,7 @@ public class ProjectController extends BaseMultiActionFormController {
 						String[] prjIntrstId = request
 								.getParameterValues("prjIntrstId");
 
-						CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+						CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 								VMSConstants.PROJECT_INTREST_STATUS, newStatus);
 
 						for (int i = 0; i < prjIntrstId.length; i++) {
@@ -926,7 +927,7 @@ public class ProjectController extends BaseMultiActionFormController {
 							ProjectInterestVo projectInterestVo = projectInterestService
 									.getProjectInterestbyId(_prjIntrstId);
 
-							projectInterestVo.setStsCd(codeDto.getCdId());
+							projectInterestVo.setStsCd(codeVo.getCdId());
 							projectInterestService
 									.updateProjectInterest(projectInterestVo);
 						}
