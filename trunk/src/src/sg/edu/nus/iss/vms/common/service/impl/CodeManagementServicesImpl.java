@@ -43,13 +43,13 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	 * getListOfUser()
 	 */
 	@Override
-	public List<CodeDto> getCodeListByCategory(String Category) {
+	public List<CodeDto> getCodeListByCategory(String category) {
 		logger.debug("getCodeListByCategory(String) - start");
 		logger.debug("getCodeListByCategory(String) @ Service Layer getting CodeList By Code Category :"
-				+ Category);
+				+ category);
 		List<CodeDto> codeList = new ArrayList<CodeDto>();
 		try {
-			String hQL = "from CodeDto c where c.catId.nme='" + Category + "'";
+			String hQL = "from CodeDto c where c.catId.nme='" + category + "'";
 			codeList = this.manager.find(hQL);
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
@@ -133,16 +133,16 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}
 
 	@Override
-	public CodeDto getCodeByCategoryAndCodeValue(String Category, String val) {
+	public CodeDto getCodeByCategoryAndCodeValue(String category, String val) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeByCatAndVal(String, String) - start");
 			logger.debug("getCodeByCatAndVal(String, String) - @ Getting Code DTO by a specific Category Value."
-					+ Category + ", Category Value:" + val);
+					+ category + ", Category Value:" + val);
 		}
 		
 		List<CodeDto> codeList = new ArrayList<CodeDto>();
 		try {
-			String hQL = "from CodeDto c where c.catId.nme='" + Category
+			String hQL = "from CodeDto c where c.catId.nme='" + category
 					+ "' and c.val='" + val + "'";
 			codeList = this.manager.find(hQL);
 			if (codeList != null)
