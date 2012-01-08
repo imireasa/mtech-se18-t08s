@@ -20,7 +20,7 @@
     </head>
 
     <body>
-        <div id="wrapper">
+        <div id="wrapper" align="center">
             <div id="loginheader">
                 <img src="<%=request.getContextPath()%>/sys/images/v02/logo-hand.png" width="153" height="207" />
                 <h1>Welcome to VMS</h1>

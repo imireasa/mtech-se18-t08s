@@ -56,7 +56,7 @@
     </head>
 
     <body>
-        <div id="wrapper">
+       	<div id="wrapper">
             <div id="wrap-top">
                 <div id="loginInfo">
                     <ul>
@@ -69,12 +69,14 @@
             </div>
             <!-- end of wrap-top -->
             <div id="header">
-                <h1>
-                    <a href="<%=request.getContextPath()%>/common/welcome.html" >
-                        <img src="/VMS/sys/images/v02/logo-hand-mini.png" width="50" height="68" border="0" />
+                
+				<h1>
+					<a href="<%=request.getContextPath()%>/common/welcome.html" >
+						<img src="/VMS/sys/images/v02/logo-hand-mini.png" width="50" height="68" border="0" />
 
-                    </a><span id="logoText">Volunteer Management System<span>
-                            </h1>
+					</a><span id="logoText">Volunteer Management System<span>
+				</h1>
+				
                             </div>
                             <!-- end of header -->
                             <div id="container">

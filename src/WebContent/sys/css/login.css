@@ -35,8 +35,8 @@ input.button {
 /************* login *******************/
 #loginheader { width:100%; margin:0 auto; padding-top:100px; padding-bottom:20px; text-align:center; background:#FC0; border-bottom:5px solid #333; }
 #loginheader h1 { color:#000; }
-#login-wrapper { width:320px; margin:0 auto; text-align:center; padding-top:30px;}
-label { width:100px; float:left; line-height:34px; font-size:14px; font-weight:bold; }
+#login-wrapper { width:400px; margin:0 auto; text-align:center; padding-top:30px;}
+label { width:100px; float:left; text-align: left !important; line-height:34px; font-size:14px; font-weight:bold; }
 input.text-input {
 	width: 200px;
 	float: right;
@@ -104,7 +104,7 @@ h1 { font-size:36px; font-weight:bold; padding:20px 0; }
 .pagination { width:768px; padding-bottom:20px;; margin:0 20px; float:left; }
 
 /*************** footer ***************/
-#footer { width:100%; color:#444; font-size:10px; text-align:center; padding:50px 0; clear:both; }
+#footer { width:100%; color:#BBB; font-size:12px; text-align:center; padding:50px 0; clear:both; }
 
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 .clearfix:after{clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;width:0;height:0}

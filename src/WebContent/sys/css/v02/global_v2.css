@@ -114,13 +114,13 @@ ul#info li { color:#666 !important; list-style:none !important; }
 .query-table td { font-size:13px !important;border:0px; }
 .query-table tr { border:0px; }
 /*************** footer ***************/
-#footer { width:100%; color:#fff; font-size:12px; text-align:center; padding:50px 0; clear:both; }
+#footer { width:100%; color:black; font-size:12px; text-align:center; padding:50px 0; clear:both; }
 
 .clear{clear:both;display:block;overflow:hidden;visibility:hidden;width:0;height:0}
 .clearfix:after{clear:both;content:' ';display:block;font-size:0;line-height:0;visibility:hidden;width:0;height:0}
 .clearfix{display:inline-block}* html .clearfix{height:1%}.clearfix{display:block}
 
-#logoText {color:#FCD705 !important;font-size:36px !important;}
+#logoText {color:#FB0 !important;font-size:36px !important;}
 
 .mandatory {
 	color: #ff0000;
