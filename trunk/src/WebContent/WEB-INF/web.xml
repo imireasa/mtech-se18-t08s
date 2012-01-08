@@ -18,7 +18,7 @@
 		</init-param>
 		<init-param>
 			<param-name>error_page</param-name>
-			<param-value>/error.jsp</param-value>
+			<param-value>/common/error.html</param-value>
 		</init-param>
 		<init-param>
 			<param-name>login_page</param-name>
@@ -26,11 +26,11 @@
 		</init-param>
 		<init-param>
 			<param-name>unauthorised_page</param-name>
-			<param-value>/unauthorised.jsp</param-value>
+			<param-value>/common/error.html</param-value>
 		</init-param>
 		<init-param>
 			<param-name>exclude_pages</param-name>
-			<param-value>/VMS/public/[.]*,/VMS/org.ditchnet.taglib/[.]*,/VMS/logout.html,/VMS/index.jsp,/VMS/WEB-INF/pages/[.]*,/VMS/sys/[.]*,/VMS/sys/css/[.]*,/VMS/dwr/[.]*,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
+			<param-value>/common/error.html,/VMS/public/[.]*,/VMS/org.ditchnet.taglib/[.]*,/VMS/logout.html,/VMS/index.jsp,/VMS/WEB-INF/pages/[.]*,/VMS/sys/[.]*,/VMS/sys/css/[.]*,/VMS/dwr/[.]*,/VMS/dwr/engine.js,/VMS/dwr/interface/VmsDwr.js,/VMS/error.jsp,/VMS/unauthorised.jsp,/VMS/WEB-INF/pages/login.jsp,/VMS/login.html</param-value>
 		</init-param>
 	</filter>
 
