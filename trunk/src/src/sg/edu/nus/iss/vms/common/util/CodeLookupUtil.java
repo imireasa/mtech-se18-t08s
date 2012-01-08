@@ -1,12 +1,11 @@
 package sg.edu.nus.iss.vms.common.util;
 
-import org.apache.log4j.Logger;
-
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -38,7 +37,7 @@ public class CodeLookupUtil {
 		}
 		return codeDescription;
 	}
-	
+
 	/**
 	 * Gets the code Value based on the code ID passed in.
 	 */
@@ -88,9 +87,9 @@ public class CodeLookupUtil {
 		}
 		return returnCodeDto;
 	}
-	
-	public static CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
-			String codeDesc) {
+
+	public static CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(
+			String category, String codeDesc) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDescriptionByCodeCategoryAndCodeDesc(String, String) - start");
 		}
@@ -103,38 +102,36 @@ public class CodeLookupUtil {
 		}
 		return returnCodeDto;
 	}
-	
+
 	public static CodeDto getCodeDtoByCatVal(String category, String val) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDtoByCatVal(String, String) - start");
 		}
 
 		CodeManagementServices codeMgr = getCodeManagementServices();
-		CodeDto returnCodeDto = codeMgr
-				.getCodeDtoByCatVal(category, val);
+		CodeDto returnCodeDto = codeMgr.getCodeDtoByCatVal(category, val);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDtoByCatVal(String, String) - end");
 		}
 		return returnCodeDto;
 	}
-    
-    public static CodeDto getCodeDtoByCatDesc(String category, String desc) {
+
+	public static CodeDto getCodeDtoByCatDesc(String category, String desc) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDtoByCatVal(String, String) - start");
 		}
 
 		CodeManagementServices codeMgr = getCodeManagementServices();
-		CodeDto returnCodeDto = codeMgr
-				.getCodeByCodeCategoryAndCodeDesc(category, desc);
+		CodeDto returnCodeDto = codeMgr.getCodeByCodeCategoryAndCodeDesc(
+				category, desc);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDtoByCatVal(String, String) - end");
 		}
 		return returnCodeDto;
 	}
-    
-    
+
 	/**
 	 * @return the reference to Code management Services
 	 */
@@ -155,6 +152,20 @@ public class CodeLookupUtil {
 			logger.debug("getCodeManagementServices() - end");
 		}
 		return codeMgr;
+	}
+
+	public static CodeDto getCodeDtoById(Long id) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeDtoById(Long) - start");
+		}
+
+		CodeManagementServices codeMgr = getCodeManagementServices();
+		CodeDto returnCodeDto = codeMgr.getCodeDtobyId(id);
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeDtoByCatVal(String, String) - end");
+		}
+		return returnCodeDto;
 	}
 
 }

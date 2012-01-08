@@ -76,7 +76,7 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		}
 
 	}
-	
+
 	@Override
 	public String getCodeValueByCodeId(Long codeId) {
 		String codeValue = "";
@@ -118,6 +118,21 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}
 
 	@Override
+	public CodeDto getCodeDtobyId(Long id) {
+
+		try {
+			manager.get(CodeDto.class, id);
+
+			return (CodeDto) manager.get(CodeDto.class, id);
+
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+			return null;
+		}
+
+	}
+
+	@Override
 	public CodeDto getCodeDtoByCatVal(String Category, String val) {
 		this.logger
 				.debug("@ Service Layer Getting Code DTO by a specific Category Value."
@@ -136,8 +151,8 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		}
 		return null;
 	}
-    
-    @Override
+
+	@Override
 	public CodeDto getCodeByCodeCategoryAndCodeDesc(String Category, String val) {
 		this.logger
 				.debug("@ Service Layer Getting Code DTO by a specific Category Value."

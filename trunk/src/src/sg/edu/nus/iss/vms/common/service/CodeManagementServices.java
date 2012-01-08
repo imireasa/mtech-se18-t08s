@@ -9,12 +9,15 @@ public interface CodeManagementServices {
 	public List<CodeDto> getListOfCodeByCategory(String category);
 
 	public String getCodeDescriptionByCodeId(Long codeId);
-	
+
 	public String getCodeValueByCodeId(Long codeId);
 
 	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
 			String codeDesc);
-        public CodeDto getCodeDtoByCatVal(String Category,String catVal);
 
-    CodeDto getCodeByCodeCategoryAndCodeDesc(String Category, String val);
+	public CodeDto getCodeDtoByCatVal(String Category, String catVal);
+
+	public CodeDto getCodeByCodeCategoryAndCodeDesc(String Category, String val);
+
+	public CodeDto getCodeDtobyId(Long id);
 }

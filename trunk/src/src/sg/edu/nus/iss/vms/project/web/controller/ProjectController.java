@@ -22,7 +22,6 @@ import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
-import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
@@ -30,11 +29,11 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
+import sg.edu.nus.iss.vms.project.service.ProjectFeedbackService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
-import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectFeedbackVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
@@ -45,15 +44,15 @@ import sg.edu.nus.iss.vms.security.dto.UserDto;
 public class ProjectController extends BaseMultiActionFormController {
 
 	private final Logger logger = Logger.getLogger(ProjectController.class);
-	private CodeManagementServices codeManagementServices;
 	private MemberManagementService memberManagementService;
 	private ProjectManagementService projectManagementService;
+	private ProjectFeedbackService projectFeedbackService;
 	private UserManagementServices userManagementServices;
 	private BindingResult errors;
 
-	public void setCodeManagementServices(
-			CodeManagementServices codeManagementServices) {
-		this.codeManagementServices = codeManagementServices;
+	public void setProjectFeedbackService(
+			ProjectFeedbackService projectFeedbackService) {
+		this.projectFeedbackService = projectFeedbackService;
 	}
 
 	public MemberManagementService getMemberManagementService() {
@@ -122,8 +121,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		if (request.getParameter("project") != null
 				&& !request.getParameter("project").isEmpty()) {
 			long projectId = Long.parseLong(request.getParameter("project"));
-			memberList = projectManagementService.getProjectMember(projectId,
-					request.getParameter("member"));
+			memberList = projectManagementService.getProjectMember(projectId);
 		}
 
 		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
@@ -411,15 +409,15 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("browseProjectFeedback(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		List<ProjectFeedbackDto> projectFeedbackList = projectManagementService
-				.getAllProjectObjectList(ProjectFeedbackDto.class);
+		List<ProjectFeedbackVo> projectFeedbackList = projectFeedbackService
+				.getProjectFeedbackList();
 
 		List<CodeDto> codeDtos = CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
 
 		modelAndView = new ModelAndView("project/browseProjectFeedback");
 		modelAndView.addObject("feedbackList", projectFeedbackList);
-		modelAndView.addObject("feedbackVo", new ProjectInfoVo());
+		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
 		modelAndView.addObject("fbCodeList", codeDtos);
 
 		PagedListHolder projectPagedListHolder = new PagedListHolder(
@@ -439,16 +437,16 @@ public class ProjectController extends BaseMultiActionFormController {
 	}
 
 	public ModelAndView searchProjectFeedback(HttpServletRequest request,
-			HttpServletResponse response, ProjectInfoVo projectInfoVo)
+			HttpServletResponse response, ProjectFeedbackVo projectFeedbackVo)
 			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("searchProjectFeedback(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
 		}
 
-		List<ProjectFeedbackDto> projectFeedbackList = projectManagementService
-				.getProjectFeedbackListbyVo(projectInfoVo);
+		List<ProjectFeedbackVo> projectFeedbackList = projectFeedbackService
+				.getProjectFeedbackListbySearchCriteria(projectFeedbackVo);
 
-		modelAndView.addObject("feedbackVo", projectInfoVo);
+		modelAndView.addObject("feedbackVo", projectFeedbackVo);
 
 		modelAndView.addObject("feedbackList", projectFeedbackList);
 
@@ -476,41 +474,16 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		long prjFbId = Long.parseLong(request.getParameter("prjFbId"));
 
-		ProjectFeedbackDto projectFbDto = (ProjectFeedbackDto) projectManagementService
-				.getProjectObjbyId(prjFbId, ProjectFeedbackDto.class);
-
-		List<CodeDto> codeDtos = CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
-		String status = "Unknown";
-
-		for (CodeDto codeDto : codeDtos) {
-
-			if (codeDto.getCdId().equals(projectFbDto.getStsCd())) {
-				status = codeDto.getVal();
-				break;
-			}
-
-		}
-
-		ProjectInfoVo projectInfoVo = new ProjectInfoVo();
-		projectInfoVo.setFbContent(projectFbDto.getCont());
-		projectInfoVo.setFbTitle(projectFbDto.getTitle());
-		projectInfoVo.setPrjName(projectFbDto.getPrjId().getNme());
-		projectInfoVo.setCreatedBy(projectFbDto.getCreatedBy());
-		projectInfoVo.setCreatedDte(DateUtil.formatDate(projectFbDto
-				.getCreatedDte()));
-		projectInfoVo.setPrjId(String.valueOf(projectFbDto.getPrjId()
-				.getPrjId()));
-		projectInfoVo.setFbStatus(status);
+		ProjectFeedbackVo projectFeedbackVo = projectFeedbackService
+				.getProjectFeedbackbyId(prjFbId);
 
 		modelAndView = new ModelAndView("project/viewProjectFeedbackDetails");
-		modelAndView.addObject("projectFbVo", projectInfoVo);
-		modelAndView.addObject("projectFb", projectFbDto);
+		modelAndView.addObject("projectFbVo", projectFeedbackVo);
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - XXXXXXXXXXXXXXXXXXXXXXcretaed date"
-					+ projectInfoVo.getCreatedDte()
+					+ projectFeedbackVo.getCreatedBy()
 					+ ","
-					+ projectFbDto.getCreatedDte());
+					+ projectFeedbackVo.getCreatedBy());
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - end");
 		}
 
@@ -523,26 +496,16 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("approveFb(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		ProjectFeedbackDto projectFbDto = (ProjectFeedbackDto) modelAndView
-				.getModel().get("projectFb");
+		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView
+				.getModel().get("projectFbVo");
 
 		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.FEEDBACK_STATUS,
 				VMSConstants.FEEDBACK_STATUS_APPROVED);
 
-		projectFbDto.setApprDte(new Date());
+		projectFbVo.setStsCd(codeDto.getCdId());
 
-		String loginId = "SuperUser";
-		if (UserUtil.getUserSessionInfoVo() != null
-				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
-						.getUserID())) {
-			loginId = UserUtil.getUserSessionInfoVo().getUserID();
-		}
-		projectFbDto.setApprBy(loginId);
-		projectFbDto.setUpdBy(loginId);
-		projectFbDto.setUpdDte(new Date());
-		projectFbDto.setStsCd(codeDto.getCdId());
-		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
+		projectFeedbackService.updateProjectFeedback(projectFbVo);
 		modelAndView.addObject("fbMsg", Messages.getString(
 				"message.common.publish", new String[] { "Feedback" }));
 
@@ -558,25 +521,16 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("rejectFb(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		ProjectFeedbackDto projectFbDto = (ProjectFeedbackDto) modelAndView
-				.getModel().get("projectFb");
+		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView
+				.getModel().get("projectFbVo");
+
 		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
 				VMSConstants.FEEDBACK_STATUS,
 				VMSConstants.FEEDBACK_STATUS_REJECTED);
 
-		String loginId = "SuperUser";
-		if (UserUtil.getUserSessionInfoVo() != null
-				&& !StringUtil.isNullOrEmpty(UserUtil.getUserSessionInfoVo()
-						.getUserID())) {
-			loginId = UserUtil.getUserSessionInfoVo().getUserID();
-		}
+		projectFbVo.setStsCd(codeDto.getCdId());
 
-		projectFbDto.setApprBy(loginId);
-		projectFbDto.setApprDte(new Date());
-		projectFbDto.setUpdBy(loginId);
-		projectFbDto.setUpdDte(new Date());
-		projectFbDto.setStsCd(codeDto.getCdId());
-		projectManagementService.saveOrUpdateProjectObject(projectFbDto);
+		projectFeedbackService.updateProjectFeedback(projectFbVo);
 		modelAndView.addObject("fbMsg", Messages.getString(
 				"message.common.reject", new String[] { "Feedback" }));
 
@@ -920,14 +874,14 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		modelAndView = new ModelAndView("project/listProjects");
-		modelAndView.addObject("projectStatusList",
-				projectManagementService.getProjectStatusList());
+		modelAndView.addObject("projectStatusList", CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS));
 		List projectList = null;
 		if (command != null
 				&& (command.getName() != null || command.getStrDte() != null || command
 						.getStsCd() != null)) {
 			projectList = projectManagementService
-					.listProjectbyProjectVo(command);
+					.getProjectListbyProjectVo(command);
 		} else {
 			projectList = projectManagementService.getListAllProject();
 		}
@@ -1092,51 +1046,46 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 		modelAndView = new ModelAndView("project/manageProjectInterest");
 		ProjectVo projectVo = new ProjectVo();
+
+		String newStatus = "";
+
+		if (request.getParameter("acceptInterest") != null) {
+			newStatus = VMSConstants.PROJECT_INTEREST_APPROVED;
+		} else if (request.getParameter("rejectInterest") != null) {
+			newStatus = VMSConstants.PROJECT_INTEREST_REJECTED;
+		}
+
 		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
 			Long prjId = Long.parseLong(request.getParameter("prjId"));
-			logger.debug("project/manageProjectInterest");
 			try {
-				if (request.getParameter("acceptInterest") != null) {// REMOVE
+				if (!StringUtil.isNullOrEmpty(newStatus)) {// REMOVE
 					// COMMAND
 					if (request.getParameter("prjIntrstId") != null) {
 						String[] prjIntrstId = request
 								.getParameterValues("prjIntrstId");
 
+						CodeDto codeDto = CodeLookupUtil.getCodeDtoByCatVal(
+								VMSConstants.PROJECT_INTREST_STATUS, newStatus);
+
 						for (int i = 0; i < prjIntrstId.length; i++) {
-							logger.debug("Accept Project Member "
+							logger.debug("Accept/reject Project Member "
 									+ prjIntrstId[i]);
 							Long _prjIntrstId = Long.parseLong(prjIntrstId[i]);
+
+							ProjectInterestVo projectInterestVo = projectManagementService
+									.getProjectInterestbyId(_prjIntrstId);
+
+							projectInterestVo.setStsCd(codeDto.getCdId());
 							projectManagementService
-									.acceptProjectIntrest(_prjIntrstId);
+									.updateProjectIntrest(projectInterestVo);
 						}
-						modelAndView
-								.addObject(
-										"msg",
-										Messages.getString("message.common.update"));
+						modelAndView.addObject("msg",
+								Messages.getString("message.common.update"));
 					} else {
 						modelAndView
 								.addObject(
 										"errors",
 										Messages.getString("message.projectManagement.error.noSelectdMember"));
-					}
-				} else if (request.getParameter("rejectInterest") != null) {// UPDATE
-					// COMMAND
-					if (request.getParameter("prjIntrstId") != null) {
-						String[] prjIntrstId = request
-								.getParameterValues("prjIntrstId");
-
-						for (int i = 0; i < prjIntrstId.length; i++) {
-							logger.debug("Accept Project Member "
-									+ prjIntrstId[i]);
-							Long _prjIntrstId = Long.parseLong(prjIntrstId[i]);
-							projectManagementService
-									.rejectProjectIntrest(_prjIntrstId);
-						}
-					} else {
-						modelAndView
-								.addObject(
-										"msg",
-										Messages.getString("message.common.update"));
 					}
 				}
 			} catch (ApplicationException ex) {
@@ -1148,7 +1097,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 			// get list of project intrest
 			List<ProjectInterestVo> projectInterestVoList = projectManagementService
-					.getProjectIntrestVoByLoginUserAccessRight(prjId);
+					.getProjectIntrestByLoginUserAccessRight(prjId);
 			PagedListHolder projectInterestPagedListHolder = new PagedListHolder(
 					projectInterestVoList);
 			if (projectInterestVoList != null
@@ -1209,8 +1158,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		modelAndView = new ModelAndView("project/viewProjectInterest");
-		modelAndView.addObject("projInterestStatusList",
-				projectManagementService.getProjectInterestStatusList2());
+		modelAndView.addObject("projInterestStatusList", CodeLookupUtil
+				.getListOfCodeByCategory(VMSConstants.PROJECT_INTREST_STATUS));
 		List projectInterestVoList = null;
 		if (command != null
 				&& (command.getPrjId() != null || command.getProjNme() != null || command

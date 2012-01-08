@@ -281,8 +281,8 @@ public class GenerateCertificateController extends
 				CertificateRequestVo voObj = new CertificateRequestVo();
 				voObj.setCertReqId(obj.getCertReqId());
 				voObj.setPrjId(obj.getPrjId());
-				ProjectDto project = projectManagementService.getProject(obj
-						.getPrjId());
+				ProjectDto project = (ProjectDto) projectManagementService
+						.getProjectObjbyId(obj.getPrjId(), ProjectDto.class);
 
 				if (project != null)
 					voObj.setPrjName(project.getNme());

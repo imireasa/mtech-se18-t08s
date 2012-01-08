@@ -2,121 +2,125 @@ package sg.edu.nus.iss.vms.project.vo;
 
 public class ProjectMemberVo {
 
-        private String usrLoginId;
-        private String roleCd;
-        private boolean actInd;
-        private Long prjMbrId;
-        private String role;
-        private Long prjId;
-        private Long titleCd;
-        private String title;
-        private String nme;
-        private String ctry;
-        private String email;
-        private String mobile;
-        private Integer version;
+	private String usrLoginId;
+	private String roleCd;
+	private boolean actInd;
+	private Long prjMbrId;
+	private String role;
+	private Long prjId;
+	private Long titleCd;
+	private String title;
+	private String nme;
+	private String ctry;
+	private String email;
+	private String mobile;
+	private Integer version;
 
-        public String getCtry() {
-                return ctry;
-        }
+	public ProjectMemberVo() {
+		super();
+	}
 
-        public void setCtry(String ctry) {
-                this.ctry = ctry;
-        }
+	public String getCtry() {
+		return ctry;
+	}
 
-        public String getEmail() {
-                return email;
-        }
+	public void setCtry(String ctry) {
+		this.ctry = ctry;
+	}
 
-        public void setEmail(String email) {
-                this.email = email;
-        }
+	public String getEmail() {
+		return email;
+	}
 
-        public String getMobile() {
-                return mobile;
-        }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-        public void setMobile(String mobile) {
-                this.mobile = mobile;
-        }
+	public String getMobile() {
+		return mobile;
+	}
 
-        public String getNme() {
-                return nme;
-        }
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
-        public void setNme(String nme) {
-                this.nme = nme;
-        }
+	public String getNme() {
+		return nme;
+	}
 
-        public Long getPrjId() {
-                return prjId;
-        }
+	public void setNme(String nme) {
+		this.nme = nme;
+	}
 
-        public void setPrjId(Long prjId) {
-                this.prjId = prjId;
-        }
+	public Long getPrjId() {
+		return prjId;
+	}
 
-        public Long getPrjMbrId() {
-                return prjMbrId;
-        }
+	public void setPrjId(Long prjId) {
+		this.prjId = prjId;
+	}
 
-        public void setPrjMbrId(Long prjMbrId) {
-                this.prjMbrId = prjMbrId;
-        }
+	public Long getPrjMbrId() {
+		return prjMbrId;
+	}
 
-        public String getRole() {
-                return role;
-        }
+	public void setPrjMbrId(Long prjMbrId) {
+		this.prjMbrId = prjMbrId;
+	}
 
-        public void setRole(String role) {
-                this.role = role;
-        }
+	public String getRole() {
+		return role;
+	}
 
-        public String getTitle() {
-                return title;
-        }
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-        public void setTitle(String title) {
-                this.title = title;
-        }
+	public String getTitle() {
+		return title;
+	}
 
-        public Long getTitleCd() {
-                return titleCd;
-        }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-        public void setTitleCd(Long titleCd) {
-                this.titleCd = titleCd;
-        }
+	public Long getTitleCd() {
+		return titleCd;
+	}
 
-        public Integer getVersion() {
-                return version;
-        }
+	public void setTitleCd(Long titleCd) {
+		this.titleCd = titleCd;
+	}
 
-        public void setVersion(Integer version) {
-                this.version = version;
-        }
+	public Integer getVersion() {
+		return version;
+	}
 
-        public String getUsrLoginId() {
-                return usrLoginId;
-        }
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 
-        public void setUsrLoginId(String usrLoginId) {
-                this.usrLoginId = usrLoginId;
-        }
+	public String getUsrLoginId() {
+		return usrLoginId;
+	}
 
-        public String getRoleCd() {
-                return roleCd;
-        }
+	public void setUsrLoginId(String usrLoginId) {
+		this.usrLoginId = usrLoginId;
+	}
 
-        public void setRoleCd(String roleCd) {
-                this.roleCd = roleCd;
-        }
+	public String getRoleCd() {
+		return roleCd;
+	}
 
-        public boolean getActInd() {
-                return actInd;
-        }
+	public void setRoleCd(String roleCd) {
+		this.roleCd = roleCd;
+	}
 
-        public void setActInd(boolean actInd) {
-                this.actInd = actInd;
-        }
+	public boolean getActInd() {
+		return actInd;
+	}
+
+	public void setActInd(boolean actInd) {
+		this.actInd = actInd;
+	}
 }
