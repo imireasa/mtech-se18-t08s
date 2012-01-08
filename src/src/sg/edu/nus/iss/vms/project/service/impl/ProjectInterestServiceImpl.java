@@ -62,7 +62,7 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectInterestDto.class);
 		criteria.setFetchMode("prjId", FetchMode.JOIN)
-				.createAlias(" prjId", "prj")
+				.createAlias("prjId", "prj")
 				.add(Restrictions.eq("prj.prjId", projectId));
 
 		List<ProjectInterestVo> projectInterestVoList = new ArrayList<ProjectInterestVo>();
