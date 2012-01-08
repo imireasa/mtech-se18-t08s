@@ -55,7 +55,7 @@
                     <td><input type="checkbox" name="prjIntrstId" id="prjIntrstId" value="${item.prjIntrstId}"/></td>
                     <td>${item.reqByTitle}.${item.reqByNme}</td>
                     <td>${item.reqByCtry}</td>   
-                    <td>${item.sts}</td>                                                         
+                    <td>${item.stsVal}</td>                                                         
                 </tr>
             </c:forEach>
             <tr>

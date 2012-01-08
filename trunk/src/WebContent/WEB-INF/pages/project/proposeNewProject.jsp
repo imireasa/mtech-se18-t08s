@@ -147,9 +147,9 @@
 								key="message.common.symbol.mandatory.label" /> </span></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" />
 					</td>
-					<td><spring:bind path="proposalVo.name">
-							<form:input path="name" />
-						</spring:bind> <form:errors path="name" cssClass="error" /></td>
+					<td><spring:bind path="proposalVo.nme">
+							<form:input path="nme" />
+						</spring:bind> <form:errors path="nme" cssClass="error" /></td>
 				</tr>
 				<tr>
 					<td align="left"><fmt:message
@@ -168,12 +168,12 @@
 								key="message.common.symbol.mandatory.label" /> </span></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" />
 					</td>
-					<td><form:select path="ctryCd">
+					<td><form:select path="ctryVal">
 							<form:option value="" label="--Select--" />
 							<c:forEach items="${countryList}" var="item" varStatus="status">
 								<form:option value="${item.val}">${item.val}</form:option>
 							</c:forEach>
-						</form:select> <form:errors path="ctryCd" cssClass="error" />
+						</form:select> <form:errors path="ctryVal" cssClass="error" />
 					</td>
 
 				</tr>
@@ -195,9 +195,9 @@
 								key="message.common.symbol.mandatory.label" /> </span></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" />
 					</td>
-					<td><spring:bind path="proposalVo.estDuration">
-							<form:input path="estDuration" /> (days) 
-					</spring:bind> <form:errors path="estDuration" cssClass="error" />
+					<td><spring:bind path="proposalVo.estDur">
+							<form:input path="estDur" /> days
+					</spring:bind> <form:errors path="estDur" cssClass="error" />
 					</td>
 				</tr>
 				<tr>
