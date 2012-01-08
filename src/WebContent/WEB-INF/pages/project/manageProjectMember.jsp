@@ -11,8 +11,8 @@
 	<div id="breadcrumb">
 		<a href="#"><fmt:message key="message.common.home.label" /></a> / <a
 			href="listProjects.html"><fmt:message
-				key="message.projectManagement.projectManagement.label" /></a> /
-		<fmt:message key="message.projectManagement.manageMember.label" />
+				key="message.projectManagement.projectManagement.label" /></a> / 
+				<fmt:message key="message.projectManagement.manageMember.label" />
 	</div>
 	<div class="query">
 		<c:if test="${not empty msg}">
@@ -77,14 +77,14 @@
 			</c:forEach>
 			<tr>
 				<td colspan="4" align="right"><input type="submit"
-					name="removeMember" id="removeMember"
+					name="removeMemberButton" id="removeMemberButton"
 					value="<fmt:message key="message.common.remove.button"/>" /> <input
-					type="submit" name="updateMember" id="updateMember"
+					type="submit" name="updateMemberButton" id="updateMemberButton"
 					value="<fmt:message key="message.common.update.button"/>" /> <input
-					type="submit" name="inviteProjectMember" id="inviteProjectMember"
+					type="submit" name="inviteMemberButton" id=""inviteMemberButton"
 					value="<fmt:message key="message.projectManagement.inviteMember.button"/>" />
-					<input type="submit" name="requestProjectCertificate"
-					id="requestProjectCertificate"
+					<input type="submit" name="requestProjCertButton"
+					id="requestProjCertButton"
 					value="<fmt:message key="message.projectManagement.requestCertificate.button"/>" />
 				</td>
 			</tr>

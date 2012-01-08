@@ -5,26 +5,20 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
 <body>
-<head>
-
-    <link type="text/css"
-          href="<%=request.getContextPath()%>/sys/css/paging.css"
-          rel="stylesheet" />
-
-</head>
-<body>
-    <h2>Browse Project Proposal</h2>
+    <h2><fmt:message key="message.projectManagement.browseProjectProposal" /></h2>
     <div id="breadcrumb">
-        <a href="#">Home</a> / Browse Project Proposal</div>
+        <a href="#"><fmt:message key="message.common.home.label"/></a> / 
+        <fmt:message key="message.projectManagement.browseProjectProposal" /></div>
 
     <div class="query">  
         <form:form name="browseProjectProposal" method="post"  commandName="proposalVo" 
                    action="searchProjectProposal.html" >
-            <table width="707" height="105" class="query-table">
+            <table class="query-table">
                 <tr>
 
-                    <td width="157">Proposal Name:</td>
-                    <td width="203">
+                    <td><fmt:message key="message.projectManagement.proposalName.label" /></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                    <td>
                         <spring:bind path="proposalVo.name">
                             <form:input path="name"/>
                         </spring:bind>
@@ -33,7 +27,8 @@
                 </tr>
                 <tr>
 
-                    <td>Status:</td>
+                    <td><fmt:message key="message.common.status.label" /></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
                         <form:select path="status">
                             <form:option value="" label="ALL"/>
@@ -46,8 +41,9 @@
 
                 <tr>
 				<td></td>
+					<td colspan="2"></td>
                     <td  align="left">    
-                        <input type="submit" name="btn_Search" id="btn_Search" value="Search">
+                        <input type="submit" name="searchButton" id="searchButton" value="<fmt:message key="message.common.search.button" />">
                     </td>
                 </tr>
 

@@ -7,8 +7,7 @@
 <body>
 	<h2><fmt:message key="message.projectManagement.projectManagement.label" /></h2>
 	<div id="breadcrumb">
-		<a href="#"><fmt:message key="message.common.home.label" /></a> /
-				<fmt:message key="message.projectManagement.projectManagement.label" />
+		<a href="#"><fmt:message key="message.common.home.label" /></a> / <fmt:message key="message.projectManagement.projectManagement.label" />
 	</div>
 
 	<div class="query">
@@ -40,7 +39,7 @@
 
 						</form:select>
 					</td>
-					<td><input type="submit" name="btn_Search" id="btn_Search"
+					<td><input type="submit" name="searchButton" id="searchButton"
 						value=<fmt:message key="message.common.search.button"/> >
 					</td>
 
