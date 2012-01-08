@@ -3,80 +3,107 @@ package sg.edu.nus.iss.vms.project.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.util.DateUtil;
+import sg.edu.nus.iss.vms.common.web.util.UserUtil;
+import sg.edu.nus.iss.vms.project.dto.ProjectDto;
+
 public class ProjectVo {
 
-        private String loginId;
-        private Long prjId;
-        private Long prjIdDisplayed;
-        private String name;
-        private String desc;
-        private String prjMgr;
-        private String strDte;
-        private String endDte;
-        private String ctryCd;
-        private String ctry;
-        private String loc;
-        private String rmk;
-        private String prjPropId;
-        private String stsCd;
-        private String estDuration;
-        private String proposalName;
-        private List<ProjectMemberVo> projectMemberVo = new ArrayList<ProjectMemberVo>();
+	private String loginId;
+	private Long prjId;
+	private Long prjIdDisplayed;
+	private String name;
+	private String desc;
+	private String prjMgr;
+	private String strDte;
+	private String endDte;
+	private String ctryCd;
+	private String ctry;
+	private String loc;
+	private String rmk;
+	private String prjPropId;
+	private String stsCd;
+
+	private List<ProjectMemberVo> projectMemberVo = new ArrayList<ProjectMemberVo>();
 	private String msg;
 
-        public String getCtry() {
-                return ctry;
-        }
+	public ProjectVo() {
+		super();
+	}
 
-        public void setCtry(String ctry) {
-                this.ctry = ctry;
-        }
+	public ProjectVo(ProjectDto projectDto) {
+		setPrjId(projectDto.getPrjId());
+		setName(projectDto.getNme());
+		setDesc(projectDto.getDesc());
+		setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+		setStrDte(DateUtil.formatDate(projectDto.getStrDte(),
+				DateUtil.DEFAULT_DATE_FORMAT));
+		setEndDte(DateUtil.formatDate(projectDto.getEndDte(),
+				DateUtil.DEFAULT_DATE_FORMAT));
+		setCtryCd(projectDto.getCtryCd() + "");
+		setCtry(CodeLookupUtil.getCodeDescriptionByCodeId(projectDto
+				.getCtryCd()));
+		setLoc(projectDto.getLoc());
+		setRmk(projectDto.getRmk());
+		setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(projectDto
+				.getStsCd()));
+	}
 
-        public List<ProjectMemberVo> getProjectMemberVo() {
-                return projectMemberVo;
-        }
+	public String getCtry() {
+		return ctry;
+	}
 
-        public void setProjectMemberVo(List<ProjectMemberVo> projectMemberVo) {
-                this.projectMemberVo = projectMemberVo;
-        }
+	public void setCtry(String ctry) {
+		this.ctry = ctry;
+	}
 
-        public String getLoginId() {
-                return loginId;
-        }
-        public String version;
-        private String cmdType;
+	public List<ProjectMemberVo> getProjectMemberVo() {
+		return projectMemberVo;
+	}
 
-        public Long getPrjId() {
-                return prjId;
-        }
+	public void setProjectMemberVo(List<ProjectMemberVo> projectMemberVo) {
+		this.projectMemberVo = projectMemberVo;
+	}
 
-        public void setLoginId(String loginId) {
-                this.loginId = loginId;
-        }
+	public String getLoginId() {
+		return loginId;
+	}
 
-        public void setPrjId(Long prjId) {
-                this.prjId = prjId;
-        }
+	public String version;
+	private String cmdType;
 
-        public Long getPrjIdDisplayed() {
-                return prjIdDisplayed;
-        }
+	public Long getPrjId() {
+		return prjId;
+	}
 
-        public void setPrjIdDisplayed(Long prjIdDisplayed) {
-                this.prjIdDisplayed = prjIdDisplayed;
-        }
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
+	}
 
-        public String getName() {
-                return name;
-        }
+	public void setPrjId(Long prjId) {
+		this.prjId = prjId;
+	}
 
-        public void setName(String name) {
-                this.name = name;
-        }
+	public Long getPrjIdDisplayed() {
+		return prjIdDisplayed;
+	}
 
-        public String getDesc() {
-                return desc;
-        }
+	public void setPrjIdDisplayed(Long prjIdDisplayed) {
+		this.prjIdDisplayed = prjIdDisplayed;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
 
 	public void setDesc(String desc) {
 		this.desc = desc;
@@ -126,9 +153,9 @@ public class ProjectVo {
 		return rmk;
 	}
 
-        public void setRmk(String rmk) {
-                this.rmk = rmk;
-        }
+	public void setRmk(String rmk) {
+		this.rmk = rmk;
+	}
 
 	public String getPrjPropId() {
 		return prjPropId;
@@ -160,22 +187,6 @@ public class ProjectVo {
 
 	public void setCmdType(String cmdType) {
 		this.cmdType = cmdType;
-	}
-
-	public String getEstDuration() {
-		return estDuration;
-	}
-
-	public void setEstDuration(String estDuration) {
-		this.estDuration = estDuration;
-	}
-
-	public String getProposalName() {
-		return proposalName;
-	}
-
-	public void setProposalName(String proposalName) {
-		this.proposalName = proposalName;
 	}
 
 	public String getMsg() {

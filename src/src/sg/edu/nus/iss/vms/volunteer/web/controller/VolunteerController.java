@@ -30,12 +30,13 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
+import sg.edu.nus.iss.vms.project.service.ProjectExperienceService;
+import sg.edu.nus.iss.vms.project.service.ProjectFeedbackService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
-import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectExperienceVo;
+import sg.edu.nus.iss.vms.project.vo.ProjectFeedbackVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
@@ -47,9 +48,22 @@ public class VolunteerController extends BaseMultiActionFormController {
 	private VolunteerManagementService volunteerManagementService;
 	private ProjectManagementService projectManagementService;
 	private MemberManagementService memberManagementService;
+
+	private ProjectFeedbackService projectFeedbackService;
+	private ProjectExperienceService projectExperienceService;
 	// local
 	private final Logger logger = Logger.getLogger(VolunteerController.class);
 	BindingResult errors;
+
+	public void setProjectFeedbackService(
+			ProjectFeedbackService projectFeedbackService) {
+		this.projectFeedbackService = projectFeedbackService;
+	}
+
+	public void setProjectExperienceService(
+			ProjectExperienceService projectExperienceService) {
+		this.projectExperienceService = projectExperienceService;
+	}
 
 	public VolunteerController() {
 	}
@@ -449,10 +463,10 @@ public class VolunteerController extends BaseMultiActionFormController {
 		List<ProjectMemberVo> memberList = memberManagementService
 				.getListOfMembersbyProject(projectDto);
 
-		List<ProjectExperienceDto> experienceList = projectManagementService
-				.getProjectExperienceList(projectDto);
-		List<ProjectFeedbackDto> feedbackList = projectManagementService
-				.getProjectFeedbackList(projectDto);
+		List<ProjectExperienceVo> experienceList = projectExperienceService
+				.getProjectExperienceListbyProjectId(projectDto.getPrjId());
+		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
+				.getProjectFeedbackListbyProjectId(projectDto.getPrjId());
 		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
 
 		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
@@ -460,14 +474,14 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (!feedbackList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p1", 0);
 			feedbackPagedListHolder.setPage(page);
-			feedbackPagedListHolder.setPageSize(4);
+			feedbackPagedListHolder.setPageSize(100);
 		}
 
 		PagedListHolder exPagedListHolder = new PagedListHolder(experienceList);
 		if (!experienceList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p2", 0);
 			exPagedListHolder.setPage(page);
-			exPagedListHolder.setPageSize(4);
+			exPagedListHolder.setPageSize(100);
 		}
 
 		modelAndView.addObject("fbPagedListHolder", feedbackPagedListHolder);
@@ -478,7 +492,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
 
-		modelAndView.addObject("projectInfo", new ProjectInfoVo());
+		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
+
+		modelAndView.addObject("experienceVo", new ProjectExperienceVo());
 
 		for (ProjectMemberVo projectMemberVo : memberList) {
 			for (CodeDto codeDto : roleCodeList) {
@@ -572,8 +588,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 	}
 
 	public ModelAndView postExperienceAndFb(HttpServletRequest request,
-			HttpServletResponse response, ProjectInfoVo projectInfoVo)
-			throws Exception {
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("postExperienceAndFb(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
 		}
@@ -583,46 +598,28 @@ public class VolunteerController extends BaseMultiActionFormController {
 		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
 				"projectVo");
 
+		ProjectFeedbackVo feedbackVo = (ProjectFeedbackVo) modelAndView
+				.getModel().get("feedbackVo");
+
+		ProjectExperienceVo experienceVo = (ProjectExperienceVo) modelAndView
+				.getModel().get("experienceVo");
+
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
 
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getExperience())) {
+		if (!StringUtil.isNullOrEmpty(experienceVo.getCont())) {
 
-			ProjectExperienceDto projectExperienceDto = new ProjectExperienceDto();
-			projectExperienceDto.setPrjId(projectDto);
-			projectExperienceDto.setCont(projectInfoVo.getExperience());
-			projectExperienceDto.setCreatedBy(loginId);
-			projectExperienceDto.setCreatedDte(DateUtil.formatDate(new Date()));
-			projectManagementService
-					.saveOrUpdateProjectObject(projectExperienceDto);
+			projectExperienceService.createProjectExperience(experienceVo);
 			modelAndView.addObject("riMsg", Messages.getString(
 					"message.common.submit.msg",
 					new String[] { "Project Experience" }));
 
 		}
 
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
+		if (!StringUtil.isNullOrEmpty(feedbackVo.getTitle())) {
 
-			CodeDto codeDto = CodeLookupUtil
-					.getCodeDescriptionByCodeCategoryAndCodeDesc(
-							VMSConstants.FEEDBACK_STATUS,
-							VMSConstants.FEEDBACK_STATUS_SUMBITTED);
-
-			ProjectFeedbackDto projectFeedbackDto = new ProjectFeedbackDto();
-			projectFeedbackDto.setPrjId(projectDto);
-			projectFeedbackDto.setCont(projectInfoVo.getFbContent());
-			projectFeedbackDto.setTitle(projectInfoVo.getFbTitle());
-
-			projectFeedbackDto.setUpdDte(new Date());
-			projectFeedbackDto.setCreatedDte(new Date());
-			projectFeedbackDto.setStsCd(codeDto.getCdId());
-			projectFeedbackDto.setCreatedBy(loginId);
-			projectFeedbackDto.setUpdBy(loginId);
-			projectFeedbackDto.setVersion(1);
-
-			projectManagementService
-					.saveOrUpdateProjectObject(projectFeedbackDto);
+			projectFeedbackService.createProjectFeedback(feedbackVo);
 			modelAndView.addObject("riMsg", Messages.getString(
 					"message.common.submitreview.msg",
 					new String[] { "Project Feedback" }));
@@ -631,10 +628,10 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		List<ProjectMemberDto> memberList = memberManagementService
 				.getListOfMembers(projectDto.getPrjId());
-		List<ProjectExperienceDto> experienceList = projectManagementService
-				.getProjectExperienceList(projectDto);
-		List<ProjectFeedbackDto> feedbackList = projectManagementService
-				.getProjectFeedbackList(projectDto);
+		List<ProjectExperienceVo> experienceList = projectExperienceService
+				.getProjectExperienceListbyProjectId(projectDto.getPrjId());
+		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
+				.getProjectFeedbackListbyProjectId(projectDto.getPrjId());
 
 		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
 				feedbackList);
@@ -642,14 +639,14 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (!feedbackList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p1", 0);
 			feedbackPagedListHolder.setPage(page);
-			feedbackPagedListHolder.setPageSize(4);
+			feedbackPagedListHolder.setPageSize(100);
 		}
 
 		PagedListHolder exPagedListHolder = new PagedListHolder(experienceList);
 		if (!experienceList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p2", 0);
 			exPagedListHolder.setPage(page);
-			exPagedListHolder.setPageSize(4);
+			exPagedListHolder.setPageSize(100);
 		}
 
 		modelAndView.addObject("fbPagedListHolder", feedbackPagedListHolder);
@@ -661,7 +658,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);
 		modelAndView.addObject("projectVo", projectVo);
-		modelAndView.addObject("projectInfo", new ProjectInfoVo());
+		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
+		modelAndView.addObject("experienceVo", new ProjectExperienceVo());
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("postExperienceAndFb(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - end");
@@ -678,8 +676,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
 				"project");
-		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
-				"projectVo");
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@requestCertificate@@@@@@@@@: "

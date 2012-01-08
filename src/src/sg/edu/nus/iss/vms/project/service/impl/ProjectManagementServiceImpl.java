@@ -7,13 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.Messages;
-import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.SysConfig;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
@@ -27,13 +25,10 @@ import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectExperienceDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectFeedbackDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectProposalDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
-import sg.edu.nus.iss.vms.project.vo.ProjectInfoVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
@@ -44,7 +39,7 @@ import sg.edu.nus.iss.vms.security.dto.UserDto;
 public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	private Manager manager;
-	private SessionBean sessionBean;
+	// private SessionBean sessionBean;
 	private static Logger logger = Logger
 			.getLogger(ProjectManagementServiceImpl.class);
 	private MailSenderUtil mailSenderUtil;
@@ -65,48 +60,14 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		this.manager = manager;
 	}
 
-	public SessionBean getSessionBean() {
-		return sessionBean;
-	}
-
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
-	}
-
-	@Override
-	public List<ProjectDto> getListOfProject(String projectName) {
-		List<ProjectDto> memberList = new ArrayList<ProjectDto>();
-		return memberList;
-	}
-
-	@Override
-	public ProjectDto getProject(long projectId) {
-		String hQL = "from ProjectDto where prjId = " + projectId;
-		List<ProjectDto> projectList = manager.find(hQL);
-		ProjectDto project = null;
-
-		if (projectList != null && !projectList.isEmpty()) {
-			project = projectList.get(0);
-		}
-
-		return project;
-	}
-
-	@Override
-	public List<ProjectMemberDto> getProjectMember(long projectId,
-			String memberName) {
-		return null;
-	}
-
 	@Override
 	public List<ProjectVo> getListAllProject() {
-		String userLogInId = UserUtil.getUserSessionInfoVo().getUserID();
 		String hQL = "from ProjectDto where prjMgr='"
 				+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
 		List<ProjectDto> projectDtoList = manager.find(hQL);
 		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
 		for (ProjectDto projectDto : projectDtoList) {
-			projectList.add(getProjectVo(projectDto));
+			projectList.add(new ProjectVo(projectDto));
 		}
 		return projectList;
 	}
@@ -116,9 +77,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		ProjectVo projectVo = new ProjectVo();
 		ProjectDto projectDto = (ProjectDto) manager.get(ProjectDto.class,
 				projectId);
-		projectVo = getProjectVo(projectDto);
-
-		String userLogInId = UserUtil.getUserSessionInfoVo().getUserID();
+		projectVo = new ProjectVo(projectDto);
 
 		List<ProjectMemberVo> memberVoList = new ArrayList<ProjectMemberVo>();
 		String hQL = "from ProjectMemberDto where prjId.prjId=" + projectId
@@ -153,16 +112,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<ProjectInterestVo> getProjectIntrestVoByLoginUserAccessRight(
+	public List<ProjectInterestVo> getProjectIntrestByLoginUserAccessRight(
 			Long projectId) {
-		String userLogInId = UserUtil.getUserSessionInfoVo().getUserID();
-
-		// String hQL = "from ProjectInterestDto where prjId.prjId="
-		// + projectId
-		// + " and stsCd="
-		// + CodeLookupUtil.getCodeByCategoryAndCodeValue(
-		// VMSConstants.PROJECT_INTREST_STATUS,
-		// VMSConstants.PROJECT_INTEREST_NEW).getCdId();
 
 		String hQL = "from ProjectInterestDto where prjId.prjId=" + projectId;
 
@@ -324,95 +275,22 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public void acceptProjectIntrest(Long prjIntrstId) throws Exception {
-
-		Long approveSts = CodeLookupUtil.getCodeDtoByCatVal(
-				VMSConstants.PROJECT_INTREST_STATUS,
-				VMSConstants.PROJECT_INTEREST_APPROVED).getCdId();
-		Long newSts = CodeLookupUtil.getCodeDtoByCatVal(
-				VMSConstants.PROJECT_INTREST_STATUS,
-				VMSConstants.PROJECT_INTEREST_NEW).getCdId();
+	public void updateProjectIntrest(ProjectInterestVo projectInterestVo)
+			throws Exception {
 
 		ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
-				.get(ProjectInterestDto.class, prjIntrstId);
+				.get(ProjectInterestDto.class,
+						projectInterestVo.getPrjIntrstId());
 		if (projectInterestDto == null) {
 			throw new ApplicationException(
 					Messages.getString("message.projectManagement.error.invalidProjectInterest"));
 		}
-		if (projectInterestDto.getStsCd().intValue() != newSts) {
-			throw new ApplicationException(
-					Messages.getString("message.common.error.update"));
-		}
 
-		String hQL = "from ProjectMemberDto where prjId.prjId="
-				+ projectInterestDto.getPrjId().getPrjId()
-				+ " and usrLoginId='" + projectInterestDto.getReqBy() + "'";
-		List<ProjectMemberDto> projectMemberDtos = manager.find(hQL);
-		if (projectMemberDtos == null || projectMemberDtos.isEmpty()) {
-			ProjectMemberDto projectMemberDto = new ProjectMemberDto();
-			projectMemberDto.setPrjId(projectInterestDto.getPrjId());
-			projectMemberDto.setRoleCd(CodeLookupUtil.getCodeDtoByCatVal(
-					VMSConstants.MEMBER_ROLE, VMSConstants.PROJECT_ROLE_MEMBER)
-					.getCdId());
-			projectMemberDto.setUsrLoginId(projectInterestDto.getReqBy());
-			projectMemberDto.setActInd(true);
-			manager.save(projectMemberDto);
-		}
-
-		projectInterestDto.setStsCd(approveSts);
+		projectInterestDto.setStsCd(projectInterestVo.getStsCd());
 		projectInterestDto.setApprBy(UserUtil.getUserSessionInfoVo()
 				.getUserID());
 
 		manager.save(projectInterestDto);
-	}
-
-	@Override
-	public void rejectProjectIntrest(Long prjIntrstId) throws Exception {
-
-		Long rejectSts = CodeLookupUtil.getCodeDtoByCatVal(
-				VMSConstants.PROJECT_INTREST_STATUS,
-				VMSConstants.PROJECT_INTEREST_REJECTED).getCdId();
-		Long newSts = CodeLookupUtil.getCodeDtoByCatVal(
-				VMSConstants.PROJECT_INTREST_STATUS,
-				VMSConstants.PROJECT_INTEREST_NEW).getCdId();
-
-		ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
-				.get(ProjectInterestDto.class, prjIntrstId);
-		if (projectInterestDto == null) {
-			throw new ApplicationException(
-					Messages.getString("message.projectManagement.error.invalidProjectInterest"));
-		}
-		if (projectInterestDto.getStsCd().intValue() != newSts) {
-			throw new ApplicationException(
-					Messages.getString("message.common.error.update"));
-		}
-
-		projectInterestDto.setStsCd(rejectSts);
-		projectInterestDto.setApprBy(UserUtil.getUserSessionInfoVo()
-				.getUserID());
-
-		manager.save(projectInterestDto);
-	}
-
-	private ProjectVo getProjectVo(ProjectDto _projectVo) {
-		ProjectVo project = new ProjectVo();
-		project.setPrjId(_projectVo.getPrjId());
-		project.setName(_projectVo.getNme());
-		project.setDesc(_projectVo.getDesc());
-		project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
-		project.setStrDte(DateUtil.formatDate(_projectVo.getStrDte(),
-				DateUtil.DEFAULT_DATE_FORMAT));
-		project.setEndDte(DateUtil.formatDate(_projectVo.getEndDte(),
-				DateUtil.DEFAULT_DATE_FORMAT));
-		project.setCtryCd(_projectVo.getCtryCd() + "");
-		project.setCtry(CodeLookupUtil.getCodeDescriptionByCodeId(_projectVo
-				.getCtryCd()));
-		project.setLoc(_projectVo.getLoc());
-		project.setRmk(_projectVo.getRmk());
-		project.setPrjPropId(null);
-		project.setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(_projectVo
-				.getStsCd()));
-		return project;
 	}
 
 	@Override
@@ -448,24 +326,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		} finally {
 			this.logger.debug("@ Service Layer getting user 2");
 		}
-
-	}
-
-	@Override
-	public List<ProjectExperienceDto> getProjectExperienceList(
-			ProjectDto projectDto) {
-
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectExperienceDto.class);
-		criteria.add(Restrictions.eq("prjId", projectDto));
-		return manager.findByDetachedCriteria(criteria);
-
-	}
-
-	@Override
-	public void requestCertificate(CertificateRequestDto certificateRequestDto) {
-
-		manager.save(certificateRequestDto);
 
 	}
 
@@ -562,71 +422,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<ProjectFeedbackDto> getProjectFeedbackList(ProjectDto projectDto) {
-		CodeDto codeDto = CodeLookupUtil.getCodeByCategoryAndCodeValue(
-				VMSConstants.FEEDBACK_STATUS,
-				VMSConstants.FEEDBACK_STATUS_APPROVED);
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectFeedbackDto.class);
-		criteria.add(Restrictions.eq("prjId", projectDto));
-		criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
-		return manager.findByDetachedCriteria(criteria);
-	}
-
-	@Override
-	public List<ProjectFeedbackDto> getProjectFeedbackListbyVo(
-			ProjectInfoVo projectInfoVo) {
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectFeedbackDto.class);
-
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getPrjId())) {
-
-			Object projectDto = getProjectObjbyId(
-					Long.parseLong(projectInfoVo.getPrjId()), ProjectDto.class);
-			criteria.add(Restrictions.eq("prjId", projectDto));
-		}
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbTitle())) {
-			criteria.add(Restrictions.like("title", projectInfoVo.getFbTitle(),
-					MatchMode.ANYWHERE));
-		}
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getFbStatus())) {
-
-			List<CodeDto> codeDtos = CodeLookupUtil
-					.getListOfCodeByCategory(VMSConstants.FEEDBACK_STATUS);
-			for (CodeDto codeDto : codeDtos) {
-
-				if (codeDto.getVal().equals(projectInfoVo.getFbStatus())) {
-					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
-				}
-			}
-
-		}
-
-		if (!StringUtil.isNullOrEmpty(projectInfoVo.getPrjName())) {
-			criteria.setFetchMode("prjId", FetchMode.JOIN)
-					.createAlias("prjId", "prj")
-					.add(Restrictions.like("prj.nme",
-							projectInfoVo.getPrjName(), MatchMode.ANYWHERE));
-		}
-
-		return manager.findByDetachedCriteria(criteria);
-	}
-
-	@Override
-	public ProjectFeedbackDto getProjectFeedbackbyId(long projectFbId) {
-		try {
-			return (ProjectFeedbackDto) manager.get(ProjectFeedbackDto.class,
-					projectFbId);
-		} catch (Exception ex) {
-			this.logger.error("Data Access Error", ex);
-			return null;
-		} finally {
-			this.logger.debug("@ Service Layer getting user 2");
-		}
-
-	}
-
-	@Override
 	public void saveOrUpdateProjectObject(Object obj) {
 		manager.save(obj);
 	}
@@ -663,13 +458,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<CodeDto> getProjectStatusList() {
-		return CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_STATUS);
-	}
-
-	@Override
-	public List<ProjectVo> listProjectbyProjectVo(ProjectVo projectVo) {
+	public List<ProjectVo> getProjectListbyProjectVo(ProjectVo projectVo) {
 
 		Date startDate = DateUtil.parseDate(projectVo.getStrDte());
 		String hQL = "from ProjectDto where prjMgr='"
@@ -691,7 +480,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		List<ProjectDto> projectDtoList = manager.find(hQL);
 		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
 		for (ProjectDto projectDto : projectDtoList) {
-			projectList.add(getProjectVo(projectDto));
+			projectList.add(new ProjectVo(projectDto));
 		}
 		return projectList;
 	}
@@ -717,24 +506,12 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<CodeDto> getProjectInterestStatusList() {
-		return CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_INTREST_STATUS);
-	}
-
-	@Override
 	public List<ProjectInterestVo> getProjectInterestListByUser() {
 		String hQL = "from ProjectInterestDto";
 		logger.debug("Find Project Interest By User" + hQL);
 		List<ProjectInterestDto> projInterestList = manager.find(hQL);
 		List<ProjectInterestVo> projIntrestVoList = new ArrayList<ProjectInterestVo>();
 		return projIntrestVoList;
-	}
-
-	@Override
-	public List<CodeDto> getProjectInterestStatusList2() {
-		return CodeLookupUtil
-				.getListOfCodeByCategory(VMSConstants.PROJECT_INTREST_STATUS);
 	}
 
 	@Override
@@ -769,27 +546,12 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 
 	private List<ProjectInterestVo> changeProjectInterestDtoToVo(List dtoList) {
 
-		List projIntVoList = new ArrayList();
+		List<ProjectInterestVo> projIntVoList = new ArrayList<ProjectInterestVo>();
 		if (dtoList != null) {
 			for (int i = 0; i < dtoList.size(); i++) {
 				ProjectInterestDto obj = (ProjectInterestDto) dtoList.get(i);
-				ProjectInterestVo objVo = new ProjectInterestVo();
-				objVo.setPrjIntrstId(obj.getPrjIntrstId());
-				objVo.setPrjId(obj.getPrjId().getPrjId());
-				objVo.setPrjName(obj.getPrjId().getNme());
-				objVo.setPrjStartDate(obj.getPrjId().getStrDte());
-				objVo.setReqBy(obj.getReqBy());
-				objVo.setApprBy(obj.getApprBy());
-				objVo.setApprDte(obj.getApprDte());
-				objVo.setApprRmk(obj.getApprRmk());
-				objVo.setStsCD(obj.getStsCd());
-				objVo.setStsVal(CodeLookupUtil.getCodeValueByCodeId(obj
-						.getStsCd()));
-				objVo.setCreatedBy(obj.getCreatedBy());
-				objVo.setCreatedDate(obj.getCreatedDte());
-				objVo.setUpdBy(obj.getUpdBy());
-				objVo.setUpdDate(obj.getUpdDte());
-				objVo.setVersion(obj.getVersion());
+				ProjectInterestVo objVo = new ProjectInterestVo(obj);
+
 				projIntVoList.add(objVo);
 
 			}
@@ -798,16 +560,26 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public List<ProjectInterestVo> getProjectInterestListByUser(Long prjId,
-			String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<ProjectMemberDto> getProjectMember(long projectId) {
 		String hQL = "from ProjectMemberDto where prjId=" + projectId;
 		List<ProjectMemberDto> projMemList = manager.find(hQL);
 		return projMemList;
 	}
+
+	@Override
+	public ProjectInterestVo getProjectInterestbyId(long id) {
+		try {
+			ProjectInterestDto projectInterestDto = (ProjectInterestDto) manager
+					.get(ProjectInterestDto.class, id);
+
+			return new ProjectInterestVo(projectInterestDto);
+		} catch (Exception ex) {
+			this.logger.error("Data Access Error", ex);
+			return null;
+		} finally {
+			this.logger.debug("@ Service Layer getting user 2");
+		}
+
+	}
+
 }
