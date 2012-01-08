@@ -29,6 +29,14 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 	private static Logger logger = Logger
 			.getLogger(ProjectInterestServiceImpl.class);
 
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+
 	@Override
 	public void updateProjectInterest(ProjectInterestVo projectInterestVo)
 			throws Exception {
