@@ -4,8 +4,6 @@
  */
 package sg.edu.nus.iss.vms.volunteer.vo;
 
-import java.sql.Date;
-
 /**
  *
  * @author zaw
@@ -14,7 +12,7 @@ public class VolunteerVo {
 
         public String usrId;
         public String loginId;
-        public String title;
+        public String title;        
         public String nme;
         public String email;
         public String pwd;

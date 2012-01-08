@@ -29,7 +29,6 @@ public class VolunteerManagementServiceImpl implements
         VolunteerManagementService {
 
     private Manager manager;
-    private SessionBean sessionBean;
     private Logger logger = Logger.getLogger(VolunteerManagementServiceImpl.class);
     private PasswordEncoder passwordEncoder;
 
@@ -39,14 +38,6 @@ public class VolunteerManagementServiceImpl implements
 
     public void setManager(Manager manager) {
         this.manager = manager;
-    }
-
-    public SessionBean getSessionBean() {
-        return this.sessionBean;
-    }
-
-    public void setSessionBean(SessionBean sessionBean) {
-        this.sessionBean = sessionBean;
     }
 
     public PasswordEncoder getPasswordEncoder() {

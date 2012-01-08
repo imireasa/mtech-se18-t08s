@@ -51,7 +51,8 @@
 				<prop key="/logout.html">logoutController</prop>
 			</props>
 		</property>
-
 	</bean>
-	
+    
+    
+    
 </beans>

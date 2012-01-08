@@ -37,21 +37,6 @@
 	<!--[if lte IE 6]>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/supersleight.js"></script>
 	<![endif]-->
-	<script type="text/javascript">
-	$(document).ready(function() {
-		$(this).find('ul').each(function(){
-			// cache jquery object
-			var current = $(this);
-			// check for sub levels and value
-			if(current.children().size() == 0 && current.text().trim()== "") {
-			   //no child in this UL.
-				current.hide();
-			}
-		 
-		});
-
-	 });
-	</script>
 <decorator:head />
 </head>
 
