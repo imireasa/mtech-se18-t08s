@@ -207,7 +207,7 @@
 					</td>
 					<td>
 						<div id="listFiles">Attach Files:</div> <input type=file
-						name=attachment1 id=attachment1 onChange="addFileInput();">
+						name=attachment1 id=attachment1 onChange="addFileInput();document.getElementById('file-path').value = this.value.split('\\')[this.value.split('\\').length-1];">
 						<div id="inputBoxes">
 						</div> 
 						<br>
