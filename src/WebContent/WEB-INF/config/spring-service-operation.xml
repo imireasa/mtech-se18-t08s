@@ -72,4 +72,15 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		class="sg.edu.nus.iss.vms.project.service.impl.ProjectExperienceServiceImpl">
 		<property name="manager" ref="baseManager" />
 	</bean>
+	
+	
+	<bean id="projectProposalServiceImpl"
+		class="sg.edu.nus.iss.vms.project.service.impl.ProjectProposalServiceImpl">
+		<property name="manager" ref="baseManager" />
+	</bean>
+	
+	<bean id="projectInterestServiceImpl"
+		class="sg.edu.nus.iss.vms.project.service.impl.ProjectInterestServiceImpl">
+		<property name="manager" ref="baseManager" />
+	</bean>
 </beans>

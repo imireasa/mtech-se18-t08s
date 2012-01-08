@@ -23,8 +23,9 @@
 		<property name="projectManagementService" ref="projectManagementServiceImpl" />
 		<property name="userManagementServices" ref="userManagementServiceImpl" />
 		 <property name="projectFeedbackService" ref="projectFeedbackServiceImpl" />
-		
-		<property name="validators" ref="projectValidator" />
+		<property name="projectProposalService" ref="projectProposalServiceImpl" />
+		 <property name="projectInterestService" ref="projectInterestServiceImpl" />
+   		<property name="validators" ref="projectValidator" />
 	</bean>
 	
 	
