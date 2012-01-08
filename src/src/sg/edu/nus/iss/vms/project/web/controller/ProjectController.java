@@ -26,10 +26,10 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectFeedbackService;
+import sg.edu.nus.iss.vms.project.service.ProjectInterestService;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.service.ProjectProposalService;
 import sg.edu.nus.iss.vms.project.vo.ProjectFeedbackVo;
-import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
@@ -44,6 +44,7 @@ public class ProjectController extends BaseMultiActionFormController {
 	private ProjectFeedbackService projectFeedbackService;
 	private ProjectProposalService projectProposalService;
 	private UserManagementServices userManagementServices;
+	private ProjectInterestService projectInterestService;
 	private BindingResult errors;
 
 	public void setProjectFeedbackService(
@@ -81,6 +82,11 @@ public class ProjectController extends BaseMultiActionFormController {
 	public void setProjectProposalService(
 			ProjectProposalService projectProposalService) {
 		this.projectProposalService = projectProposalService;
+	}
+
+	public void setProjectInterestService(
+			ProjectInterestService projectInterestService) {
+		this.projectInterestService = projectInterestService;
 	}
 
 	@Override
@@ -917,12 +923,12 @@ public class ProjectController extends BaseMultiActionFormController {
 									+ prjIntrstId[i]);
 							Long _prjIntrstId = Long.parseLong(prjIntrstId[i]);
 
-							ProjectInterestVo projectInterestVo = projectManagementService
+							ProjectInterestVo projectInterestVo = projectInterestService
 									.getProjectInterestbyId(_prjIntrstId);
 
 							projectInterestVo.setStsCd(codeDto.getCdId());
-							projectManagementService
-									.updateProjectIntrest(projectInterestVo);
+							projectInterestService
+									.updateProjectInterest(projectInterestVo);
 						}
 						modelAndView.addObject("msg",
 								Messages.getString("message.common.update"));
@@ -941,8 +947,8 @@ public class ProjectController extends BaseMultiActionFormController {
 					.getProjectVoByLoginUserAccessRight(prjId);
 
 			// get list of project intrest
-			List<ProjectInterestVo> projectInterestVoList = projectManagementService
-					.getProjectIntrestByLoginUserAccessRight(prjId);
+			List<ProjectInterestVo> projectInterestVoList = projectInterestService
+					.getProjectIntrestByProjectId(prjId);
 			PagedListHolder projectInterestPagedListHolder = new PagedListHolder(
 					projectInterestVoList);
 			if (projectInterestVoList != null
@@ -996,7 +1002,7 @@ public class ProjectController extends BaseMultiActionFormController {
 	}
 
 	public ModelAndView viewProjectInterest(HttpServletRequest request,
-			HttpServletResponse response, ProjectInterestSearchVo command)
+			HttpServletResponse response, ProjectInterestVo command)
 			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectInterest(HttpServletRequest, HttpServletResponse, ProjectInterestSearchVo) - start");
@@ -1006,13 +1012,13 @@ public class ProjectController extends BaseMultiActionFormController {
 		modelAndView.addObject("projInterestStatusList", CodeLookupUtil
 				.getListOfCodeByCategory(VMSConstants.PROJECT_INTREST_STATUS));
 		List projectInterestVoList = null;
-		if (command != null
-				&& (command.getPrjId() != null || command.getProjNme() != null || command
-						.getPrjIntStatus() != null)) {
-			projectInterestVoList = projectManagementService
-					.getProjectInterestListByUserWithSearch(command);
+		if (command != null && (command.getPrjId() != null)
+				|| !StringUtil.isNullOrEmpty(command.getPrjName())
+				|| !StringUtil.isNullOrEmpty(command.getStsVal())) {
+			projectInterestVoList = projectInterestService
+					.getProjectInterestListBySearchCriteria(command);
 		} else {
-			projectInterestVoList = projectManagementService
+			projectInterestVoList = projectInterestService
 					.getProjectInterestListByUserLoginId();
 		}
 

@@ -4,10 +4,7 @@ import java.util.List;
 
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
-import sg.edu.nus.iss.vms.project.vo.ProjectInterestSearchVo;
-import sg.edu.nus.iss.vms.project.vo.ProjectInterestVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
 
 public interface ProjectManagementService {
@@ -30,14 +27,6 @@ public interface ProjectManagementService {
 
 	public List<ProjectVo> getProjectListbyProjectVo(ProjectVo projectVo);
 
-	public List<ProjectInterestVo> getProjectInterestListByUser();
-
-	public List<ProjectInterestVo> getProjectIntrestByLoginUserAccessRight(
-			Long projectId);
-
-	public void updateProjectIntrest(ProjectInterestVo projectInterestVo)
-			throws Exception;
-
 	public void sendInviteProjectMemberToAllUser(Long projectId, Long userStatus)
 			throws Exception;
 
@@ -52,19 +41,9 @@ public interface ProjectManagementService {
 
 	public ProjectVo getProjectVoByLoginUserAccessRight(Long projectId);
 
-	public List getProjectInterestListByUserWithSearch(
-			ProjectInterestSearchVo command);
-
 	public List<CertificateRequestDto> getCertificateRequestsbyProject(
 			Long prjId, String userId);
 
-	public List<ProjectInterestDto> getProjectInterestListbyProject(
-			ProjectDto projectDto, String userId);
-
-	public List<ProjectInterestVo> getProjectInterestListByUserLoginId();
-
 	public List<ProjectMemberDto> getProjectMember(long projectId);
-
-	public ProjectInterestVo getProjectInterestbyId(long id);
 
 }
