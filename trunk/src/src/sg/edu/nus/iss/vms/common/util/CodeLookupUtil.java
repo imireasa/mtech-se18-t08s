@@ -103,16 +103,16 @@ public class CodeLookupUtil {
 		return returnCodeDto;
 	}
 
-	public static CodeDto getCodeDtoByCatVal(String category, String val) {
+	public static CodeDto getCodeByCatAndVal(String category, String val) {
 		if (logger.isDebugEnabled()) {
-			logger.debug("getCodeDtoByCatVal(String, String) - start");
+			logger.debug("getCodeByCatAndVal(String, String) - start");
 		}
 
 		CodeManagementServices codeMgr = getCodeManagementServices();
-		CodeDto returnCodeDto = codeMgr.getCodeDtoByCatVal(category, val);
+		CodeDto returnCodeDto = codeMgr.getCodeByCatAndVal(category, val);
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("getCodeDtoByCatVal(String, String) - end");
+			logger.debug("getCodeByCatAndVal(String, String) - end");
 		}
 		return returnCodeDto;
 	}

@@ -15,7 +15,7 @@ public interface CodeManagementServices {
 	public CodeDto getCodeDescriptionByCodeCategoryAndCodeDesc(String category,
 			String codeDesc);
 
-	public CodeDto getCodeDtoByCatVal(String Category, String catVal);
+	public CodeDto getCodeByCatAndVal(String Category, String catVal);
 
 	public CodeDto getCodeByCodeCategoryAndCodeDesc(String Category, String val);
 
