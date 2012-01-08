@@ -2,7 +2,6 @@ package sg.edu.nus.iss.vms.common.service;
 
 import java.util.List;
 
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 
 public interface CodeManagementServices {
@@ -13,7 +12,7 @@ public interface CodeManagementServices {
 	 * @param category - the category name to retrieve the list of corresponding code value.
 	 * @return a list of CodeLookupVo
 	 */
-	public List<CodeDto> getCodeListByCategory(String category);
+	public List<CodeLookupVo> getCodeListByCategory(String category);
 
 	/**
 	 * Returns the code description based on the code Id.

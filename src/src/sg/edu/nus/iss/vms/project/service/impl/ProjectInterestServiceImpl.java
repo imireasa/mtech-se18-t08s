@@ -10,7 +10,6 @@ import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
@@ -235,12 +234,12 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 
 		if (!StringUtil.isNullOrEmpty(projectInterestVo.getStsVal())) {
 
-			List<CodeDto> codeDtos = CodeLookupUtil
+			List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 					.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
-			for (CodeDto codeDto : codeDtos) {
+			for (CodeLookupVo codeLookupVo : codeLookupVos) {
 
-				if (codeDto.getVal().equals(projectInterestVo.getStsVal())) {
-					criteria.add(Restrictions.eq("stsCd", codeDto.getCdId()));
+				if (codeLookupVo.getVal().equals(projectInterestVo.getStsVal())) {
+					criteria.add(Restrictions.eq("stsCd", codeLookupVo.getCdId()));
 				}
 			}
 

@@ -420,13 +420,13 @@ public class ProjectController extends BaseMultiActionFormController {
 		List<ProjectFeedbackVo> projectFeedbackList = projectFeedbackService
 				.getProjectFeedbackList();
 
-		List<CodeDto> codeDtos = CodeLookupUtil
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
 
 		modelAndView = new ModelAndView("project/browseProjectFeedback");
 		modelAndView.addObject("feedbackList", projectFeedbackList);
 		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
-		modelAndView.addObject("fbCodeList", codeDtos);
+		modelAndView.addObject("fbCodeList", codeLookupVos);
 
 		PagedListHolder projectPagedListHolder = new PagedListHolder(
 				projectFeedbackList);
@@ -600,13 +600,13 @@ public class ProjectController extends BaseMultiActionFormController {
 		List<ProjectProposalVo> projectProposalVos = projectProposalService
 				.getProjectProposalList();
 
-		List<CodeDto> codeDtos = CodeLookupUtil
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 
 		modelAndView = new ModelAndView("project/browseProjectProposal");
 		modelAndView.addObject("proposalList", projectProposalVos);
 		modelAndView.addObject("proposalVo", new ProjectProposalVo());
-		modelAndView.addObject("stsCdList", codeDtos);
+		modelAndView.addObject("stsCdList", codeLookupVos);
 
 		PagedListHolder projectPagedListHolder = new PagedListHolder(
 				projectProposalVos);
@@ -634,13 +634,13 @@ public class ProjectController extends BaseMultiActionFormController {
 		List<ProjectProposalVo> projectProposalVos = projectProposalService
 				.getProjectProposalListbySearchCriteria(proposalVo);
 
-		List<CodeDto> codeDtos = CodeLookupUtil
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 		modelAndView = new ModelAndView("project/browseProjectProposal");
 		modelAndView.addObject("proposalList", projectProposalVos);
 
 		modelAndView.addObject("proposalVo", proposalVo);
-		modelAndView.addObject("stsCdList", codeDtos);
+		modelAndView.addObject("stsCdList", codeLookupVos);
 
 		PagedListHolder projectPagedListHolder = new PagedListHolder(
 				projectProposalVos);
@@ -664,7 +664,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("viewProjectProposalDetails(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		List<CodeDto> codeDtos = CodeLookupUtil
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 
 		long prjProId = Long.parseLong(request.getParameter("prjPropId"));
@@ -673,7 +673,7 @@ public class ProjectController extends BaseMultiActionFormController {
 				.getProjectProposalbyId(prjProId);
 
 		modelAndView = new ModelAndView("project/viewProjectProposalDetails");
-		modelAndView.addObject("stsCdList", codeDtos);
+		modelAndView.addObject("stsCdList", codeLookupVos);
 		modelAndView.addObject("proposalVo", projectProposalVo);
 
 		if (logger.isDebugEnabled()) {
