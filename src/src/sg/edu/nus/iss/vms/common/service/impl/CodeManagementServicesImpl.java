@@ -133,10 +133,13 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}
 
 	@Override
-	public CodeDto getCodeDtoByCatVal(String Category, String val) {
-		this.logger
-				.debug("@ Service Layer Getting Code DTO by a specific Category Value."
-						+ Category + ", Category Value:" + val);
+	public CodeDto getCodeByCatAndVal(String Category, String val) {
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeByCatAndVal(String, String) - start");
+			logger.debug("getCodeByCatAndVal(String, String) - @ Getting Code DTO by a specific Category Value."
+					+ Category + ", Category Value:" + val);
+		}
+		
 		List<CodeDto> codeList = new ArrayList<CodeDto>();
 		try {
 			String hQL = "from CodeDto c where c.catId.nme='" + Category
@@ -147,7 +150,13 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
 		} finally {
-			this.logger.debug("@ Service Layer: getCodeDtoByCatVal");
+			if (logger.isDebugEnabled()) {
+				logger.debug("getCodeByCatAndVal(String, String) - end");
+			}
+		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("getCodeByCatAndVal(String, String) - end");
 		}
 		return null;
 	}

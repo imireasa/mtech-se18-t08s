@@ -229,7 +229,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 
 			try {
-				CodeDto stsNew = CodeLookupUtil.getCodeDtoByCatVal(
+				CodeDto stsNew = CodeLookupUtil.getCodeByCatAndVal(
 						VMSConstants.PROJECT_STATUS_CATEGORY,
 						VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
 				projectVo.setStsCd(stsNew.getCdId() + "");
@@ -817,7 +817,7 @@ public class ProjectController extends BaseMultiActionFormController {
 				} else if (request.getParameter("inviteProjectMember") != null) {// invite
 					// COMMAND
 					try {
-						Long userStatus = CodeLookupUtil.getCodeDtoByCatVal(
+						Long userStatus = CodeLookupUtil.getCodeByCatAndVal(
 								VMSConstants.USER_TYPE_CATEGORY,
 								VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
 								.getCdId();
@@ -909,7 +909,7 @@ public class ProjectController extends BaseMultiActionFormController {
 						String[] prjIntrstId = request
 								.getParameterValues("prjIntrstId");
 
-						CodeDto codeDto = CodeLookupUtil.getCodeDtoByCatVal(
+						CodeDto codeDto = CodeLookupUtil.getCodeByCatAndVal(
 								VMSConstants.PROJECT_INTREST_STATUS, newStatus);
 
 						for (int i = 0; i < prjIntrstId.length; i++) {
