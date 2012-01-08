@@ -113,9 +113,9 @@
 </script>
 </head>
 <body>
-	<h2>Propose Project</h2>
+	<h2><fmt:message key="message.projectManagement.proposeProject.title" /></h2>
 	<div id="breadcrumb">
-		<a href="#">Home</a> / Propose Project
+		<a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label"/></a> / <fmt:message key="message.projectManagement.proposeProject.title" />
 
 	</div>
 
@@ -216,8 +216,8 @@
 
 				<tr>
 					<td colspan="2"></td>
-					<td align="left"><input type="submit" name="btn_Post"
-						id="btn_Post" value="Submit">
+					<td align="left"><input type="submit" name="buttonSubmit"
+						id="buttonSubmit" value="<fmt:message key="message.common.submit.button" />">
 					</td>
 				</tr>
 			</table>
