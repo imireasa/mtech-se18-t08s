@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 import org.springframework.web.servlet.ModelAndView;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
-import sg.edu.nus.iss.vms.reportmgmt.service.CertificateManagement;
+import sg.edu.nus.iss.vms.certificatemgmt.service.CertificateManagement;
 import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementService;
 import sg.edu.nus.iss.vms.volunteer.service.VolunteerManagementService;
 
