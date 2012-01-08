@@ -67,7 +67,7 @@ public class CodeLookupUtil {
 	 * Returns a list of codes based on the category name.
 	 * 
 	 * @param category - the category name to retrieve the list of corresponding code value.
-	 * @return a list of CodeDto
+	 * @return a list of CodeLookupVo
 	 */
 	public static List<CodeDto> getCodeListByCategory(String category) {
 		if (logger.isDebugEnabled()) {
@@ -87,7 +87,7 @@ public class CodeLookupUtil {
 	 * 
 	 * @param category - the category name to retrieve the code object.
 	 * @param value - the value to retrieve the code object.
-	 * @return a CodeDto object
+	 * @return a CodeLookupVo object
 	 */
 	public static CodeLookupVo getCodeByCategoryAndCodeValue(String category,
 			String value) {
@@ -174,20 +174,20 @@ public class CodeLookupUtil {
 	 * Returns a code object based on the code Id.
 	 * 
 	 * @param id - the code id.
-	 * @return a CodeDto object
+	 * @return a CodeLookupVo object
 	 */
-	public static CodeDto getCodeById(Long id) {
+	public static CodeLookupVo getCodeById(Long id) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeById(Long) - start");
 		}
 
 		CodeManagementServices codeMgr = getCodeManagementServices();
-		CodeDto returnCodeDto = codeMgr.getCodeById(id);
+		CodeLookupVo codeLookupVo = codeMgr.getCodeById(id);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeById(String, String) - end");
 		}
-		return returnCodeDto;
+		return codeLookupVo;
 	}
 
 }
