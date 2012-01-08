@@ -51,7 +51,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	</bean>
 
 	<bean id="certificateManagementImpl"
-		class="sg.edu.nus.iss.vms.reportmgmt.impl.CertificateManagementImpl">
+		class="sg.edu.nus.iss.vms.certificatemgmt.service.impl.CertificateManagementImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
 	</bean>
