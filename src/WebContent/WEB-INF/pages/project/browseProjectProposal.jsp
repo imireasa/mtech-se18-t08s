@@ -5,10 +5,10 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
 <body>
-    <h2><fmt:message key="message.projectManagement.browseProjectProposal" /></h2>
+    <h2><fmt:message key="message.projectManagement.browseProjectProposal.label" /></h2>
     <div id="breadcrumb">
         <a href="#"><fmt:message key="message.common.home.label"/></a> / 
-        <fmt:message key="message.projectManagement.browseProjectProposal" /></div>
+        <fmt:message key="message.projectManagement.browseProjectProposal.label" /></div>
 
     <div class="query">  
         <form:form name="browseProjectProposal" method="post"  commandName="proposalVo" 
@@ -40,9 +40,8 @@
                 </tr>
 
                 <tr>
-				<td></td>
 					<td colspan="2"></td>
-                    <td  align="left">    
+                    <td>    
                         <input type="submit" name="searchButton" id="searchButton" value="<fmt:message key="message.common.search.button" />">
                     </td>
                 </tr>
