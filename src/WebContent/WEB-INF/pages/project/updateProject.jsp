@@ -5,23 +5,6 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
 <body>
-<head>
-        <script type='text/javascript'
-        src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-        <script type='text/javascript'
-        src='<%=request.getContextPath()%>/dwr/engine.js'></script>
-
-        <link type="text/css"
-              href="<%=request.getContextPath()%>/sys/css/paging.css"
-              rel="stylesheet" />
-
-        <style> 
-                .error{ color:red;}  
-                .info{ color:blue;}  
-        </style>
-
-</head>
-<body>
         <h2><fmt:message key="message.projectManagement.updateProject.label"/></h2>
         <div id="breadcrumb">
                 <a href="#"><fmt:message key="message.common.home.label"/></a>/
@@ -47,12 +30,12 @@
                            commandName="command" 
                            action="updateProject.html">
                         <form:hidden path="cmdType"/>
-                        <table width="400" class="query-table">
+                        <table class="query-table">
 								 <form:hidden path="prjId"/>
 								<!-- Project Id (Disabled) -->
 								<tr>
                                         <td align="left"><fmt:message key="message.projectManagement.projectId.label"/></td>
-                                        <td>:</td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left">
                                                 <form:input path="prjIdDisplayed" disabled="true"/>
                                                 <form:errors path="prjIdDisplayed" cssClass="error"/>
@@ -61,8 +44,8 @@
 																	
 								<!-- Project Name -->
 								  <tr>
-                                        <td align="left"><fmt:message key="message.projectManagement.projectName.label"/></td>
-                                        <td>:</td>
+                                        <td align="left"><fmt:message key="message.projectManagement.projectName.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="name" cols="45" rows="2"></form:textarea>
                                                 <form:errors path="name" cssClass="error"/>
@@ -70,8 +53,8 @@
                                 </tr>		
 								 <!-- Description -->
 								<tr>
-                                        <td align="left"><fmt:message key="message.projectManagement.projectDescription.label"/></td>
-                                        <td>:</td>
+                                        <td align="left"><fmt:message key="message.projectManagement.projectDescription.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+                                       <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="desc" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="desc" cssClass="error"/>
@@ -79,28 +62,32 @@
                                 </tr>	
 								 <!-- Start Date -->
 								<tr>
-                                        <td align="left"><fmt:message key="message.common.startDate.label"/></td>
-                                        <td>:</td>
+                                        <td align="left"><fmt:message key="message.common.startDate.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left">
                                                 <form:input path="strDte" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="strDte" cssClass="error"/>
                                                 <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
+												<fmt:message key="message.common.date.format.label" />
                                         </td>
                                 </tr>	 
 								<!-- End Date -->
 								 <tr>
-                                        <td align="left"><fmt:message key="message.common.endDate.label"/></td>
-                                        <td>:</td>
+                                        <td align="left"><fmt:message key="message.common.endDate.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left">
                                                 <form:input path="endDte" cssClass="Date" maxlength="25" size="25"/>
                                                 <form:errors path="endDte" cssClass="error"/>
                                                 <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('endDte','ddMMyyyy')" style="cursor:pointer"/>
-                                        </td>
+												<fmt:message key="message.common.date.format.label" />
+										</td>
+										
+
                                 </tr>
 								 <!-- Conuntry -->
 								 <tr>
-								 	<td align="left"><fmt:message key="message.common.country.label"/></td>
-									<td>:</td>
+								 	<td align="left"><fmt:message key="message.common.country.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+									<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
 								 	<td>
                                                 <form:select path="ctryCd">
                                                         <c:forEach items="${countryList}" var="item" varStatus="status">
@@ -119,8 +106,8 @@
                                  </tr>       
 								<!-- Location -->
 								<tr>
-                                        <td align="left"><fmt:message key="message.common.location.label"/></td>
-                                        <td>:</td>
+                                        <td align="left"><fmt:message key="message.common.location.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="loc" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="loc" cssClass="error"/>
@@ -128,8 +115,8 @@
                                 </tr>	
 								 <!-- Project Status -->
 								  <tr>
-								 	<td align="left"><fmt:message key="message.projectManagement.projectStatus.label"/></td>
-									<td>:</td>
+								 	<td align="left"><fmt:message key="message.projectManagement.projectStatus.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+									<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
 								 	<td>
                                                 <form:select path="stsCd">
                                                         <c:forEach items="${statusList}" var="item" varStatus="status">
@@ -149,7 +136,7 @@
 								<!-- Remark -->
 								<tr>
                                         <td align="left"><fmt:message key="message.common.remark.label"/></td>
-                                        <td>:</td>
+                                       <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
                                                 <form:textarea path="rmk" cols="45" rows="4"></form:textarea>
                                                 <form:errors path="rmk" cssClass="error"/>
