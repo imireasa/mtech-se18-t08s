@@ -18,7 +18,7 @@
 
 	<div class="query">
 		<c:if test="${not empty riMsg}">
-			<div class="info">
+			<div class="infoblock">
 				<c:out value="${riMsg}" escapeXml="false" />
 				<br />
 			</div>
