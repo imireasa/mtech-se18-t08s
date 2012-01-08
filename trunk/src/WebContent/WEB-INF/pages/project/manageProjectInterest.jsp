@@ -4,19 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
-<head>
-    <script type='text/javascript'
-    src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-    <script type='text/javascript'
-    src='<%=request.getContextPath()%>/dwr/engine.js'></script>
-
-    <link type="text/css"
-          href="<%=request.getContextPath()%>/sys/css/paging.css"
-          rel="stylesheet" />
-
-
-
-</head>
 <body>
     <h2><fmt:message key="message.projectManagement.projectInterest.label"/></h2>
     <div id="breadcrumb">
@@ -41,14 +28,16 @@
                 </c:forEach>
             </div>
         </c:if>
-        <table width="550" class="query-table">
+        <table class="query-table">
             <tr>
-                <td width="153"><fmt:message key="message.projectManagement.projectName.label"/></td>
-                <td width="385">${projectVo.name}</td>
+                <td><fmt:message key="message.projectManagement.projectName.label"/></td>
+				<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                <td>${projectVo.name}</td>
             </tr>
             <tr>
-                <td width="153"><fmt:message key="message.projectManagement.projectLocation.label"/></td>
-                <td width="385">${projectVo.loc}(${projectVo.ctry})</td>
+                <td><fmt:message key="message.projectManagement.projectLocation.label"/></td>
+				<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+                <td>${projectVo.loc}(${projectVo.ctry})</td>
             </tr>
         </table>
     </div>
@@ -56,10 +45,10 @@
         <input type="hidden" id="prjId" name="prjId" value="${prjId}"/>
         <table border="1" class="proj-table">
             <tr>
-                <th width="20">#</th>
-                <th width="170"><label>Name</label></th>
-                <th width="75"><label>Country</label></th>
-                <th width="75"><label>Status</label></th>
+                <th width="20"><fmt:message key="message.common.check.label" /></th>
+                <th width="170"><label><fmt:message key="message.common.name.label" /></label></th>
+                <th width="75"><label><fmt:message key="message.common.country.label" /></label></th>
+                <th width="75"><label><fmt:message key="message.common.status.label" /></label></th>
 
             </tr>
             <c:forEach  items="${projectInterestPagedListHolder.pageList}" var="item">

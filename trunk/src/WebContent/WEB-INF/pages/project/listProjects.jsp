@@ -5,18 +5,6 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
 <body>
-<head>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
-<script type='text/javascript'
-	src='<%=request.getContextPath()%>/dwr/engine.js'></script>
-
-<link type="text/css"
-	href="<%=request.getContextPath()%>/sys/css/paging.css"
-	rel="stylesheet" />
-
-</head>
-<body>
 	<h2><fmt:message key="message.projectManagement.projectManagement.label" /></h2>
 	<div id="breadcrumb">
 		<a href="#"><fmt:message key="message.common.home.label" /></a> /
@@ -27,14 +15,22 @@
 		<form:form name="listProjects" method="get" commandName="command"
 			action="listProjects.html">
 
-			<table width="660" height="105" border="0" class="query-table">
+			<table  class="query-table">
 				<tr>
-					<td width="123">Project Name</td>
-					<td width="199"><form:input path="name" /></td>
-					<td width="359">&nbsp;</td>
+					<td><fmt:message key="message.projectManagement.projectName.label" /></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+					<td><form:input path="name"/></td>
+				</tr>
+					<td><fmt:message key="message.projectManagement.projectStartMonth.label" /></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
+					<td><form:input path="strDte" /> <img
+						src="<%=request.getContextPath()%>/sys/images/cal.gif"
+						onClick="javascript:NewCssCal('strDte','ddMMyyyy')"
+						style="cursor: pointer" /></td>	
 				</tr>
 				<tr>
-					<td>Status</td>
+					<td><fmt:message key="message.projectManagement.projectStatus.label" /></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
 					<td><form:select path="stsCd">
 							<form:option value="">All</form:option>
 							<c:forEach items="${projectStatusList}" var="item"
@@ -42,18 +38,14 @@
 								<form:option value="${item.cdId}">${item.val}</form:option>
 							</c:forEach>
 
-						</form:select></td>
-					<td>&nbsp;</td>
-				</tr>
-				<tr>
-					<td width="123">Start Month</td>
-					<td width="199"><form:input path="strDte" /> <img
-						src="<%=request.getContextPath()%>/sys/images/cal.gif"
-						onClick="javascript:NewCssCal('strDte','ddMMyyyy')"
-						style="cursor: pointer" /></td>
+						</form:select>
+					</td>
 					<td><input type="submit" name="btn_Search" id="btn_Search"
-						value="Search"></td>
+						value=<fmt:message key="message.common.search.button"/> >
+					</td>
+
 				</tr>
+			
 
 			</table>
 		</form:form>
@@ -64,11 +56,11 @@
 			<td colspan="8"><b><a href="createProject.html"><fmt:message key="message.projectManagement.createProject.label"/></a></b></td>
 		</tr>
 		<tr>
-			<th>Project Name</th>
-			<th>Description</th>
-			<th>StartDate</th>
-			<th>Status</th>
-			<th colspan="4">Actions</th>
+			<th><fmt:message key="message.projectManagement.projectName.label" /></th>
+			<th><fmt:message key="message.common.description.label" /></th>
+			<th><fmt:message key="message.common.startDate.label" /></th>
+			<th><fmt:message key="message.common.status.label" /></th>
+			<th colspan="4"><fmt:message key="message.common.actions.label" /></th>
         </tr>
 		<c:forEach items="${pagedListHolder.pageList}" var="item">
 			<tr>
@@ -76,10 +68,10 @@
 				<td>${item.desc}</td>
 				<td>${item.strDte}</td>
 				<td>${item.stsCd}</td>
-				<td><a href="manageProjectMember.html?prjId=${item.prjId}">Member</a></td>
-				<td><a href="manageProjectInterest.html?prjId=${item.prjId}">Interest</a></td>
-				<td><a href="viewProject.html?prjId=${item.prjId}">View</a></td>
-				<td><a href="updateProject.html?prjId=${item.prjId}">Update</a></td>
+				<td><a href="manageProjectMember.html?prjId=${item.prjId}"><fmt:message key="message.common.Member.button" /></a></td>
+				<td><a href="manageProjectInterest.html?prjId=${item.prjId}"><fmt:message key="message.common.Interest.button" /></a></td>
+				<td><a href="viewProject.html?prjId=${item.prjId}"><fmt:message key="message.common.view.button" /></a></td>
+				<td><a href="updateProject.html?prjId=${item.prjId}"><fmt:message key="message.common.update.button" /></a></td>
 			</tr>
 		</c:forEach>
 	</table>
