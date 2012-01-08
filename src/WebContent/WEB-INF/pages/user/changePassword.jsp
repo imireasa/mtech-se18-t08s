@@ -18,9 +18,9 @@
 	  
 	    <tr>
 	      
-              <td><fmt:message key="message.common.email.label" /></td>
-	      <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
-	      <td> <form:label path="email">${command.email}</form:label> <form:hidden path="email"/> </td>
+             <td><fmt:message key="message.common.email.label" /></td>
+			<td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+			<td> ${command.email}</td><form:hidden path="email"/>
         </tr>
         <tr>
               <td><fmt:message key="message.userManagement.oldPassword.label" /></td>
