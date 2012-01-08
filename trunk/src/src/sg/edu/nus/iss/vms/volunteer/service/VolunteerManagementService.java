@@ -1,14 +1,8 @@
 package sg.edu.nus.iss.vms.volunteer.service;
 
-import java.util.List;
-import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
 public interface VolunteerManagementService {
-
-        public List<ProjectMemberDto> getListOfMembers(long projectId);
-
-        public List<ProjectMemberDto> getListOfMembers();
 
         public void saveVolunteer(VolunteerVo volunteerVo) throws Exception;
 

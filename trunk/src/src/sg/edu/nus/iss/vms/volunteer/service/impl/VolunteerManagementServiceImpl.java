@@ -57,53 +57,6 @@ public class VolunteerManagementServiceImpl implements
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
-    public List<ProjectMemberDto> getListOfMembers(long projectId) {
-        if (logger.isDebugEnabled()) {
-            logger.debug("getListOfMembers(long) - start");
-        }
-        // try{debug();}catch(Exception ex){ex.printStackTrace();}
-        List<ProjectMemberDto> memberList = new ArrayList<ProjectMemberDto>();
-        try {
-            this.logger.debug("getListOfMembers(long) - @ Service Layer getting user 1");
-            String hQL = "from ProjectMember where projectId=" + projectId;
-            memberList = manager.find(hQL);
-        } catch (Exception ex) {
-            this.logger.error("getListOfMembers(long) - Data Access Error", ex);
-        } finally {
-            this.logger.debug("getListOfMembers(long) - @ Service Layer getting user 2");
-        }
-
-        if (logger.isDebugEnabled()) {
-            logger.debug("getListOfMembers(long) - end");
-        }
-        return memberList;
-    }
-    
-
-    @Override
-    public List<ProjectMemberDto> getListOfMembers() {
-        if (logger.isDebugEnabled()) {
-            logger.debug("getListOfMembers() - start");
-        }
-
-        // try{debug();}catch(Exception ex){ex.printStackTrace();}
-        List<ProjectMemberDto> userList = new ArrayList<ProjectMemberDto>();
-        try {
-            this.logger.debug("getListOfMembers() - @ Service Layer getting user 1");
-
-        } catch (Exception ex) {
-            this.logger.error("getListOfMembers() - Data Access Error", ex);
-        } finally {
-            this.logger.debug("getListOfMembers() - @ Service Layer getting user 2");
-        }
-
-        if (logger.isDebugEnabled()) {
-            logger.debug("getListOfMembers() - end");
-        }
-        return userList;
-    }
-
     public boolean isLoginIdExists(String loginId) {
         if (logger.isDebugEnabled()) {
             logger.debug("isLoginIdExists(String) - start");
