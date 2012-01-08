@@ -19,10 +19,10 @@
                     <td><fmt:message key="message.projectManagement.proposalName.label" /></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <spring:bind path="proposalVo.name">
-                            <form:input path="name"/>
+                        <spring:bind path="proposalVo.nme">
+                            <form:input path="nme"/>
                         </spring:bind>
-                        <form:errors path="name" cssClass="error"/>  
+                        <form:errors path="nme" cssClass="error"/>  
                     </td>
                 </tr>
                 <tr>
@@ -30,7 +30,7 @@
                     <td><fmt:message key="message.common.status.label" /></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <form:select path="status">
+                        <form:select path="stsVal">
                             <form:option value="" label="ALL"/>
                             <c:forEach items="${stsCdList}" var="item" varStatus="status">
                                 <form:option value="${item.val}">${item.val}</form:option>
@@ -74,14 +74,7 @@
 
 
                 <td>
-                    <c:forEach items="${stsCdList}" var="item2" varStatus="status">
-                        <c:set var="fbStsId">${item.stsCd}</c:set>
-                        <c:set var="codeId">${item2.cdId}</c:set>
-
-                        <c:if test="${fbStsId == codeId}">
-                            <c:out value="${item2.val}"/>
-                        </c:if>
-                    </c:forEach>
+                   ${item.stsVal}
                 </td>
                 <td><a href="<c:url value="viewProjectProposalDetails.html">
                            <c:param name="prjPropId" value="${item.prjPropId}"/> 
