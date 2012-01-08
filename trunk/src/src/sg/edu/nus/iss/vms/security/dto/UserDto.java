@@ -42,7 +42,7 @@ public class UserDto extends BaseVersionDto implements Serializable {
         @Temporal(TemporalType.DATE)
         private Date dob;
         @Basic(optional = false)
-        @Column(name = "EMAIL")
+        @Column(name = "EMAIL")        
         private String email;
         @Basic(optional = false)
         @Column(name = "PWD")

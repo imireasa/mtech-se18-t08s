@@ -3,6 +3,7 @@ package sg.edu.nus.iss.vms.project.vo;
 import java.util.ArrayList;
 import java.util.List;
 
+import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
@@ -33,22 +34,49 @@ public class ProjectVo {
 	}
 
 	public ProjectVo(ProjectDto projectDto) {
-		setPrjId(projectDto.getPrjId());
-		setName(projectDto.getNme());
-		setDesc(projectDto.getDesc());
-		setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
-		setStrDte(DateUtil.formatDate(projectDto.getStrDte(),
-				DateUtil.DEFAULT_DATE_FORMAT));
-		setEndDte(DateUtil.formatDate(projectDto.getEndDte(),
-				DateUtil.DEFAULT_DATE_FORMAT));
-		setCtryCd(projectDto.getCtryCd() + "");
-		setCtry(CodeLookupUtil.getCodeDescriptionByCodeId(projectDto
-				.getCtryCd()));
-		setLoc(projectDto.getLoc());
-		setRmk(projectDto.getRmk());
-		setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(projectDto
-				.getStsCd()));
-	}
+        setProjectDto(projectDto);
+    }
+
+    public void setProjectDto(ProjectDto projectDto) {
+        setPrjId(projectDto.getPrjId());
+        setName(projectDto.getNme());
+        setDesc(projectDto.getDesc());
+        setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+        setStrDte(DateUtil.formatDate(projectDto.getStrDte(),
+                DateUtil.DEFAULT_DATE_FORMAT));
+        setEndDte(DateUtil.formatDate(projectDto.getEndDte(),
+                DateUtil.DEFAULT_DATE_FORMAT));
+        setCtryCd(projectDto.getCtryCd() + "");
+        setCtry(CodeLookupUtil.getCodeValueByCodeId(projectDto.getCtryCd()));
+        setLoc(projectDto.getLoc());
+        setRmk(projectDto.getRmk());
+        if (projectDto.getPrjPropId() != null) {
+				setPrjPropId(Long.toString(projectDto.getPrjPropId()
+						.getPrjPropId()));
+			} else {
+				setPrjPropId("0");
+			}
+        setStsCd(CodeLookupUtil.getCodeValueByCodeId(projectDto.getStsCd()));
+    }
+
+    public ProjectDto getProjectDto() {
+        ProjectDto project = new ProjectDto();
+        project.setPrjId(getPrjId());
+        project.setNme(getName());
+        project.setDesc(getDesc());
+        project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+        project.setStrDte(DateUtil.parseDate(getStrDte(),
+                DateUtil.DEFAULT_DATE_FORMAT));
+        project.setEndDte(DateUtil.parseDate(getEndDte(),
+                DateUtil.DEFAULT_DATE_FORMAT));
+        project.setCtryCd(Long.parseLong(getCtryCd()));        
+        project.setLoc(getLoc());
+        project.setRmk(getRmk());
+        project.setPrjPropId(null);
+        project.setStsCd(CodeLookupUtil.getCodeDtoByCatDesc(
+                VMSConstants.PROJECT_STATUS, getStsCd()).getCdId());
+        return project;
+    }
 
 	public String getCtry() {
 		return ctry;

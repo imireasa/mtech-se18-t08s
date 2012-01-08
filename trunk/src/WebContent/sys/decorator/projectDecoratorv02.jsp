@@ -29,7 +29,7 @@
 	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/engine.js'></script>
 
 	<!-- jQuery -->
-	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-1.6.min.js'></script>
+    <script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-1.6.min.js'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-ui-1.8.16.custom.min.js'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery.validationEngine.js'></script>	
 	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/languages/jquery.validationEngine-en.js'></script>
@@ -37,7 +37,7 @@
         <!--[if lte IE 6]>
         <script type="text/javascript" src="<%=request.getContextPath()%>/sys/scripts/v02/supersleight.js"></script>
         <![endif]-->
-        <script type="text/javascript">
+<!--        <script type="text/javascript">
             $(document).ready(function() {
                 $(this).find('ul').each(function(){
                     // cache jquery object
@@ -51,7 +51,7 @@
                 });
 
             });
-        </script>
+        </script>-->
         <decorator:head />
     </head>
 
