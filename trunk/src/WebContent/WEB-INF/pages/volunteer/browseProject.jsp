@@ -4,42 +4,40 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
-
-<head>
-
-
-    <link type="text/css"
-          href="<%=request.getContextPath()%>/sys/css/paging.css"
-          rel="stylesheet" />
-</head>
 <body>
-    <h2>Browse Projects</h2>
+    <h2><fmt:message key="message.projectManagement.browseProjects.title" /></h2>
     <div id="breadcrumb">
-        <a href="#">Home</a> / Browse Projects
+        <a href="#"><fmt:message key="message.common.home.label"/></a> / <fmt:message key="message.projectManagement.browseProjects.title" />
     </div>
 
     <div class="query">
         <form:form name="browseProject" method="post"  commandName="command" 
                    action="searchProjects.html" >
-            <table width="707" height="105" class="query-table" >
+            <table class="query-table" >
                 <tr>
-                    <td><fmt:message key="message.projectManagement.projectName.label"/>:</td>
+                    <td><fmt:message key="message.projectManagement.projectName.label"/></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
                         <spring:bind path="command.name">  
                             <form:input path="name"/>
                         </spring:bind>
                         <form:errors path="name" cssClass="error"/>  
                     </td>
-                    <td><fmt:message key="message.common.startDate.label"/>:</td>
+                </tr>
+				<tr>
+				   </td>
+                    <td><fmt:message key="message.common.startDate.label"/></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
                         <spring:bind path="command.strDte">
                             <form:input path="strDte"/><img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
                         </spring:bind>
                         <form:errors path="strDte" cssClass="error"/>  
                     </td>
-                </tr>
+				</tr>
                 <tr>
-                    <td><fmt:message key="message.common.status.label"/>:</td>
+                    <td><fmt:message key="message.common.status.label"/></td>
+					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
                         <form:select path="stsCd">
                             <form:option value="" label="ALL"/>
@@ -48,21 +46,22 @@
                             </c:forEach>
                         </form:select>       
                     </td>
-                    <td colspan="2" align="center">    
-                        <input type="submit" name="btn_Search" id="btn_Search" value="Search">
-                    </td>
                 </tr>
+				<tr>
+					<td colspan="2"></td>
+					<td> <input type="submit" name="searchButton" id="searchButton" value="<fmt:message key="message.common.search.button" />"></td>
+				</tr>
             </table>
         </form:form>
     </div>
     <!-- end of query -->
-    <table width="700" class="proj-table">
+    <table class="proj-table">
 
         <tr>
-            <th><fmt:message key="message.projectManagement.projectName.label"/></th>
-            <th><fmt:message key="message.common.description.label"/></th>
-            <th><fmt:message key="message.common.startDate.label"/></th>
-            <th>Action</th>
+            <th width="150"><fmt:message key="message.projectManagement.projectName.label"/></th>
+            <th width="200"><fmt:message key="message.common.description.label"/></th>
+            <th width="100"><fmt:message key="message.common.startDate.label"/></th>
+            <th width="80"><fmt:message key="message.common.actions.label" /></th>
 
         </tr>
         <c:forEach items="${pagedListHolder.pageList}" var="item" varStatus="status">
@@ -75,8 +74,7 @@
                        <c:url value="viewProjectDetails.html">
                            <c:param name="prjId" value="${item.prjId}"/> 
                        </c:url>
-                       ">
-                        Details
+                       "><fmt:message key="message.common.details.button" />
                     </a>
 
                 </td>
