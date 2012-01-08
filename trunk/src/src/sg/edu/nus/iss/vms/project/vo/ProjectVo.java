@@ -73,7 +73,7 @@ public class ProjectVo {
         project.setLoc(getLoc());
         project.setRmk(getRmk());
         project.setPrjPropId(null);
-        project.setStsCd(CodeLookupUtil.getCodeDtoByCatDesc(
+        project.setStsCd(CodeLookupUtil.getCodeByCatAndVal(
                 VMSConstants.PROJECT_STATUS, getStsCd()).getCdId());
         return project;
     }

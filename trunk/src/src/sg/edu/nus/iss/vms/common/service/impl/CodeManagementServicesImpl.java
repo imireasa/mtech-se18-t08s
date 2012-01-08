@@ -161,14 +161,14 @@ public class CodeManagementServicesImpl implements CodeManagementServices {
 	}
 
 	@Override
-	public CodeDto getCodeByCodeCategoryAndCodeDesc(String Category, String val) {
+	public CodeDto getCodeByCodeCategoryAndCodeDesc(String category, String codeValue) {
 		this.logger
 				.debug("@ Service Layer Getting Code DTO by a specific Category Value."
-						+ Category + ", Category Value:" + val);
+						+ category + ", Category Value:" + codeValue);
 		List<CodeDto> codeList = new ArrayList<CodeDto>();
 		try {
-			String hQL = "from CodeDto c where c.catId.nme='" + Category
-					+ "' and c.desc='" + val + "'";
+			String hQL = "from CodeDto c where c.catId.nme='" + category
+					+ "' and c.desc='" + codeValue + "'";
 			codeList = this.manager.find(hQL);
 			if (codeList != null)
 				return codeList.get(0);

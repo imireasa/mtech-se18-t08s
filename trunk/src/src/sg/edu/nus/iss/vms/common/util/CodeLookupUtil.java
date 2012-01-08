@@ -117,7 +117,7 @@ public class CodeLookupUtil {
 		return returnCodeDto;
 	}
 
-	public static CodeDto getCodeDtoByCatDesc(String category, String desc) {
+	/*public static CodeDto getCodeDtoByCatDesc(String category, String desc) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("getCodeDtoByCatVal(String, String) - start");
 		}
@@ -130,7 +130,7 @@ public class CodeLookupUtil {
 			logger.debug("getCodeDtoByCatVal(String, String) - end");
 		}
 		return returnCodeDto;
-	}
+	}*/
 
 	/**
 	 * @return the reference to Code management Services
