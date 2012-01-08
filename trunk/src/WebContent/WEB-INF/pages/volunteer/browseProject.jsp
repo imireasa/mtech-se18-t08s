@@ -7,7 +7,7 @@
 <body>
     <h2><fmt:message key="message.projectManagement.browseProjects.title" /></h2>
     <div id="breadcrumb">
-        <a href="#"><fmt:message key="message.common.home.label"/></a> / <fmt:message key="message.projectManagement.browseProjects.title" />
+        <a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label"/></a> / <fmt:message key="message.projectManagement.browseProjects.title" />
     </div>
 
     <div class="query">

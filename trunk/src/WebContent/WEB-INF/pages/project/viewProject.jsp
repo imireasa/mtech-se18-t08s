@@ -7,7 +7,7 @@
 <body>
         <h2><fmt:message key="message.projectManagement.viewProject.label"/></h2>
         <div id="breadcrumb">
-                <a href="#"><fmt:message key="message.common.home.label"/></a> /
+                <a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label"/></a> /
 				<a href="listProjects.html"><fmt:message key="message.projectManagement.projectManagement.label"/></a> / 
 				<fmt:message key="message.projectManagement.viewProject.label"/>
         </div>
