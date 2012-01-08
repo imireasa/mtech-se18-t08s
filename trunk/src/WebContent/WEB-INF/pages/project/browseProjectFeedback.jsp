@@ -4,32 +4,30 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
-<head>
 
-    <link type="text/css"
-          href="<%=request.getContextPath()%>/sys/css/paging.css"
-          rel="stylesheet" />
-
-</head>
 <body>
-    <h2>Review Project Feedback</h2>
+    <h2><fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></h2>
     <div id="breadcrumb">
-        <a href="#">Home</a> / Review Project Feedback</div>
+        <a href="#"><fmt:message key="message.common.home.label" /></a> / <fmt:message key="message.projectManagement.reviewProjectFeeback.title" /></div>
 
     <div class="query">  
         <form:form name="browseProjectFeedback" method="post"  commandName="feedbackVo" 
                    action="searchProjectFeedback.html" >
-            <table width="707" height="105" class="query-table" >
+            <table class="query-table" >
                 <tr>
-                    <td width="122">Project Id:</td>
-                    <td width="197">
+                    <td><fmt:message key="message.projectManagement.projectId.label" /></td>
+		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+                    <td>
                         <spring:bind path="feedbackVo.prjId">  
                             <form:input path="prjId"/>
                         </spring:bind>
                         <form:errors path="prjId" cssClass="error"/>  
                     </td>
-                    <td width="157">Feedback Title:</td>
-                    <td width="203">
+                </tr>
+                <tr>
+                    <td><fmt:message key="message.projectManagement.feedbackTitle.label" /></td>
+		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+                    <td>
                         <spring:bind path="feedbackVo.fbTitle">
                             <form:input path="fbTitle"/>
                         </spring:bind>
@@ -37,14 +35,18 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>Project Name:</td>
+                    <td><fmt:message key="message.projectManagement.projectName.label" /></td>
+		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
                     <td>
                         <spring:bind path="feedbackVo.prjName">  
                             <form:input path="prjName"/>
                         </spring:bind>
                         <form:errors path="prjName" cssClass="error"/>  
                     </td>
-                    <td>Status:</td>
+                </tr>
+                <tr>
+                    <td><fmt:message key="message.common.status.label" /></td>
+		    <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
                         <form:select path="fbStatus">
                             <form:option value="" label="ALL"/>
@@ -57,7 +59,7 @@
 
                 <tr>
                     <td colspan="4" align="center">    
-                        <input type="submit" name="btn_Search" id="btn_Search" value="Search">
+                        <input type="submit" name="searchButton" id="searchButton" value="Search">
                     </td>
                 </tr>
 
@@ -65,18 +67,18 @@
         </form:form>
     </div>
     <!-- end of query -->
-    <table width="700" class="proj-table">
+    <table class="proj-table">
         <tr>
             <td colspan="6" align="left">
                 Search Results</td>
         </tr>
         <tr>
-            <th>Feedback Code</th>
-            <th>Project Name</th>
-            <th>Feedback Title</th>
-            <th>Created by</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th><fmt:message key="message.projectManagement.feedbackCode.label" /></th>
+            <th><fmt:message key="message.projectManagement.projectName.label" /></th>
+            <th><fmt:message key="message.projectManagement.feedbackTitle.label" /></th>
+            <th><fmt:message key="message.common.creator.label" /></th>
+            <th><fmt:message key="message.common.status.label" /></th>
+            <th><fmt:message key="message.common.actions.label" /></th>
         </tr>
         <c:forEach items="${pagedListHolder.pageList}" var="item">
             <tr>
@@ -99,7 +101,6 @@
                            <c:param name="prjFbId" value="${item.prjFbId}"/> 
                        </c:url>
                        ">Details</a></td>
-                <!-- <td><input type="submit" name="btn_publish" id="btn_publish" value="Publish"></td>-->
 
             </tr>
         </c:forEach>
