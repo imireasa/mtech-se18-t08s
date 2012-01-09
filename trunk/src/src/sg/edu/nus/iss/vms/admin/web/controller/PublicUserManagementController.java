@@ -107,7 +107,7 @@ public class PublicUserManagementController extends BaseMultiActionFormControlle
             logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - start");
         }
 
-        modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
+        modelAndView = new ModelAndView("volunteer/createProfile");// jsp
         if (command.getLoginId() == null) {
             // page
             modelAndView.addObject("titleList", CodeLookupUtil.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
