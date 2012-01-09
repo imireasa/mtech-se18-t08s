@@ -22,6 +22,8 @@ public class ProjectInterestVo {
 	private String reqByCtry;
 	private Long stsCd;
 
+	private Date createdDate;
+
 	public ProjectInterestVo() {
 
 	}
@@ -38,6 +40,7 @@ public class ProjectInterestVo {
 		setApprRmk(obj.getApprRmk());
 		stsCd = obj.getStsCd();
 		setStsVal(CodeLookupUtil.getCodeValueByCodeId(obj.getStsCd()));
+		createdDate = obj.getCreatedDte();
 
 	}
 
@@ -143,6 +146,14 @@ public class ProjectInterestVo {
 
 	public void setStsVal(String stsVal) {
 		this.stsVal = stsVal;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 }
