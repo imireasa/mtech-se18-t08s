@@ -73,6 +73,22 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
                 this.docId = docId;
         }
 
+        public long getRefId() {
+            return refId;
+        }
+
+        public void setRefId(long refId) {
+            this.refId = refId;
+        }
+
+        public long getRefTp() {
+            return refTp;
+        }
+
+        public void setRefTp(long refTp) {
+            this.refTp = refTp;
+        }
+
         public String getFleNme() {
                 return fleNme;
         }
