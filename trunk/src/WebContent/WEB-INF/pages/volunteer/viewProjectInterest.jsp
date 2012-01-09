@@ -39,10 +39,10 @@
                                 <tr>
                                         <td>Status</td>
                                         <td>
-                                                <form:select path="prjIntStatus">
+                                                <form:select path="stsVal">
                                                         <form:option value="" ></form:option>
                                                         <c:forEach items="${projInterestStatusList}" var="item" varStatus="status">
-                                                                <form:option value="${item.cdId}">${item.val}</form:option>
+                                                                <form:option value="${item.val}">${item.val}</form:option>
                                                         </c:forEach>
 
                                                 </form:select>
