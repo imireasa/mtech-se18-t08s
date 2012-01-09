@@ -423,7 +423,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
 
-		modelAndView = new ModelAndView("project/browseProjectFeedback");
+		modelAndView = new ModelAndView("project/viewProjectFeedbackList");
 		modelAndView.addObject("feedbackList", projectFeedbackList);
 		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
 		modelAndView.addObject("fbCodeList", codeLookupVos);
@@ -485,7 +485,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectFeedbackVo projectFeedbackVo = projectFeedbackService
 				.getProjectFeedbackbyId(prjFbId);
 
-		modelAndView = new ModelAndView("project/viewProjectFeedbackDetails");
+		modelAndView = new ModelAndView("project/viewProjectFeedback");
 		modelAndView.addObject("projectFbVo", projectFeedbackVo);
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - XXXXXXXXXXXXXXXXXXXXXXcretaed date"
@@ -555,7 +555,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		ModelAndView modelAndView = new ModelAndView(
-				"project/proposeNewProject");
+				"project/createProjectProposal");
 		modelAndView.addObject("proposalVo", new ProjectProposalVo());
 
 		modelAndView.addObject("countryList", CodeLookupUtil
@@ -577,7 +577,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		validate(proposalVo);
 
 		ModelAndView modelAndView = new ModelAndView(
-				"project/proposeNewProject");
+				"project/createProjectProposal");
 		modelAndView.addObject("proposalVo", proposalVo);
 
 		projectProposalService.createProjectProposal(proposalVo);
@@ -603,7 +603,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 
-		modelAndView = new ModelAndView("project/browseProjectProposal");
+		modelAndView = new ModelAndView("project/viewProjectProposalList");
 		modelAndView.addObject("proposalList", projectProposalVos);
 		modelAndView.addObject("proposalVo", new ProjectProposalVo());
 		modelAndView.addObject("stsCdList", codeLookupVos);
@@ -636,7 +636,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
-		modelAndView = new ModelAndView("project/browseProjectProposal");
+		modelAndView = new ModelAndView("project/viwProjectProposalList");
 		modelAndView.addObject("proposalList", projectProposalVos);
 
 		modelAndView.addObject("proposalVo", proposalVo);
@@ -672,7 +672,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectProposalVo projectProposalVo = projectProposalService
 				.getProjectProposalbyId(prjProId);
 
-		modelAndView = new ModelAndView("project/viewProjectProposalDetails");
+		modelAndView = new ModelAndView("project/viewProjectProposal");
 		modelAndView.addObject("stsCdList", codeLookupVos);
 		modelAndView.addObject("proposalVo", projectProposalVo);
 
@@ -725,7 +725,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("listProjects(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
 
-		modelAndView = new ModelAndView("project/listProjects");
+		modelAndView = new ModelAndView("project/viewProjectList");
 		modelAndView.addObject("projectStatusList", CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS));
 		List projectList = null;
@@ -763,7 +763,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectVo projectVo = new ProjectVo();
 		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
 			Long prjId = Long.parseLong(request.getParameter("prjId"));
-			modelAndView = new ModelAndView("project/manageProjectMember");
+			modelAndView = new ModelAndView("project/updateProjectMember");
 			logger.debug("project/manageProjectMember");
 			try {
 				if (request.getParameter("removeMember") != null) {// REMOVE
@@ -896,7 +896,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		if (logger.isDebugEnabled()) {
 			logger.debug("manageProjectInterest(HttpServletRequest, HttpServletResponse) - start");
 		}
-		modelAndView = new ModelAndView("project/manageProjectInterest");
+		modelAndView = new ModelAndView("project/updateProjectInterest");
 		ProjectVo projectVo = new ProjectVo();
 
 		String newStatus = "";

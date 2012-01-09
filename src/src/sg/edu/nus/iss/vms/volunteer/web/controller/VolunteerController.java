@@ -202,7 +202,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 	// logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - start");
 	// }
 	//
-	// modelAndView = new ModelAndView("volunteer/registerVolunteer");// jsp
+	// modelAndView = new ModelAndView("volunteer/createProfile");// jsp
 	// if (command.getLoginId() == null) {
 	// // page
 	// modelAndView.addObject("titleList", CodeLookupUtil
@@ -275,7 +275,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 					.getVolunteer(UserUtil.getUserSessionInfoVo().getUserID());
 			volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			// TODO: Update Session User
-			modelAndView = new ModelAndView("volunteer/updateVolunteer");// jsp
+			modelAndView = new ModelAndView("volunteer/updateProfile");
 			// page
 			modelAndView.addObject("titleList", CodeLookupUtil
 					.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
@@ -290,7 +290,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			return modelAndView;
 		} else {
 			validate(command);
-			modelAndView = new ModelAndView("volunteer/updateVolunteer");
+			modelAndView = new ModelAndView("volunteer/updateProfile");
 			modelAndView.addObject("titleList", CodeLookupUtil
 					.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
 			modelAndView.addObject("countryList", CodeLookupUtil
@@ -357,7 +357,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("browseProject(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
+		modelAndView = new ModelAndView("volunteer/viewProjectList");// jsp page
 		List<ProjectDto> projectList = projectManagementService
 				.getAllProjectObjectList(ProjectDto.class);
 		List<CodeLookupVo> projectCodeList = CodeLookupUtil
@@ -389,7 +389,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("searchProjects(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
 
-		modelAndView = new ModelAndView("volunteer/browseProject");// jsp page
+		modelAndView = new ModelAndView("volunteer/viewProjectList");// jsp page
 		List<CodeLookupVo> projectCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 
@@ -475,7 +475,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 				.getProjectExperienceListbyProjectId(projectDto.getPrjId());
 		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
 				.getProjectFeedbackListbyProjectId(projectDto.getPrjId());
-		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+		modelAndView = new ModelAndView("volunteer/viewProject");
 
 		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
 				feedbackList);
@@ -594,7 +594,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
-		modelAndView = new ModelAndView("volunteer/viewProjectDetails");
+		modelAndView = new ModelAndView("volunteer/viewProject");
 
 		if (!StringUtil.isNullOrEmpty(experienceVo.getCont())) {
 
