@@ -32,16 +32,16 @@
                                 </tr>
                                 <tr>
                                         <td width="123">Project Name</td>
-                                        <td width="199"><form:input path="projNme"/></td>
+                                        <td width="199"><form:input path="prjName"/></td>
                                         <td width="359">&nbsp;</td>
                                 </tr>
                                 <tr>
                                         <td>Status</td>
                                         <td>
-                                                <form:select path="prjIntStatus">
+                                                <form:select path="stsVal">
                                                         <form:option value="" ></form:option>
                                                         <c:forEach items="${projInterestStatusList}" var="item" varStatus="status">
-                                                                <form:option value="${item.cdId}">${item.val}</form:option>
+                                                                <form:option value="${item.val}">${item.val}</form:option>
                                                         </c:forEach>
 
                                                 </form:select>
