@@ -27,6 +27,12 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
         @Column(name = "DOC_ID")
         private Long docId;
         @Basic(optional = false)
+        @Column(name = "REF_ID")
+        private long refId;
+        @Basic(optional = false)
+        @Column(name = "REF_TP")
+        private long refTp;
+        @Basic(optional = false)
         @Column(name = "FLE_NME")
         private String fleNme;
         @Basic(optional = false)
@@ -38,8 +44,7 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
         @Basic(optional = false)
         @Column(name = "DEL_IND")
         private boolean delInd;
-        @OneToMany(cascade = CascadeType.ALL, mappedBy = "docId", fetch = FetchType.LAZY)
-        private List<ProjectProposalDocumentDto> tbProjectProposalDocumentList;
+        
 
         public DocumentDto() {
         }
@@ -98,14 +103,6 @@ public class DocumentDto extends BaseVersionDto implements Serializable {
 
         public void setDelInd(boolean delInd) {
                 this.delInd = delInd;
-        }
-
-        public List<ProjectProposalDocumentDto> getTbProjectProposalDocumentList() {
-                return tbProjectProposalDocumentList;
-        }
-
-        public void setTbProjectProposalDocumentList(List<ProjectProposalDocumentDto> tbProjectProposalDocumentList) {
-                this.tbProjectProposalDocumentList = tbProjectProposalDocumentList;
         }
 
         @Override
