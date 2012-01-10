@@ -3,7 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
-
+<head>
+  <script>
+    $(document).ready(function(){
+        $("#command").validationEngine();
+       });
+    </script>
+</head>
 <body>
 	<h2><fmt:message key="message.userManagement.changePassword.title" /></h2>
 	<div id="breadcrumb">
@@ -25,21 +31,21 @@
         <tr>
               <td><fmt:message key="message.userManagement.oldPassword.label" /></td>
               <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
-	      <td><form:password path="currentPassword"/><font color="red"><form:errors path="currentPassword" /></font></td>
+	      <td><form:password path="currentPassword" cssClass="validate[required]"/><font color="red"><form:errors path="currentPassword" /></font></td>
 	     
 	     
         </tr>
         <tr>
 	      <td><fmt:message key="message.userManagement.newPassword.label" /></td>
               <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
-	      <td><form:password path="password"/><font color="red"><form:errors path="password" /></font></td>
+	      <td><form:password path="password" cssClass="validate[required,equals[confirmedPassword]]"/><font color="red"><form:errors path="password" /></font></td>
 	     
 	     
         </tr>
         <tr>
 	      <td><fmt:message key="message.userManagement.confirmNewPassword.label" /></td>
               <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
-	      <td><form:password path="confirmedPassword"/><font color="red"><form:errors path="confirmedPassword" /></font></td>
+	      <td><form:password path="confirmedPassword" cssClass="validate[required,equals[password]]"/><font color="red"><form:errors path="confirmedPassword" /></font></td>
 	     
 	     
         </tr>

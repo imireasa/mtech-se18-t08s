@@ -5,17 +5,40 @@
 <html>
 
     <head>
-        <link href="<%=request.getContextPath()%>/sys/css/login.css" rel="stylesheet" type="text/css" />
-		<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
-		 
-		<!-- ICO -->
-		<link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
-		<link rel="shortcut icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+  		 <link href="<%=request.getContextPath()%>/sys/css/login.css" rel="stylesheet" type="text/css" />
+		      <!-- ICO -->
+	<link rel="icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="<%=request.getContextPath()%>/sys/favicon.ico" type="image/x-icon" />
+	
+	<!-- CSS -->
+	<link href="<%=request.getContextPath()%>/sys/css/reset.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="<%=request.getContextPath()%>/sys/css/paging.css" rel="stylesheet" />
+	<link type="text/css" href="<%=request.getContextPath()%>/sys/css/jquery-ui-min.css" rel="stylesheet" />
+	<link type="text/css" href="<%=request.getContextPath()%>/sys/css/validationEngine.jquery.css" rel="stylesheet" />
+	
+	<!-- JS -->
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/datetimepicker_css.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/interface/VmsDwr.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/dwr/engine.js'></script>
+
+	<!-- jQuery -->
+    <script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-1.6.min.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-ui-1.8.16.custom.min.js'></script>
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery.validationEngine.js'></script>	
+	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/languages/jquery.validationEngine-en.js'></script>
 
 		
 		<!--[if lte IE 6]>
 		<script type="text/javascript" src="js/supersleight.js"></script>
+		  
+    
 		<![endif]-->
+		   <script>
+    $(document).ready(function(){
+        $("#loginCommand").validationEngine();
+       });
+    </script>
+
         <title><fmt:message key="message.security.login.title" /></title>
     </head>
 
@@ -32,13 +55,13 @@
                     </p>
                     <p>
                         <label><fmt:message key="message.security.userId.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></label>
-                        <form:input path="username" cssClass="text-input" maxlength="20" /><br />
+                        <form:input path="username" maxlength="20"  cssClass="validate[required]"/><br />
                         <form:errors path="username" cssClass="error" />
                     </p>
                     <br class="clear" />
                     <p>
                         <label><fmt:message key="message.security.password.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label"/></span> <fmt:message key="message.common.symbol.afterLabel.label"/></label>
-                        <form:password path="password" cssClass="text-input" maxlength="50" /><br />
+                        <form:password path="password" maxlength="50" cssClass="validate[required]" /><br />
                         <form:errors path="password" cssClass="error" />
                         <br />
                     </p>
