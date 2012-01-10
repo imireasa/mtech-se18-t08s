@@ -25,7 +25,7 @@
                     </td>
                 </tr>
 				<tr>
-				   </td>
+
                     <td><fmt:message key="message.common.startDate.label"/></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
