@@ -52,6 +52,8 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		class="sg.edu.nus.iss.vms.certificate.service.impl.CertificateManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
+		<property name="reportManagementService" ref="reportManagementServiceImpl" />
+        <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
 	</bean>
 	
 	<bean id="userManagementServiceImpl"
