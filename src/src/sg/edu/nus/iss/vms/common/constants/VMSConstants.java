@@ -54,9 +54,8 @@ public class VMSConstants {
 	public static final String CERTIFICATE_REQUEST_TYPE_PROJECT = "PROJECT";
 	public static final String CERTIFICATE_REQUEST_TYPE_INDIVIDUAL = "INDIVIDUAL";
 
-	// To Do: update the below path...
-	public static final String REPORT_TEMPLATE_PATH_JASPER = "C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jasper";
-	public static final String REPORT_TEMPLATE_PATH_JRXML = "C:/Mtech4/WebContent/reports/volunteer_certificate_multipages.jrxml";
+	public static final String REPORT_CERTIFICATE_TEMPLATE_PATH_JASPER = "/reports/volunteer_certificate_multipages.jasper";
+	public static final String REPORT_CERTIFICATE_IMAGE_PATH="/sys/images/good_job.jpg";
 
 	public static final String PROJECT_ROLE_MEMBER = "Project Member";
 	public static final String PROJECT_ROLE_MANAGER = "Project Manager";

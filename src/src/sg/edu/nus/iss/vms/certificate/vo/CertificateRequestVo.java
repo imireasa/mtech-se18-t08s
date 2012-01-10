@@ -7,6 +7,8 @@ package sg.edu.nus.iss.vms.certificate.vo;
 
 import java.util.Date;
 
+import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
+import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 
 public class CertificateRequestVo {
 	
@@ -20,6 +22,30 @@ public class CertificateRequestVo {
 	private String reqBy;
 	private String reqByName;
 	
+	public CertificateRequestVo() {
+		super();
+	}
+
+	public CertificateRequestVo(CertificateRequestDto certificateRequestDto) {
+        setCertificateRequestDto(certificateRequestDto);
+    }
+
+    public void setCertificateRequestDto(CertificateRequestDto certRequestDto) {
+    	
+    	if (certRequestDto != null) {
+    		setCertReqId(certRequestDto.getCertReqId());
+			setPrjId(certRequestDto.getPrjId().getPrjId());
+			if(certRequestDto.getPrjId()!=null)
+				setPrjName(certRequestDto.getPrjId().getNme());
+			setReqTp(certRequestDto.getReqTp());
+			if(certRequestDto.getReqTp()!=0)
+				setReqTpName(CodeLookupUtil.getCodeValueByCodeId(certRequestDto.getReqTp()));
+			setReqSts(certRequestDto.getReqSts());
+			setReqDte(certRequestDto.getReqDte());
+			setReqBy(certRequestDto.getReqBy());
+    	}
+    }
+
 	public Long getCertReqId() {
 		return certReqId;
 	}

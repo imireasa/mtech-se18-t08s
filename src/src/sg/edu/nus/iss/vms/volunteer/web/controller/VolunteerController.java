@@ -740,7 +740,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (certificateRequestDtos.size() == 0) {
 
 			CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
-			certificateRequestDto.setPrjId(projectDto.getPrjId());
+			certificateRequestDto.setPrjId(projectDto);
 			certificateRequestDto.setCreatedBy(loginId);
 			certificateRequestDto.setCreatedDte(new Date());
 			certificateRequestDto.setReqBy(loginId);
