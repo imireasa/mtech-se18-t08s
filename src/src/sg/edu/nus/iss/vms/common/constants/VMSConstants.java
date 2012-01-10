@@ -34,6 +34,8 @@ public class VMSConstants {
 	public static final String FEEDBACK_STATUS_APPROVED = "Approved";
 	public static final String FEEDBACK_STATUS_REJECTED = "Rejected";
 	public static final String PROPOSAL_STATUS_SUMBITTED = "Submitted";
+	public static final String REFERENCE_TYPE_CATEGORY = "REFERENCE_TYPE";
+	public static final String REFERENCE_TYPE_CATEGORY_PROPOSAL = "Project Proposal";
 	public static final String PROPOSAL_STATUS_APPROVED = "Approved";
 	public static final String PROPOSAL_STATUS_REJECTED = "Rejected";
 	public static final String CERTIFICATE_REQUEST_STATUS_REQUESTED = "Requested";
