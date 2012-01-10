@@ -131,7 +131,7 @@
 
 			 <div class="query">
 				<form:form name="postExperience" method="post"
-					commandName="experienceVo" action="postExperienceAndFb.html">
+					commandName="experienceVo" action="postExperience.html">
 					<table class="query-table">
 						<tr>
 
@@ -196,7 +196,7 @@
 			<br />
 			<div class="query">
 				<form:form name="posetFeedback" method="post"
-				commandName="feedbackVo" action="postExperienceAndFb.html">
+				commandName="feedbackVo" action="postFeedback.html">
 				<table class="query-table">
 					<tr>
 
