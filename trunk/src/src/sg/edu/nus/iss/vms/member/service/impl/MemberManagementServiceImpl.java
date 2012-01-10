@@ -43,7 +43,8 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		List<ProjectMemberDto> memberList = new ArrayList<ProjectMemberDto>();
 		try {
 			this.logger.debug("@ Service Layer getting user 1");
-			String hQL = "from ProjectMember where projectId=" + projectId;
+			String hQL = "from ProjectMemberDto where prjId.prjId ="
+					+ projectId;
 			memberList = manager.find(hQL);
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
