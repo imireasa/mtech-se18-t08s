@@ -137,7 +137,7 @@
 		</c:if>
 
 		<form:form name="proposeProject" method="post"
-			commandName="proposalVo" action="submitProjectProposal.html">
+			commandName="proposalVo" action="submitProjectProposal.html" enctype="multipart/form-data">
 			<table class="query-table">
 
 				<tr>
