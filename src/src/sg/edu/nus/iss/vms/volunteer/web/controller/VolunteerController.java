@@ -1,7 +1,6 @@
 package sg.edu.nus.iss.vms.volunteer.web.controller;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,10 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.servlet.ModelAndView;
 
+import sg.edu.nus.iss.vms.certificate.service.CertificateManagementService;
+import sg.edu.nus.iss.vms.certificate.vo.CertificateRequestVo;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
-import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
@@ -54,6 +54,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 	private ProjectExperienceService projectExperienceService;
 
 	private ProjectInterestService projectInterestService;
+
+	private CertificateManagementService certificateManagementService;
 	// local
 	private final Logger logger = Logger.getLogger(VolunteerController.class);
 	BindingResult errors;
@@ -66,6 +68,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 	public void setProjectExperienceService(
 			ProjectExperienceService projectExperienceService) {
 		this.projectExperienceService = projectExperienceService;
+	}
+
+	public void setCertificateManagementService(
+			CertificateManagementService certificateManagementService) {
+		this.certificateManagementService = certificateManagementService;
 	}
 
 	public VolunteerController() {
@@ -723,37 +730,15 @@ public class VolunteerController extends BaseMultiActionFormController {
 					+ projectDto.getPrjId());
 		}
 
-		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
-				VMSConstants.CERTIFIATE_REQUEST_TYPE,
-				VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
-
-		CodeLookupVo codeStatusVo = CodeLookupUtil
-				.getCodeByCategoryAndCodeValue(
-						VMSConstants.CERTIFICATE_REQUEST_STATUS,
-						VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
-
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
-		List<CertificateRequestDto> certificateRequestDtos = projectManagementService
+		List<CertificateRequestVo> certificateRequestDtos = certificateManagementService
 				.getCertificateRequestsbyProject(projectDto.getPrjId(), loginId);
 
 		if (certificateRequestDtos.size() == 0) {
 
-			CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
-			certificateRequestDto.setPrjId(projectDto);
-			certificateRequestDto.setCreatedBy(loginId);
-			certificateRequestDto.setCreatedDte(new Date());
-			certificateRequestDto.setReqBy(loginId);
-			certificateRequestDto.setReqDte(new Date());
-			certificateRequestDto.setReqSts(codeStatusVo.getCdId());
-			certificateRequestDto.setReqTp(codeVo.getCdId());
-			certificateRequestDto.setUpdBy(loginId);
-			certificateRequestDto.setUpdDte(new Date());
-			certificateRequestDto.setVersion(1);
-
-			projectManagementService
-					.saveOrUpdateProjectObject(certificateRequestDto);
-
+			certificateManagementService
+					.createIndividualCertificateRequest(projectDto.getPrjId());
 			modelAndView.addObject("riMsg", Messages.getString(
 					"message.common.submit.msg",
 					new String[] { "Certificate Request" }));

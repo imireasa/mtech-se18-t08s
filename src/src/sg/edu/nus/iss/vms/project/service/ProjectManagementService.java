@@ -2,7 +2,6 @@ package sg.edu.nus.iss.vms.project.service;
 
 import java.util.List;
 
-import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
@@ -40,9 +39,6 @@ public interface ProjectManagementService {
 			String projectMemberId, Long roleCd) throws Exception;
 
 	public ProjectVo getProjectVoByLoginUserAccessRight(Long projectId);
-
-	public List<CertificateRequestDto> getCertificateRequestsbyProject(
-			Long prjId, String userId);
 
 	public List<ProjectMemberDto> getProjectMember(long projectId);
 

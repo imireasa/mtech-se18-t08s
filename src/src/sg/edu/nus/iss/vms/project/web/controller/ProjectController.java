@@ -52,7 +52,8 @@ public class ProjectController extends BaseMultiActionFormController {
 	private ProjectInterestService projectInterestService;
 	private BindingResult errors;
 
-	public void setProjectFeedbackService(ProjectFeedbackService projectFeedbackService) {
+	public void setProjectFeedbackService(
+			ProjectFeedbackService projectFeedbackService) {
 		this.projectFeedbackService = projectFeedbackService;
 	}
 
@@ -60,7 +61,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		return memberManagementService;
 	}
 
-	public void setMemberManagementService(MemberManagementService memberManagementService) {
+	public void setMemberManagementService(
+			MemberManagementService memberManagementService) {
 		this.memberManagementService = memberManagementService;
 	}
 
@@ -68,7 +70,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		return projectManagementService;
 	}
 
-	public void setProjectManagementService(ProjectManagementService projectManagementService) {
+	public void setProjectManagementService(
+			ProjectManagementService projectManagementService) {
 		this.projectManagementService = projectManagementService;
 	}
 
@@ -76,15 +79,18 @@ public class ProjectController extends BaseMultiActionFormController {
 		return userManagementServices;
 	}
 
-	public void setUserManagementServices(UserManagementServices userManagementServices) {
+	public void setUserManagementServices(
+			UserManagementServices userManagementServices) {
 		this.userManagementServices = userManagementServices;
 	}
 
-	public void setProjectProposalService(ProjectProposalService projectProposalService) {
+	public void setProjectProposalService(
+			ProjectProposalService projectProposalService) {
 		this.projectProposalService = projectProposalService;
 	}
 
-	public void setProjectInterestService(ProjectInterestService projectInterestService) {
+	public void setProjectInterestService(
+			ProjectInterestService projectInterestService) {
 		this.projectInterestService = projectInterestService;
 	}
 
@@ -102,7 +108,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		return returnlong;
 	}
 
-	public ModelAndView assignPrjMemberRole(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView assignPrjMemberRole(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - start");
 		}
@@ -111,8 +118,10 @@ public class ProjectController extends BaseMultiActionFormController {
 		List memberList = new ArrayList();
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Project " + request.getParameter("project"));
-			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Member  " + request.getParameter("member"));
+			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Project "
+					+ request.getParameter("project"));
+			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Member  "
+					+ request.getParameter("member"));
 		}
 
 		List projectList = projectManagementService.getListAllProject();
@@ -121,7 +130,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		List projectRoleList = new ArrayList<CodeDto>();
 		modelAndView.addObject("projectRoleList", projectRoleList);
 
-		if (request.getParameter("project") != null && !request.getParameter("project").isEmpty()) {
+		if (request.getParameter("project") != null
+				&& !request.getParameter("project").isEmpty()) {
 			long projectId = Long.parseLong(request.getParameter("project"));
 			memberList = projectManagementService.getProjectMember(projectId);
 		}
@@ -148,7 +158,8 @@ public class ProjectController extends BaseMultiActionFormController {
 	}
 
 	@Override
-	protected void bind(HttpServletRequest request, Object command) throws Exception {
+	protected void bind(HttpServletRequest request, Object command)
+			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("bind(HttpServletRequest, Object) - start");
 		}
@@ -174,12 +185,14 @@ public class ProjectController extends BaseMultiActionFormController {
 			for (int index = 0; index < validators.length; index++) {
 				Validator validator = validators[index];
 				if (validator instanceof ProjectValidator) {
-					if (((ProjectValidator) validator).supports(command.getClass())) {
-						ValidationUtils.invokeValidator(validators[index], command, errors);
+					if (((ProjectValidator) validator).supports(command
+							.getClass())) {
+						ValidationUtils.invokeValidator(validators[index],
+								command, errors);
 					}
-				}
-				else if (validator.supports(command.getClass())) {
-					ValidationUtils.invokeValidator(validators[index], command, errors);
+				} else if (validator.supports(command.getClass())) {
+					ValidationUtils.invokeValidator(validators[index], command,
+							errors);
 				}
 			}
 		}
@@ -189,7 +202,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 	}
 
-	public ModelAndView createProject(HttpServletRequest request, HttpServletResponse response, ProjectVo command) throws Exception {
+	public ModelAndView createProject(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo command) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
@@ -197,7 +211,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		if (command.getName() == null) {
 			modelAndView = new ModelAndView("project/createProject");
 			// page
-			modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
+			modelAndView.addObject("countryList", CodeLookupUtil
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			ProjectVo projectVo = new ProjectVo();
 			projectVo.setCmdType(VMSConstants.SCREEN_CMD_CREATE);
 			modelAndView.addObject("command", projectVo);
@@ -206,11 +221,11 @@ public class ProjectController extends BaseMultiActionFormController {
 				logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
 			}
 			return modelAndView;
-		}
-		else {
+		} else {
 			validate(command);
 			modelAndView = new ModelAndView("project/createProject");
-			modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
+			modelAndView.addObject("countryList", CodeLookupUtil
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 			ProjectVo projectVo = command;
 
 			if (errors.hasErrors()) {
@@ -225,15 +240,18 @@ public class ProjectController extends BaseMultiActionFormController {
 			}
 
 			try {
-				CodeLookupVo stsNew = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.PROJECT_STATUS_CATEGORY,
-						VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
+				CodeLookupVo stsNew = CodeLookupUtil
+						.getCodeByCategoryAndCodeValue(
+								VMSConstants.PROJECT_STATUS_CATEGORY,
+								VMSConstants.PROJECT_STATUS_CATEGORY_NEW);
 				projectVo.setStsCd(stsNew.getCdId() + "");
 
 				projectManagementService.saveProject(projectVo);
 				modelAndView.addObject("command", new ProjectVo());
-			}
-			catch (ApplicationException ae) {
-				logger.error("createProject(HttpServletRequest, HttpServletResponse, ProjectVo)", ae);
+			} catch (ApplicationException ae) {
+				logger.error(
+						"createProject(HttpServletRequest, HttpServletResponse, ProjectVo)",
+						ae);
 
 				List list = new ArrayList();
 				list.add(ae.getMessage());
@@ -246,7 +264,8 @@ public class ProjectController extends BaseMultiActionFormController {
 				return modelAndView;
 			}
 
-			modelAndView.addObject("msg", Messages.getString("message.common.save"));
+			modelAndView.addObject("msg",
+					Messages.getString("message.common.save"));
 			if (logger.isDebugEnabled()) {
 				logger.debug("createProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
 			}
@@ -254,7 +273,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 	}
 
-	public ModelAndView updateProject(HttpServletRequest request, HttpServletResponse response, ProjectVo command) throws Exception {
+	public ModelAndView updateProject(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo command) throws Exception {
 		if (logger.isInfoEnabled()) {
 			logger.info("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - updateProject");
 		}
@@ -264,11 +284,17 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		if (command.getName() == null) {
-			ProjectVo project = projectManagementService.getProjectVoById(projectId);
+			ProjectVo project = projectManagementService
+					.getProjectVoById(projectId);
 			modelAndView = new ModelAndView("project/updateProject");
 			// page
-			modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
-			modelAndView.addObject("statusList", CodeLookupUtil.getCodeListByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
+			modelAndView.addObject("countryList", CodeLookupUtil
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
+			modelAndView
+					.addObject(
+							"statusList",
+							CodeLookupUtil
+									.getCodeListByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
 			project.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			modelAndView.addObject("command", project);
 
@@ -276,12 +302,16 @@ public class ProjectController extends BaseMultiActionFormController {
 				logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
 			}
 			return modelAndView;
-		}
-		else {
+		} else {
 			validate(command);
 			modelAndView = new ModelAndView("project/updateProject");
-			modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
-			modelAndView.addObject("statusList", CodeLookupUtil.getCodeListByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
+			modelAndView.addObject("countryList", CodeLookupUtil
+					.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
+			modelAndView
+					.addObject(
+							"statusList",
+							CodeLookupUtil
+									.getCodeListByCategory(VMSConstants.PROJECT_STATUS_CATEGORY));
 
 			ProjectVo projectVo = command;
 			if (errors.hasErrors()) {
@@ -299,9 +329,10 @@ public class ProjectController extends BaseMultiActionFormController {
 
 			try {
 				projectManagementService.updateProject(projectVo);
-			}
-			catch (ApplicationException ae) {
-				logger.error("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo)", ae);
+			} catch (ApplicationException ae) {
+				logger.error(
+						"updateProject(HttpServletRequest, HttpServletResponse, ProjectVo)",
+						ae);
 
 				List list = new ArrayList();
 				list.add(ae.getMessage());
@@ -313,9 +344,11 @@ public class ProjectController extends BaseMultiActionFormController {
 				}
 				return modelAndView;
 			}
-			ProjectVo projectVo2 = projectManagementService.getProjectVoById(projectId);
+			ProjectVo projectVo2 = projectManagementService
+					.getProjectVoById(projectId);
 			modelAndView.addObject("command", projectVo2);
-			modelAndView.addObject("msg", Messages.getString("message.common.update"));
+			modelAndView.addObject("msg",
+					Messages.getString("message.common.update"));
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("updateProject(HttpServletRequest, HttpServletResponse, ProjectVo) - end");
@@ -324,7 +357,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 	}
 
-	public ModelAndView viewProject(HttpServletRequest request, HttpServletResponse response, ProjectVo command) throws Exception {
+	public ModelAndView viewProject(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo command) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProject(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
@@ -334,32 +368,41 @@ public class ProjectController extends BaseMultiActionFormController {
 			projectId = Long.parseLong(request.getParameter("prjId"));
 		}
 
-		ProjectVo projectVo = projectManagementService.getProjectVoById(projectId);
+		ProjectVo projectVo = projectManagementService
+				.getProjectVoById(projectId);
 		modelAndView = new ModelAndView("project/viewProject");
 
-		projectVo.setCtryCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long.parseLong(projectVo.getCtryCd())));
-		projectVo.setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long.parseLong(projectVo.getStsCd())));
+		projectVo.setCtryCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long
+				.parseLong(projectVo.getCtryCd())));
+		projectVo.setStsCd(CodeLookupUtil.getCodeDescriptionByCodeId(Long
+				.parseLong(projectVo.getStsCd())));
 		modelAndView.addObject("command", projectVo);
 
 		// Getting Project Member..
 
-		List projMemberList = projectManagementService.getProjectMember(projectId);
+		List projMemberList = projectManagementService
+				.getProjectMember(projectId);
 		List projMemberVoList = new ArrayList();
 		if (projMemberList != null) {
 			for (int i = 0; i < projMemberList.size(); i++) {
 				ProjectMemberDto obj = (ProjectMemberDto) projMemberList.get(i);
 				ProjectMemberVo voObj = new ProjectMemberVo();
 
-				UserDto member = userManagementServices.getUserByLoginId(obj.getUsrLoginId());
-				String title = CodeLookupUtil.getCodeDescriptionByCodeId(member.getTitleCd());
+				UserDto member = userManagementServices.getUserByLoginId(obj
+						.getUsrLoginId());
+				String title = CodeLookupUtil.getCodeDescriptionByCodeId(member
+						.getTitleCd());
 				voObj.setNme(title + " " + member.getNme());
-				voObj.setCtry(CodeLookupUtil.getCodeDescriptionByCodeId(member.getCtryCd()));
-				voObj.setRole(CodeLookupUtil.getCodeDescriptionByCodeId(obj.getRoleCd()));
+				voObj.setCtry(CodeLookupUtil.getCodeDescriptionByCodeId(member
+						.getCtryCd()));
+				voObj.setRole(CodeLookupUtil.getCodeDescriptionByCodeId(obj
+						.getRoleCd()));
 				projMemberVoList.add(voObj);
 			}
 		}
 
-		PagedListHolder projMemberPagedListHolder = new PagedListHolder(projMemberVoList);
+		PagedListHolder projMemberPagedListHolder = new PagedListHolder(
+				projMemberVoList);
 		if (!projMemberVoList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projMemberPagedListHolder.setPage(page);
@@ -373,21 +416,25 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView browseProjectFeedback(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView browseProjectFeedback(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("browseProjectFeedback(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		List<ProjectFeedbackVo> projectFeedbackList = projectFeedbackService.getProjectFeedbackList();
+		List<ProjectFeedbackVo> projectFeedbackList = projectFeedbackService
+				.getProjectFeedbackList();
 
-		List<CodeLookupVo> codeLookupVos = CodeLookupUtil.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
+				.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
 
 		modelAndView = new ModelAndView("project/viewProjectFeedbackList");
 		modelAndView.addObject("feedbackList", projectFeedbackList);
 		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
 		modelAndView.addObject("fbCodeList", codeLookupVos);
 
-		PagedListHolder projectPagedListHolder = new PagedListHolder(projectFeedbackList);
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectFeedbackList);
 		if (!projectFeedbackList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projectPagedListHolder.setPage(page);
@@ -402,19 +449,22 @@ public class ProjectController extends BaseMultiActionFormController {
 
 	}
 
-	public ModelAndView searchProjectFeedback(HttpServletRequest request, HttpServletResponse response, ProjectFeedbackVo projectFeedbackVo)
+	public ModelAndView searchProjectFeedback(HttpServletRequest request,
+			HttpServletResponse response, ProjectFeedbackVo projectFeedbackVo)
 			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("searchProjectFeedback(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
 		}
 
-		List<ProjectFeedbackVo> projectFeedbackList = projectFeedbackService.getProjectFeedbackListbySearchCriteria(projectFeedbackVo);
+		List<ProjectFeedbackVo> projectFeedbackList = projectFeedbackService
+				.getProjectFeedbackListbySearchCriteria(projectFeedbackVo);
 
 		modelAndView.addObject("feedbackVo", projectFeedbackVo);
 
 		modelAndView.addObject("feedbackList", projectFeedbackList);
 
-		PagedListHolder projectPagedListHolder = new PagedListHolder(projectFeedbackList);
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectFeedbackList);
 		if (!projectFeedbackList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projectPagedListHolder.setPage(page);
@@ -429,39 +479,48 @@ public class ProjectController extends BaseMultiActionFormController {
 
 	}
 
-	public ModelAndView viewProjectFeedbackDetails(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView viewProjectFeedbackDetails(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - start");
 		}
 
 		long prjFbId = Long.parseLong(request.getParameter("prjFbId"));
 
-		ProjectFeedbackVo projectFeedbackVo = projectFeedbackService.getProjectFeedbackbyId(prjFbId);
+		ProjectFeedbackVo projectFeedbackVo = projectFeedbackService
+				.getProjectFeedbackbyId(prjFbId);
 
 		modelAndView = new ModelAndView("project/viewProjectFeedback");
 		modelAndView.addObject("projectFbVo", projectFeedbackVo);
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - XXXXXXXXXXXXXXXXXXXXXXcretaed date"
-					+ projectFeedbackVo.getCreatedBy() + "," + projectFeedbackVo.getCreatedBy());
+					+ projectFeedbackVo.getCreatedBy()
+					+ ","
+					+ projectFeedbackVo.getCreatedBy());
 			logger.debug("viewProjectFeedbackDetails(HttpServletRequest, HttpServletResponse) - end");
 		}
 
 		return modelAndView;
 	}
 
-	public ModelAndView approveFb(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView approveFb(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("approveFb(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView.getModel().get("projectFbVo");
+		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView
+				.getModel().get("projectFbVo");
 
-		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.FEEDBACK_STATUS, VMSConstants.FEEDBACK_STATUS_APPROVED);
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.FEEDBACK_STATUS,
+				VMSConstants.FEEDBACK_STATUS_APPROVED);
 
 		projectFbVo.setStsCd(codeVo.getCdId());
 
 		projectFeedbackService.updateProjectFeedback(projectFbVo);
-		modelAndView.addObject("fbMsg", Messages.getString("message.common.publish", new String[] { "Feedback" }));
+		modelAndView.addObject("fbMsg", Messages.getString(
+				"message.common.publish", new String[] { "Feedback" }));
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("approveFb(HttpServletRequest, HttpServletResponse) - end");
@@ -469,19 +528,24 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView rejectFb(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView rejectFb(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("rejectFb(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView.getModel().get("projectFbVo");
+		ProjectFeedbackVo projectFbVo = (ProjectFeedbackVo) modelAndView
+				.getModel().get("projectFbVo");
 
-		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.FEEDBACK_STATUS, VMSConstants.FEEDBACK_STATUS_REJECTED);
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.FEEDBACK_STATUS,
+				VMSConstants.FEEDBACK_STATUS_REJECTED);
 
 		projectFbVo.setStsCd(codeVo.getCdId());
 
 		projectFeedbackService.updateProjectFeedback(projectFbVo);
-		modelAndView.addObject("fbMsg", Messages.getString("message.common.reject", new String[] { "Feedback" }));
+		modelAndView.addObject("fbMsg", Messages.getString(
+				"message.common.reject", new String[] { "Feedback" }));
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("rejectFb(HttpServletRequest, HttpServletResponse) - end");
@@ -489,15 +553,18 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView proposeNewProject(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView proposeNewProject(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("proposeNewProject(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		ModelAndView modelAndView = new ModelAndView("project/createProjectProposal");
+		ModelAndView modelAndView = new ModelAndView(
+				"project/createProjectProposal");
 		modelAndView.addObject("proposalVo", new ProjectProposalVo());
 
-		modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
+		modelAndView.addObject("countryList", CodeLookupUtil
+				.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("proposeNewProject(HttpServletRequest, HttpServletResponse) - end");
@@ -505,15 +572,27 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView submitProjectProposal(HttpServletRequest request, HttpServletResponse response, ProjectProposalVo proposalVo)
+	public ModelAndView submitProjectProposal(HttpServletRequest request,
+			HttpServletResponse response, ProjectProposalVo proposalVo)
 			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - start");
 		}
 
 		validate(proposalVo);
+		ModelAndView modelAndView = new ModelAndView(
+				"project/createProjectProposal");
+		if (errors.hasErrors()) {
+			logger.debug("Error Handling : ");
+			saveError(request, errors.getFieldError().getDefaultMessage());
 
-		ModelAndView modelAndView = new ModelAndView("project/createProjectProposal");
+			modelAndView.addObject("proposalVo", proposalVo);
+
+			return modelAndView;
+		}
+
+		logger.debug("validatevalidatevalidate:" + proposalVo.getNme());
+
 		modelAndView.addObject("proposalVo", proposalVo);
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> filenames = multipartRequest.getFileNames();
@@ -523,22 +602,23 @@ public class ProjectController extends BaseMultiActionFormController {
 		ProjectProposalDocumentVo tempDocumentVo;
 
 		while (filenames.hasNext()) {
-			filename = (String) filenames.next();
+			filename = filenames.next();
 			if (logger.isDebugEnabled()) {
-				logger
-						.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - Iterating all files to be uploaded. filename is  - filename=" + filename); //$NON-NLS-1$
+				logger.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - Iterating all files to be uploaded. filename is  - filename=" + filename); //$NON-NLS-1$
 			}
 
 			mpfile = multipartRequest.getFile(filename);
 			if (mpfile.getSize() > 0) {
-				//only add if there is a file!
-				tempDocumentVo = new ProjectProposalDocumentVo(mpfile.getBytes(), mpfile.getOriginalFilename());
+				// only add if there is a file!
+				tempDocumentVo = new ProjectProposalDocumentVo(
+						mpfile.getBytes(), mpfile.getOriginalFilename());
 				uploadedFiles.add(tempDocumentVo);
 			}
 		}
 		projectProposalService.createProjectProposal(proposalVo, uploadedFiles);
 
-		modelAndView.addObject("msg", Messages.getString("message.common.save"));
+		modelAndView
+				.addObject("msg", Messages.getString("message.common.save"));
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("submitProjectProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - end");
@@ -546,21 +626,25 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView browseProjectProposal(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView browseProjectProposal(HttpServletRequest request,
+			HttpServletResponse response) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("browseProjectProposal(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		List<ProjectProposalVo> projectProposalVos = projectProposalService.getProjectProposalList();
+		List<ProjectProposalVo> projectProposalVos = projectProposalService
+				.getProjectProposalList();
 
-		List<CodeLookupVo> codeLookupVos = CodeLookupUtil.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
+				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 
 		modelAndView = new ModelAndView("project/viewProjectProposalList");
 		modelAndView.addObject("proposalList", projectProposalVos);
 		modelAndView.addObject("proposalVo", new ProjectProposalVo());
 		modelAndView.addObject("stsCdList", codeLookupVos);
 
-		PagedListHolder projectPagedListHolder = new PagedListHolder(projectProposalVos);
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectProposalVos);
 		if (!projectProposalVos.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projectPagedListHolder.setPage(page);
@@ -575,22 +659,26 @@ public class ProjectController extends BaseMultiActionFormController {
 
 	}
 
-	public ModelAndView searchProjectProposal(HttpServletRequest request, HttpServletResponse response, ProjectProposalVo proposalVo)
+	public ModelAndView searchProjectProposal(HttpServletRequest request,
+			HttpServletResponse response, ProjectProposalVo proposalVo)
 			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("searchProjectProposal(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
 
-		List<ProjectProposalVo> projectProposalVos = projectProposalService.getProjectProposalListbySearchCriteria(proposalVo);
+		List<ProjectProposalVo> projectProposalVos = projectProposalService
+				.getProjectProposalListbySearchCriteria(proposalVo);
 
-		List<CodeLookupVo> codeLookupVos = CodeLookupUtil.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
+				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 		modelAndView = new ModelAndView("project/viwProjectProposalList");
 		modelAndView.addObject("proposalList", projectProposalVos);
 
 		modelAndView.addObject("proposalVo", proposalVo);
 		modelAndView.addObject("stsCdList", codeLookupVos);
 
-		PagedListHolder projectPagedListHolder = new PagedListHolder(projectProposalVos);
+		PagedListHolder projectPagedListHolder = new PagedListHolder(
+				projectProposalVos);
 		if (!projectProposalVos.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projectPagedListHolder.setPage(page);
@@ -605,16 +693,19 @@ public class ProjectController extends BaseMultiActionFormController {
 
 	}
 
-	public ModelAndView viewProjectProposalDetails(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView viewProjectProposalDetails(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectProposalDetails(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		List<CodeLookupVo> codeLookupVos = CodeLookupUtil.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
+		List<CodeLookupVo> codeLookupVos = CodeLookupUtil
+				.getCodeListByCategory(VMSConstants.PROPOSAL_STATUS);
 
 		long prjProId = Long.parseLong(request.getParameter("prjPropId"));
 
-		ProjectProposalVo projectProposalVo = projectProposalService.getProjectProposalbyId(prjProId);
+		ProjectProposalVo projectProposalVo = projectProposalService
+				.getProjectProposalbyId(prjProId);
 
 		modelAndView = new ModelAndView("project/viewProjectProposal");
 		modelAndView.addObject("stsCdList", codeLookupVos);
@@ -627,25 +718,30 @@ public class ProjectController extends BaseMultiActionFormController {
 
 	}
 
-	public ModelAndView reviewProposal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView reviewProposal(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("reviewProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - start");
 		}
 
-		ProjectProposalVo proposalVo = (ProjectProposalVo) modelAndView.getModel().get("proposalVo");
+		ProjectProposalVo proposalVo = (ProjectProposalVo) modelAndView
+				.getModel().get("proposalVo");
 
 		String propMsg = Messages.getString("message.common.update");
 
 		projectProposalService.updateProjectProposal(proposalVo);
 
-		if (VMSConstants.PROPOSAL_STATUS_APPROVED.equals(proposalVo.getStsVal())) {
-			propMsg = Messages.getString("message.common.approve", new String[] { "Project Proposal" });
+		if (VMSConstants.PROPOSAL_STATUS_APPROVED
+				.equals(proposalVo.getStsVal())) {
+			propMsg = Messages.getString("message.common.approve",
+					new String[] { "Project Proposal" });
 
 			projectProposalService.convertProposalToProject(proposalVo);
 
-		}
-		else if (VMSConstants.PROPOSAL_STATUS_REJECTED.equals(proposalVo.getStsVal())) {
-			propMsg = Messages.getString("message.common.reject", new String[] { "Project Proposal" });
+		} else if (VMSConstants.PROPOSAL_STATUS_REJECTED.equals(proposalVo
+				.getStsVal())) {
+			propMsg = Messages.getString("message.common.reject",
+					new String[] { "Project Proposal" });
 
 		}
 		modelAndView.addObject("msg", propMsg);
@@ -658,18 +754,22 @@ public class ProjectController extends BaseMultiActionFormController {
 
 	}
 
-	public ModelAndView listProjects(HttpServletRequest request, HttpServletResponse response, ProjectVo command) throws Exception {
+	public ModelAndView listProjects(HttpServletRequest request,
+			HttpServletResponse response, ProjectVo command) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("listProjects(HttpServletRequest, HttpServletResponse, ProjectVo) - start");
 		}
 
 		modelAndView = new ModelAndView("project/viewProjectList");
-		modelAndView.addObject("projectStatusList", CodeLookupUtil.getCodeListByCategory(VMSConstants.PROJECT_STATUS));
+		modelAndView.addObject("projectStatusList", CodeLookupUtil
+				.getCodeListByCategory(VMSConstants.PROJECT_STATUS));
 		List projectList = null;
-		if (command != null && (command.getName() != null || command.getStrDte() != null || command.getStsCd() != null)) {
-			projectList = projectManagementService.getProjectListbyProjectVo(command);
-		}
-		else {
+		if (command != null
+				&& (command.getName() != null || command.getStrDte() != null || command
+						.getStsCd() != null)) {
+			projectList = projectManagementService
+					.getProjectListbyProjectVo(command);
+		} else {
 			projectList = projectManagementService.getListAllProject();
 		}
 
@@ -689,7 +789,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView manageProjectMember(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView manageProjectMember(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("manageProjectMember(HttpServletRequest, HttpServletResponse) - start");
 		}
@@ -703,87 +804,132 @@ public class ProjectController extends BaseMultiActionFormController {
 				if (request.getParameter("removeMember") != null) {// REMOVE
 					// COMMAND
 					if (request.getParameter("prjMbrId") != null) {
-						String[] prjMbrIdList = request.getParameterValues("prjMbrId");
+						String[] prjMbrIdList = request
+								.getParameterValues("prjMbrId");
 						for (int i = 0; i < prjMbrIdList.length; i++) {
-							logger.debug("Removing Project Member " + prjMbrIdList[i]);
+							logger.debug("Removing Project Member "
+									+ prjMbrIdList[i]);
 							String[] val = prjMbrIdList[i].split("[,]");
-							projectManagementService.deleteProjectMemberByProjectMemberId(val[0]);
-							modelAndView.addObject("msg", Messages.getString("message.projectManagement.removeMemberRole"));
+							projectManagementService
+									.deleteProjectMemberByProjectMemberId(val[0]);
+							modelAndView
+									.addObject(
+											"msg",
+											Messages.getString("message.projectManagement.removeMemberRole"));
 						}
+					} else {
+						modelAndView
+								.addObject(
+										"errors",
+										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
-					else {
-						modelAndView.addObject("errors", Messages.getString("message.projectManagement.error.noSelectdMember"));
-					}
-				}
-				else if (request.getParameter("updateMember") != null) {// UPDATE
+				} else if (request.getParameter("updateMember") != null) {// UPDATE
 					// COMMAND
 					if (request.getParameter("prjMbrId") != null) {
-						String[] prjMbrIdList = request.getParameterValues("prjMbrId");
+						String[] prjMbrIdList = request
+								.getParameterValues("prjMbrId");
 						for (int i = 0; i < prjMbrIdList.length; i++) {
-							logger.debug("Update Project Member Role" + prjMbrIdList[i]);
+							logger.debug("Update Project Member Role"
+									+ prjMbrIdList[i]);
 							String[] val = prjMbrIdList[i].split("[,]");
-							String roleValue = request.getParameter("roleCd_" + val[0]);
+							String roleValue = request.getParameter("roleCd_"
+									+ val[0]);
 							if (!StringUtil.isNullOrEmpty(roleValue)) {
 								Long roleCd = Long.parseLong(roleValue);
-								projectManagementService.updateProjectMemberRoleByProjectMemberIdnRole(val[0], roleCd);
-								modelAndView.addObject("msg", Messages.getString("message.projectManagement.updateMemberRole"));
-							}
-							else {
-								modelAndView.addObject("errors", Messages.getString("message.common.error.update"));
+								projectManagementService
+										.updateProjectMemberRoleByProjectMemberIdnRole(
+												val[0], roleCd);
+								modelAndView
+										.addObject(
+												"msg",
+												Messages.getString("message.projectManagement.updateMemberRole"));
+							} else {
+								modelAndView
+										.addObject(
+												"errors",
+												Messages.getString("message.common.error.update"));
 							}
 						}
+					} else {
+						modelAndView
+								.addObject(
+										"errors",
+										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
-					else {
-						modelAndView.addObject("errors", Messages.getString("message.projectManagement.error.noSelectdMember"));
-					}
-				}
-				else if (request.getParameter("inviteProjectMember") != null) {// invite
+				} else if (request.getParameter("inviteProjectMember") != null) {// invite
 					// COMMAND
 					try {
-						Long userStatus = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.USER_TYPE_CATEGORY,
-								VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER).getCdId();
-						projectManagementService.sendInviteProjectMemberToAllUser(prjId, userStatus);
-						modelAndView.addObject("msg", Messages.getString("message.projectManagement.inviteVolunteer"));
-					}
-					catch (ApplicationException ae) {
-						modelAndView.addObject("errors", ae.getMessage());
-					}
-					catch (Exception ex) {
-						modelAndView.addObject("errors", Messages.getString("message.common.error.system"));
+
+						Long userStatus = CodeLookupUtil
+								.getCodeByCategoryAndCodeValue(
+										VMSConstants.USER_TYPE_CATEGORY,
+										VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
+								.getCdId();
+						projectManagementService
+								.sendInviteProjectMemberToAllUser(prjId,
+										userStatus);
+						modelAndView
+								.addObject(
+										"msg",
+										Messages.getString("message.projectManagement.inviteVolunteer"));
+					} catch (ApplicationException ae) {
+
+						Long userStatus = CodeLookupUtil
+								.getCodeByCategoryAndCodeValue(
+										VMSConstants.USER_TYPE_CATEGORY,
+										VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
+								.getCdId();
+						projectManagementService
+								.sendInviteProjectMemberToAllUser(prjId,
+										userStatus);
+						modelAndView
+								.addObject(
+										"msg",
+										Messages.getString("message.projectManagement.inviteVolunteer"));
+					} catch (Exception ex) {
+						modelAndView.addObject("errors", Messages
+								.getString("message.common.error.system"));
 					}
 
-				}
-				else if (request.getParameter("requestProjectCertificate") != null) {// request
+				} else if (request.getParameter("requestProjectCertificate") != null) {// request
 					// certificate
 					// COMMAND
 					try {
-						projectManagementService.requestProjectCertificateByProjectId(prjId);
-						modelAndView.addObject("msg", Messages.getString("message.projectManagement.error.certificate.requested"));
-					}
-					catch (ApplicationException ex) {
+						projectManagementService
+								.requestProjectCertificateByProjectId(prjId);
+						modelAndView
+								.addObject(
+										"msg",
+										Messages.getString("message.projectManagement.error.certificate.requested"));
+					} catch (ApplicationException ex) {
 						modelAndView.addObject("errors", ex.getMessage());
-					}
-					catch (Exception ex) {
-						modelAndView.addObject("errors", Messages.getString("message.common.error.system"));
+					} catch (Exception ex) {
+						modelAndView.addObject("errors", Messages
+								.getString("message.common.error.system"));
 					}
 				}
-			}
-			catch (ApplicationException ex) {
+			} catch (ApplicationException ex) {
 				modelAndView.addObject("errors", ex.toString());
 			}
-			projectVo = projectManagementService.getProjectVoByLoginUserAccessRight(prjId);
+			projectVo = projectManagementService
+					.getProjectVoByLoginUserAccessRight(prjId);
 
 			// get list of project
-			PagedListHolder memberPagedListHolder = new PagedListHolder(projectVo.getProjectMemberVo());
+			PagedListHolder memberPagedListHolder = new PagedListHolder(
+					projectVo.getProjectMemberVo());
 			if (!projectVo.getProjectMemberVo().isEmpty()) {
-				int page = ServletRequestUtils.getIntParameter(request, "p_member", 0);
+				int page = ServletRequestUtils.getIntParameter(request,
+						"p_member", 0);
 				memberPagedListHolder.setPage(page);
 				memberPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
 			}
-			modelAndView.addObject("projectMemberList", projectVo.getProjectMemberVo());
+			modelAndView.addObject("projectMemberList",
+					projectVo.getProjectMemberVo());
 			modelAndView.addObject("projectVo", projectVo);
-			modelAndView.addObject("memberPagedListHolder", memberPagedListHolder);
-			modelAndView.addObject("roleList", CodeLookupUtil.getCodeListByCategory(VMSConstants.MEMBER_ROLE));
+			modelAndView.addObject("memberPagedListHolder",
+					memberPagedListHolder);
+			modelAndView.addObject("roleList", CodeLookupUtil
+					.getCodeListByCategory(VMSConstants.MEMBER_ROLE));
 
 			modelAndView.addObject("prjId", prjId);
 		}
@@ -794,7 +940,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView manageProjectInterest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView manageProjectInterest(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("manageProjectInterest(HttpServletRequest, HttpServletResponse) - start");
 		}
@@ -805,8 +952,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		if (request.getParameter("acceptInterest") != null) {
 			newStatus = VMSConstants.PROJECT_INTEREST_APPROVED;
-		}
-		else if (request.getParameter("rejectInterest") != null) {
+		} else if (request.getParameter("rejectInterest") != null) {
 			newStatus = VMSConstants.PROJECT_INTEREST_REJECTED;
 		}
 
@@ -816,44 +962,67 @@ public class ProjectController extends BaseMultiActionFormController {
 				if (!StringUtil.isNullOrEmpty(newStatus)) {// REMOVE
 					// COMMAND
 					if (request.getParameter("prjIntrstId") != null) {
-						String[] prjIntrstId = request.getParameterValues("prjIntrstId");
+						String[] prjIntrstId = request
+								.getParameterValues("prjIntrstId");
 
-						CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.PROJECT_INTREST_STATUS, newStatus);
+						CodeLookupVo codeVo = CodeLookupUtil
+								.getCodeByCategoryAndCodeValue(
+										VMSConstants.PROJECT_INTREST_STATUS,
+										newStatus);
 
 						for (int i = 0; i < prjIntrstId.length; i++) {
-							logger.debug("Accept/reject Project Member " + prjIntrstId[i]);
+							logger.debug("Accept/reject Project Member "
+									+ prjIntrstId[i]);
 							Long _prjIntrstId = Long.parseLong(prjIntrstId[i]);
 
-							ProjectInterestVo projectInterestVo = projectInterestService.getProjectInterestbyId(_prjIntrstId);
+							ProjectInterestVo projectInterestVo = projectInterestService
+									.getProjectInterestbyId(_prjIntrstId);
 
 							projectInterestVo.setStsCd(codeVo.getCdId());
-							projectInterestService.updateProjectInterest(projectInterestVo);
+							projectInterestService
+									.updateProjectInterest(projectInterestVo);
 						}
-						modelAndView.addObject("msg", Messages.getString("message.common.update"));
-					}
-					else {
-						modelAndView.addObject("errors", Messages.getString("message.projectManagement.error.noSelectdMember"));
+						modelAndView.addObject("msg",
+								Messages.getString("message.common.update"));
+					} else {
+						modelAndView
+								.addObject(
+										"errors",
+										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
 				}
-			}
-			catch (ApplicationException ex) {
+			} catch (ApplicationException ex) {
 				modelAndView.addObject("errors", ex.toString());
 
 			}
-			projectVo = projectManagementService.getProjectVoByLoginUserAccessRight(prjId);
+			projectVo = projectManagementService
+					.getProjectVoByLoginUserAccessRight(prjId);
 
 			// get list of project intrest
-			List<ProjectInterestVo> projectInterestVoList = projectInterestService.getProjectIntrestByProjectId(prjId);
-			PagedListHolder projectInterestPagedListHolder = new PagedListHolder(projectInterestVoList);
-			if (projectInterestVoList != null && !projectInterestVoList.isEmpty()) {
-				int page = ServletRequestUtils.getIntParameter(request, "p_projectInterest", 0);
+			List<ProjectInterestVo> projectInterestVoList = projectInterestService
+					.getProjectIntrestByProjectId(prjId);
+			PagedListHolder projectInterestPagedListHolder = new PagedListHolder(
+					projectInterestVoList);
+			if (projectInterestVoList != null
+					&& !projectInterestVoList.isEmpty()) {
+				int page = ServletRequestUtils.getIntParameter(request,
+						"p_projectInterest", 0);
 				projectInterestPagedListHolder.setPage(page);
-				projectInterestPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+				projectInterestPagedListHolder
+						.setPageSize(VMSConstants.MAX_PAGE_SIZE);
 			}
 
 			modelAndView.addObject("projectVo", projectVo);
-			modelAndView.addObject("projectInterestPagedListHolder", projectInterestPagedListHolder);
-			modelAndView.addObject("roleList", CodeLookupUtil.getCodeListByCategory(VMSConstants.PROJECT_ROLE_CATEGORY));
+
+			modelAndView.addObject("projectInterestPagedListHolder",
+					projectInterestPagedListHolder);
+			modelAndView.addObject("roleList", CodeLookupUtil
+					.getCodeListByCategory(VMSConstants.PROJECT_ROLE_CATEGORY));
+
+			modelAndView.addObject("projectInterestPagedListHolder",
+					projectInterestPagedListHolder);
+			modelAndView.addObject("roleList", CodeLookupUtil
+					.getCodeListByCategory(VMSConstants.PROJECT_ROLE_CATEGORY));
 
 			modelAndView.addObject("prjId", prjId);
 		}
@@ -887,23 +1056,29 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 	}
 
-	public ModelAndView viewProjectInterest(HttpServletRequest request, HttpServletResponse response, ProjectInterestVo command) throws Exception {
+	public ModelAndView viewProjectInterest(HttpServletRequest request,
+			HttpServletResponse response, ProjectInterestVo command)
+			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("viewProjectInterest(HttpServletRequest, HttpServletResponse, ProjectInterestSearchVo) - start");
 		}
 
 		modelAndView = new ModelAndView("project/viewProjectInterest");
-		modelAndView.addObject("projInterestStatusList", CodeLookupUtil.getCodeListByCategory(VMSConstants.PROJECT_INTREST_STATUS));
+		modelAndView.addObject("projInterestStatusList", CodeLookupUtil
+				.getCodeListByCategory(VMSConstants.PROJECT_INTREST_STATUS));
 		List projectInterestVoList = null;
-		if (command != null && (command.getPrjId() != null) || !StringUtil.isNullOrEmpty(command.getPrjName())
+		if (command != null && (command.getPrjId() != null)
+				|| !StringUtil.isNullOrEmpty(command.getPrjName())
 				|| !StringUtil.isNullOrEmpty(command.getStsVal())) {
-			projectInterestVoList = projectInterestService.getProjectInterestListBySearchCriteria(command);
-		}
-		else {
-			projectInterestVoList = projectInterestService.getProjectInterestListByUserLoginId();
+			projectInterestVoList = projectInterestService
+					.getProjectInterestListBySearchCriteria(command);
+		} else {
+			projectInterestVoList = projectInterestService
+					.getProjectInterestListByUserLoginId();
 		}
 
-		PagedListHolder projInterestPagedListHolder = new PagedListHolder(projectInterestVoList);
+		PagedListHolder projInterestPagedListHolder = new PagedListHolder(
+				projectInterestVoList);
 		if (!projectInterestVoList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 			projInterestPagedListHolder.setPage(page);
