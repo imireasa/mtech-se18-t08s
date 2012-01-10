@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
-import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
 
@@ -55,12 +55,14 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 	}
 
 	@Override
-	public List<ProjectMemberVo> getListOfMembersbyProject(ProjectDto projectDto) {
+	public List<ProjectMemberVo> getMemberListbyProject(Long prjId) {
 		try {
 			DetachedCriteria criteria = DetachedCriteria
 					.forClass(ProjectMemberDto.class);
-			criteria.add(Restrictions.eq("prjId", projectDto)).add(
-					Restrictions.eq("actInd", true));
+			criteria.setFetchMode("prjId", FetchMode.JOIN)
+					.createAlias("prjId", "prjId")
+					.add(Restrictions.eq("prjId.prjId", prjId))
+					.add(Restrictions.eq("actInd", true));
 			List<ProjectMemberDto> memberList = manager
 					.findByDetachedCriteria(criteria);
 
