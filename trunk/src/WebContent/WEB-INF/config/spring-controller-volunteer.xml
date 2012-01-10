@@ -24,7 +24,8 @@
          <property name="projectFeedbackService" ref="projectFeedbackServiceImpl" />
       <property name="projectExperienceService" ref="projectExperienceServiceImpl" />
        <property name="projectInterestService" ref="projectInterestServiceImpl" />
-      
+      <property name="certificateManagementService" ref="certificateManagementServiceImpl" />
+     
         <property name="validators" ref="volunteerValidator" />        
     </bean>
     
