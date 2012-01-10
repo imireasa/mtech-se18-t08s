@@ -24,7 +24,6 @@ import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectInterestDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectManagementService;
 import sg.edu.nus.iss.vms.project.vo.ProjectMemberVo;
@@ -397,16 +396,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			projectList.add(new ProjectVo(projectDto));
 		}
 		return projectList;
-	}
-
-	@Override
-	public List<CertificateRequestDto> getCertificateRequestsbyProject(
-			Long prjId, String userId) {
-		DetachedCriteria criteria = DetachedCriteria
-				.forClass(ProjectInterestDto.class);
-		criteria.add(Restrictions.eq("prjId", prjId)).add(
-				Restrictions.eq("reqBy", userId));
-		return manager.findByDetachedCriteria(criteria);
 	}
 
 	@Override

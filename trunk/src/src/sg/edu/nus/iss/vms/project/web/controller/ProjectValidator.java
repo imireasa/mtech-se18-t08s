@@ -87,7 +87,7 @@ public class ProjectValidator implements Validator {
 		ProjectProposalVo projectProposalVo = (ProjectProposalVo) o;
 
 		if (StringUtil.isNullOrEmpty(projectProposalVo.getNme())) {
-			errors.rejectValue("name", "name", Messages.getString(
+			errors.rejectValue("nme", "nme", Messages.getString(
 					"message.common.error.mandatory", new String[] { "Name" }));
 		}
 
@@ -98,14 +98,14 @@ public class ProjectValidator implements Validator {
 		}
 
 		if (StringUtil.isNullOrEmpty(projectProposalVo.getCtryVal())) {
-			errors.rejectValue("ctryCd", "ctryCd", Messages.getString(
+			errors.rejectValue("ctryVal", "ctryVal", Messages.getString(
 					"message.common.error.mandatory",
 					new String[] { "Country" }));
 		}
 
 		if (projectProposalVo.getEstDur() <= 0) {
 			errors.rejectValue(
-					"estDuration", "error.empty.field", Messages.getString("message.common.error.numeric.gt.invalid", new String[] { "Estimated Duration", "0" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					"estDur", "error.empty.field", Messages.getString("message.common.error.numeric.gt.invalid", new String[] { "Estimated Duration", "0" })); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 
 		if (logger.isDebugEnabled()) {

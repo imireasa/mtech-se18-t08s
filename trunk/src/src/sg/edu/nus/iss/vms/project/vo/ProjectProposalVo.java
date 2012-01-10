@@ -36,7 +36,8 @@ public class ProjectProposalVo {
 		CodeLookupVo countryCodeVo = CodeLookupUtil
 				.getCodeById(dto.getCtryCd());
 		this.ctryCd = dto.getCtryCd();
-		this.ctryVal = countryCodeVo.getVal();
+		if (countryCodeVo != null)
+			this.ctryVal = countryCodeVo.getVal();
 		this.loc = dto.getLoc();
 		this.estDur = dto.getEstDur();
 		this.proposerId = dto.getProposerId();
