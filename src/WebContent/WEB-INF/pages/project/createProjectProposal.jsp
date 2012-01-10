@@ -5,6 +5,11 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%><body>
 <head>
 <script type="text/javascript">
+
+$(document).ready(function(){            
+    $("#proposalVo").validationEngine();
+});
+
 	var slots = 10; // Upped automatically
 
 	var nextUploadNum;
@@ -149,7 +154,7 @@
 					</td>
 					<td><spring:bind path="proposalVo.nme">
 							<form:input path="nme" />
-						</spring:bind> <form:errors path="nme" cssClass="error" /></td>
+						</spring:bind> <form:errors path="nme" cssClass="validate[required] "/></td>
 				</tr>
 				<tr>
 					<td align="left"><fmt:message
