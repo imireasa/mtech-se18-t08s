@@ -153,8 +153,8 @@ $(document).ready(function(){
 					<td><fmt:message key="message.common.symbol.afterLabel.label" />
 					</td>
 					<td><spring:bind path="proposalVo.nme">
-							<form:input path="nme" />
-						</spring:bind> <form:errors path="nme" cssClass="validate[required] "/></td>
+							<form:input path="nme" cssClass="validate[required]"/>
+						</spring:bind> <form:errors path="nme" cssClass="error"/></td>
 				</tr>
 				<tr>
 					<td align="left"><fmt:message
@@ -173,7 +173,7 @@ $(document).ready(function(){
 								key="message.common.symbol.mandatory.label" /> </span></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" />
 					</td>
-					<td><form:select path="ctryVal">
+					<td><form:select path="ctryVal" cssClass="validate[required]">
 							<form:option value="" label="--Select--" />
 							<c:forEach items="${countryList}" var="item" varStatus="status">
 								<form:option value="${item.val}">${item.val}</form:option>
@@ -189,7 +189,7 @@ $(document).ready(function(){
 					<td><fmt:message key="message.common.symbol.afterLabel.label" />
 					</td>
 					<td><spring:bind path="proposalVo.loc">
-							<form:textarea path="loc" rows="5" cols="30" />
+							<form:textarea path="loc" rows="5" cols="30" cssClass="validate[required]"/>
 						</spring:bind> <form:errors path="loc" cssClass="error" />
 					</td>
 				</tr>
@@ -201,7 +201,7 @@ $(document).ready(function(){
 					<td><fmt:message key="message.common.symbol.afterLabel.label" />
 					</td>
 					<td><spring:bind path="proposalVo.estDur">
-							<form:input path="estDur" /> days
+							<form:input path="estDur" cssClass="validate[required,custom[integer],min[1]] "/> days
 					</spring:bind> <form:errors path="estDur" cssClass="error" />
 					</td>
 				</tr>
