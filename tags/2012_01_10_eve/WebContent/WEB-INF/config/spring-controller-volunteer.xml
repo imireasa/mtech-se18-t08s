@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- BEAN : Page -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+        <bean id="volunteerValidator" class="sg.edu.nus.iss.vms.volunteer.web.controller.VolunteerValidator">
+                <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
+        </bean>
+    
+    <bean id="volunteerController" class="sg.edu.nus.iss.vms.volunteer.web.controller.VolunteerController">		
+        <property name="codeManagementServices" ref="codeManagementServiceImpl" />
+        <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
+        <property name="projectManagementService" ref="projectManagementServiceImpl" />
+        <property name="memberManagementService" ref="memberManagementServiceImpl" />
+         <property name="projectFeedbackService" ref="projectFeedbackServiceImpl" />
+      <property name="projectExperienceService" ref="projectExperienceServiceImpl" />
+       <property name="projectInterestService" ref="projectInterestServiceImpl" />
+      
+        <property name="validators" ref="volunteerValidator" />        
+    </bean>
+    
+    
+    
+</beans>
