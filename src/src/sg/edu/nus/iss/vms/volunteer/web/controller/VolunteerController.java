@@ -575,8 +575,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 	}
 
-	public ModelAndView postExperienceAndFb(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public ModelAndView postExperience(HttpServletRequest request,
+			HttpServletResponse response, ProjectExperienceVo experienceVo)
+			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("postExperienceAndFb(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
 		}
@@ -586,17 +587,13 @@ public class VolunteerController extends BaseMultiActionFormController {
 		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
 				"projectVo");
 
-		ProjectFeedbackVo feedbackVo = (ProjectFeedbackVo) modelAndView
-				.getModel().get("feedbackVo");
-
-		ProjectExperienceVo experienceVo = (ProjectExperienceVo) modelAndView
-				.getModel().get("experienceVo");
-
-		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
-
+		logger.debug("experienceVoexperienceVoexperienceVo:"
+				+ experienceVo.getCont());
 		modelAndView = new ModelAndView("volunteer/viewProject");
 
 		if (!StringUtil.isNullOrEmpty(experienceVo.getCont())) {
+
+			logger.debug("Save experienceSave experienceSave experience");
 
 			projectExperienceService.createProjectExperience(experienceVo);
 			modelAndView.addObject("riMsg", Messages.getString(
@@ -604,6 +601,62 @@ public class VolunteerController extends BaseMultiActionFormController {
 					new String[] { "Project Experience" }));
 
 		}
+
+		List<ProjectMemberDto> memberList = memberManagementService
+				.getListOfMembers(projectDto.getPrjId());
+		List<ProjectExperienceVo> experienceList = projectExperienceService
+				.getProjectExperienceListbyProjectId(projectDto.getPrjId());
+		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
+				.getProjectFeedbackListbyProjectId(projectDto.getPrjId());
+
+		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
+				feedbackList);
+
+		if (!feedbackList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p1", 0);
+			feedbackPagedListHolder.setPage(page);
+			feedbackPagedListHolder.setPageSize(100);
+		}
+
+		PagedListHolder exPagedListHolder = new PagedListHolder(experienceList);
+		if (!experienceList.isEmpty()) {
+			int page = ServletRequestUtils.getIntParameter(request, "p2", 0);
+			exPagedListHolder.setPage(page);
+			exPagedListHolder.setPageSize(100);
+		}
+
+		modelAndView.addObject("fbPagedListHolder", feedbackPagedListHolder);
+
+		modelAndView.addObject("exPagedListHolder", exPagedListHolder);
+
+		modelAndView.addObject("project", projectDto);
+		modelAndView.addObject("memberList", memberList);
+		modelAndView.addObject("experienceList", experienceList);
+		modelAndView.addObject("feedbackList", feedbackList);
+		modelAndView.addObject("projectVo", projectVo);
+		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
+		modelAndView.addObject("experienceVo", new ProjectExperienceVo());
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("postExperienceAndFb(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - end");
+		}
+		return modelAndView;
+
+	}
+
+	public ModelAndView postFeedback(HttpServletRequest request,
+			HttpServletResponse response, ProjectFeedbackVo feedbackVo)
+			throws Exception {
+		if (logger.isDebugEnabled()) {
+			logger.debug("postExperienceAndFb(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
+		}
+
+		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
+				"project");
+		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
+				"projectVo");
+
+		modelAndView = new ModelAndView("volunteer/viewProject");
 
 		if (!StringUtil.isNullOrEmpty(feedbackVo.getTitle())) {
 
@@ -670,10 +723,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 					+ projectDto.getPrjId());
 		}
 
-		CodeLookupVo codeVo = CodeLookupUtil
-				.getCodeByCategoryAndCodeValue(
-						VMSConstants.CERTIFIATE_REQUEST_TYPE,
-						VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
+		CodeLookupVo codeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.CERTIFIATE_REQUEST_TYPE,
+				VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL);
 
 		CodeLookupVo codeStatusVo = CodeLookupUtil
 				.getCodeByCategoryAndCodeValue(
