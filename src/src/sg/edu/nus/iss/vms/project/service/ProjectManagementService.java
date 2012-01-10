@@ -14,15 +14,11 @@ public interface ProjectManagementService {
 
 	public ProjectVo getProjectbyId(long id);
 
-	public List getAllProjectObjectList(Class type);
-
 	public ProjectVo getProjectVoById(Long projectId);
 
 	public void saveProject(ProjectVo projectVo) throws Exception;
 
 	public void updateProject(ProjectVo projectVo) throws Exception;
-
-	public void saveOrUpdateProjectObject(Object obj);
 
 	public List<ProjectVo> getProjectListbyProjectVo(ProjectVo projectVo);
 
@@ -41,5 +37,7 @@ public interface ProjectManagementService {
 	public ProjectVo getProjectVoByLoginUserAccessRight(Long projectId);
 
 	public List<ProjectMemberDto> getProjectMember(long projectId);
+
+	public List<ProjectVo> getProjectsbyProjectVo(ProjectVo projectVo);
 
 }

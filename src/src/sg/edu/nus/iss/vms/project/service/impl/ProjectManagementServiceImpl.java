@@ -364,22 +364,6 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	}
 
 	@Override
-	public void saveOrUpdateProjectObject(Object obj) {
-		manager.save(obj);
-	}
-
-	@Override
-	public List getAllProjectObjectList(Class type) {
-		DetachedCriteria criteria = DetachedCriteria.forClass(type);
-		List<ProjectDto> projects = manager.findByDetachedCriteria(criteria);
-		List<ProjectVo> projectVos = new ArrayList<ProjectVo>();
-		for (ProjectDto dto : projects) {
-			projectVos.add(new ProjectVo(dto));
-		}
-		return projectVos;
-	}
-
-	@Override
 	public List<ProjectVo> getProjectListbyProjectVo(ProjectVo projectVo) {
 
 		Date startDate = DateUtil.parseDate(projectVo.getStrDte());
@@ -393,7 +377,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			hQL += " and prjId.stsCd=" + Long.parseLong(projectVo.getStsCd());
 		}
 		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
-			hQL += " and strDte BETWEEN '"
+			hQL += " and prjId.strDte > '"
 					+ DateUtil.getMonthStartDate(startDate) + "' AND '"
 					+ DateUtil.getMonthEndDate(startDate) + "'";
 		}
@@ -412,6 +396,35 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		String hQL = "from ProjectMemberDto where prjId=" + projectId;
 		List<ProjectMemberDto> projMemList = manager.find(hQL);
 		return projMemList;
+	}
+
+	public List<ProjectVo> getProjectsbyProjectVo(ProjectVo projectVo) {
+
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(ProjectDto.class);
+		if (!StringUtil.isNullOrEmpty(projectVo.getName())) {
+
+			detachedCriteria.add(Restrictions.eq("nme", projectVo.getName()));
+		}
+		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
+
+			detachedCriteria
+					.add(Restrictions.eq("stsCd", projectVo.getStsCd()));
+
+		}
+		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
+			detachedCriteria.add(Restrictions.gt("strDte",
+					DateUtil.parseDate(projectVo.getStrDte())));
+
+		}
+
+		List<ProjectDto> projectDtoList = manager
+				.findByDetachedCriteria(detachedCriteria);
+		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
+		for (ProjectDto projectDto : projectDtoList) {
+			projectList.add(new ProjectVo(projectDto));
+		}
+		return projectList;
 	}
 
 }
