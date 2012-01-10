@@ -365,7 +365,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		modelAndView = new ModelAndView("volunteer/viewProjectList");// jsp page
 		List<ProjectVo> projectList = projectManagementService
-				.getAllProjectObjectList(ProjectDto.class);
+				.getListAllProject();
 		List<CodeLookupVo> projectCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 		logger.debug("The project size is" + projectList.size());
@@ -402,7 +402,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("projectCodeList", projectCodeList);
 
 		List<ProjectVo> projectList = projectManagementService
-				.getProjectListbyProjectVo(command);
+				.getProjectsbyProjectVo(command);
 		logger.debug("The project size is" + projectList.size());
 		modelAndView.addObject("projectList", projectList);
 		modelAndView.addObject("command", command);
