@@ -251,13 +251,17 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 
 		List<ProjectDto> projectList = manager.findByDetachedCriteria(criteria);
+
 		return projectList;
 	}
 
 	@Override
-	public Object getProjectObjbyId(long id, Class type) {
+	public ProjectVo getProjectbyId(long id) {
 		try {
-			return manager.get(type, id);
+			ProjectDto projectDto = (ProjectDto) manager.get(ProjectDto.class,
+					id);
+
+			return new ProjectVo(projectDto);
 		} catch (Exception ex) {
 			this.logger.error("Data Access Error", ex);
 			return null;
@@ -367,7 +371,12 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	@Override
 	public List getAllProjectObjectList(Class type) {
 		DetachedCriteria criteria = DetachedCriteria.forClass(type);
-		return manager.findByDetachedCriteria(criteria);
+		List<ProjectDto> projects = manager.findByDetachedCriteria(criteria);
+		List<ProjectVo> projectVos = new ArrayList<ProjectVo>();
+		for (ProjectDto dto : projects) {
+			projectVos.add(new ProjectVo(dto));
+		}
+		return projectVos;
 	}
 
 	@Override

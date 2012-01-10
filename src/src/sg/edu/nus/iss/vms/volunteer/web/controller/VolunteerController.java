@@ -22,7 +22,6 @@ import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.service.CodeManagementServices;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
-import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
@@ -365,7 +364,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		modelAndView = new ModelAndView("volunteer/viewProjectList");// jsp page
-		List<ProjectDto> projectList = projectManagementService
+		List<ProjectVo> projectList = projectManagementService
 				.getAllProjectObjectList(ProjectDto.class);
 		List<CodeLookupVo> projectCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
@@ -402,8 +401,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		modelAndView.addObject("projectCodeList", projectCodeList);
 
-		List<ProjectDto> projectList = projectManagementService
-				.getProjectbyProjectVo(command);
+		List<ProjectVo> projectList = projectManagementService
+				.getProjectListbyProjectVo(command);
 		logger.debug("The project size is" + projectList.size());
 		modelAndView.addObject("projectList", projectList);
 		modelAndView.addObject("command", command);
@@ -438,8 +437,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 			}
 			return modelAndView;
 		}
-		ProjectDto projectDto = (ProjectDto) projectManagementService
-				.getProjectObjbyId(prjId, ProjectDto.class);
+		ProjectVo projectVo = projectManagementService.getProjectbyId(prjId);
 
 		List<CodeLookupVo> projectStatusCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
@@ -452,13 +450,13 @@ public class VolunteerController extends BaseMultiActionFormController {
 		String country = "Unknown";
 
 		for (CodeLookupVo codeLookupVo : projectStatusCodeList) {
-			if (codeLookupVo.getCdId().equals(projectDto.getStsCd())) {
+			if (codeLookupVo.getCdId().equals(projectVo.getStsCd())) {
 				projectStatus = codeLookupVo.getVal();
 				break;
 			}
 		}
 		for (CodeLookupVo codeLookupVo : countryCodeList) {
-			if (codeLookupVo.getCdId().equals(projectDto.getCtryCd())) {
+			if (codeLookupVo.getCdId().equals(projectVo.getCtryCd())) {
 				country = codeLookupVo.getVal();
 				break;
 			}
@@ -466,22 +464,13 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
-		ProjectVo projectVo = new ProjectVo();
-		projectVo.setName(projectDto.getNme());
-		projectVo.setLoginId(loginId);
-		projectVo.setDesc(projectDto.getDesc());
-		projectVo.setStrDte(DateUtil.formatDate(projectDto.getStrDte()));
-		projectVo.setLoc(projectDto.getLoc());
-		projectVo.setCtryCd(country);
-		projectVo.setStsCd(projectStatus);
-
 		List<ProjectMemberVo> memberList = memberManagementService
-				.getListOfMembersbyProject(projectDto);
+				.getMemberListbyProject(projectVo.getPrjId());
 
 		List<ProjectExperienceVo> experienceList = projectExperienceService
-				.getProjectExperienceListbyProjectId(projectDto.getPrjId());
+				.getProjectExperienceListbyProjectId(projectVo.getPrjId());
 		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
-				.getProjectFeedbackListbyProjectId(projectDto.getPrjId());
+				.getProjectFeedbackListbyProjectId(projectVo.getPrjId());
 		modelAndView = new ModelAndView("volunteer/viewProject");
 
 		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
@@ -504,7 +493,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 		modelAndView.addObject("exPagedListHolder", exPagedListHolder);
 
 		modelAndView.addObject("projectVo", projectVo);
-		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
 
 		modelAndView.addObject("feedbackVo", new ProjectFeedbackVo());
@@ -538,22 +526,22 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("raiseInterest(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
-				"project");
+		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
+				"projectVo");
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("raiseInterest(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@raiseInterest@@@@@@@@@:"
-					+ projectDto.getPrjId());
+					+ projectVo.getPrjId());
 		}
 
 		ProjectInterestVo projectInterestVo = new ProjectInterestVo();
-		projectInterestVo.setPrjId(projectDto.getPrjId());
+		projectInterestVo.setPrjId(projectVo.getPrjId());
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		List<ProjectInterestVo> projectInterestVos = projectInterestService
 				.getProjectInterestListbyProjectIdAndUserId(
-						projectDto.getPrjId(), loginId);
+						projectVo.getPrjId(), loginId);
 
 		if (projectInterestVos.size() == 0) {
 
@@ -561,7 +549,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 			if (logger.isDebugEnabled()) {
 				logger.debug("raiseInterest(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@successfully raise new project interest@@@@@@@@@:"
-						+ projectDto.getPrjId());
+						+ projectVo.getPrjId());
 			}
 
 			modelAndView.addObject("riMsg", Messages.getString(
@@ -589,8 +577,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("postExperienceAndFb(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
 		}
 
-		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
-				"project");
 		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
 				"projectVo");
 
@@ -610,11 +596,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		List<ProjectMemberDto> memberList = memberManagementService
-				.getListOfMembers(projectDto.getPrjId());
+				.getListOfMembers(projectVo.getPrjId());
 		List<ProjectExperienceVo> experienceList = projectExperienceService
-				.getProjectExperienceListbyProjectId(projectDto.getPrjId());
+				.getProjectExperienceListbyProjectId(projectVo.getPrjId());
 		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
-				.getProjectFeedbackListbyProjectId(projectDto.getPrjId());
+				.getProjectFeedbackListbyProjectId(projectVo.getPrjId());
 
 		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
 				feedbackList);
@@ -636,7 +622,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		modelAndView.addObject("exPagedListHolder", exPagedListHolder);
 
-		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);

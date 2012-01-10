@@ -12,7 +12,7 @@ public interface ProjectManagementService {
 
 	public List<ProjectDto> getProjectbyProjectVo(ProjectVo projectVo);
 
-	public Object getProjectObjbyId(long id, Class type);
+	public ProjectVo getProjectbyId(long id);
 
 	public List getAllProjectObjectList(Class type);
 
