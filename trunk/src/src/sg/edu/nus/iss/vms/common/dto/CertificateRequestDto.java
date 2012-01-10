@@ -7,7 +7,9 @@ package sg.edu.nus.iss.vms.common.dto;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+
 import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
+import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 
 /**
  *
@@ -26,8 +28,9 @@ public class CertificateRequestDto extends BaseVersionDto implements Serializabl
         @Column(name = "CERT_REQ_ID")
         private Long certReqId;
         @Basic(optional = false)
-        @Column(name = "PRJ_ID")
-        private Long prjId;
+        @JoinColumn(name = "PRJ_ID", referencedColumnName = "PRJ_ID")
+        @ManyToOne(optional = false, fetch = FetchType.EAGER)
+        private ProjectDto prjId;
         @Basic(optional = false)
         @Column(name = "REQ_TP")
         private Long reqTp;
@@ -49,9 +52,8 @@ public class CertificateRequestDto extends BaseVersionDto implements Serializabl
                 this.certReqId = certReqId;
         }
 
-        public CertificateRequestDto(Long certReqId, Long prjId, Long reqTp, Long reqSts, Date reqDte, String reqBy, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
+        public CertificateRequestDto(Long certReqId, Long reqTp, Long reqSts, Date reqDte, String reqBy, String createdBy, Date createdDte, String updBy, Date updDte, int version) {
                 this.certReqId = certReqId;
-                this.prjId = prjId;
                 this.reqTp = reqTp;
                 this.reqSts = reqSts;
                 this.reqDte = reqDte;
@@ -71,11 +73,11 @@ public class CertificateRequestDto extends BaseVersionDto implements Serializabl
                 this.certReqId = certReqId;
         }
 
-        public Long getPrjId() {
+        public ProjectDto getPrjId() {
                 return prjId;
         }
 
-        public void setPrjId(Long prjId) {
+        public void setPrjId(ProjectDto prjId) {
                 this.prjId = prjId;
         }
 

@@ -159,7 +159,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			certificateRequestDto.setReqDte(new java.util.Date());
 			certificateRequestDto.setReqSts(requestd);
 			certificateRequestDto.setReqTp(newRequest);
-			certificateRequestDto.setPrjId(projectId);
+			certificateRequestDto.setPrjId(projectDto);
 			manager.save(certificateRequestDto);
 
 		}
