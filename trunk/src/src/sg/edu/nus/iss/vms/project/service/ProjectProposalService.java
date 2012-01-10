@@ -2,6 +2,7 @@ package sg.edu.nus.iss.vms.project.service;
 
 import java.util.List;
 
+import sg.edu.nus.iss.vms.project.vo.ProjectProposalDocumentVo;
 import sg.edu.nus.iss.vms.project.vo.ProjectProposalVo;
 
 public interface ProjectProposalService {
@@ -13,7 +14,7 @@ public interface ProjectProposalService {
 
 	public ProjectProposalVo getProjectProposalbyId(Long id);
 
-	public void createProjectProposal(ProjectProposalVo projectProposalVo);
+	public void createProjectProposal(ProjectProposalVo projectProposalVo, List<ProjectProposalDocumentVo> projectProposalDocumentVos);
 
 	public void updateProjectProposal(ProjectProposalVo projectProposalVo);
 

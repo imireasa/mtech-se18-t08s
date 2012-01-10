@@ -7,8 +7,25 @@ package sg.edu.nus.iss.vms.project.dto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
+
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
 import sg.edu.nus.iss.vms.common.dto.BaseVersionDto;
+import sg.edu.nus.iss.vms.common.dto.DocumentDto;
 
 /**
  *
@@ -57,7 +74,10 @@ public class ProjectProposalDto extends BaseVersionDto implements Serializable {
         private List<ProjectDto> tbProjectList;
         @OneToMany(cascade = CascadeType.ALL, mappedBy = "prjPropId", fetch = FetchType.LAZY)
         private List<ProjectProposalDocumentDto> tbProjectProposalDocumentList;
-
+        @OneToMany
+        @JoinColumn(name="REF_ID", referencedColumnName="PRJ_PROP_ID")
+        private List<DocumentDto> documentList;
+        
         public ProjectProposalDto() {
         }
 
@@ -208,4 +228,12 @@ public class ProjectProposalDto extends BaseVersionDto implements Serializable {
         public String toString() {
                 return "sg.edu.nus.iss.vms.common.dto.ProjectProposalDto[ prjPropId=" + prjPropId + " ]";
         }
+
+		public void setDocumentList(List<DocumentDto> documentList) {
+			this.documentList = documentList;
+		}
+
+		public List<DocumentDto> getDocumentList() {
+			return documentList;
+		}
 }
