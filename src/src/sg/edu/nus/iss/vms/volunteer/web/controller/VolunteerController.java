@@ -586,6 +586,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		if (!StringUtil.isNullOrEmpty(experienceVo.getCont())) {
 
+			experienceVo.setPrjId(projectVo.getPrjId());
 			logger.debug("Save experienceSave experienceSave experience");
 
 			projectExperienceService.createProjectExperience(experienceVo);
@@ -643,8 +644,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("postExperienceAndFb(HttpServletRequest, HttpServletResponse, ProjectInfoVo) - start");
 		}
 
-		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
-				"project");
 		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
 				"projectVo");
 
@@ -652,6 +651,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		if (!StringUtil.isNullOrEmpty(feedbackVo.getTitle())) {
 
+			feedbackVo.setPrjId(projectVo.getPrjId());
 			projectFeedbackService.createProjectFeedback(feedbackVo);
 			modelAndView.addObject("riMsg", Messages.getString(
 					"message.common.submitreview.msg",
@@ -660,11 +660,11 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		List<ProjectMemberDto> memberList = memberManagementService
-				.getListOfMembers(projectDto.getPrjId());
+				.getListOfMembers(projectVo.getPrjId());
 		List<ProjectExperienceVo> experienceList = projectExperienceService
-				.getProjectExperienceListbyProjectId(projectDto.getPrjId());
+				.getProjectExperienceListbyProjectId(projectVo.getPrjId());
 		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
-				.getProjectFeedbackListbyProjectId(projectDto.getPrjId());
+				.getProjectFeedbackListbyProjectId(projectVo.getPrjId());
 
 		PagedListHolder feedbackPagedListHolder = new PagedListHolder(
 				feedbackList);
@@ -686,7 +686,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		modelAndView.addObject("exPagedListHolder", exPagedListHolder);
 
-		modelAndView.addObject("project", projectDto);
 		modelAndView.addObject("memberList", memberList);
 		modelAndView.addObject("experienceList", experienceList);
 		modelAndView.addObject("feedbackList", feedbackList);
