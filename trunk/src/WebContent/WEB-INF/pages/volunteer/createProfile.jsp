@@ -67,7 +67,7 @@
                     <td><fmt:message key="message.common.loginid.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                     <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <form:input path="loginId" cssClass="validate[required] "/>
+                        <form:input path="loginId" cssClass="validate[required]"/>
                         <form:errors path="loginId" cssClass="error"/> 
                         <input type="button" name="checkButton" value="<fmt:message key="message.common.check.label" />" onclick="checkUserLoginId()"/>
                     </td>

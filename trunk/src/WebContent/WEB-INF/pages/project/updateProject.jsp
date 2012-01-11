@@ -3,7 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
-
+<head>
+    <script type="text/javascript">
+        var defProjName = 'Please select...';       
+        
+        $(document).ready(function(){            
+            $("#command").validationEngine();            
+        });
+        
+        
+    </script>
+</head>
 <body>
         <h2><fmt:message key="message.projectManagement.updateProject.label"/></h2>
         <div id="breadcrumb">
@@ -48,7 +58,7 @@
                                         <td align="left"><fmt:message key="message.projectManagement.projectName.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                                         <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="name" cols="45" rows="2"></form:textarea>
+                                                <form:textarea path="name" cols="45" rows="2" cssClass="validate[required,maxSize[100]]"></form:textarea>
                                                 <form:errors path="name" cssClass="error"/>
                                         </th>
                                 </tr>		
@@ -57,7 +67,7 @@
                                         <td align="left"><fmt:message key="message.projectManagement.projectDescription.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="desc" cols="45" rows="4"></form:textarea>
+                                                <form:textarea path="desc" cols="45" rows="4" cssClass="validate[required,maxSize[255]]"></form:textarea>
                                                 <form:errors path="desc" cssClass="error"/>
                                         </td>
                                 </tr>	
@@ -66,7 +76,7 @@
                                         <td align="left"><fmt:message key="message.common.startDate.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                                         <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left">
-                                                <form:input path="strDte" cssClass="Date" maxlength="25" size="25"/>
+                                                <form:input path="strDte" maxlength="25" size="25" cssClass="validate[required]"/>
                                                 <form:errors path="strDte" cssClass="error"/>
                                                 <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
 												<fmt:message key="message.common.date.format.label" />
@@ -77,17 +87,17 @@
                                         <td align="left"><fmt:message key="message.common.endDate.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                                         <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left">
-                                                <form:input path="endDte" cssClass="Date" maxlength="25" size="25"/>
+                                                <form:input path="endDte" maxlength="25" size="25" cssClass="validate[required]"/>
                                                 <form:errors path="endDte" cssClass="error"/>
                                                 <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('endDte','ddMMyyyy')" style="cursor:pointer"/>
 												<fmt:message key="message.common.date.format.label" />
 										</td>
-										
-
                                 </tr>
 								 <!-- Conuntry -->
 								 <tr>
-								 	<td align="left"><fmt:message key="message.common.country.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
+								 	<td align="left">
+                                        <fmt:message key="message.common.country.label"/> 
+                                        <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
 									<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
 								 	<td>
                                                 <form:select path="ctryCd">
@@ -110,7 +120,7 @@
                                         <td align="left"><fmt:message key="message.common.location.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                                         <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="loc" cols="45" rows="4"></form:textarea>
+                                                <form:textarea path="loc" cols="45" rows="4" cssClass="validate[maxSize[255]]"></form:textarea>
                                                 <form:errors path="loc" cssClass="error"/>
                                         </td>
                                 </tr>	
@@ -139,7 +149,7 @@
                                         <td align="left"><fmt:message key="message.common.remark.label"/></td>
                                        <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                                         <td align="left"><label for="textarea"></label>
-                                                <form:textarea path="rmk" cols="45" rows="4"></form:textarea>
+                                                <form:textarea path="rmk" cols="45" rows="4" cssClass="validate[maxSize[500]]"></form:textarea>
                                                 <form:errors path="rmk" cssClass="error"/>
                                         </td>
                                 </tr>
