@@ -78,8 +78,8 @@
 					name="removeMemberButton" id="removeMemberButton"
 					value="<fmt:message key="message.common.remove.button"/>" /> <input
 					type="submit" name="updateMemberButton" id="updateMemberButton"
-					value="<fmt:message key="message.common.update.button"/>" /> <input
-					type="submit" name="inviteMemberButton" id=""inviteMemberButton"
+					value="<fmt:message key="message.common.update.button"/>" /> 
+                    <input					type="submit" name="inviteMemberButton" id=""inviteMemberButton"
 					value="<fmt:message key="message.projectManagement.inviteMember.button"/>" />
 					<input type="submit" name="requestProjCertButton"
 					id="requestProjCertButton"

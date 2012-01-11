@@ -817,11 +817,11 @@ public class ProjectController extends BaseMultiActionFormController {
 			System.out
 					.println("**********************************************");
 
-			modelAndView = new ModelAndView("project/updateProjectMember");
+			
 			logger.debug("project/manageProjectMember");
 			try {
 				if (request.getParameter("removeMemberButton") != null) {// REMOVE
-																			// COMMAND
+					modelAndView = new ModelAndView("project/updateProjectMember");														// COMMAND
 					if (request.getParameter("prjMbrId") != null) {
 						String[] prjMbrIdList = request
 								.getParameterValues("prjMbrId");
@@ -842,7 +842,7 @@ public class ProjectController extends BaseMultiActionFormController {
 										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
 				} else if (request.getParameter("updateMemberButton") != null) {// UPDATE
-																				// COMMAND
+					modelAndView = new ModelAndView("project/updateProjectMember");
 					if (request.getParameter("prjMbrId") != null) {
 						String[] prjMbrIdList = request
 								.getParameterValues("prjMbrId");
@@ -873,10 +873,8 @@ public class ProjectController extends BaseMultiActionFormController {
 										"errors",
 										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
-				} else if (request.getParameter("inviteMemberButton") != null) {// INVITE
-																				// COMMAND
+				} else if (request.getParameter("inviteMemberButton") != null) {// INVITE					
 					try {
-
 						Long userStatus = CodeLookupUtil
 								.getCodeByCategoryAndCodeValue(
 										VMSConstants.USER_TYPE_CATEGORY,

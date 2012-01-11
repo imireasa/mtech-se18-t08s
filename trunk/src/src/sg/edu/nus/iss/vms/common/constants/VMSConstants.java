@@ -26,6 +26,7 @@ public class VMSConstants {
 
 	public static final String SCREEN_CMD_REGISTER = "REGISTER";
 	public static final String SCREEN_CMD_UPDATE = "UPDATE";
+    public static final String SCREEN_CMD_INVITE_VOLUNTEER = "INVITE";
 
 	public static final String CERTIFIATE_REQUEST_TYPE_INDIVIDUAL = "Individual";
 	public static final String FEEDBACK_STATUS_SUMBITTED = "Submitted";
