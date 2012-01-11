@@ -28,4 +28,6 @@ public interface ProjectManagementService {
 
 	public List<ProjectVo> getProjectsbyProjectVo(ProjectVo projectVo);
 
+	public List<ProjectVo> getProjectList();
+
 }

@@ -364,8 +364,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 
 		modelAndView = new ModelAndView("volunteer/viewProjectList");// jsp page
-		List<ProjectVo> projectList = projectManagementService
-				.getListAllProject();
+		List<ProjectVo> projectList = projectManagementService.getProjectList();
 		List<CodeLookupVo> projectCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 		logger.debug("The project size is" + projectList.size());
@@ -461,8 +460,6 @@ public class VolunteerController extends BaseMultiActionFormController {
 				break;
 			}
 		}
-
-		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		List<ProjectMemberVo> memberList = memberManagementService
 				.getMemberListbyProject(projectVo.getPrjId());
