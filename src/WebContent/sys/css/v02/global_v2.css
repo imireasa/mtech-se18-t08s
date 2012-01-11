@@ -3,7 +3,7 @@ html, body, h1, h2, h3, h4, h5, ul, li, ol, blockquote, p {
     padding: 0;
 }
 body { font-size:11px !important;font-family: Arial, Helvetica, sans-serif !important; background:#fff url(/VMS/sys/images/v02/bg-map.png) center bottom !important; }
-a { text-decoration:none; color:#3366CC;font-size:13px !important; font-weight: 700}
+a { text-decoration:none; color:#3366CC;font-size:13px !important; font-weight: 700;white-space:nowrap;}
 a:hover { text-decoration:underline; }
 
 /*************** global font ********************/
