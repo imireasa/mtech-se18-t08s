@@ -377,7 +377,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 			hQL += " and prjId.stsCd=" + Long.parseLong(projectVo.getStsCd());
 		}
 		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
-			hQL += " and prjId.strDte > '"
+			hQL += " and prjId.strDte BETWEEN '"
 					+ DateUtil.getMonthStartDate(startDate) + "' AND '"
 					+ DateUtil.getMonthEndDate(startDate) + "'";
 		}

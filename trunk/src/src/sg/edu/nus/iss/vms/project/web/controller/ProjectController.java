@@ -1063,7 +1063,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("viewProjectInterest(HttpServletRequest, HttpServletResponse, ProjectInterestSearchVo) - start");
 		}
 
-		modelAndView = new ModelAndView("project/viewProjectInterest");
+		modelAndView = new ModelAndView("project/viewProjectInterestList");
 		modelAndView.addObject("projInterestStatusList", CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.PROJECT_INTREST_STATUS));
 		List projectInterestVoList = null;
