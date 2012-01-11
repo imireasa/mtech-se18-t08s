@@ -1,0 +1,19 @@
+<dwr>
+	<allow>
+		<create creator="spring" javascript="VmsDwr">
+			<param name="beanName" value="vmsDwr" />
+		</create>
+
+		<!-- VO -->
+		
+
+		<!-- HIBERNATE -->
+		<convert converter="hibernate3" match="sg.edu.nus.iss.vms.staffmgmt.dto.Staff" />
+
+		<convert match="java.lang.Exception" converter="exception">
+			<param name='include' value='message,lineNumber' />
+		</convert>
+
+		<convert converter="bean" match="java.lang.StackTraceElement" />
+	</allow>
+</dwr>
