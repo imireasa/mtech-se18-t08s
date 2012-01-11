@@ -33,7 +33,7 @@ CREATE TABLE `tb_certificate_request` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`CERT_REQ_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_code` */
 
@@ -79,7 +79,7 @@ CREATE TABLE `tb_document` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`DOC_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_menu_function` */
 
@@ -112,7 +112,7 @@ CREATE TABLE `tb_permission` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL,
   PRIMARY KEY (`PERMI_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project` */
 
@@ -251,7 +251,7 @@ CREATE TABLE `tb_project_proposal` (
   `UPD_DTE` datetime NOT NULL,
   `VERSION` int(10) NOT NULL DEFAULT '1',
   PRIMARY KEY (`PRJ_PROP_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=latin1;
 
 /*Table structure for table `tb_project_proposal_document` */
 
