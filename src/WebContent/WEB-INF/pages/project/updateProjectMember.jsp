@@ -5,9 +5,7 @@
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
 <body>
-	<h2>
-		<fmt:message key="message.projectManagement.manageMember.label" />
-	</h2>
+	<h2><fmt:message key="message.projectManagement.manageMember.label" /></h2>
 	<div id="breadcrumb">
 		<a href="<%=request.getContextPath()%>/common/welcome.html"><fmt:message key="message.common.home.label" /></a> / <a
 			href="listProjects.html"><fmt:message
@@ -16,13 +14,13 @@
 	</div>
 	<div class="query">
 		<c:if test="${not empty msg}">
-			<div class="infoblock">
+			<div class="info">
 				<c:out value="${msg}" escapeXml="false" />
 				<br />
 			</div>
 		</c:if>
 		<c:if test="${not empty errors}">
-			<div class="errorblock">
+			<div class="error">
 				<c:out value="Error:" />
 				<c:forEach var="error" items="${errors}">
 					<c:out value="${error}" escapeXml="false" />
@@ -46,13 +44,13 @@
 	<form:form method="GET">
 		<input type="hidden" id="prjId" name="prjId" value="${prjId}" />
 
-		<table name="projectMemberList" border="1" class="proj-table">
+		<table class="proj-table">
 
 			<tr>
-				<th width="20"><label><fmt:message key="message.common.check.label" /></label></th>
-				<th width="170"><label><fmt:message key="message.common.name.label" /></label></th>
-				<th width="75"><label><fmt:message key="message.common.country.label" /></label></th>
-				<th width="100"><label><fmt:message key="message.common.role.label" /></label></th>
+				<th width="20"><fmt:message key="message.common.check.label" /></th>
+				<th width="170"><fmt:message key="message.common.name.label" /></th>
+				<th width="75"><fmt:message key="message.common.country.label" /></th>
+				<th width="100"><fmt:message key="message.common.role.label" /></th>
 			</tr>
 			<c:forEach items="${memberPagedListHolder.pageList}" var="item">
 				<tr>
