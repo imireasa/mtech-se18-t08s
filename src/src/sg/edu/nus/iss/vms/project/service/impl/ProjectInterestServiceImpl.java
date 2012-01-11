@@ -235,7 +235,7 @@ public class ProjectInterestServiceImpl implements ProjectInterestService {
 		if (!StringUtil.isNullOrEmpty(projectInterestVo.getStsVal())) {
 
 			List<CodeLookupVo> codeLookupVos = CodeLookupUtil
-					.getCodeListByCategory(VMSConstants.FEEDBACK_STATUS);
+					.getCodeListByCategory(VMSConstants.PROJECT_INTREST_STATUS);
 			for (CodeLookupVo codeLookupVo : codeLookupVos) {
 
 				if (codeLookupVo.getVal().equals(projectInterestVo.getStsVal())) {
