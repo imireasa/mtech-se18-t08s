@@ -82,7 +82,7 @@
 					</tr>
 					<c:forEach items="${memberList}" var="item" varStatus="status">
 						<tr>
-							<td>${item.usrLoginId}</td>
+							<td>${item.nme}</td>
 							<td>${item.roleCd}</td>
 							<c:if test="${item.usrLoginId ==projectVo.loginId}">
 								<td><input type="submit" name="requestCertificateButton"
