@@ -22,18 +22,6 @@ public interface ProjectManagementService {
 
 	public List<ProjectVo> getProjectListbyProjectVo(ProjectVo projectVo);
 
-	public void sendInviteProjectMemberToAllUser(Long projectId, Long userStatus)
-			throws Exception;
-
-	public void deleteProjectMemberByProjectMemberId(String projectMemberId)
-			throws Exception;
-
-	public void requestProjectCertificateByProjectId(Long projectId)
-			throws Exception;
-
-	public void updateProjectMemberRoleByProjectMemberIdnRole(
-			String projectMemberId, Long roleCd) throws Exception;
-
 	public ProjectVo getProjectVoByLoginUserAccessRight(Long projectId);
 
 	public List<ProjectMemberDto> getProjectMember(long projectId);

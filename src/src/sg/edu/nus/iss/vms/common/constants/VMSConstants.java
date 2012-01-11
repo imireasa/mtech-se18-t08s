@@ -3,9 +3,7 @@ package sg.edu.nus.iss.vms.common.constants;
 public class VMSConstants {
 
 	public static final int MAX_PAGE_SIZE = 7;
-    
-    
-
+	
 	public static final String ORGANIZATION_NAME = "National University of Singapore(NUS)";
 	public static final boolean ACTIVE = true;
 	public static final boolean INACTIVE = false;

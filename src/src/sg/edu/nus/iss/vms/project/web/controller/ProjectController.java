@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.vms.admin.service.UserManagementServices;
+import sg.edu.nus.iss.vms.certificate.service.CertificateManagementService;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CodeDto;
@@ -50,8 +51,9 @@ public class ProjectController extends BaseMultiActionFormController {
 	private ProjectProposalService projectProposalService;
 	private UserManagementServices userManagementServices;
 	private ProjectInterestService projectInterestService;
+	private CertificateManagementService certificateManagementService;
 	private BindingResult errors;
-
+	
 	public void setProjectFeedbackService(
 			ProjectFeedbackService projectFeedbackService) {
 		this.projectFeedbackService = projectFeedbackService;
@@ -93,6 +95,15 @@ public class ProjectController extends BaseMultiActionFormController {
 			ProjectInterestService projectInterestService) {
 		this.projectInterestService = projectInterestService;
 	}
+	public CertificateManagementService getCertificateManagementService() {
+		return certificateManagementService;
+	}
+
+	public void setCertificateManagementService(
+			CertificateManagementService certificateManagementService){
+		this.certificateManagementService=certificateManagementService;
+	}
+
 
 	@Override
 	public long getLastModified(HttpServletRequest arg0) {
@@ -796,116 +807,70 @@ public class ProjectController extends BaseMultiActionFormController {
 		}
 
 		ProjectVo projectVo = new ProjectVo();
+		
 		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
+			
 			Long prjId = Long.parseLong(request.getParameter("prjId"));
+			System.out.println("**********************************************");
+			System.out.println("prjId:"+prjId);
+			System.out.println("**********************************************");
+			
 			modelAndView = new ModelAndView("project/updateProjectMember");
 			logger.debug("project/manageProjectMember");
 			try {
-				if (request.getParameter("removeMember") != null) {// REMOVE
-					// COMMAND
+				if (request.getParameter("removeMemberButton") != null) {// REMOVE COMMAND
 					if (request.getParameter("prjMbrId") != null) {
-						String[] prjMbrIdList = request
-								.getParameterValues("prjMbrId");
+						String[] prjMbrIdList = request.getParameterValues("prjMbrId");
 						for (int i = 0; i < prjMbrIdList.length; i++) {
-							logger.debug("Removing Project Member "
-									+ prjMbrIdList[i]);
+							logger.debug("Removing Project Member "+ prjMbrIdList[i]);
 							String[] val = prjMbrIdList[i].split("[,]");
-							projectManagementService
-									.deleteProjectMemberByProjectMemberId(val[0]);
-							modelAndView
-									.addObject(
-											"msg",
-											Messages.getString("message.projectManagement.removeMemberRole"));
+							memberManagementService.deleteProjectMember(val[0]);
+							modelAndView.addObject("msg",Messages.getString("message.projectManagement.removeMemberRole"));
 						}
 					} else {
-						modelAndView
-								.addObject(
-										"errors",
-										Messages.getString("message.projectManagement.error.noSelectdMember"));
+						modelAndView.addObject("errors",Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
-				} else if (request.getParameter("updateMember") != null) {// UPDATE
-					// COMMAND
+				} else if (request.getParameter("updateMemberButton") != null) {// UPDATE COMMAND
 					if (request.getParameter("prjMbrId") != null) {
-						String[] prjMbrIdList = request
-								.getParameterValues("prjMbrId");
+						String[] prjMbrIdList = request.getParameterValues("prjMbrId");
 						for (int i = 0; i < prjMbrIdList.length; i++) {
-							logger.debug("Update Project Member Role"
-									+ prjMbrIdList[i]);
+							logger.debug("Update Project Member Role"+ prjMbrIdList[i]);
 							String[] val = prjMbrIdList[i].split("[,]");
-							String roleValue = request.getParameter("roleCd_"
-									+ val[0]);
+							String roleValue = request.getParameter("roleCd_"+ val[0]);
 							if (!StringUtil.isNullOrEmpty(roleValue)) {
 								Long roleCd = Long.parseLong(roleValue);
-								projectManagementService
-										.updateProjectMemberRoleByProjectMemberIdnRole(
-												val[0], roleCd);
-								modelAndView
-										.addObject(
-												"msg",
-												Messages.getString("message.projectManagement.updateMemberRole"));
+								memberManagementService.updateProjectMemberRole(val[0], roleCd);
+								modelAndView.addObject("msg",Messages.getString("message.projectManagement.updateMemberRole"));
 							} else {
-								modelAndView
-										.addObject(
-												"errors",
-												Messages.getString("message.common.error.update"));
+								modelAndView.addObject("errors",Messages.getString("message.common.error.update"));
 							}
 						}
 					} else {
-						modelAndView
-								.addObject(
-										"errors",
-										Messages.getString("message.projectManagement.error.noSelectdMember"));
+						modelAndView.addObject("errors",Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
-				} else if (request.getParameter("inviteProjectMember") != null) {// invite
-					// COMMAND
+				} else if (request.getParameter("inviteMemberButton") != null) {// INVITE COMMAND
 					try {
 
-						Long userStatus = CodeLookupUtil
-								.getCodeByCategoryAndCodeValue(
-										VMSConstants.USER_TYPE_CATEGORY,
-										VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
-								.getCdId();
-						projectManagementService
-								.sendInviteProjectMemberToAllUser(prjId,
-										userStatus);
-						modelAndView
-								.addObject(
-										"msg",
-										Messages.getString("message.projectManagement.inviteVolunteer"));
+						Long userStatus = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.USER_TYPE_CATEGORY,	VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER).getCdId();
+						memberManagementService.inviteProjectMemberToAllUser(prjId,userStatus);
+						modelAndView.addObject("msg",Messages.getString("message.projectManagement.inviteVolunteer"));
 					} catch (ApplicationException ae) {
 
-						Long userStatus = CodeLookupUtil
-								.getCodeByCategoryAndCodeValue(
-										VMSConstants.USER_TYPE_CATEGORY,
-										VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
-								.getCdId();
-						projectManagementService
-								.sendInviteProjectMemberToAllUser(prjId,
-										userStatus);
-						modelAndView
-								.addObject(
-										"msg",
-										Messages.getString("message.projectManagement.inviteVolunteer"));
+						Long userStatus = CodeLookupUtil.getCodeByCategoryAndCodeValue(VMSConstants.USER_TYPE_CATEGORY,VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER).getCdId();
+						memberManagementService.inviteProjectMemberToAllUser(prjId,userStatus);
+						modelAndView.addObject("msg",Messages.getString("message.projectManagement.inviteVolunteer"));
 					} catch (Exception ex) {
-						modelAndView.addObject("errors", Messages
-								.getString("message.common.error.system"));
+						modelAndView.addObject("errors", Messages.getString("message.common.error.system"));
 					}
 
-				} else if (request.getParameter("requestProjectCertificate") != null) {// request
-					// certificate
-					// COMMAND
+				} else if (request.getParameter("requestProjCertButton") != null) {// request certificate COMMAND
 					try {
-						projectManagementService
-								.requestProjectCertificateByProjectId(prjId);
-						modelAndView
-								.addObject(
-										"msg",
-										Messages.getString("message.projectManagement.error.certificate.requested"));
+						certificateManagementService.createProjectCertificateRequest(prjId);
+						modelAndView.addObject("msg",Messages.getString("message.projectManagement.error.certificate.requested"));
 					} catch (ApplicationException ex) {
 						modelAndView.addObject("errors", ex.getMessage());
 					} catch (Exception ex) {
-						modelAndView.addObject("errors", Messages
-								.getString("message.common.error.system"));
+						modelAndView.addObject("errors", Messages.getString("message.common.error.system"));
 					}
 				}
 			} catch (ApplicationException ex) {
