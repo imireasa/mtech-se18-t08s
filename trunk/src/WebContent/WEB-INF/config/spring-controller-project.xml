@@ -22,9 +22,10 @@
 		<property name="memberManagementService" ref="memberManagementServiceImpl" />
 		<property name="projectManagementService" ref="projectManagementServiceImpl" />
 		<property name="userManagementServices" ref="userManagementServiceImpl" />
-		 <property name="projectFeedbackService" ref="projectFeedbackServiceImpl" />
+		<property name="projectFeedbackService" ref="projectFeedbackServiceImpl" />
 		<property name="projectProposalService" ref="projectProposalServiceImpl" />
-		 <property name="projectInterestService" ref="projectInterestServiceImpl" />
+		<property name="projectInterestService" ref="projectInterestServiceImpl" />
+		<property name="certificateManagementService" ref="certificateManagementServiceImpl" />
    		<property name="validators" ref="projectValidator" />
 	</bean>
 	

@@ -27,12 +27,12 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		class="sg.edu.nus.iss.vms.member.service.impl.MemberManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
 		<property name="sessionBean" ref="sessionBean" />
+		<property name="mailSenderUtil" ref="mailSenderUtilImpl"/> 
 	</bean>
 
 	<bean id="projectManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.project.service.impl.ProjectManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
-	       <property name="mailSenderUtil" ref="mailSenderUtilImpl"/> 
 	</bean>
 
 	<bean id="reportManagementServiceImpl"
