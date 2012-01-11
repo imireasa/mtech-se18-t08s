@@ -29,7 +29,7 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 	private Manager manager;
 	private SessionBean sessionBean;
 	private MailSenderUtil mailSenderUtil;
-	
+
 	private final Logger logger = Logger
 			.getLogger(MemberManagementServiceImpl.class);
 
@@ -48,7 +48,7 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 	public void setSessionBean(SessionBean sessionBean) {
 		this.sessionBean = sessionBean;
 	}
-	
+
 	public MailSenderUtil getMailSenderUtil() {
 		return mailSenderUtil;
 	}
@@ -89,10 +89,18 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 			List<ProjectMemberVo> projectMemberVos = new ArrayList<ProjectMemberVo>();
 
 			for (ProjectMemberDto projectMemberDto : memberList) {
+
+				String hQL = "from UserDto where  usrLoginId ='"
+						+ projectMemberDto.getUsrLoginId() + "'";
+				List<UserDto> userDtos = manager.find(hQL);
 				ProjectMemberVo projectMemberVo = new ProjectMemberVo();
 				projectMemberVo.setRoleCd(String.valueOf(projectMemberDto
 						.getRoleCd().longValue()));
+
 				projectMemberVo.setUsrLoginId(projectMemberDto.getUsrLoginId());
+				if (!userDtos.isEmpty())
+					projectMemberVo.setNme(userDtos.get(0).getNme());
+
 				projectMemberVos.add(projectMemberVo);
 
 			}
@@ -129,11 +137,9 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 		}
 		return userList;
 	}
-	
-	
+
 	@Override
-	public void deleteProjectMember(String projectMemberId)
-			throws Exception {
+	public void deleteProjectMember(String projectMemberId) throws Exception {
 		try {
 			Long _projectMemberId = Long.parseLong(projectMemberId);
 			ProjectMemberDto dto = (ProjectMemberDto) manager.get(
@@ -147,10 +153,10 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 					Messages.getString("message.common.error.remove"));
 		}
 	}
-	
+
 	@Override
-	public void updateProjectMemberRole(
-			String projectMemberId, Long roleCd) throws Exception {
+	public void updateProjectMemberRole(String projectMemberId, Long roleCd)
+			throws Exception {
 		try {
 			Long _projectMemberId = Long.parseLong(projectMemberId);
 			ProjectMemberDto dto = (ProjectMemberDto) manager.get(
@@ -164,7 +170,7 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 					Messages.getString("message.common.error.remove"));
 		}
 	}
-	
+
 	@Override
 	public void inviteProjectMemberToAllUser(Long projectId, Long userStatus)
 			throws Exception {

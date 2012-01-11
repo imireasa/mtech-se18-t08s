@@ -2,9 +2,7 @@ package sg.edu.nus.iss.vms.project.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
@@ -12,12 +10,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.Messages;
-import sg.edu.nus.iss.vms.common.SysConfig;
-import sg.edu.nus.iss.vms.common.constants.VMSConstants;
-import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
-import sg.edu.nus.iss.vms.common.mail.BasicMailMessage;
-import sg.edu.nus.iss.vms.common.mail.MailSenderUtil;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.DateUtil;
@@ -49,6 +42,17 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 	public List<ProjectVo> getListAllProject() {
 		String hQL = "from ProjectDto where prjMgr='"
 				+ UserUtil.getUserSessionInfoVo().getUserID() + "'";
+		List<ProjectDto> projectDtoList = manager.find(hQL);
+		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
+		for (ProjectDto projectDto : projectDtoList) {
+			projectList.add(new ProjectVo(projectDto));
+		}
+		return projectList;
+	}
+
+	@Override
+	public List<ProjectVo> getProjectList() {
+		String hQL = "from ProjectDto ";
 		List<ProjectDto> projectDtoList = manager.find(hQL);
 		List<ProjectVo> projectList = new ArrayList<ProjectVo>();
 		for (ProjectDto projectDto : projectDtoList) {
@@ -263,6 +267,7 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		return projMemList;
 	}
 
+	@Override
 	public List<ProjectVo> getProjectsbyProjectVo(ProjectVo projectVo) {
 
 		DetachedCriteria detachedCriteria = DetachedCriteria
