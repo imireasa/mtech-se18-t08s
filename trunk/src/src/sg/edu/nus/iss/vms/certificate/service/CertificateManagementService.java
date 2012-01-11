@@ -21,4 +21,6 @@ public interface CertificateManagementService {
 			Long prjId, String userId);
 
 	public void createIndividualCertificateRequest(Long prjId);
+	
+	public void createProjectCertificateRequest(Long projectId)throws Exception; 
 }

@@ -12,5 +12,11 @@ public interface MemberManagementService {
 	public List<ProjectMemberDto> getListOfMembers();
 
 	public List<ProjectMemberVo> getMemberListbyProject(Long prjId);
+	
+	public void deleteProjectMember(String projectMemberId)throws Exception;
+
+	public void updateProjectMemberRole(String projectMemberId,Long roleCd) throws Exception;
+
+	public void inviteProjectMemberToAllUser(Long projectId, Long userStatus)throws Exception;
 
 }

@@ -21,6 +21,7 @@ import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.util.DateUtil;
 import sg.edu.nus.iss.vms.common.vo.CodeLookupVo;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
@@ -206,11 +207,53 @@ public class CertificateManagementServiceImpl implements
 		CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
 		certificateRequestDto.setPrjId(new ProjectDto(prjId));
 		certificateRequestDto.setReqBy(loginId);
-		certificateRequestDto.setReqDte(new Date());
+		certificateRequestDto.setReqDte(DateUtil.getDate());
 		certificateRequestDto.setReqSts(codeStatusVo.getCdId());
 		certificateRequestDto.setReqTp(codeVo.getCdId());
 
 		manager.save(certificateRequestDto);
+	}
+
+	@Override
+	public void createProjectCertificateRequest(Long projectId)
+			throws Exception {
+		ProjectDto projectDto = (ProjectDto) manager.get(ProjectDto.class,projectId);
+		CodeLookupVo reqStatusVo= CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.CERTIFICATE_REQUEST_STATUS,
+				VMSConstants.CERTIFICATE_REQUEST_STATUS_REQUESTED);
+		CodeLookupVo reqTypeVo = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.CERTIFIATE_REQUEST_TYPE,
+				VMSConstants.CERTIFICATE_REQUEST_TYPE_PROJECT);
+
+		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
+
+		Long closeProject = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.PROJECT_STATUS_CATEGORY,
+				VMSConstants.PROJECT_STATUS_CATEGORY_CLOSE).getCdId();
+
+		if (projectDto.getStsCd().intValue() != closeProject) {
+			throw new ApplicationException(
+					Messages.getString("message.projectManagement.error.projStatus.notYetClose"));
+		}
+
+		String hQL = "from CertificateRequestDto where prjId=" + projectId
+				+ " and reqTp=" + reqTypeVo.getCdId() + " and reqSts=" + reqStatusVo.getCdId();
+
+		List<CertificateRequestDto> certificateRequestDtos = manager.find(hQL);
+		if (certificateRequestDtos != null && !certificateRequestDtos.isEmpty()) {
+			throw new ApplicationException(
+					Messages.getString("message.projectManagement.error.certificate.requested"));
+		} else {
+			CertificateRequestDto certificateRequestDto = new CertificateRequestDto();
+			certificateRequestDto.setPrjId(new ProjectDto(projectId));
+			certificateRequestDto.setReqBy(loginId);
+			certificateRequestDto.setReqDte(DateUtil.getDate());
+			certificateRequestDto.setReqSts(reqStatusVo.getCdId());
+			certificateRequestDto.setReqTp(reqTypeVo.getCdId());
+
+			manager.save(certificateRequestDto);
+		}
+		
 	}
 
 }
