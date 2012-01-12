@@ -26,7 +26,7 @@ public class PublicUserManagementController extends BaseMultiActionFormControlle
 
     private static final Logger logger = Logger.getLogger(PublicUserManagementController.class);
     private UserManagementServices userManagementServices;
-    private VolunteerManagementService volunteerManagementService;
+    private VolunteerManagementService volunteerManagementService;    
     private BindingResult errors;
 
     public void validate(Object command) {
@@ -122,6 +122,7 @@ public class PublicUserManagementController extends BaseMultiActionFormControlle
             return modelAndView;
         } else {
             validate(command);
+            modelAndView = new ModelAndView("common/welcome");// jsp
             modelAndView.addObject("titleList", CodeLookupUtil.getCodeListByCategory(VMSConstants.TITLE_CATEGORY));
             modelAndView.addObject("countryList", CodeLookupUtil.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY));
             VolunteerVo volunteerVo = command;
@@ -154,9 +155,7 @@ public class PublicUserManagementController extends BaseMultiActionFormControlle
             }
             volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_REGISTER);
             modelAndView.addObject("command", volunteerVo);
-            modelAndView.addObject("msg",
-                    Messages.getString("message.common.save"));
-
+            modelAndView.addObject("msg",Messages.getString("message.common.save"));
             if (logger.isDebugEnabled()) {
                 logger.debug("registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo) - end");
             }

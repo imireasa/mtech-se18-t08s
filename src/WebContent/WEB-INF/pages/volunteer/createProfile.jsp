@@ -96,7 +96,7 @@
                     <td><fmt:message key="message.common.email.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                     <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <form:input path="email" cssClass="validate[optional,custom[email]]"/>
+                        <form:input path="email" cssClass="validate[optional]"/>
                         <form:errors path="email" cssClass="error"/>
                     </td>
                 </tr>		
@@ -156,7 +156,7 @@
                     <td><fmt:message key="message.common.dateOfBirth.label"/></td>
                     <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <form:input path="dob" cssClass="validate[optional,custom[date]] " maxlength="25" size="25"/>
+                        <form:input path="dob" cssClass="validate[optional] " maxlength="25" size="25"/>
                         <form:errors path="dob" cssClass="error"/>
                         <img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('dob','ddMMyyyy')" style="cursor:pointer"/>
                     </td>

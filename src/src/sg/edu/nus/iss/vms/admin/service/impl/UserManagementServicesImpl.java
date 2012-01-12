@@ -140,7 +140,7 @@ public class UserManagementServicesImpl implements UserManagementServices {
                 //To Do: send email
                 try {
                     BasicMailMessage bmm = new BasicMailMessage();
-                    bmm.setSubject(Messages.getString("message.projectManagement.forgetPassword.email.subject"));
+                    bmm.setSubject(Messages.getString("message.volunteerManagement.welcome.email.subject"));
                     bmm.setTo(user.getEmail());
 
                     Map props = new HashMap();
