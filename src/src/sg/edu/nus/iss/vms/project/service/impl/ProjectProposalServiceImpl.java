@@ -138,9 +138,18 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 
 		for (ProjectProposalDocumentVo documentVo : projectProposalDocumentVos) {
 			DocumentDto tempDto = new DocumentDto();
+			logger.debug("tempDtotempDto" + "::"
+					+ documentVo.getContent().length);
+
 			tempDto.setFle(documentVo.getContent());
+			logger.debug("tempDtotempDto::" + documentVo.getFileName());
 			tempDto.setFleNme(documentVo.getFileName());
+			logger.debug("tempDtotempDto::" + codeVo.getCdId());
+
 			tempDto.setRefTp(codeVo.getCdId());
+			tempDto.setRefId(1);
+			tempDto.setDelInd(false);
+
 			manager.save(tempDto);
 			result.add(tempDto);
 

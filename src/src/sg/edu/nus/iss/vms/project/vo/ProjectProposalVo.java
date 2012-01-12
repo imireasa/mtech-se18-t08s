@@ -21,6 +21,7 @@ public class ProjectProposalVo {
 	private Long stsCd;
 	private String stsVal;
 	private String rmk;
+	private String docName;
 
 	private String createdBy;
 
@@ -48,6 +49,10 @@ public class ProjectProposalVo {
 		this.stsVal = codeVo.getVal();
 		this.rmk = dto.getRmk();
 		this.createdBy = dto.getCreatedBy();
+
+		if (dto.getDocumentList() != null && dto.getDocumentList().size() > 0) {
+			docName = dto.getDocumentList().get(0).getFleNme();
+		}
 	}
 
 	public Long getPrjPropId() {
@@ -160,6 +165,14 @@ public class ProjectProposalVo {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public String getDocName() {
+		return docName;
+	}
+
+	public void setDocName(String docName) {
+		this.docName = docName;
 	}
 
 }
