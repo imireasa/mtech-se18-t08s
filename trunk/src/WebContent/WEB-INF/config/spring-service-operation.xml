@@ -84,5 +84,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<bean id="projectInterestServiceImpl"
 		class="sg.edu.nus.iss.vms.project.service.impl.ProjectInterestServiceImpl">
 		<property name="manager" ref="baseManager" />
+                <property name="memberManagementService" ref="memberManagementServiceImpl"/>
 	</bean>
 </beans>

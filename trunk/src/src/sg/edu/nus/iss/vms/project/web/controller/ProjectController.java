@@ -119,54 +119,54 @@ public class ProjectController extends BaseMultiActionFormController {
 		return returnlong;
 	}
 
-	public ModelAndView assignPrjMemberRole(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		if (logger.isDebugEnabled()) {
-			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - start");
-		}
-
-		modelAndView = new ModelAndView("project/assignMemberRole");
-		List memberList = new ArrayList();
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Project "
-					+ request.getParameter("project"));
-			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Member  "
-					+ request.getParameter("member"));
-		}
-
-		List projectList = projectManagementService.getListAllProject();
-		modelAndView.addObject("projectList", projectList);
-
-		List projectRoleList = new ArrayList<CodeDto>();
-		modelAndView.addObject("projectRoleList", projectRoleList);
-
-		if (request.getParameter("project") != null
-				&& !request.getParameter("project").isEmpty()) {
-			long projectId = Long.parseLong(request.getParameter("project"));
-			memberList = projectManagementService.getProjectMember(projectId);
-		}
-
-		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
-		if (!memberList.isEmpty()) {
-			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-			memberPagedListHolder.setPage(page);
-			int pageSize = 10;
-			memberPagedListHolder.setPageSize(pageSize);
-		}
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - Completed the request");
-		}
-
-		modelAndView.addObject("pagedListHolder", memberPagedListHolder);
-
-		if (logger.isDebugEnabled()) {
-			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - end");
-		}
-		return modelAndView;
-
-	}
+//	public ModelAndView assignPrjMemberRole(HttpServletRequest request,
+//			HttpServletResponse response) throws Exception {
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - start");
+//		}
+//
+//		modelAndView = new ModelAndView("project/assignMemberRole");
+//		List memberList = new ArrayList();
+//
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Project "
+//					+ request.getParameter("project"));
+//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Member  "
+//					+ request.getParameter("member"));
+//		}
+//
+//		List projectList = projectManagementService.getListAllProject();
+//		modelAndView.addObject("projectList", projectList);
+//
+//		List projectRoleList = new ArrayList<CodeDto>();
+//		modelAndView.addObject("projectRoleList", projectRoleList);
+//
+//		if (request.getParameter("project") != null
+//				&& !request.getParameter("project").isEmpty()) {
+//			long projectId = Long.parseLong(request.getParameter("project"));
+//			memberList = projectManagementService.getProjectMember(projectId);
+//		}
+//
+//		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
+//		if (!memberList.isEmpty()) {
+//			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+//			memberPagedListHolder.setPage(page);
+//			int pageSize = 10;
+//			memberPagedListHolder.setPageSize(pageSize);
+//		}
+//
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - Completed the request");
+//		}
+//
+//		modelAndView.addObject("pagedListHolder", memberPagedListHolder);
+//
+//		if (logger.isDebugEnabled()) {
+//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - end");
+//		}
+//		return modelAndView;
+//
+//	}
 
 	@Override
 	protected void bind(HttpServletRequest request, Object command)
@@ -811,13 +811,11 @@ public class ProjectController extends BaseMultiActionFormController {
 		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
 
 			Long prjId = Long.parseLong(request.getParameter("prjId"));
-			System.out
-					.println("**********************************************");
+			System.out.println("**********************************************");
 			System.out.println("prjId:" + prjId);
-			System.out
-					.println("**********************************************");
+			System.out.println("**********************************************");
 
-			
+			modelAndView = new ModelAndView("project/updateProjectMember");
 			logger.debug("project/manageProjectMember");
 			try {
 				if (request.getParameter("removeMemberButton") != null) {// REMOVE
@@ -963,14 +961,16 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		String newStatus = "";
 
-		if (request.getParameter("acceptInterest") != null) {
+		if (request.getParameter("acceptButton") != null) {
 			newStatus = VMSConstants.PROJECT_INTEREST_APPROVED;
-		} else if (request.getParameter("rejectInterest") != null) {
+		} else if (request.getParameter("rejectButton") != null) {
 			newStatus = VMSConstants.PROJECT_INTEREST_REJECTED;
 		}
+        
+                String prjIdString = request.getParameter("prjId");
 
-		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
-			Long prjId = Long.parseLong(request.getParameter("prjId"));
+		if (!StringUtil.isNullOrEmpty(prjIdString)) {
+			Long prjId = Long.parseLong(prjIdString);
 			try {
 				if (!StringUtil.isNullOrEmpty(newStatus)) {// REMOVE
 					// COMMAND

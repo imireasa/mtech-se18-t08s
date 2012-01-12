@@ -146,7 +146,7 @@ public class BaseManager implements Manager {
         public Object get(Class type, Serializable id) {
                 return dao.getObject(type, id);
         }
-
+                
         /**
          * @see sg.edu.nus.iss.vms.common.orm.service.Manager#save(java.lang.Object)
          */
@@ -163,9 +163,9 @@ public class BaseManager implements Manager {
                         if(UserUtil.getUserSessionInfoVo() !=null){
                                 dto.setUpdBy(UserUtil.getUserSessionInfoVo().getUserID());
                         }
-                        dto.setUpdDte(new java.util.Date());
-
+                        dto.setUpdDte(new java.util.Date());                        
                         dto.updateVersion();
+                        
                         dao.saveObject(dto);
                 } else {
                         dao.saveObject(o);
