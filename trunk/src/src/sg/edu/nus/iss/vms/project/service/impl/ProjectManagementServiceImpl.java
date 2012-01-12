@@ -278,8 +278,8 @@ public class ProjectManagementServiceImpl implements ProjectManagementService {
 		}
 		if (!StringUtil.isNullOrEmpty(projectVo.getStsCd())) {
 
-			detachedCriteria
-					.add(Restrictions.eq("stsCd", projectVo.getStsCd()));
+			detachedCriteria.add(Restrictions.eq("stsCd",
+					Long.valueOf(projectVo.getStsCd())));
 
 		}
 		if (!StringUtil.isNullOrEmpty(projectVo.getStrDte())) {
