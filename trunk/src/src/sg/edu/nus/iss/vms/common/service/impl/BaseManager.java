@@ -154,7 +154,7 @@ public class BaseManager implements Manager {
         public void save(Object o) {
                 if (o instanceof BaseVersionDto) {
                         BaseVersionDto dto = (BaseVersionDto) o;
-                        if (dto.getCreatedBy() == null) {
+                        if (dto.getCreatedBy() == null && UserUtil.getUserSessionInfoVo().getUserID() != null) {
                                 dto.setCreatedBy(UserUtil.getUserSessionInfoVo().getUserID());
                         }
                         if (dto.getCreatedDte() == null) {
