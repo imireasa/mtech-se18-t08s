@@ -156,3 +156,77 @@ ul#info li { color:#666 !important; list-style:none !important; }
 	padding: 8px;
 	margin: 16px;
 }
+
+/************* Left Menu Start *******************/
+#menuProject {
+	background: #C39;
+	color: #fff;
+}
+
+#menuProject li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuProject li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+
+#menuCert {
+	background: #C60;
+	color: #fff;
+}
+
+#menuCert li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuCert li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+
+#menuItinerary {
+	background: #690;
+	color: #fff;
+}
+
+#menuItinerary li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuItinerary li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+
+#menuAccount {
+	background: #36C;
+	color: #fff;
+}
+
+#menuAccount li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuAccount li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+/************* Left Menu End *******************/
