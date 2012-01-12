@@ -22,7 +22,6 @@ import sg.edu.nus.iss.vms.admin.service.UserManagementServices;
 import sg.edu.nus.iss.vms.certificate.service.CertificateManagementService;
 import sg.edu.nus.iss.vms.common.Messages;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
-import sg.edu.nus.iss.vms.common.dto.CodeDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
@@ -119,54 +118,54 @@ public class ProjectController extends BaseMultiActionFormController {
 		return returnlong;
 	}
 
-//	public ModelAndView assignPrjMemberRole(HttpServletRequest request,
-//			HttpServletResponse response) throws Exception {
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - start");
-//		}
-//
-//		modelAndView = new ModelAndView("project/assignMemberRole");
-//		List memberList = new ArrayList();
-//
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Project "
-//					+ request.getParameter("project"));
-//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Member  "
-//					+ request.getParameter("member"));
-//		}
-//
-//		List projectList = projectManagementService.getListAllProject();
-//		modelAndView.addObject("projectList", projectList);
-//
-//		List projectRoleList = new ArrayList<CodeDto>();
-//		modelAndView.addObject("projectRoleList", projectRoleList);
-//
-//		if (request.getParameter("project") != null
-//				&& !request.getParameter("project").isEmpty()) {
-//			long projectId = Long.parseLong(request.getParameter("project"));
-//			memberList = projectManagementService.getProjectMember(projectId);
-//		}
-//
-//		PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
-//		if (!memberList.isEmpty()) {
-//			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-//			memberPagedListHolder.setPage(page);
-//			int pageSize = 10;
-//			memberPagedListHolder.setPageSize(pageSize);
-//		}
-//
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - Completed the request");
-//		}
-//
-//		modelAndView.addObject("pagedListHolder", memberPagedListHolder);
-//
-//		if (logger.isDebugEnabled()) {
-//			logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - end");
-//		}
-//		return modelAndView;
-//
-//	}
+	// public ModelAndView assignPrjMemberRole(HttpServletRequest request,
+	// HttpServletResponse response) throws Exception {
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - start");
+	// }
+	//
+	// modelAndView = new ModelAndView("project/assignMemberRole");
+	// List memberList = new ArrayList();
+	//
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Project "
+	// + request.getParameter("project"));
+	// logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - REQUEST Member  "
+	// + request.getParameter("member"));
+	// }
+	//
+	// List projectList = projectManagementService.getListAllProject();
+	// modelAndView.addObject("projectList", projectList);
+	//
+	// List projectRoleList = new ArrayList<CodeDto>();
+	// modelAndView.addObject("projectRoleList", projectRoleList);
+	//
+	// if (request.getParameter("project") != null
+	// && !request.getParameter("project").isEmpty()) {
+	// long projectId = Long.parseLong(request.getParameter("project"));
+	// memberList = projectManagementService.getProjectMember(projectId);
+	// }
+	//
+	// PagedListHolder memberPagedListHolder = new PagedListHolder(memberList);
+	// if (!memberList.isEmpty()) {
+	// int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+	// memberPagedListHolder.setPage(page);
+	// int pageSize = 10;
+	// memberPagedListHolder.setPageSize(pageSize);
+	// }
+	//
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - Completed the request");
+	// }
+	//
+	// modelAndView.addObject("pagedListHolder", memberPagedListHolder);
+	//
+	// if (logger.isDebugEnabled()) {
+	// logger.debug("assignPrjMemberRole(HttpServletRequest, HttpServletResponse) - end");
+	// }
+	// return modelAndView;
+	//
+	// }
 
 	@Override
 	protected void bind(HttpServletRequest request, Object command)
@@ -730,16 +729,19 @@ public class ProjectController extends BaseMultiActionFormController {
 	}
 
 	public ModelAndView reviewProposal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+			HttpServletResponse response, ProjectProposalVo proposalVo)
+			throws Exception {
 		if (logger.isDebugEnabled()) {
 			logger.debug("reviewProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - start");
 		}
 
-		ProjectProposalVo proposalVo = (ProjectProposalVo) modelAndView
+		ProjectProposalVo origProposalVo = (ProjectProposalVo) modelAndView
 				.getModel().get("proposalVo");
-
 		String propMsg = Messages.getString("message.common.update");
 
+		origProposalVo.setRmk(proposalVo.getRmk());
+		origProposalVo.setStsVal(proposalVo.getStsVal());
+		proposalVo.setPrjPropId(origProposalVo.getPrjPropId());
 		projectProposalService.updateProjectProposal(proposalVo);
 
 		if (VMSConstants.PROPOSAL_STATUS_APPROVED
@@ -756,7 +758,7 @@ public class ProjectController extends BaseMultiActionFormController {
 
 		}
 		modelAndView.addObject("msg", propMsg);
-		modelAndView.addObject("proposalVo", proposalVo);
+		modelAndView.addObject("proposalVo", origProposalVo);
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("reviewProposal(HttpServletRequest, HttpServletResponse, ProjectProposalVo) - end");
@@ -784,27 +786,26 @@ public class ProjectController extends BaseMultiActionFormController {
 			projectList = projectManagementService.getListAllProject();
 		}
 
-                if(command.getPrjId() != null && command.getCmdType().equalsIgnoreCase(VMSConstants.SCREEN_CMD_INVITE_VOLUNTEER)){
-                        try {
-                            Long userStatus = CodeLookupUtil
-                                            .getCodeByCategoryAndCodeValue(
-                                                            VMSConstants.USER_TYPE_CATEGORY,
-                                                            VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
-                                            .getCdId();
-                            memberManagementService.inviteProjectMemberToAllUser(
-                                            command.getPrjId(), userStatus);
-                            modelAndView
-                                            .addObject(
-                                                            "msg",
-                                                            Messages.getString("message.projectManagement.inviteVolunteer"));
-                        } catch (ApplicationException ae) {
-                            modelAndView.addObject("errors",ae.getMessage());
-                        } catch (Exception ex) {
-                            modelAndView.addObject("errors", Messages
-                                            .getString("message.common.error.system"));
-                        }
-                }
-                
+		if (command.getPrjId() != null
+				&& command.getCmdType().equalsIgnoreCase(
+						VMSConstants.SCREEN_CMD_INVITE_VOLUNTEER)) {
+			try {
+				Long userStatus = CodeLookupUtil.getCodeByCategoryAndCodeValue(
+						VMSConstants.USER_TYPE_CATEGORY,
+						VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER).getCdId();
+				memberManagementService.inviteProjectMemberToAllUser(
+						command.getPrjId(), userStatus);
+				modelAndView
+						.addObject(
+								"msg",
+								Messages.getString("message.projectManagement.inviteVolunteer"));
+			} catch (ApplicationException ae) {
+				modelAndView.addObject("errors", ae.getMessage());
+			} catch (Exception ex) {
+				modelAndView.addObject("errors",
+						Messages.getString("message.common.error.system"));
+			}
+		}
 
 		PagedListHolder memberPagedListHolder = new PagedListHolder(projectList);
 		if (!projectList.isEmpty()) {
@@ -833,9 +834,11 @@ public class ProjectController extends BaseMultiActionFormController {
 		if (!StringUtil.isNullOrEmpty(request.getParameter("prjId"))) {
 
 			Long prjId = Long.parseLong(request.getParameter("prjId"));
-			System.out.println("**********************************************");
+			System.out
+					.println("**********************************************");
 			System.out.println("prjId:" + prjId);
-			System.out.println("**********************************************");
+			System.out
+					.println("**********************************************");
 
 			modelAndView = new ModelAndView("project/updateProjectMember");
 			logger.debug("project/manageProjectMember");
@@ -892,7 +895,7 @@ public class ProjectController extends BaseMultiActionFormController {
 										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
 				} else if (request.getParameter("inviteMemberButton") != null) {// INVITE
-                                        
+
 					try {
 						Long userStatus = CodeLookupUtil
 								.getCodeByCategoryAndCodeValue(
@@ -906,7 +909,7 @@ public class ProjectController extends BaseMultiActionFormController {
 										"msg",
 										Messages.getString("message.projectManagement.inviteVolunteer"));
 					} catch (ApplicationException ae) {
-						modelAndView.addObject("errors",ae.getMessage());
+						modelAndView.addObject("errors", ae.getMessage());
 					} catch (Exception ex) {
 						modelAndView.addObject("errors", Messages
 								.getString("message.common.error.system"));
@@ -974,8 +977,8 @@ public class ProjectController extends BaseMultiActionFormController {
 		} else if (request.getParameter("rejectButton") != null) {
 			newStatus = VMSConstants.PROJECT_INTEREST_REJECTED;
 		}
-        
-                String prjIdString = request.getParameter("prjId");
+
+		String prjIdString = request.getParameter("prjId");
 
 		if (!StringUtil.isNullOrEmpty(prjIdString)) {
 			Long prjId = Long.parseLong(prjIdString);
