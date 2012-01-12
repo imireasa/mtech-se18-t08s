@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -39,6 +40,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 	public List<ProjectProposalVo> getProjectProposalList() {
 		DetachedCriteria criteria = DetachedCriteria
 				.forClass(ProjectProposalDto.class);
+		criteria.setFetchMode("documentList", FetchMode.JOIN);
 		List<ProjectProposalDto> projectProposalDtos = manager
 				.findByDetachedCriteria(criteria);
 
@@ -61,6 +63,7 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 			criteria.add(Restrictions.like("nme", proposalVo.getNme(),
 					MatchMode.ANYWHERE));
 		}
+		criteria.setFetchMode("documentList", FetchMode.JOIN);
 		if (!StringUtil.isNullOrEmpty(proposalVo.getStsVal())) {
 
 			List<CodeLookupVo> codeLookupVos = CodeLookupUtil
@@ -163,11 +166,15 @@ public class ProjectProposalServiceImpl implements ProjectProposalService {
 
 	@Override
 	public ProjectProposalVo getProjectProposalbyId(Long id) {
-		ProjectProposalDto projectProposalDto = (ProjectProposalDto) manager
-				.get(ProjectProposalDto.class, id);
+		DetachedCriteria criteria = DetachedCriteria
+				.forClass(ProjectProposalDto.class);
+		criteria.setFetchMode("documentList", FetchMode.JOIN);
+		criteria.add(Restrictions.eq("prjPropId", id));
 
-		if (projectProposalDto != null) {
-			return new ProjectProposalVo(projectProposalDto);
+		List<ProjectProposalDto> proposals = manager
+				.findByDetachedCriteria(criteria);
+		if (!proposals.isEmpty()) {
+			return new ProjectProposalVo(proposals.get(0));
 		}
 		return null;
 	}
