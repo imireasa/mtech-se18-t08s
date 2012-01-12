@@ -74,7 +74,7 @@
         <tr>
 			<td>Supporting Documents</td>
 			<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-			<td></td>
+			<td>${proposalVo.docName}</td>
         </tr>
          <tr>
 			<td><fmt:message key="message.common.remark.label"/></td>
