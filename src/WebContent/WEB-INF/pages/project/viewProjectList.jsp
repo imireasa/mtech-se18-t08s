@@ -6,12 +6,16 @@
 <head>
         <script type="text/javascript">
                 function projectInvitation(prjId,commandType){
-                        
-                        document.getElementById("prjId").value = prjId;
-                        document.getElementById("cmdType").value = commandType;
-                        alert('inviting' + prjId + ' ' + commandType );
-                        document.listProjects.submit();
+                        var r=confirm("<fmt:message key="message.common.prompt.invite"/>");
+                        if (r==true){
+                                document.getElementById("prjId").value = prjId;
+                                document.getElementById("cmdType").value = commandType;
+                                alert('inviting' + prjId + ' ' + commandType );
+                                document.listProjects.submit();
+                        }
                 }
+                
+        
 
                 function projectSearch(){
                         document.getElementById("prjId").value = "";
