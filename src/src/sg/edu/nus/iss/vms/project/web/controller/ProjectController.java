@@ -784,6 +784,28 @@ public class ProjectController extends BaseMultiActionFormController {
 			projectList = projectManagementService.getListAllProject();
 		}
 
+                if(command.getPrjId() != null && command.getCmdType().equalsIgnoreCase(VMSConstants.SCREEN_CMD_INVITE_VOLUNTEER)){
+                        try {
+                            Long userStatus = CodeLookupUtil
+                                            .getCodeByCategoryAndCodeValue(
+                                                            VMSConstants.USER_TYPE_CATEGORY,
+                                                            VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
+                                            .getCdId();
+                            memberManagementService.inviteProjectMemberToAllUser(
+                                            command.getPrjId(), userStatus);
+                            modelAndView
+                                            .addObject(
+                                                            "msg",
+                                                            Messages.getString("message.projectManagement.inviteVolunteer"));
+                        } catch (ApplicationException ae) {
+                            modelAndView.addObject("errors",ae.getMessage());
+                        } catch (Exception ex) {
+                            modelAndView.addObject("errors", Messages
+                                            .getString("message.common.error.system"));
+                        }
+                }
+                
+
 		PagedListHolder memberPagedListHolder = new PagedListHolder(projectList);
 		if (!projectList.isEmpty()) {
 			int page = ServletRequestUtils.getIntParameter(request, "p", 0);
@@ -819,7 +841,6 @@ public class ProjectController extends BaseMultiActionFormController {
 			logger.debug("project/manageProjectMember");
 			try {
 				if (request.getParameter("removeMemberButton") != null) {// REMOVE
-					modelAndView = new ModelAndView("project/updateProjectMember");														// COMMAND
 					if (request.getParameter("prjMbrId") != null) {
 						String[] prjMbrIdList = request
 								.getParameterValues("prjMbrId");
@@ -840,7 +861,6 @@ public class ProjectController extends BaseMultiActionFormController {
 										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
 				} else if (request.getParameter("updateMemberButton") != null) {// UPDATE
-					modelAndView = new ModelAndView("project/updateProjectMember");
 					if (request.getParameter("prjMbrId") != null) {
 						String[] prjMbrIdList = request
 								.getParameterValues("prjMbrId");
@@ -871,7 +891,8 @@ public class ProjectController extends BaseMultiActionFormController {
 										"errors",
 										Messages.getString("message.projectManagement.error.noSelectdMember"));
 					}
-				} else if (request.getParameter("inviteMemberButton") != null) {// INVITE					
+				} else if (request.getParameter("inviteMemberButton") != null) {// INVITE
+                                        
 					try {
 						Long userStatus = CodeLookupUtil
 								.getCodeByCategoryAndCodeValue(
@@ -885,26 +906,13 @@ public class ProjectController extends BaseMultiActionFormController {
 										"msg",
 										Messages.getString("message.projectManagement.inviteVolunteer"));
 					} catch (ApplicationException ae) {
-
-						Long userStatus = CodeLookupUtil
-								.getCodeByCategoryAndCodeValue(
-										VMSConstants.USER_TYPE_CATEGORY,
-										VMSConstants.USER_TYPE_CATEGORY_VOLUNTEER)
-								.getCdId();
-						memberManagementService.inviteProjectMemberToAllUser(
-								prjId, userStatus);
-						modelAndView
-								.addObject(
-										"msg",
-										Messages.getString("message.projectManagement.inviteVolunteer"));
+						modelAndView.addObject("errors",ae.getMessage());
 					} catch (Exception ex) {
 						modelAndView.addObject("errors", Messages
 								.getString("message.common.error.system"));
 					}
 
 				} else if (request.getParameter("requestProjCertButton") != null) {// request
-																					// certificate
-																					// COMMAND
 					try {
 						certificateManagementService
 								.createProjectCertificateRequest(prjId);
