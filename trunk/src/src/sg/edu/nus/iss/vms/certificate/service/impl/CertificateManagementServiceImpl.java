@@ -126,6 +126,9 @@ public class CertificateManagementServiceImpl implements
 	public byte[] generateCertificate(Long certReqId, String imagePath,
 			String filePath) throws Exception {
 
+		System.out.println("*******************************************************************");
+		System.out.println("I am in generateCertificate");
+		System.out.println("*******************************************************************");
 		CertificateRequestDto certReqDto = this.getCertRequest(certReqId);
 
 		// report parameters
@@ -149,6 +152,10 @@ public class CertificateManagementServiceImpl implements
 				.equalsIgnoreCase(VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL))
 			queryString = queryString + " AND req.req_by='"
 					+ certReqDto.getReqBy() + "'";
+		
+		System.out.println("*******************************************************************");
+		System.out.println("SQL:"+queryString);
+		System.out.println("*******************************************************************");
 
 		File reportFile = new File(filePath);
 		return reportManagementService.generatePDFReport(reportFile, params,

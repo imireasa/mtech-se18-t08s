@@ -75,6 +75,9 @@ public class ReportManagementServiceImpl implements ReportManagementService {
 	public byte[] generatePDFReport(File reportFile,
 			Map params, String queryString) throws JRException, SQLException {
 
+		System.out.println("*******************************************************************");
+		System.out.println("ReportManagementServiceImpl.generatePDFReport:"+queryString);
+		System.out.println("*******************************************************************");
 		JasperPrint jasperPrint;
 		if (!reportFile.exists())
 			throw new JRRuntimeException("File "+reportFile.getAbsolutePath()+" not found. The report design must be compiled first.");

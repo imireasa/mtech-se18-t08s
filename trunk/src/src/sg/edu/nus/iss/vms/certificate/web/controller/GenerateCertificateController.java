@@ -74,8 +74,7 @@ public class GenerateCertificateController extends
 			}
 			modelAndView.addObject("pagedListHolder", projectPagedListHolder);
 
-			modelAndView
-					.addObject("certReqVoList", list);
+		//	modelAndView.addObject("certReqVoList", list);
 		} else {
 			// 1. change the status
 			Long certReqId = Long.parseLong(request
@@ -89,7 +88,9 @@ public class GenerateCertificateController extends
 			// 2. generate certificate
 			String imagePath=request.getRealPath(VMSConstants.REPORT_CERTIFICATE_IMAGE_PATH);
 			String filePath=request.getRealPath(VMSConstants.REPORT_CERTIFICATE_TEMPLATE_PATH_JASPER);
-
+			System.out.println("*******************************************************************");
+			System.out.println("Before calling generateCertificate");
+			System.out.println("*******************************************************************");
 			byte[] bytes =certificateManagementService.generateCertificate(certReqId, imagePath, filePath);
 
 			if (bytes != null && bytes.length != 0) {
@@ -105,7 +106,16 @@ public class GenerateCertificateController extends
 				// 3. get the remaining request list...
 				List<CertificateRequestVo> list = certificateManagementService
 						.getReqCertList(stsRequested.getCdId());
-				modelAndView.addObject("certReqVoList",list);
+		
+
+				PagedListHolder projectPagedListHolder = new PagedListHolder(list);
+				if (!list.isEmpty()) {
+					int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+					projectPagedListHolder.setPage(page);
+					projectPagedListHolder.setPageSize(VMSConstants.MAX_PAGE_SIZE);
+				}
+				modelAndView.addObject("pagedListHolder", projectPagedListHolder);
+				//modelAndView.addObject("certReqVoList",list);
 
 				if (logger.isDebugEnabled()) {
 					logger.debug("generateCertificate(HttpServletRequest, HttpServletResponse) - end");
