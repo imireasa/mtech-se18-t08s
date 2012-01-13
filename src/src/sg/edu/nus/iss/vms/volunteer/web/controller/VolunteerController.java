@@ -28,7 +28,6 @@ import sg.edu.nus.iss.vms.common.vo.UserSessionInfoVo;
 import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
-import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.service.ProjectExperienceService;
 import sg.edu.nus.iss.vms.project.service.ProjectFeedbackService;
 import sg.edu.nus.iss.vms.project.service.ProjectInterestService;
@@ -437,28 +436,8 @@ public class VolunteerController extends BaseMultiActionFormController {
 		}
 		ProjectVo projectVo = projectManagementService.getProjectbyId(prjId);
 
-		List<CodeLookupVo> projectStatusCodeList = CodeLookupUtil
-				.getCodeListByCategory(VMSConstants.PROJECT_STATUS);
 		List<CodeLookupVo> roleCodeList = CodeLookupUtil
 				.getCodeListByCategory(VMSConstants.MEMBER_ROLE);
-		List<CodeLookupVo> countryCodeList = CodeLookupUtil
-				.getCodeListByCategory(VMSConstants.COUNTRY_CATEGORY);
-
-		String projectStatus = "Unknown";
-		String country = "Unknown";
-
-		for (CodeLookupVo codeLookupVo : projectStatusCodeList) {
-			if (codeLookupVo.getCdId().equals(projectVo.getStsCd())) {
-				projectStatus = codeLookupVo.getVal();
-				break;
-			}
-		}
-		for (CodeLookupVo codeLookupVo : countryCodeList) {
-			if (codeLookupVo.getCdId().equals(projectVo.getCtryCd())) {
-				country = codeLookupVo.getVal();
-				break;
-			}
-		}
 
 		List<ProjectMemberVo> memberList = memberManagementService
 				.getMemberListbyProject(projectVo.getPrjId());
@@ -703,23 +682,23 @@ public class VolunteerController extends BaseMultiActionFormController {
 			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - start");
 		}
 
-		ProjectDto projectDto = (ProjectDto) modelAndView.getModel().get(
-				"project");
+		ProjectVo projectVo = (ProjectVo) modelAndView.getModel().get(
+				"projectVo");
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@requestCertificate@@@@@@@@@: "
-					+ projectDto.getPrjId());
+					+ projectVo.getPrjId());
 		}
 
 		String loginId = UserUtil.getUserSessionInfoVo().getUserID();
 
 		List<CertificateRequestVo> certificateRequestDtos = certificateManagementService
-				.getCertificateRequestsbyProject(projectDto.getPrjId(), loginId);
+				.getCertificateRequestsbyProject(projectVo.getPrjId(), loginId);
 
 		if (certificateRequestDtos.size() == 0) {
 
 			certificateManagementService
-					.createIndividualCertificateRequest(projectDto.getPrjId());
+					.createIndividualCertificateRequest(projectVo.getPrjId());
 			modelAndView.addObject("riMsg", Messages.getString(
 					"message.common.submit.msg",
 					new String[] { "Certificate Request" }));
@@ -732,7 +711,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - @@@@@@@@@@@@@@successfully reqCertifictae@@@@@@@@@:"
-					+ projectDto.getPrjId());
+					+ projectVo.getPrjId());
 			logger.debug("requestCertificate(HttpServletRequest, HttpServletResponse) - start");
 		}
 

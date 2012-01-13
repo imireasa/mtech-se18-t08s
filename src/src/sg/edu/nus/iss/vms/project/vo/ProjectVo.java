@@ -34,49 +34,50 @@ public class ProjectVo {
 	}
 
 	public ProjectVo(ProjectDto projectDto) {
-        setProjectDto(projectDto);
-    }
+		setProjectDto(projectDto);
+	}
 
-    public void setProjectDto(ProjectDto projectDto) {
-        setPrjId(projectDto.getPrjId());
-        setName(projectDto.getNme());
-        setDesc(projectDto.getDesc());
-        setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
-        setStrDte(DateUtil.formatDate(projectDto.getStrDte(),
-                DateUtil.DEFAULT_DATE_FORMAT));
-        setEndDte(DateUtil.formatDate(projectDto.getEndDte(),
-                DateUtil.DEFAULT_DATE_FORMAT));
-        setCtryCd(projectDto.getCtryCd() + "");
-        setCtry(CodeLookupUtil.getCodeValueByCodeId(projectDto.getCtryCd()));
-        setLoc(projectDto.getLoc());
-        setRmk(projectDto.getRmk());
-        if (projectDto.getPrjPropId() != null) {
-				setPrjPropId(Long.toString(projectDto.getPrjPropId()
-						.getPrjPropId()));
-			} else {
-				setPrjPropId("0");
-			}
-        setStsCd(CodeLookupUtil.getCodeValueByCodeId(projectDto.getStsCd()));
-    }
+	public void setProjectDto(ProjectDto projectDto) {
+		this.loginId = UserUtil.getUserSessionInfoVo().getUserID();
+		setPrjId(projectDto.getPrjId());
+		setName(projectDto.getNme());
+		setDesc(projectDto.getDesc());
+		setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+		setStrDte(DateUtil.formatDate(projectDto.getStrDte(),
+				DateUtil.DEFAULT_DATE_FORMAT));
+		setEndDte(DateUtil.formatDate(projectDto.getEndDte(),
+				DateUtil.DEFAULT_DATE_FORMAT));
+		setCtryCd(projectDto.getCtryCd() + "");
+		setCtry(CodeLookupUtil.getCodeValueByCodeId(projectDto.getCtryCd()));
+		setLoc(projectDto.getLoc());
+		setRmk(projectDto.getRmk());
+		if (projectDto.getPrjPropId() != null) {
+			setPrjPropId(Long
+					.toString(projectDto.getPrjPropId().getPrjPropId()));
+		} else {
+			setPrjPropId("0");
+		}
+		setStsCd(CodeLookupUtil.getCodeValueByCodeId(projectDto.getStsCd()));
+	}
 
-    public ProjectDto getProjectDto() {
-        ProjectDto project = new ProjectDto();
-        project.setPrjId(getPrjId());
-        project.setNme(getName());
-        project.setDesc(getDesc());
-        project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
-        project.setStrDte(DateUtil.parseDate(getStrDte(),
-                DateUtil.DEFAULT_DATE_FORMAT));
-        project.setEndDte(DateUtil.parseDate(getEndDte(),
-                DateUtil.DEFAULT_DATE_FORMAT));
-        project.setCtryCd(Long.parseLong(getCtryCd()));        
-        project.setLoc(getLoc());
-        project.setRmk(getRmk());
-        project.setPrjPropId(null);
-        project.setStsCd(CodeLookupUtil.getCodeByCategoryAndCodeValue(
-                VMSConstants.PROJECT_STATUS, getStsCd()).getCdId());
-        return project;
-    }
+	public ProjectDto getProjectDto() {
+		ProjectDto project = new ProjectDto();
+		project.setPrjId(getPrjId());
+		project.setNme(getName());
+		project.setDesc(getDesc());
+		project.setPrjMgr(UserUtil.getUserSessionInfoVo().getUserID());
+		project.setStrDte(DateUtil.parseDate(getStrDte(),
+				DateUtil.DEFAULT_DATE_FORMAT));
+		project.setEndDte(DateUtil.parseDate(getEndDte(),
+				DateUtil.DEFAULT_DATE_FORMAT));
+		project.setCtryCd(Long.parseLong(getCtryCd()));
+		project.setLoc(getLoc());
+		project.setRmk(getRmk());
+		project.setPrjPropId(null);
+		project.setStsCd(CodeLookupUtil.getCodeByCategoryAndCodeValue(
+				VMSConstants.PROJECT_STATUS, getStsCd()).getCdId());
+		return project;
+	}
 
 	public String getCtry() {
 		return ctry;
