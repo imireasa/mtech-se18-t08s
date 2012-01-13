@@ -29,7 +29,7 @@
         <Item title="My Project Interests" toolTip="My Project Interests" page="/project/viewProjectInterest.html"/>        
         <Item title="Review Project Feedback" toolTip="Review Project Feedback" page="/project/browseProjectFeedback.html"/>
         <Item title="Propose Project" toolTip="Propose Project" page="/project/proposeNewProject.html"/>
-        <Item title="Browse Project Proposal" toolTip="Browse Project Project" page="/project/browseProjectProposal.html"/>
+        <Item title="Browse Project Proposals" toolTip="Browse Project Project" page="/project/browseProjectProposal.html"/>
         <Item title="Browse Projects" toolTip="Browse Projects" page="/volunteer/browseProject.html"/>
     </Menu>
     
