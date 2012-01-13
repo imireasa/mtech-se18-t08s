@@ -31,6 +31,7 @@
 
 	<!-- jQuery -->
 	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-1.6.min.js'></script>
+    <script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery.maskedinput.js'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery-ui-1.8.16.custom.min.js'></script>
 	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/jquery.validationEngine.js'></script>	
 	<script type='text/javascript' src='<%=request.getContextPath()%>/sys/scripts/languages/jquery.validationEngine-en.js'></script>
@@ -73,7 +74,6 @@
 		<div id="container">
 			<div id="leftCol">
 				<ul id="info">
-				
 					<li><h3><%=((UserSessionInfoVo)(request.getSession().getAttribute("user_session_info"))).getName()%><br /></h3></li>
 				</ul>
 				<menu:useMenuDisplayer name="CSSListMenu" id="menuProject"

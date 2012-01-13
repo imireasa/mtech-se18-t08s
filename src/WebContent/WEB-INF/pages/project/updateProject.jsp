@@ -24,13 +24,13 @@
         </div>
         <div class="query">
                 <c:if test="${not empty msg}"> 
-                        <div class="info">
+                        <div class="infoblock">
                                 <c:out value="${msg}" escapeXml="false"/><br/>
                         </div>
                 </c:if>
 
                 <c:if test="${not empty errors}"> 
-                        <div class="error">
+                        <div class="errorblock">
                                 <c:forEach var="error" items="${errors}">  
                                         <c:out value="${error}" escapeXml="false"/><br/>
                                 </c:forEach>
