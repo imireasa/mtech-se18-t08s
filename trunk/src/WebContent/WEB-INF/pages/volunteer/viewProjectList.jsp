@@ -30,7 +30,7 @@
 					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
                         <spring:bind path="command.strDte">
-                            <form:input path="strDte"/><img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
+                            <form:input path="strDte" readonly="true"/><img src="<%=request.getContextPath()%>/sys/images/cal.gif" onClick="javascript:NewCssCal('strDte','ddMMyyyy')" style="cursor:pointer"/>
                         </spring:bind>
                         <form:errors path="strDte" cssClass="error"/>  
                     </td>
