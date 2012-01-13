@@ -29,7 +29,6 @@ import sg.edu.nus.iss.vms.common.web.controller.BaseMultiActionFormController;
 import sg.edu.nus.iss.vms.common.web.util.UserUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
-import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
 import sg.edu.nus.iss.vms.project.service.ProjectExperienceService;
 import sg.edu.nus.iss.vms.project.service.ProjectFeedbackService;
 import sg.edu.nus.iss.vms.project.service.ProjectInterestService;
@@ -279,7 +278,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (command.getLoginId() == null) {
 			VolunteerVo volunteer = volunteerManagementService
 					.getVolunteer(UserUtil.getUserSessionInfoVo().getUserID());
-			
+
 			// TODO: Update Session User
 			modelAndView = new ModelAndView("volunteer/updateProfile");
 			// page
@@ -345,7 +344,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 				}
 				return modelAndView;
 			}
-			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);                        
+			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
 			modelAndView.addObject("command", volunteerVo);
 			modelAndView.addObject("msg",
 					Messages.getString("message.common.save"));
@@ -593,8 +592,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 
 		}
 
-		List<ProjectMemberDto> memberList = memberManagementService
-				.getListOfMembers(projectVo.getPrjId());
+		List<ProjectMemberVo> memberList = memberManagementService
+				.getMemberListbyProject(projectVo.getPrjId());
+
 		List<ProjectExperienceVo> experienceList = projectExperienceService
 				.getProjectExperienceListbyProjectId(projectVo.getPrjId());
 		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
@@ -655,9 +655,9 @@ public class VolunteerController extends BaseMultiActionFormController {
 					new String[] { "Project Feedback" }));
 
 		}
+		List<ProjectMemberVo> memberList = memberManagementService
+				.getMemberListbyProject(projectVo.getPrjId());
 
-		List<ProjectMemberDto> memberList = memberManagementService
-				.getListOfMembers(projectVo.getPrjId());
 		List<ProjectExperienceVo> experienceList = projectExperienceService
 				.getProjectExperienceListbyProjectId(projectVo.getPrjId());
 		List<ProjectFeedbackVo> feedbackList = projectFeedbackService
