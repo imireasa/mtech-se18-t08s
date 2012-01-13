@@ -76,10 +76,11 @@ public class UserManagementController extends BaseMultiActionFormController {
 				try {
 					userManagementServices.updatePassword(command.getEmail(), command.getCurrentPassword(), command.getPassword(), UserUtil
 							.getUserSessionInfoVo().getUserID());
-					ObjectError error = new ObjectError(getCommandName(command), Messages.getString("message.common.update"));
-					errors.addError(error);
+				//	ObjectError error = new ObjectError(getCommandName(command), Messages.getString("message.common.update"));
+				//	errors.addError(error);
 					modelAndView.addObject("command", command);
-					modelAndView.addAllObjects(errors.getModel());
+				//	modelAndView.addAllObjects(errors.getModel());
+					modelAndView.addObject("msg", Messages.getString("message.common.update"));
 				}
 				catch (ApplicationException e) {
 					ObjectError error = new ObjectError(getCommandName(command), Messages.getString("message.userManagement.error.update.password"));
