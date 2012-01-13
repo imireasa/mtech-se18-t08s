@@ -1,0 +1,18 @@
+Dear $FullName,
+
+Welcome to Volunteer Management System.
+
+Here is your login user name is $loginname
+
+You can also click this $UpdateProfileLink to update your profile.
+
+This is an automated email, please do not reply.
+
+Thank you very much.
+
+Best Regards,
+VMS Administrator
+
+Email: admin@group.myvnc.com
+Website: http://group.myvnc.com/VMS
+Tel: 6868 - 8888
