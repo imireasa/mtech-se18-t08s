@@ -84,7 +84,7 @@
 						<tr>
 							<td>${item.nme}</td>
 							<td>${item.roleCd}</td>
-							<c:if test="${projectVo.stsCd != 'Close'}">
+							<c:if test="${projectVo.stsCd == 'Close'}">
 							<c:if test="${item.usrLoginId ==projectVo.loginId}">
 								<td><input type="submit" name="requestCertificateButton"
 									id="requestCertificateButton" value="<fmt:message key="message.common.requestForCertificate.button" />">
