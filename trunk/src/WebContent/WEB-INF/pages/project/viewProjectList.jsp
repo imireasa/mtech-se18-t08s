@@ -20,7 +20,6 @@
                 function projectSearch(){
                         document.getElementById("prjId").value = "";
                         document.getElementById("cmdType").value = "";
-                        alert('searching');
                         document.listProjects.submit();
                 }
 
