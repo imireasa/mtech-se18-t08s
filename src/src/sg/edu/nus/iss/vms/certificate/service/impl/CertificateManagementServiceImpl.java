@@ -139,7 +139,7 @@ public class CertificateManagementServiceImpl implements
 
 		// Query String for report
 		String requestType = CodeLookupUtil
-				.getCodeDescriptionByCodeId(certReqDto.getReqTp());
+				.getCodeValueByCodeId(certReqDto.getReqTp());
 		String queryString = "SELECT prj.nme AS ProjectName, prj.str_dte as ProjectStartDate, prj.end_dte As ProjectEndDate,usr.nme As VolunteerName";
 		queryString = queryString
 				+ " FROM tb_project prj, tb_project_member prjMem, tb_certificate_request req,tb_user usr";
