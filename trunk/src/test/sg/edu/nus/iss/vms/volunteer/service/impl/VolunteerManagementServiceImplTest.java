@@ -95,67 +95,7 @@ public class VolunteerManagementServiceImplTest {
                 assertTrue(volunteerManagementService.isLoginIdExists("Alana59"));
                 assertFalse(volunteerManagementService.isLoginIdExists("!@#$%^&*"));
         }
-
-        /**
-         * Test of createVolunteer method, of class VolunteerManagementServiceImpl.
-         */
-//        @Test
-//        public void testCreateVolunteer() throws Exception {
-//                System.out.println("createVolunteer");
-//                try {
-//                        VolunteerVo vo = new VolunteerVo();
-//                        vo.setNme("1234567890");
-//                        vo.setAddr("1234567890");
-//                        vo.setCfpwd("1234567890");
-//                        vo.setCmdType("1234567890");
-//                        vo.setCtryCd("1234567890");
-//                        vo.setDob("1234567890");
-//                        vo.setEmail("1234567890");
-//                        vo.setIntrst("1234567890");
-//                        vo.setLoginId("1234567890");
-//                        vo.setMobile("1234567890");
-//                        vo.setNme("1234567890");
-//                        vo.setPostCd("1234567890");
-//                        vo.setPwd("1234567890");
-//                        vo.setQualAtt("1234567890");
-//                        vo.setSkillSet("1234567890");
-//                        vo.setTitle("1234567890");
-//                        volunteerManagementService.createVolunteer(vo);
-//                } catch (Exception ex) {
-//                        fail("volunteer not a correct format");
-//                }
-//
-//                try {
-//                        VolunteerVo vo = new VolunteerVo();
-//                        vo.setLoginId("1234567890");
-//                        vo.setNme("1234567890");
-//                        vo.setAddr("1234567890");
-//                        vo.setPwd("123");
-//                        vo.setCfpwd("123");
-//                        vo.setCtryCd("1");
-//                        vo.setDob("10-10-2011");
-//                        vo.setEmail("zwhtet@gmail.com");
-//                        vo.setIntrst("1");
-//
-//                        vo.setMobile("1234567890");
-//                        vo.setNme("1234567890");
-//                        vo.setPostCd("1234567890");
-//                        vo.setQualAtt("1234567890");
-//                        vo.setSkillSet("1234567890");
-//                        vo.setTitle("1");
-//                        volunteerManagementService.createVolunteer(vo);
-//                } catch (Exception ex) {
-//                        fail("volunteer not a correct format" + ex.getMessage());
-//                }
-//
-//                try {
-//                        volunteerManagementService.createVolunteer(null);
-//                        fail("null volunteer created");
-//                } catch (Exception ex) {
-//                }
-//
-//        }
-
+        
         /**
          * Test of updateVolunteer method, of class VolunteerManagementServiceImpl.
          */

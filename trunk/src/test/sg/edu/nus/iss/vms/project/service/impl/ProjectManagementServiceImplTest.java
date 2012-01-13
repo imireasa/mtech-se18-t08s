@@ -5,6 +5,8 @@
 
 package sg.edu.nus.iss.vms.project.service.impl;
 
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,12 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import static org.junit.Assert.*;
-import sg.edu.nus.iss.vms.common.orm.Manager;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
-import sg.edu.nus.iss.vms.project.service.impl.ProjectManagementServiceImpl;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
-import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
 /**
  *
@@ -158,8 +158,8 @@ public class ProjectManagementServiceImplTest {
                 try {
                 	ProjectVo projectVo = new ProjectVo();
                 	projectVo.setName("re");
-                	List<ProjectVo> projectVoList= projectManagementService.getProjectbyProjectVo(projectVo);
-                    assertNotNull(projectVoList);  
+                	List<ProjectVo> projectDtoList= projectManagementService.getProjectListbyProjectVo(projectVo);
+                    assertNotNull(projectDtoList);
                 } catch (Exception ex) {
                     fail(ex.getMessage());
                 }
@@ -173,7 +173,7 @@ public class ProjectManagementServiceImplTest {
                 System.out.println("getProjectMember");
                 long projectId = 1L;
                 try {
-                	List<ProjectMemberDto> projectMemberDtoList = projectManagementService.getProjectVoById(projectId);
+                	List<ProjectMemberDto> projectMemberDtoList = projectManagementService.getProjectMember(projectId);
                     assertNotNull(projectMemberDtoList);   
                     assertEquals(projectMemberDtoList.size(), 2);
                 } catch (Exception ex) {
@@ -190,7 +190,7 @@ public class ProjectManagementServiceImplTest {
                 try {
                 	ProjectVo projectVo = new ProjectVo();
                 	projectVo.setName("re");
-                	List<ProjectVo> projectVoList= projectManagementService.getProjectbyProjectVo(projectVo);
+                	List<ProjectVo> projectVoList= projectManagementService.getProjectsbyProjectVo(projectVo);
                     assertNotNull(projectVoList);   
                 } catch (Exception ex) {
                     fail(ex.getMessage());
