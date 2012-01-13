@@ -94,7 +94,7 @@
                     <td><fmt:message key="message.common.email.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                     <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <form:input path="email" cssClass="validate[optional]"/>
+                        <form:input path="email" cssClass="validate[required]"/>
                         <form:errors path="email" cssClass="error"/>
                     </td>
                 </tr>		

@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.security.providers.encoding.PasswordEncoder;
 
-import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.StringUtil;
@@ -21,7 +20,6 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 	private static final Logger logger = Logger.getLogger(SecurityManagementServiceImpl.class);
 
 	private Manager manager;
-	private SessionBean sessionBean;
 	private PasswordEncoder passwordEncoder;
 
 	public Manager getManager() {
@@ -32,14 +30,6 @@ public class SecurityManagementServiceImpl implements SecurityManagementService 
 		this.manager = manager;
 	}
 
-	public SessionBean getSessionBean() {
-		return this.sessionBean;
-	}
-
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
-	}
-	
 	public PasswordEncoder getPasswordEncoder() {
 		return passwordEncoder;
 	}

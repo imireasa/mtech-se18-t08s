@@ -10,8 +10,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
         
     <bean id="codeManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.common.service.impl.CodeManagementServicesImpl">
-		<property name="manager" ref="baseManager" />
-		<property name="sessionBean" ref="sessionBean" />
+		<property name="manager" ref="baseManager" />		
 	</bean>
         
     <bean id="volunteerManagementServiceImpl"
@@ -27,7 +26,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<bean id="memberManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.member.service.impl.MemberManagementServiceImpl">
 		<property name="manager" ref="baseManager" />
-		<property name="sessionBean" ref="sessionBean" />
 		<property name="mailSenderUtil" ref="mailSenderUtilImpl"/> 
 	</bean>
 
@@ -45,14 +43,12 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		<property name="password" value="${sys.server.database.default.password}" />
 	<!--  <property name="maxActive" value="100" />
 		<property name="maxIdle" value="30" />
-		<property name="maxWait" value="1000" />-->	
-		<property name="sessionBean" ref="sessionBean" />
+		<property name="maxWait" value="1000" />-->			
 	</bean>
 
 	<bean id="certificateManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.certificate.service.impl.CertificateManagementServiceImpl">
-		<property name="manager" ref="baseManager" />
-		<property name="sessionBean" ref="sessionBean" />
+		<property name="manager" ref="baseManager" />		
 		<property name="reportManagementService" ref="reportManagementServiceImpl" />
         <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
 	</bean>
@@ -60,7 +56,6 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<bean id="userManagementServiceImpl"
 		class="sg.edu.nus.iss.vms.admin.service.impl.UserManagementServicesImpl">
 		<property name="manager" ref="baseManager" />
-		<property name="sessionBean" ref="sessionBean" />
 		<property name="passwordEncoder" ref="passwordEncoder"/> 
         <property name="mailSenderUtil" ref="mailSenderUtilImpl"/> 
 	</bean>	

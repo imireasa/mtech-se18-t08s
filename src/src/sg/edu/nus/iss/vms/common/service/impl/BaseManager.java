@@ -167,6 +167,9 @@ public class BaseManager implements Manager {
                         dto.updateVersion();
                         
                         dao.saveObject(dto);
+
+
+                        
                 } else {
                         dao.saveObject(o);
                 }

@@ -15,7 +15,6 @@ import org.hibernate.criterion.Restrictions;
 import sg.edu.nus.iss.vms.certificate.service.CertificateManagementService;
 import sg.edu.nus.iss.vms.certificate.vo.CertificateRequestVo;
 import sg.edu.nus.iss.vms.common.Messages;
-import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.constants.VMSConstants;
 import sg.edu.nus.iss.vms.common.dto.CertificateRequestDto;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
@@ -35,7 +34,6 @@ public class CertificateManagementServiceImpl implements
 	private final Logger logger = Logger
 			.getLogger(CertificateManagementServiceImpl.class);
 	private Manager manager;
-	private SessionBean sessionBean;
 	private ReportManagementServiceImpl reportManagementService;
 	private VolunteerManagementServiceImpl volunteerManagementService;
 
@@ -45,14 +43,6 @@ public class CertificateManagementServiceImpl implements
 
 	public void setManager(Manager manager) {
 		this.manager = manager;
-	}
-
-	public SessionBean getSessionBean() {
-		return this.sessionBean;
-	}
-
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
 	}
 
 	public ReportManagementServiceImpl getReportManagementService() {

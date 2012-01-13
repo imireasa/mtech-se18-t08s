@@ -9,7 +9,6 @@ import org.springframework.security.providers.encoding.PasswordEncoder;
 
 import sg.edu.nus.iss.vms.admin.service.UserManagementServices;
 import sg.edu.nus.iss.vms.common.Messages;
-import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.SysConfig;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.mail.BasicMailMessage;
@@ -24,7 +23,6 @@ public class UserManagementServicesImpl implements UserManagementServices {
 
     private Logger logger = Logger.getLogger(UserManagementServicesImpl.class);
     private Manager manager;
-    private SessionBean sessionBean;
     private PasswordEncoder passwordEncoder;
     private MailSenderUtil mailSenderUtil;
 
@@ -42,14 +40,6 @@ public class UserManagementServicesImpl implements UserManagementServices {
 
     public void setManager(Manager manager) {
         this.manager = manager;
-    }
-
-    public SessionBean getSessionBean() {
-        return this.sessionBean;
-    }
-
-    public void setSessionBean(SessionBean sessionBean) {
-        this.sessionBean = sessionBean;
     }
 
     public List<RoleDto> getRoleListByUserLoginId(String userLoginId) {
