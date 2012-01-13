@@ -137,7 +137,7 @@ public class PublicUserManagementController extends BaseMultiActionFormControlle
                 return modelAndView;
             }
             try {
-                volunteerManagementService.saveVolunteer(volunteerVo);
+                volunteerManagementService.createVolunteer(volunteerVo);
             } catch (ApplicationException ae) {
                 logger.error(
                         "registerVolunteer(HttpServletRequest, HttpServletResponse, VolunteerVo)",

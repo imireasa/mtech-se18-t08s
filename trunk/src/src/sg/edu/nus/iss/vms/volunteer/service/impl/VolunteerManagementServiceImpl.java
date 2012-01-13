@@ -80,7 +80,7 @@ public class VolunteerManagementServiceImpl implements
         }
 
         @Override
-        public void saveVolunteer(VolunteerVo volunteerVo) throws Exception {
+        public void createVolunteer(VolunteerVo volunteerVo) throws Exception {
                 if (logger.isDebugEnabled()) {
                         logger.debug("saveNewVolunteer(VolunteerVo) - start");
                 }
