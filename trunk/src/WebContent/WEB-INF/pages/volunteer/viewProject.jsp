@@ -55,7 +55,7 @@
 				<tr>
 					<td><fmt:message key="message.common.country.label" /></td>
 					<td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
-					<td>${projectVo.ctryCd}</td>
+					<td>${projectVo.ctry}</td>
 				</tr>
 
 				<c:if test="${projectVo.stsCd != 'Close'}">
