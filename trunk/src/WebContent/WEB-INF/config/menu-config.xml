@@ -36,9 +36,6 @@
     <Menu name="account" title="Account">
         <Item title="My Profile" toolTip="My Profile" page="/volunteer/updateVolunteer.html"/>
         <Item title="Change Password" toolTip="Change Password" page="/admin/user/changePassword.html"/>
-        <Item title="Reset Password" toolTip="Reset Password" page="/index.jsp"/>
-        <Item title="Manage Staff" toolTip="Manage Staff" page="/index.jsp"/>
-        <Item title="Manage Volunteer" toolTip="Manage Volunteer" page="/index.jsp"/>
     </Menu>
     
     <Menu name="certificate" title="Certificate">
