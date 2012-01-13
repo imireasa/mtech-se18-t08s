@@ -100,11 +100,13 @@ public class UserManagementServicesImpl implements UserManagementServices {
             }
             return true;
         }
+        else{
 
         if (logger.isDebugEnabled()) {
             logger.debug("isLoginIdExists(String) - end");
         }
         return false;
+        }
     }
 
     @Override
