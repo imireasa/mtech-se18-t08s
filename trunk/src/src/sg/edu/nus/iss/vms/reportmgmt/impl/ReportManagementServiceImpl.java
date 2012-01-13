@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vms.reportmgmt.impl;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 import java.sql.Connection;
@@ -9,14 +10,17 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 import org.apache.log4j.Logger;
@@ -97,7 +101,47 @@ public class ReportManagementServiceImpl implements ReportManagementService {
         
         // Filling the reports with data
 		jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-		return new GeneratePDF().generatePDF(jasperPrint);
+		return generatePDF(jasperPrint);
+	}
+	
+	private byte[] generatePDF(JasperPrint jp) {
+		byte pdfByte[] = (byte[]) null;
+		ByteArrayOutputStream byArrOutputStr = null;
+		try {
+			logger.info("####################### Generating PDT File[JasperPrint-1]. Please Wait ... ");
+			byArrOutputStr = new ByteArrayOutputStream();
+			JRPdfExporter exporter = new JRPdfExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, byArrOutputStr);
+			exporter.exportReport();
+			pdfByte = byArrOutputStr.toByteArray();
+			logger.info("***************PDF  byte[] Prepared Successfully ... OK ****************");
+		} catch (JRException e) {
+			logger.error("Error in creating PDF file : " + e);
+		} catch (Exception e) {
+			logger.error("Error in creating PDF file : " + e);
+		}
+		return pdfByte;
+	}
+
+	private byte[] generatePDF(List list) {
+		byte pdfByte[] = (byte[]) null;
+		ByteArrayOutputStream byArrOutputStr = null;
+		try {
+			logger.info("####################### Generating PDT File[JasperPrint-1]. Please Wait ... ");
+			byArrOutputStr = new ByteArrayOutputStream();
+			JRPdfExporter exporter = new JRPdfExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT_LIST, list);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, byArrOutputStr);
+			exporter.exportReport();
+			pdfByte = byArrOutputStr.toByteArray();
+			logger.info("***************PDF  byte[] Prepared Successfully ... OK ****************");
+		} catch (JRException e) {
+			logger.error("Error in creating PDF file : " + e);
+		} catch (Exception e) {
+			logger.error("Error in creating PDF file : " + e);
+		}
+		return pdfByte;
 	}
 
 }
