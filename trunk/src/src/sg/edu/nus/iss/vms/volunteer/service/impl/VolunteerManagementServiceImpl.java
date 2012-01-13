@@ -210,7 +210,7 @@ public class VolunteerManagementServiceImpl implements
                         //
                         user.setNme(volunteerVo.getNme());
                         user.setTitleCd(Long.parseLong(volunteerVo.getTitle()));
-                        user.setEmail(volunteerVo.getEmail());
+                        //user.setEmail(volunteerVo.getEmail()); no email update
                         user.setMobile(volunteerVo.getMobile());
                         //user.setPwd(volunteerVo.getPwd());
                         user.setAddr(volunteerVo.getAddr());

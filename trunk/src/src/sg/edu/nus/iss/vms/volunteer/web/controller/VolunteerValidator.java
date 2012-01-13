@@ -50,7 +50,7 @@ public class VolunteerValidator implements Validator {
                 Messages.getString("message.common.error.mandatory", new String[]{"Login ID"}));
 
         //password is required only for register volunteer...
-        if (!obj.getCmdType().equalsIgnoreCase(VMSConstants.SCREEN_CMD_UPDATE)) {
+        if (obj.getCmdType().equalsIgnoreCase(VMSConstants.SCREEN_CMD_REGISTER)) {
             if (!obj.getPwd().equals(obj.getCfpwd())) {
                 errors.reject("pwd", Messages.getString("message.common.error.notMatch", new String[]{"Password", "Confirm Password"}));
             }
@@ -58,19 +58,19 @@ public class VolunteerValidator implements Validator {
                     Messages.getString("message.common.error.mandatory", new String[]{"Password"}));
             ValidationUtils.rejectIfEmptyOrWhitespace(errors, "cfpwd", "cfpwd",
                     Messages.getString("message.common.error.mandatory", new String[]{"Confirm Password"}));
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email",
+                    Messages.getString("message.common.error.mandatory", new String[]{"Email"}));
+            if (!FormatUtils.isEmailFormat(obj.getEmail())) {
+                errors.reject("email", Messages.getString("message.common.error.format", new String[]{"Email"}));
+            }
+            ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email",
+                    Messages.getString("message.common.error.mandatory", new String[]{"Email"}));
         }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "title", "title",
                 Messages.getString("message.common.error.mandatory", new String[]{"Title"}));
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nme", "nme",
                 Messages.getString("message.common.error.mandatory", new String[]{"Name"}));
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email",
-                Messages.getString("message.common.error.mandatory", new String[]{"Email"}));
-        if (!FormatUtils.isEmailFormat(obj.getEmail())) {
-            errors.reject("email", Messages.getString("message.common.error.format", new String[]{"Email"}));
-        }
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email",
-                Messages.getString("message.common.error.mandatory", new String[]{"Email"}));
 
         if (logger.isDebugEnabled()) {
             logger.debug("validate(Object, Errors) - end");
