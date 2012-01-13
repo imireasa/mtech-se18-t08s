@@ -23,14 +23,12 @@ import org.apache.log4j.Logger;
 
 import java.util.Properties;
 
-import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.reportmgmt.service.ReportManagementService;
 
 public class ReportManagementServiceImpl implements ReportManagementService {
 	private Logger logger = Logger.getLogger(ReportManagementServiceImpl.class);
 	private Manager manager;
-	private SessionBean sessionBean;
 	private String url;
 	private String username;
 	private String password;
@@ -44,14 +42,6 @@ public class ReportManagementServiceImpl implements ReportManagementService {
 		this.manager = manager;
 	}
 
-	public SessionBean getSessionBean() {
-		return this.sessionBean;
-	}
-
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
-	}
-	
 	public String getUrl() {
 		return url;
 	}

@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.CancellableFormController;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
-import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 
 /**
@@ -19,11 +18,7 @@ import sg.edu.nus.iss.vms.common.orm.Manager;
 public class BaseFormController extends CancellableFormController implements InitializingBean {
 
 	protected Manager manager;
-	protected SessionBean sessionBean;
-
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
-	}
+	
 
 	public void setManager(Manager manager) {
 		this.manager = manager;
@@ -65,9 +60,7 @@ public class BaseFormController extends CancellableFormController implements Ini
 		if (this.manager == null) {
 			setManager((Manager) getApplicationContext().getBean("baseManager"));
 		}
-		if (this.sessionBean == null) {
-			setSessionBean((SessionBean) getApplicationContext().getBean("sessionBean"));
-		}
+		
 		if (modelAndView == null) {
 			setModelAndView(new ModelAndView(getFormView()));
 		}

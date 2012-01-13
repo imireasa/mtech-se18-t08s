@@ -10,7 +10,8 @@
 			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
 
-	<!-- Transaction template for Managers, from: http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
+    <!-- Transaction template for Managers,
+    from: http://blog.exis.com/colin/archives/2004/07/31/concise-transaction-definitions-spring-11/ -->
 
     <bean id="txProxyTemplate" abstract="true"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
@@ -55,8 +56,7 @@
 	<!-- ====================== DATA MANAGER - QUERY ====================== -->
     <bean id="queryParameterManager" parent="txProxyTemplate">
         <property name="target">
-            <bean
-				class="sg.edu.nus.iss.vms.common.service.impl.BaseQueryParameterManager">
+            <bean class="sg.edu.nus.iss.vms.common.service.impl.BaseQueryParameterManager">
                 <property name="dao" ref="dao" />
                 <property name="queryParameterDao" ref="queryParameterDao" />
             </bean>

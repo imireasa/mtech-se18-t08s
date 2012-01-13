@@ -12,11 +12,6 @@
            
         
 <!--	 <bean/> definitions here --> 
-    <bean id="sessionBean" class="sg.edu.nus.iss.vms.common.SessionBean"
-              scope="session">
-        <aop:scoped-proxy />
-    </bean>
-
 
 	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 	<!-- BEAN : DWR -->

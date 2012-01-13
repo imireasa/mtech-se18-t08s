@@ -11,7 +11,6 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 
 import sg.edu.nus.iss.vms.common.Messages;
-import sg.edu.nus.iss.vms.common.SessionBean;
 import sg.edu.nus.iss.vms.common.SysConfig;
 import sg.edu.nus.iss.vms.common.exception.ApplicationException;
 import sg.edu.nus.iss.vms.common.mail.BasicMailMessage;
@@ -27,7 +26,6 @@ import sg.edu.nus.iss.vms.security.dto.UserDto;
 public class MemberManagementServiceImpl implements MemberManagementService {
 
 	private Manager manager;
-	private SessionBean sessionBean;
 	private MailSenderUtil mailSenderUtil;
 
 	private final Logger logger = Logger
@@ -39,14 +37,6 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 
 	public void setManager(Manager manager) {
 		this.manager = manager;
-	}
-
-	public SessionBean getSessionBean() {
-		return this.sessionBean;
-	}
-
-	public void setSessionBean(SessionBean sessionBean) {
-		this.sessionBean = sessionBean;
 	}
 
 	public MailSenderUtil getMailSenderUtil() {
