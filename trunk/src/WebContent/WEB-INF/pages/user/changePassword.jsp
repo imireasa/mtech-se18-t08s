@@ -17,7 +17,22 @@
 	</div>
 
 	<div class="query">
-
+			<c:if test="${not empty msg}">
+			<div class="infoblock">
+				<c:out value="${msg}" escapeXml="false" />
+				<br />
+			</div>
+		</c:if>
+		<c:if test="${not empty errors}">
+			<div class="errorblock">
+				<c:out value="Error:" />
+				<c:forEach var="errorblock" items="${errors}">
+					<c:out value="${error}" escapeXml="false" />
+					<br />
+				</c:forEach>
+			</div>
+		</c:if>
+		
    	  <form:form name="changePassword" method="post" action="changePassword.html" commandName="command">
    	  	<form:errors path="*" cssClass="errorblock" element="div" />
 	  <table class="query-table">
