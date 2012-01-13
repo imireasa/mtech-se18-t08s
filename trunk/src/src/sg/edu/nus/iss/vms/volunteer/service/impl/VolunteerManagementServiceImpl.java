@@ -88,13 +88,13 @@ public class VolunteerManagementServiceImpl implements
                 try {
                         String hQL = "from UserDto where email=?";
                         List<UserDto> listUserDto = manager.find(hQL, new Object[]{
-                                volunteerVo.getEmail()
-                        });
-                        if(listUserDto != null && !listUserDto.isEmpty()){
+                                        volunteerVo.getEmail()
+                                });
+                        if (listUserDto != null && !listUserDto.isEmpty()) {
                                 throw new ApplicationException(Messages.getString("message.volunteerManagement.error.emailDublicate"));
                         }
 
-                        
+
                         UserDto user = new UserDto();
                         user.setUsrLoginId(volunteerVo.getLoginId());
                         user.setNme(volunteerVo.getNme());
@@ -149,21 +149,20 @@ public class VolunteerManagementServiceImpl implements
                                 throw new ApplicationException(
                                         Messages.getString("message.common.error.save"));
                         }
+                        try{
+                        BasicMailMessage bmm = new BasicMailMessage();
+                        bmm.setSubject(Messages.getString("message.volunteerManagement.welcome.email.subject"));
+                        bmm.setTo(volunteerVo.getEmail());
 
-                        try {
-                                BasicMailMessage bmm = new BasicMailMessage();
-                                bmm.setSubject(Messages.getString("message.volunteerManagement.welcome.email.subject"));
-                                bmm.setTo(volunteerVo.getEmail());
-
-                                Map props = new HashMap();
-                                props.put("FullName", volunteerVo.getNme());
-                                props.put("loginname", volunteerVo.getLoginId());
-                                props.put("UpdateProfileLink", SysConfig.getString("url.admin.view.profile"));
-                                mailSenderUtil.send(bmm, "welcomeToVms.vm", props);
-                        } catch (Exception ex) {
-                                logger.error("send mail error", ex);
+                        Map props = new HashMap();
+                        props.put("FullName", volunteerVo.getNme());
+                        props.put("loginname", volunteerVo.getLoginId());
+                        props.put("UpdateProfileLink", SysConfig.getString("url.admin.view.profile"));
+                        mailSenderUtil.send(bmm, "welcomeToVms.vm", props);
+                        }catch(Exception ex){
+                                
                         }
-                } catch(ApplicationException ae){
+                } catch (ApplicationException ae) {
                         throw ae;
                 } catch (Exception ex) {
                         logger.error("Save Volunteer", ex);
@@ -186,10 +185,10 @@ public class VolunteerManagementServiceImpl implements
 
                         String hQL = "from UserDto where email=? and usrLoginId!=?";
                         List<UserDto> listUserDto = manager.find(hQL, new Object[]{
-                                volunteerVo.getEmail(),
-                                volunteerVo.getLoginId()
-                        });
-                        if(listUserDto != null && !listUserDto.isEmpty()){
+                                        volunteerVo.getEmail(),
+                                        volunteerVo.getLoginId()
+                                });
+                        if (listUserDto != null && !listUserDto.isEmpty()) {
                                 throw new ApplicationException(Messages.getString("message.volunteerManagement.error.emailDublicate"));
                         }
 
@@ -229,12 +228,13 @@ public class VolunteerManagementServiceImpl implements
                         userDetail.setQualAtt(volunteerVo.getQualAtt());
                         userDetail.setSkillSet(volunteerVo.getSkillSet());
 
+
                         manager.save(user);
                         userDetail.setUsrId(user);
                         manager.save(userDetail);
-                } catch(ApplicationException ae){
+                } catch (ApplicationException ae) {
                         throw ae;
-                }catch (Exception ex) {
+                } catch (Exception ex) {
                         logger.error("Save Volunteer", ex);
                         throw new ApplicationException(
                                 Messages.getString("message.common.error.update"));
