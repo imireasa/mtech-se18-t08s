@@ -102,7 +102,7 @@
                 <!--                        manageProjectMember.html?prjId=${item.prjId}&nviteMemberButton=true-->
                                         <a href="manageProjectMember.html?prjId=${item.prjId}"><fmt:message key="message.projectManagement.manageMember.button" /></a><br/>
                                         <a href="#" onclick="projectInvitation(${item.prjId},'INVITE')"><fmt:message key="message.projectManagement.inviteMember.button"/></a><br/>
-                                        <a href="manageProjectInterest.html?prjId=${item.prjId}"><fmt:message key="message.common.Interest.button" /></a>
+                                        <a href="manageProjectInterest.html?prjId=${item.prjId}"><fmt:message key="message.common.reviewInterest.button" /></a>
                                 </td>
                                 <td>
                                         <a href="viewProject.html?prjId=${item.prjId}"><fmt:message key="message.common.view.button" /></a><br/>
