@@ -4,7 +4,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 
+<head>
+    <script type="text/javascript">
+          $(document).ready(function(){            
+            $("#feedbackVo").validationEngine();
+        });
+    
 
+    </script>
+</head>
 <body>
     <h2><fmt:message key="message.projectManagement.reviewProjectFeedback.title" /></h2>
     <div id="breadcrumb">
@@ -19,14 +27,15 @@
 		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
                     <td>
                         <spring:bind path="feedbackVo.prjId">  
-                            <form:input path="prjId"/>
+                            <form:input path="prjId" cssClass="validate[optional,custom[integer]]"/>
                         </spring:bind>
                         <form:errors path="prjId" cssClass="error"/>  
                     </td>
                 </tr>
                 <tr>
                     <td><fmt:message key="message.projectManagement.feedbackTitle.label" /></td>
-		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> </td>
+		    <td><fmt:message key="message.common.symbol.afterLabel.label" /> 
+		    </td>
                     <td>
                         <spring:bind path="feedbackVo.title">
                             <form:input path="title"/>
