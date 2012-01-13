@@ -90,6 +90,7 @@ public class VolunteerManagementServiceImpl implements
                         List<UserDto> listUserDto = manager.find(hQL, new Object[]{
                                         volunteerVo.getEmail()
                                 });
+
                         if (listUserDto != null && !listUserDto.isEmpty()) {
                                 throw new ApplicationException(Messages.getString("message.volunteerManagement.error.emailDublicate"));
                         }
