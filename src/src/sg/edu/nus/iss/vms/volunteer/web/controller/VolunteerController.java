@@ -279,7 +279,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 		if (command.getLoginId() == null) {
 			VolunteerVo volunteer = volunteerManagementService
 					.getVolunteer(UserUtil.getUserSessionInfoVo().getUserID());
-			volunteer.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
+			
 			// TODO: Update Session User
 			modelAndView = new ModelAndView("volunteer/updateProfile");
 			// page
@@ -345,7 +345,7 @@ public class VolunteerController extends BaseMultiActionFormController {
 				}
 				return modelAndView;
 			}
-			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);
+			volunteerVo.setCmdType(VMSConstants.SCREEN_CMD_UPDATE);                        
 			modelAndView.addObject("command", volunteerVo);
 			modelAndView.addObject("msg",
 					Messages.getString("message.common.save"));

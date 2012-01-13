@@ -31,11 +31,11 @@
 </head>
 <body>
     <h2><fmt:message key="message.volunteerManagement.registerVolunteer.label"/></h2>
-     <div id="breadcrumb">
-         <a href="<%=request.getContextPath()%>/"><fmt:message key="message.security.pageHeader.label"/></a> / 
-		 <fmt:message key="message.volunteerManagement.registerVolunteer.label"/>
-     </div>
-    
+    <div id="breadcrumb">
+        <a href="<%=request.getContextPath()%>/"><fmt:message key="message.security.pageHeader.label"/></a> /
+        <fmt:message key="message.volunteerManagement.registerVolunteer.label"/>
+    </div>
+
     <div class="query">
         <c:if test="${not empty msg}">
             <div class="info">
@@ -76,11 +76,9 @@
                     <td><fmt:message key="message.common.title.label"/> <span class="mandatory"><fmt:message key="message.common.symbol.mandatory.label" /> </span></td>
                     <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
-                        <form:select path="title" cssClass="validate[required] ">
-                            <c:forEach items="${titleList}" var="item" varStatus="status">
-                                <form:option value="${item.cdId}">${item.val}</form:option>
-                            </c:forEach>
-                        </form:select>                        
+                        <form:select path="title">
+                            <form:options items="${titleList}" itemValue="cdId" itemLabel="val"/>
+                        </form:select>
                         <form:errors path="title" cssClass="error"/>
                     </td>
                 </tr>		
@@ -137,9 +135,7 @@
                     <td><fmt:message key="message.common.symbol.afterLabel.label" /></td>
                     <td>
                         <form:select path="ctryCd">
-                            <c:forEach items="${countryList}" var="item" varStatus="status">
-                                <form:option value="${item.cdId}">${item.val}</form:option>
-                            </c:forEach>
+                            <form:options items="${countryList}" itemValue="cdId" itemLabel="val"/>
                         </form:select>
                         <form:errors path="ctryCd" cssClass="error"/>
                     </td>
