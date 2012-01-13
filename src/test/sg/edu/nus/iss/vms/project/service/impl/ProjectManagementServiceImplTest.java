@@ -11,9 +11,14 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
 import static org.junit.Assert.*;
 import sg.edu.nus.iss.vms.common.orm.Manager;
+import sg.edu.nus.iss.vms.project.service.impl.ProjectManagementServiceImpl;
 import sg.edu.nus.iss.vms.project.vo.ProjectVo;
+import sg.edu.nus.iss.vms.volunteer.vo.VolunteerVo;
 
 /**
  *
@@ -29,6 +34,10 @@ import sg.edu.nus.iss.vms.project.vo.ProjectVo;
         "/spring-service.xml"
 })
 public class ProjectManagementServiceImplTest {
+	
+	  @Qualifier("projectManagementServiceImpl")
+      @Autowired
+      protected ProjectManagementServiceImpl projectManagementService;
 
     public ProjectManagementServiceImplTest() {
     }
@@ -54,40 +63,8 @@ public class ProjectManagementServiceImplTest {
          */
         @Test
         public void testGetManager() {
-                System.out.println("getManager");
-                ProjectManagementServiceImpl instance = new ProjectManagementServiceImpl();
-                Manager expResult = null;
-                Manager result = instance.getManager();
-                assertEquals(expResult, result);
-                // TODO review the generated test code and remove the default call to fail.
-                fail("The test case is a prototype.");
-        }
-
-        /**
-         * Test of setManager method, of class ProjectManagementServiceImpl.
-         */
-        @Test
-        public void testSetManager() {
-                System.out.println("setManager");
-                Manager manager = null;
-                ProjectManagementServiceImpl instance = new ProjectManagementServiceImpl();
-                instance.setManager(manager);
-                // TODO review the generated test code and remove the default call to fail.
-                fail("The test case is a prototype.");
-        }
-
-        /**
-         * Test of getListAllProject method, of class ProjectManagementServiceImpl.
-         */
-        @Test
-        public void testGetListAllProject() {
-                System.out.println("getListAllProject");
-                ProjectManagementServiceImpl instance = new ProjectManagementServiceImpl();
-                List expResult = null;
-                List result = instance.getListAllProject();
-                assertEquals(expResult, result);
-                // TODO review the generated test code and remove the default call to fail.
-                fail("The test case is a prototype.");
+        	 System.out.println("getManager");
+             assertNotNull(projectManagementService.getManager());
         }
 
         /**
@@ -95,13 +72,14 @@ public class ProjectManagementServiceImplTest {
          */
         @Test
         public void testGetProjectList() {
-                System.out.println("getProjectList");
-                ProjectManagementServiceImpl instance = new ProjectManagementServiceImpl();
-                List expResult = null;
-                List result = instance.getProjectList();
-                assertEquals(expResult, result);
-                // TODO review the generated test code and remove the default call to fail.
-                fail("The test case is a prototype.");
+
+        	System.out.println("getProjectList");    
+            try {
+                List<ProjectVo> projectVoList = projectManagementService.getProjectList();
+                assertNotNull(projectVoList);                  
+            } catch (Exception ex) {
+                fail(ex.getMessage());
+            }
         }
 
         /**
@@ -110,13 +88,13 @@ public class ProjectManagementServiceImplTest {
         @Test
         public void testGetProjectVoByLoginUserAccessRight() {
                 System.out.println("getProjectVoByLoginUserAccessRight");
-                Long projectId = null;
-                ProjectManagementServiceImpl instance = new ProjectManagementServiceImpl();
-                ProjectVo expResult = null;
-                ProjectVo result = instance.getProjectVoByLoginUserAccessRight(projectId);
-                assertEquals(expResult, result);
-                // TODO review the generated test code and remove the default call to fail.
-                fail("The test case is a prototype.");
+                try {
+                	ProjectVo projectVo = projectManagementService.getProjectVoByLoginUserAccessRight(1L);
+                    assertNotNull(projectVo);   
+                    assertEquals(projectVo.getName(), "Reveninentor")
+                } catch (Exception ex) {
+                    fail(ex.getMessage());
+                }
         }
 
         /**
