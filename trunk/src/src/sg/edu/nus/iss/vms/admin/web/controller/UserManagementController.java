@@ -1,5 +1,8 @@
 package sg.edu.nus.iss.vms.admin.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -144,19 +147,41 @@ public class UserManagementController extends BaseMultiActionFormController {
 				String userLoginId = command.getUserLoginId();
 				command = new UserManagementVo();
 				if (userManagementServices.isLoginIdExists(userLoginId)) {
-					if (userManagementServices.forgetPassword(userLoginId)) command.setMessage(Messages.getString("message.userManagement.success"));
-					else
-						command.setMessage(Messages.getString("message.userManagement.error.request.failed"));
+					System.out.println("**************************************");
+					System.out.println("user exist");
+					System.out.println("**************************************");
+					if (userManagementServices.forgetPassword(userLoginId)) 
+						command.setMessage(Messages.getString("message.userManagement.success"));
+					else{
+						
+						List list = new ArrayList();
+						list.add( Messages.getString("message.userManagement.error.request.failed"));
+						modelAndView.addObject("errors", list);
+					}
 				}
-				else
-					command.setMessage(Messages.getString("message.userManagement.error.invalid.user.id"));
+				else{
+					System.out.println("**************************************");
+					System.out.println("user not exist");
+					System.out.println("**************************************");
+					List list = new ArrayList();
+					list.add( Messages.getString("message.userManagement.error.invalid.user.id"));
+					modelAndView.addObject("errors", list);
+				}
 
 				modelAndView = new ModelAndView("user/forgetPassword");
 				modelAndView.addObject("command", command);
 
 			}
 			catch (ApplicationException e) {
-				e.printStackTrace();
+				List list = new ArrayList();
+				list.add(e.getMessage());
+				modelAndView.addObject("errors", list);
+				modelAndView.addObject("command", command);
+
+				if (logger.isDebugEnabled()) {
+					logger.debug("forgetPassword(HttpServletRequest, HttpServletResponse, UserManagementVo) - end");
+				}
+				return modelAndView;
 			}
 		}
 
