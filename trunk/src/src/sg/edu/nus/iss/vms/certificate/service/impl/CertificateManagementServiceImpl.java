@@ -150,9 +150,9 @@ public class CertificateManagementServiceImpl implements
 
 		if (requestType
 				.equalsIgnoreCase(VMSConstants.CERTIFIATE_REQUEST_TYPE_INDIVIDUAL))
-			queryString = queryString + " AND req.req_by='"
+			queryString = queryString + " AND req.req_by=prjMem.usr_login_id AND req.req_by='"
 					+ certReqDto.getReqBy() + "'";
-		
+
 		System.out.println("*******************************************************************");
 		System.out.println("SQL:"+queryString);
 		System.out.println("*******************************************************************");
