@@ -9,8 +9,7 @@
                         var r=confirm("<fmt:message key="message.common.prompt.invite"/>");
                         if (r==true){
                                 document.getElementById("prjId").value = prjId;
-                                document.getElementById("cmdType").value = commandType;
-                                alert('inviting' + prjId + ' ' + commandType );
+                                document.getElementById("cmdType").value = commandType;                                
                                 document.listProjects.submit();
                         }
                 }

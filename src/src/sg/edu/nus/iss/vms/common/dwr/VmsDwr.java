@@ -43,20 +43,5 @@ public class VmsDwr {
 
         public boolean isUserLoginIdExist(String userloginId) {
                 return volunteerManagementService.isLoginIdExists(userloginId);
-        }
-
-        public void sendEmail(String toEmail, String toName, String subject) {
-                try {
-                        BasicMailMessage bmm = new BasicMailMessage();
-                        bmm.setSubject(subject);
-                        bmm.setTo(toEmail);
-
-                        Map props = new HashMap();
-                        props.put("name", toName);
-                        props.put("password", RamdomPasswordGeneratorUtil.getPassword(6));
-                        mailSenderUtil.send(bmm, "forgotPasswordMail.vm", props);
-                } catch (Exception ex) {
-                        logger.error("send mail error", ex);
-                }
-        }
+        }        
 }

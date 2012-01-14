@@ -582,7 +582,7 @@ public class ProjectController extends BaseMultiActionFormController {
 		return modelAndView;
 	}
 
-	public ModelAndView submitProjectProposal(HttpServletRequest request,
+	public ModelAndView submitPMailSenderUtilrojectProposal(HttpServletRequest request,
 			HttpServletResponse response, ProjectProposalVo proposalVo)
 			throws Exception {
 		if (logger.isDebugEnabled()) {
@@ -802,6 +802,7 @@ public class ProjectController extends BaseMultiActionFormController {
 			} catch (ApplicationException ae) {
 				modelAndView.addObject("errors", ae.getMessage());
 			} catch (Exception ex) {
+                                logger.error("listProjects", ex);
 				modelAndView.addObject("errors",
 						Messages.getString("message.common.error.system"));
 			}
