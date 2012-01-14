@@ -17,6 +17,7 @@ import sg.edu.nus.iss.vms.common.mail.BasicMailMessage;
 import sg.edu.nus.iss.vms.common.mail.MailSenderUtil;
 import sg.edu.nus.iss.vms.common.orm.Manager;
 import sg.edu.nus.iss.vms.common.util.CodeLookupUtil;
+import sg.edu.nus.iss.vms.common.util.StringUtil;
 import sg.edu.nus.iss.vms.member.service.MemberManagementService;
 import sg.edu.nus.iss.vms.project.dto.ProjectDto;
 import sg.edu.nus.iss.vms.project.dto.ProjectMemberDto;
@@ -179,8 +180,10 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 					ProjectMemberDto.class, memberDto.getPrjMbrId());
 			memberList += "'" + projectMemberDto.getUsrLoginId() + "'";
 		}
-		hQL = "from UserDto where tpCd=" + userStatus
-				+ " and usrLoginId not in(" + memberList + ")";
+		hQL = "from UserDto where tpCd=" + userStatus;
+                if(!StringUtil.isNullOrBlank(memberList)){
+                        hQL +=" and usrLoginId not in(" + memberList + ")";
+                }
 		List<UserDto> userDtos = manager.find(hQL);
 		for (UserDto userDto : userDtos) {
 			try {
@@ -192,8 +195,12 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 				Map props = new HashMap();
 				props.put("FullName", userDto.getNme());
 				props.put("ProjectName", projectDto.getNme());
+                                logger.debug("MAIL SEND TO ");
 
-				String country = CodeLookupUtil.getCodeValueByCodeId(projectDto
+                                
+				
+
+                                String country = CodeLookupUtil.getCodeValueByCodeId(projectDto
 						.getCtryCd());
 
 				props.put("ProjectLocation", projectDto.getLoc() + ", "
@@ -202,6 +209,13 @@ public class MemberManagementServiceImpl implements MemberManagementService {
 				String url = SysConfig
 						.getString("url.projectManagement.inviteProject.viewProject");
 				props.put("ProjectUrl", url + projectDto.getPrjId());
+
+                                logger.debug("Person Name" + userDto.getNme());
+				logger.debug("Project Name" + projectDto.getNme());
+                                logger.debug("ProjectUrl" + url + projectDto.getPrjId());
+                                logger.debug("Project Location" + projectDto.getLoc() + ", "+ country);
+                                logger.debug("Mail To " + userDto.getEmail());
+
 
 				mailSenderUtil.send(bmm, "memberInvitationMail.vm", props);
 			} catch (Exception ex) {
