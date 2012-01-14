@@ -1,0 +1,340 @@
+html,body,h1,h2,h3,h4,h5,ul,li,ol,blockquote,p {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 11px ;
+	background: #fff;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+/*************** global font ********************/
+.small {
+	font-size: 11px;
+}
+
+/**************** Global Form ***************/
+input {
+	background: white;
+	border: 1px solid #ccc;
+	font-size: 11px;
+	color: #262626;
+	padding: 2px;
+}
+
+input:focus {
+	background: white;
+}
+
+input.button {
+	width: 50px;
+	background: black;
+	color: white;
+	border: 0;
+}
+
+/************* wrapper *******************/
+#wrapper {
+	width: 100%;
+	height: 100%;
+}
+
+#wrap-top {
+	width: 100%;
+	height: 30px;
+	background: #efefef;
+}
+
+/*************** content ***************/
+#header,#loginInfo {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+#loginInfo ul {
+	float: right;
+	margin-top: 8px;
+}
+
+#loginInfo li {
+	float: left;
+	list-style: none;
+	border-right: 1px solid #000;
+	padding: 0 8px;
+}
+
+#loginInfo li.last {
+	border-right: none;
+}
+
+#header h1 {
+	font-size: 36px;
+	font-weight: bold;
+	padding: 20px 0;
+}
+
+#container {
+	width: 1100px;
+	margin: 0 auto;
+}
+
+#leftCol {
+	width: 240px;
+	background: #000;
+	float: left;
+}
+
+#leftCol ul {
+	padding: 10px;
+	margin: 0;
+}
+
+#leftCol ul li {
+	color: #fff;
+	list-style: inside;
+}
+
+#leftCol ul li a {
+	color: #fff;
+}
+
+#leftCol ul#info {
+	background: #ddd;
+}
+
+ul#info li {
+	color: #666 !important;
+	list-style: none !important;
+}
+
+.header {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#leftCol ul#membership {
+	background: #36C;
+}
+
+#leftCol ul#project {
+	background: #C39;
+}
+
+#leftCol ul#cert {
+	background: #C60;
+}
+
+#leftCol ul#itinerary {
+	background: #690;
+}
+
+#leftCol h3 {
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+#main {
+	width: 848px;
+	float: left;
+	margin-left: 50px;
+	border: 1px solid #efefef;
+}
+
+#main h2 {
+	width: 808px;
+	background: #36C;
+	color: #fff;
+	padding: 20px;
+}
+
+#breadcrumb {
+	color: #CCC;
+	padding: 20px;
+	float: left;
+}
+
+.query {
+	background: #ddd;
+	color: #000;
+	width: 768px;
+	padding: 20px;
+	margin: 0 20px;
+	float: left;
+}
+
+.proj-table {
+	float: left;
+	margin: 20px;
+	border-collapse: collapse;
+}
+
+.proj-table th {
+	text-align: left;
+	border: 1px solid #f2f2f2;
+	padding: 8px;
+	background: #ddd
+}
+
+.proj-table td {
+	border: 1px solid #f2f2f2;
+	padding: 8px;
+}
+
+.pagination {
+	width: 768px;
+	padding-bottom: 20px;;
+	margin: 0 20px;
+	float: left;
+}
+
+.clear {
+	clear: both;
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	width: 0;
+	height: 0
+}
+
+.clearfix:after {
+	clear: both;
+	content: ' ';
+	display: block;
+	font-size: 0;
+	line-height: 0;
+	visibility: hidden;
+	width: 0;
+	height: 0
+}
+
+.clearfix {
+	display: inline-block
+}
+
+* html .clearfix {
+	height: 1%
+}
+
+.clearfix {
+	display: block
+}
+
+.mandatory {
+	color: #ff0000;
+}
+
+/************* Informational Message Start *******************/
+.info {
+	color: #4aa337;
+}
+
+.infoblock {
+	color: #4aa337;
+	background-color: #d6f1d0;
+	border: 1px solid #5bc944;
+	border-style: dashed;
+	padding: 8px;
+	margin: 16px;
+}  
+/************* Informational Message End *******************/
+
+
+/************* Error Message Start *******************/
+.error {
+	font-size: 11px;
+	color: #ff0000;
+}
+
+.errorblock {
+	color: #ff0000;
+	background-color: #ffEEEE;
+	border: 1px solid #ff0000;
+	border-style: dashed;
+	padding: 8px;
+	margin: 16px;
+}
+/************* Error Message End *******************/
+
+/************* Left Menu Start *******************/
+#menuProject {
+	background: #C39;
+	color: #fff;
+}
+
+#menuProject li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuProject li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+
+#menuCert {
+	background: #C60;
+	color: #fff;
+}
+
+#menuCert li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuCert li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+
+#menuItinerary {
+	background: #690;
+	color: #fff;
+}
+
+#menuItinerary li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuItinerary li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+
+#menuAccount {
+	background: #36C;
+	color: #fff;
+}
+
+#menuAccount li {
+	font-size: 11px;
+	text-transform: uppercase;
+	list-style: none !important;
+	font-weight: bold;
+}
+
+#menuAccount li ul li {
+	list-style-position: inside;
+	text-transform: none;
+	font-weight: normal;
+}
+/************* Left Menu End *******************/

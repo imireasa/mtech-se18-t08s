@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd                        
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+           
+        
+<!--	 <bean/> definitions here --> 
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- BEAN : DWR -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+
+    <bean id="vmsDwr" class="sg.edu.nus.iss.vms.common.dwr.VmsDwr">
+        <property name="volunteerManagementService" ref="volunteerManagementServiceImpl" />
+        <property name="mailSenderUtil" ref="mailSenderUtilImpl"/>
+    </bean>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- BEAN : Page - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+
+    <bean id="messageSource"
+              class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages" />
+    </bean>
+
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+	<!-- BEAN : Page Common -->
+	<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <bean id="welcomeController"
+              class="sg.edu.nus.iss.vms.common.web.controller.WelcomeController" />
+		
+		
+		
+    <bean id="loginValidator" class="sg.edu.nus.iss.vms.web.security.LoginValidator"/>
+    <bean id="loginController" class="sg.edu.nus.iss.vms.web.security.LoginController">
+        <property name="securityManager" ref="SecurityManagementServiceImpl" />
+        <property name="sessionForm">
+            <value>false</value>
+        </property>
+        <property name="commandName">
+            <value>loginCommand</value>
+        </property>
+        <property name="commandClass">
+            <value>sg.edu.nus.iss.vms.web.security.LoginCommand</value>
+        </property>
+        <property name="validator">
+            <ref bean="loginValidator" />
+        </property>
+        <property name="formView">
+            <value>login</value>
+        </property>
+        <property name="successView">
+            <value>/common/welcome.html</value>
+        </property>			
+    </bean>
+    <bean id="logoutController" class="sg.edu.nus.iss.vms.web.security.LogoutController">
+    </bean>
+	
+	<!-- Menu -->
+    <bean id="menu" class="net.sf.navigator.menu.MenuLoader">
+        <property name="menuConfig" value="/WEB-INF/config/menu-config.xml"/>
+    </bean>
+</beans>
